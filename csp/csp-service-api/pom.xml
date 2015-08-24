@@ -11,9 +11,9 @@
   <url>http://maven.apache.org</url>
 
   <parent>
-	<groupId>com.hongfang.csp</groupId>
-	<artifactId>csp-pom</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>csp</artifactId>
+    <groupId>com.hongfang.csp</groupId>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

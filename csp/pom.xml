@@ -21,10 +21,14 @@
         <name>ip-10-204-243-185-snapshots</name>
         <url>http://184.73.190.130:8080/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
-	</distributionManagement>
-
+  </distributionManagement>
+  <repositories>
+  	<repository>
+        <id>ip-10-204-243-185</id>
+        <url>http://184.73.190.130:8080/artifactory/libs-release-local</url>
+  	</repository>	
+  </repositories>
   <modules>
-    <module>csp-api</module>
     <module>csp-base-domain</module>
     <module>csp-domain-jpa</module>
     <module>csp-persistence-api</module>
@@ -32,6 +36,7 @@
     <module>csp-service-api</module>
     <module>csp-service</module>
     <!-- <module>csp-server</module> -->
+    <module>csp-api</module>
     <module>csp-processor</module>
     <module>csp-ckernel</module>
     <module>csp-webframeworx-common</module>

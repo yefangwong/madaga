@@ -2,9 +2,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>csp-pom</artifactId>
+    <artifactId>csp</artifactId>
     <groupId>com.hongfang.csp</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.hongfang.csp.api</groupId>
   <artifactId>csp-api</artifactId>
@@ -164,7 +164,10 @@
 	     	<artifactId>csp-persistence-api</artifactId>
 	     	<version>${csp.project.version}</version>
 	     </dependency>
-	      <dependency>
+	     <!-- deprecated by mark at 2015/08/24 -->
+	     <!-- replace church service platform's code with
+	          Cornelius Service Platform (Service and Model)
+	     <dependency>
 	        <groupId>org.occ.csp</groupId>
 	        <artifactId>csp-service</artifactId>
 	        <version>${csp.project.version}</version>
@@ -188,6 +191,7 @@
 	        <version>${csp.project.version}</version>
 	        <scope>compile</scope>
 	      </dependency>
+	      -->
 	     <!-- add by M for Church Service Platform 2014-09-05 -->
  </dependencies>
   <build>

@@ -4,9 +4,9 @@
   <artifactId>csp-ckernel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <parent>
-    <artifactId>csp-pom</artifactId>
+    <artifactId>csp</artifactId>
     <groupId>com.hongfang.csp</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
