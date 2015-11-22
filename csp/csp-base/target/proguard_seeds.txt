@@ -1,0 +1,5 @@
+base.util.BaseLogger
+base.util.BaseLogger: long serialVersionUID
+base.util.BaseLogger: BaseLogger(java.lang.Class)
+base.util.BaseLogger: java.lang.String customLogFormat(java.lang.String)
+base.util.BaseLogger: java.lang.String getName()
