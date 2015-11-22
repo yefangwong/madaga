@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="build-service">
+
+    <property name="src" value="../src" />
+
+    <path id="class.path">
+        <fileset dir="../lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="init">
+        <taskdef name="createMessageProperties" classname="csp.tools.CreateI18nMessagesProperties" classpathref="class.path" />
+		<taskdef name="createMessageEnums" classname="csp.tools.CreateMessageEnums" classpathref="class.path" />
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${classes.dir}" includes="**/*" />
+        </delete>
+    </target>
+
+	<target name="csp-common-messages" depends="init">
+    	
+    	<delete includeEmptyDirs="true" verbose="true">
+ 	            <fileset dir="${src}/main/resources/common">
+ 	            	<include name="**/common-messages*.properties" />
+ 	            </fileset>
+    	</delete>
+    	
+        <createMessageProperties dir="${basedir}" resourcesdir="${basedir}" xlsName="resources.xls" sheetName="common-messages" />
+
+        <native2ascii src="${basedir}" dest="${src}/main/resources/common" includes="**/*.properties" encoding="utf-8" />
+
+    	<delete includeEmptyDirs="true" verbose="true">
+ 	            <fileset dir=".">
+ 	            	<include name="**/common-messages*.properties" />
+ 	            </fileset>
+    	</delete>
+
+    </target>
+
+	<target name="all" depends="init,
+										csp-common-messages
+                                    ">
+    </target>
+    
+        
+</project>
