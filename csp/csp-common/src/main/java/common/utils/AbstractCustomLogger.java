@@ -5,14 +5,14 @@ import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
- * ä½œ æ¥­ ä»£ ç¢¼ ï¼š<br>
- * ä½œ æ¥­ å ç¨± ï¼š<br>
- * ç¨‹ å¼ ä»£ è™Ÿ ï¼šAbstractCustomLogger.java<br>
- * æ             è¿° ï¼š<br>
- * å…¬             å¸ ï¼šHongfang intelligent technology.<br><br>
- *ã€ è³‡ æ–™ ä¾† æºã€‘  ï¼š<br>
- *ã€ è¼¸ å‡º å ± è¡¨ã€‘  ï¼š<br>
- *ã€ ç•° å‹• ç´€ éŒ„ã€‘  ï¼š<br>
+ * §@ ·~ ¥N ½X ¡G<br>
+ * §@ ·~ ¦W ºÙ ¡G<br>
+ * µ{ ¦¡ ¥N ¸¹ ¡GAbstractCustomLogger.java<br>
+ * ´y             ­z ¡G<br>
+ * ¤½             ¥q ¡GHongfang intelligent technology.<br><br>
+ *¡i ¸ê ®Æ ¨Ó ·½¡j  ¡G<br>
+ *¡i ¿é ¥X ³ø ªí¡j  ¡G<br>
+ *¡i ²§ °Ê ¬ö ¿ı¡j  ¡G<br>
  * @author   : Mark Wong <br>
  * @version  : 1.0.0 2015/10/03<P>
  */
@@ -24,7 +24,7 @@ public abstract class AbstractCustomLogger extends MarkerIgnoringBase implements
 	private static final long serialVersionUID = -8621787421983244344L;
 
     /**
-     * å…ˆæ›æˆ org.apache.commons.logging
+     * ¥ı´«¦¨ org.apache.commons.logging
      */
     private Log log = null;
     
@@ -41,7 +41,7 @@ public abstract class AbstractCustomLogger extends MarkerIgnoringBase implements
     }
     
     /**
-     * åœ¨logå‰åŠ å…¥ä½¿ç”¨è€…è³‡è¨Š
+     * ¦blog«e¥[¤J¨Ï¥ÎªÌ¸ê°T
      * 
      * @param log
      * @return

@@ -142,7 +142,6 @@
 	     <dependency>
 	     	<groupId>com.hongfang.csp.ckernel</groupId>
 	     	<artifactId>csp-ckernel</artifactId>
-	     	<version>0.0.1-SNAPSHOT</version>
 	     </dependency>
 	     <!-- End of Hongfang -->
 	     <!-- add by M for Json format response 2014-08-03 -->
