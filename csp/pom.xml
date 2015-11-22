@@ -46,7 +46,7 @@
 		<module>csp-webframeworx-auth</module>
 		<module>csp-webframeworx-web</module>
 		<module>csp-web-template</module>
-		<module>csp-tool</module>
+		<module>csp-tools</module>
 	</modules>
 	<build>
 		<pluginManagement>
@@ -109,8 +109,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -392,6 +392,11 @@
 			<!--End of Tiles -->
 			<!--csp -->
 			<dependency>
+				<groupId>csp.base</groupId>
+				<artifactId>csp-base</artifactId>
+				<version>0.0.1</version>
+			</dependency>			
+			<dependency>
 				<groupId>csp.common</groupId>
 				<artifactId>csp-common</artifactId>
 				<version>${project.version}</version>
@@ -438,6 +443,11 @@
 				<artifactId>csp-persistence-jpa</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>csp.tools</groupId>
+				<artifactId>csp-tools</artifactId>
+				<version>${project.version}</version>
+			</dependency>			
 			<!--End of csp -->
 		</dependencies>
 	</dependencyManagement>

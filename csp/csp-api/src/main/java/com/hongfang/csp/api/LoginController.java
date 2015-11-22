@@ -1,7 +1,7 @@
 package com.hongfang.csp.api;
 
-import org.occ.csp.domain.ChurchMember;
-import org.occ.csp.service.CspService;
+//import org.occ.csp.domain.ChurchMember;
+//import org.occ.csp.service.CspService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +31,20 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	private CspService cspService;
+//	private CspService cspService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces="application/json")
 	public @ResponseBody User login(@RequestBody User user) {
 		logger.info("LoginController login");
-		ChurchMember cm = cspService.getChurchMemberByEmail(user.email);
-		if (cm != null) {
-			String password = cm.getMemberPassword();
-			user.loginSuccess = user.password.equals(password)?true:false;
-			return user;
-		} else {
-			user.loginSuccess = false;
-			return user;
-		}
+//		ChurchMember cm = cspService.getChurchMemberByEmail(user.email);
+//		if (cm != null) {
+//			String password = cm.getMemberPassword();
+//			user.loginSuccess = user.password.equals(password)?true:false;
+//			return user;
+//		} else {
+//			user.loginSuccess = false;
+//			return user;
+//		}
+		return null;
 	}
 }
