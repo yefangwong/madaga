@@ -4,7 +4,7 @@
 
   <groupId>com.hongfang.csp</groupId>
   <artifactId>csp-service</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>csp-service</name>
@@ -19,6 +19,32 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+ 			<plugin>
+           		<artifactId>maven-dependency-plugin</artifactId>
+	            <executions>
+	              <execution>
+	                <phase>install</phase>
+	                <goals>
+	                  <goal>copy-dependencies</goal>
+	                </goals>
+	                <configuration>
+	                  <outputDirectory>${project.basedir}/lib</outputDirectory>
+	                </configuration>
+	              </execution>
+	            </executions>
+          	</plugin>			
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>csp.tools</groupId>
+			<artifactId>csp-tools</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>  
 <!-- 
   <dependencies>
     <dependency>
