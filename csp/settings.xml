@@ -32,8 +32,9 @@
 		<username>occ</username>
 		<password>1qaz@WSX</password>
 	</server>
-</servers>
-
+ </servers>
+ <localRepository>${user.home}/.m2/repository</localRepository>
+ <!-- 
  <profiles>
     <profile>
       <repositories>
@@ -73,5 +74,5 @@
       <url>http://184.73.190.130:8080/artifactory/repo1</url>
       <mirrorOf>central</mirrorOf>
     </mirror>
-  </mirrors>
+  </mirrors>-->
 </settings>
