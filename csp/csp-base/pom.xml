@@ -10,7 +10,11 @@
 	<artifactId>csp-base</artifactId>
 	<version>0.0.1</version>
 	<name>Cornelius Service Platform - Base</name>
-<build>
+	<properties>
+	    <maven.compiler.target>1.7</maven.compiler.target>
+   		<maven.compiler.source>1.7</maven.compiler.source>
+	</properties>
+    <build>
 		<plugins>
 				<plugin>
 				<groupId>com.github.wvengen</groupId>
@@ -29,9 +33,9 @@
 					<proguardVersion>4.11</proguardVersion>
 					<proguardInclude>${basedir}/proguard.conf</proguardInclude>
 					<libs>
-						<lib>${java.home}\lib\rt.jar</lib>
-						<lib>${java.home}\lib\jsse.jar</lib>
-						<lib>${java.home}\lib\jce.jar</lib>
+						<lib>${java.home}/lib/rt.jar</lib>
+						<lib>${java.home}/lib/jsse.jar</lib>
+						<lib>${java.home}/lib/jce.jar</lib>
 					</libs> 
 				</configuration>
   				<dependencies>
