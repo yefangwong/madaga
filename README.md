@@ -1,5 +1,5 @@
 # madaga
-Hope Madaga Main Project
+Cornelius Service Platform Project
 
 I hope this project will be the blessing of the join member.
 
