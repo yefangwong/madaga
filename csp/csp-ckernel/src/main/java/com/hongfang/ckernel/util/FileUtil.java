@@ -19,6 +19,7 @@ import javax.servlet.ServletInputStream;
  * @version  : 1.0.0 2014/8/3<P>
  */
 public class FileUtil {
+	private FileUtil() {}
 	public static String readIStoString(ServletInputStream is) throws IOException {
 	    /*
 	     * To convert the InputStream to String we use the BufferedReader.readLine()
