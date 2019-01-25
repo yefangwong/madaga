@@ -13,17 +13,6 @@
     <mvc:resources mapping="/styles/**"  location="/styles/" />
     <mvc:resources mapping="/themes/**"  location="/themes/" />
     <mvc:resources mapping="/json/**"    location="/json/" />
-    
-    <!-- Message Converters. -->
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="true">
-            <ref bean="stringHttpMessageConverter" />
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-
-    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
-        <constructor-arg value="UTF-8"/>
-    </bean>
    
     <!-- View Resolver. -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
