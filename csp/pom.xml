@@ -459,7 +459,12 @@
 				<groupId>csp.tools</groupId>
 				<artifactId>csp-tools</artifactId>
 				<version>${project.version}</version>
-			</dependency>				
+			</dependency>	
+			<dependency>
+				<groupId>com.hongfang.csp.webframeworx.web</groupId>
+				<artifactId>csp-webframeworx-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>			
 			<!--End of csp -->
 		</dependencies>
 	</dependencyManagement>
