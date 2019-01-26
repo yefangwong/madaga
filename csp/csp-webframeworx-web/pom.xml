@@ -6,7 +6,7 @@
 		<groupId>com.hongfang.csp</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<groupId>com.hongfang.csp.webframeworx.web</groupId>
 	<artifactId>csp-webframeworx-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -26,27 +26,6 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.3-SNAPSHOT</version>
-				<configuration>
-					<path>/${project.build.finalName}</path>
-					<warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
