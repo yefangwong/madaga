@@ -14,9 +14,4 @@
     <mvc:resources mapping="/themes/**"  location="/themes/" />
     <mvc:resources mapping="/json/**"    location="/json/" />
    
-    <!-- View Resolver. -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/contents" />
-        <property name="suffix" value=".jsp" />
-    </bean>
 </beans>

@@ -15,6 +15,7 @@
     <import resource="classpath:csp-webframeworx-web-webmvc.xml" />
     
     <context:component-scan base-package="com.hongfang.csp.webframeworx" />
+
     <!-- 
     <beans profile="develop">
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

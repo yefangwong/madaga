@@ -3,6 +3,7 @@ package com.hongfang.ckernel.image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
@@ -23,7 +24,7 @@ public class ImageComparator {
 		}
 		return compareImage(srcImg, encImg);
 	}
-	
+
 	private static boolean compareImage(BufferedImage src, BufferedImage enc) {
 		boolean result = false;
 		System.out.println("img width:" + src.getWidth());
@@ -33,20 +34,15 @@ public class ImageComparator {
 		String[][] srcRGBArray = new String[src.getWidth()][src.getHeight()];
 		for (int x = src.getMinX(); x < src.getWidth(); x++) {
 			for (int y = src.getMinY(); y < src.getHeight(); y++) {
-				srcRGBArray[x][y] = 
-						new StringBuilder(src.getRGB(x, y)).append(",").toString();
+				srcRGBArray[x][y] = new StringBuilder().append(src.getRGB(x, y)).append(",").toString();
 			}
 		}
 		printArray(srcRGBArray);
 		return result;
 	}
-	
+
 	private static void printArray(String[][] arry) {
-		for (int i=0; i<arry.length; i++) {
-			for (int j=0; j<arry.length; j++) {
-				System.out.println(arry[i][j]);
-			}
-		}
+		System.out.println(Arrays.toString(arry));
 	}
 
 }
