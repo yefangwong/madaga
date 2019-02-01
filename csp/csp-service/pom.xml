@@ -1,41 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.hongfang.csp</groupId>
-  <artifactId>csp-service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>com.hongfang.csp</groupId>
+	<artifactId>csp-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>csp-service</name>
-  <url>http://maven.apache.org</url>
+	<name>csp-service</name>
+	<url>http://maven.apache.org</url>
 
-  <parent>
-    <artifactId>csp</artifactId>
-    <groupId>com.hongfang.csp</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+	<parent>
+		<artifactId>csp</artifactId>
+		<groupId>com.hongfang.csp</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
- 			<plugin>
-           		<artifactId>maven-dependency-plugin</artifactId>
-	            <executions>
-	              <execution>
-	                <phase>install</phase>
-	                <goals>
-	                  <goal>copy-dependencies</goal>
-	                </goals>
-	                <configuration>
-	                  <outputDirectory>${project.basedir}/lib</outputDirectory>
-	                </configuration>
-	              </execution>
-	            </executions>
-          	</plugin>			
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -44,49 +45,17 @@
 			<artifactId>csp-tools</artifactId>
 			<scope>compile</scope>
 		</dependency>
-	</dependencies>  
-<!-- 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.hongfang.csp</groupId>
-      <artifactId>csp-domain-jpa</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-	  <groupId>com.hongfang.csp</groupId>
-      <artifactId>csp-service-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.easymock</groupId>
-      <artifactId>easymock</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.hongfang.csp</groupId>
-      <artifactId>csp-persistence-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>-->
+	</dependencies>
+	<!-- <dependencies> <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+		<version>3.8.1</version> <scope>test</scope> </dependency> <dependency> <groupId>org.springframework</groupId> 
+		<artifactId>spring-tx</artifactId> <scope>compile</scope> </dependency> <dependency> 
+		<groupId>com.hongfang.csp</groupId> <artifactId>csp-domain-jpa</artifactId> 
+		<scope>compile</scope> </dependency> <dependency> <groupId>org.springframework</groupId> 
+		<artifactId>spring-test</artifactId> <scope>test</scope> </dependency> <dependency> 
+		<groupId>com.hongfang.csp</groupId> <artifactId>csp-service-api</artifactId> 
+		<scope>compile</scope> </dependency> <dependency> <groupId>log4j</groupId> 
+		<artifactId>log4j</artifactId> <scope>compile</scope> </dependency> <dependency> 
+		<groupId>org.easymock</groupId> <artifactId>easymock</artifactId> <scope>test</scope> 
+		</dependency> <dependency> <groupId>com.hongfang.csp</groupId> <artifactId>csp-persistence-api</artifactId> 
+		<scope>compile</scope> </dependency> </dependencies> -->
 </project>
