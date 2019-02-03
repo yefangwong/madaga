@@ -34,7 +34,7 @@ public class LoginController {
 	private CspService cspService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces="application/json")
-	public @ResponseBody User login(@RequestBody User user) {
+	public @ResponseBody User login(@RequestBody User user) throws Exception {
 		logger.info("LoginController login");
 		ChurchMember cm = cspService.getChurchMemberByEmail(user.email);
 		if (cm != null) {
