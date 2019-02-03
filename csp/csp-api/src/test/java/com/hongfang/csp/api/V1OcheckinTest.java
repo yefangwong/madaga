@@ -6,6 +6,7 @@ import com.hongfang.ckernel.models.LocationEnum;
 import com.hongfang.ckernel.models.User;
 
 public class V1OcheckinTest {
+	private static final Logger logger = LoggerFactory.getLogger(V1OcheckinTest.class);
 
 	public static void main(String[] args) {
 		//String apiSite = "localhost:8080"; //DEV
@@ -17,15 +18,15 @@ public class V1OcheckinTest {
 			// Case 1:Test user login
 			User user = new User();
 			user.name = "markwong";
-			user.password = "1234567";
+			user.password = getEncryptedPassword();
 			
 			Result result = user.login().request();
 			user = result.user();
 
 			if (user.loginSuccess) {
-				System.out.println("LOGIN_SUCCESS");
+				logger.info("LOGIN_SUCCESS");
 			} else {
-				System.out.println("LOGIN_FAIL");
+				logger.info("LOGIN_FAIL");
 			}
 			
 			// Case 2:Test user create
@@ -36,15 +37,19 @@ public class V1OcheckinTest {
 			user.fellowshipId = "1";
 			result = user.create().request();
 			user = result.user();
-			System.out.println("return user seq is " + user.seq);
+			logger.info("return user seq is " + user.seq);
 			
 			// Case 3:Test user checkin
 			user.locationId = LocationEnum.FELLOWSHIP.toString();
 			result  = user.checkin().request();
 			user = result.user();
-			System.out.println("return user checkin datetime is " + user.checkinDateTime);
+			logger.info("return user checkin datetime is " + user.checkinDateTime);
 		} catch (Exception e) {
-			System.err.println(e.toString());
+			logger.error(e.toString());
 		}
+	}
+	
+	private static String getEncryptedPassword() {
+		return "1234567";
 	}
 }
