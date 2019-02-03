@@ -1,5 +1,8 @@
 package com.hongfang.csp.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.hongfang.ckernel.Result;
 import com.hongfang.ckernel.http.Environment;
 import com.hongfang.ckernel.models.LocationEnum;
