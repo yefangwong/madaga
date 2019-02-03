@@ -45,7 +45,9 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 			AuthenticationException arg2) throws IOException, ServletException {
 		//get API key from client API
 		String authHeader = request.getHeader("Authorization");
-		if (authHeader == null) response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		if (authHeader == null) 
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		else {
 		String encodedClientAPIKeyToken = authHeader.replace("Basic ", "");
 		String clientAPIKeyToken = new String(Base64.decodeBase64(encodedClientAPIKeyToken));
 		//decode this API key to get ??
@@ -56,6 +58,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		String registeredAPIKeyToken = registeredAPIKey + ":";
 		if (!clientAPIKeyToken.equals(registeredAPIKeyToken))
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		}
 		//else pass
 	}
 
