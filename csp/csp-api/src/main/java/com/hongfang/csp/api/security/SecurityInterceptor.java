@@ -38,6 +38,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
 		//get API key from client API
+		//@deprecated
+		/*
 		String authHeader = request.getHeader("Authorization");
 		if (authHeader == null) 
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
@@ -52,7 +54,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			String registeredAPIKeyToken = registeredAPIKey + ":";
 			if (!clientAPIKeyToken.equals(registeredAPIKeyToken))
 				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-		}
+		}*/
 		return true;
 	}
 
