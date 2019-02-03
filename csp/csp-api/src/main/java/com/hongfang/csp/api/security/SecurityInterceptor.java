@@ -39,17 +39,20 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			Object arg2) throws Exception {
 		//get API key from client API
 		String authHeader = request.getHeader("Authorization");
-		if (authHeader == null) response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-		String encodedClientAPIKeyToken = authHeader.replace("Basic ", "");
-		String clientAPIKeyToken = new String(Base64.decodeBase64(encodedClientAPIKeyToken));
-		//decode this API key to get ??
-		
-		//match this (key and ??) in CSP security DB
-		//if NG
-		String registeredAPIKey = "6201eb4dccc956cc4fa3a78dca0c2888177ec52efd48f125df214f046eb43138";
-		String registeredAPIKeyToken = registeredAPIKey + ":";
-		if (!clientAPIKeyToken.equals(registeredAPIKeyToken))
+		if (authHeader == null) 
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		else {
+			String encodedClientAPIKeyToken = authHeader.replace("Basic ", "");
+			String clientAPIKeyToken = new String(Base64.decodeBase64(encodedClientAPIKeyToken));
+			//decode this API key to get ??
+			
+			//match this (key and ??) in CSP security DB
+			//if NG
+			String registeredAPIKey = "6201eb4dccc956cc4fa3a78dca0c2888177ec52efd48f125df214f046eb43138";
+			String registeredAPIKeyToken = registeredAPIKey + ":";
+			if (!clientAPIKeyToken.equals(registeredAPIKeyToken))
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		}
 		return true;
 	}
 
