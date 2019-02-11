@@ -164,9 +164,16 @@
 	     	<artifactId>csp-persistence-api</artifactId>
 	     	<version>${csp.project.version}</version>
 	     </dependency>
+	     <dependency>
+	     	<groupId>com.hongfang.csp</groupId>
+	     	<artifactId>csp-common</artifactId>
+	     	<version>${csp.project.version}</version>
+	     </dependency>
 	     <!-- deprecated by mark at 2015/08/24 -->
 	     <!-- replace church service platform's code with
-	          Cornelius Service Platform (Service and Model)
+	          Cornelius Service Platform (Service and Model)-->
+	     <!-- recover by mark at 2019/02/03 because it is not the 
+	     right time to use common sevice and domain object framework -->
 	     <dependency>
 	        <groupId>org.occ.csp</groupId>
 	        <artifactId>csp-service</artifactId>
@@ -191,8 +198,8 @@
 	        <version>${csp.project.version}</version>
 	        <scope>compile</scope>
 	      </dependency>
-	      -->
 	     <!-- add by M for Church Service Platform 2014-09-05 -->
+	     <!-- recover by mark at 2019/02/03 -->
  </dependencies>
   <build>
       <finalName>api</finalName>

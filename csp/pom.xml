@@ -409,14 +409,14 @@
 				<version>0.0.1</version>
 			</dependency>			
 			<dependency>
-				<groupId>csp.common</groupId>
+				<groupId>com.hongfang.csp</groupId>
 				<artifactId>csp-common</artifactId>
-				<version>${project.version}</version>
+				<version>1.0-SNAPSHOT</version>
 			</dependency>			
 			<dependency>
 				<groupId>com.hongfang.csp.ckernel</groupId>
 				<artifactId>csp-ckernel</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
@@ -459,7 +459,12 @@
 				<groupId>csp.tools</groupId>
 				<artifactId>csp-tools</artifactId>
 				<version>${project.version}</version>
-			</dependency>				
+			</dependency>	
+			<dependency>
+				<groupId>com.hongfang.csp.webframeworx.web</groupId>
+				<artifactId>csp-webframeworx-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>			
 			<!--End of csp -->
 		</dependencies>
 	</dependencyManagement>
