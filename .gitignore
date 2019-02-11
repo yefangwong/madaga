@@ -153,4 +153,4 @@ Temporary Items
 *.jar
 .settings/org.eclipse.m2e.core.prefs
 *.class
-
+*.MF
