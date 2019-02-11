@@ -150,62 +150,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /bin/
-csp/csp-api/target/classes/logback.xml
-csp/csp-base-domain/target/classes/log4j.xml
-csp/csp-base/target/classes/base/util/BaseLogger.class
-csp/csp-base/target/classes/spring-empty.xml
-csp/csp-base/target/csp-base-0.0.1.jar
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-csp/csp-base/target/maven-archiver/pom.properties
-csp/csp-base/target/proguard_map.txt
-csp/csp-base/target/proguard_seeds.txt
-csp/csp-base/target/proguard_map.txt
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-csp/csp-base/target/proguard_map.txt
-csp/csp-base/target/proguard_seeds.txt
-csp/csp-base/target/test-classes/base/util/AESCoder.class
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-*.jar
-*.jar
 *.jar
 .settings/org.eclipse.m2e.core.prefs
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
 *.class
-csp/csp-ckernel/target/maven-archiver/pom.properties
-csp/csp-common/target/maven-archiver/pom.properties
-csp/csp-domain-jpa/target/maven-archiver/pom.properties
-csp/csp-persistence-api/target/maven-archiver/pom.properties
-csp/csp-persistence-jpa/target/maven-archiver/pom.properties
-csp/csp-processor/target/maven-archiver/pom.properties
-csp/csp-service-api/target/maven-archiver/pom.properties
-csp/csp-service/target/maven-archiver/pom.properties
-csp/csp-tool/target/maven-archiver/pom.properties
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/index.jsp
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/WEB-INF/conf/spring/ApplicationContext.xml
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/WEB-INF/conf/spring/appservlet/CSP-controller.xml
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/WEB-INF/conf/spring/appservlet/ServletContext.xml
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/WEB-INF/pages/c1/index.jsp
-csp/csp-web-template/target/csp-0.0.1-SNAPSHOT/WEB-INF/web.xml
-csp/csp-web-template/target/csp.war
-csp/csp-web-template/target/maven-archiver/pom.properties
-csp/csp-webframeworx-auth/target/maven-archiver/pom.properties
-csp/csp-webframeworx-common/target/maven-archiver/pom.properties
-csp/csp-webframeworx-web/target/maven-archiver/pom.properties
-csp/csp-domain-jpa/target/classes/OCC.accdb
-csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
-csp/csp-base/target/proguard_map.txt
-csp/csp-base/target/proguard_seeds.txt
-csp/csp-persistence-api/.classpath
-csp/csp-persistence-api/.classpath
-csp/csp-persistence-api/.project
-csp/csp-persistence-api/.classpath
-*.jar
-Servers/Tomcat v7.0 Server at localhost-config/catalina.policy
-Servers/Tomcat v7.0 Server at localhost-config/catalina.properties
-Servers/Tomcat v7.0 Server at localhost-config/context.xml
-Servers/Tomcat v7.0 Server at localhost-config/server.xml
-Servers/Tomcat v7.0 Server at localhost-config/tomcat-users.xml
-Servers/Tomcat v7.0 Server at localhost-config/web.xml
-csp/csp-persistence-api/src/test/java/META-INF/MANIFEST.MF
+
