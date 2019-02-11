@@ -197,3 +197,14 @@ csp/csp-domain-jpa/target/classes/OCC.accdb
 csp/csp-base/target/csp-base-0.0.1_proguard_base.jar
 csp/csp-base/target/proguard_map.txt
 csp/csp-base/target/proguard_seeds.txt
+csp/csp-persistence-api/.classpath
+csp/csp-persistence-api/.classpath
+csp/csp-persistence-api/.project
+csp/csp-persistence-api/.classpath
+*.jar
+Servers/Tomcat v7.0 Server at localhost-config/catalina.policy
+Servers/Tomcat v7.0 Server at localhost-config/catalina.properties
+Servers/Tomcat v7.0 Server at localhost-config/context.xml
+Servers/Tomcat v7.0 Server at localhost-config/server.xml
+Servers/Tomcat v7.0 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v7.0 Server at localhost-config/web.xml
