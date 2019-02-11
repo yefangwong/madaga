@@ -2,7 +2,6 @@ package com.hongfang.csp.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hongfang.csp.webframeworx.web.controller.CoreController;
 
@@ -23,7 +22,7 @@ import com.hongfang.csp.webframeworx.web.controller.CoreController;
 @RequestMapping("/c1")
 public class C1FirstController extends CoreController {
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping("/")
 	public String index() {
 		return "c1/index";
 	}
