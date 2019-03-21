@@ -169,5 +169,8 @@ buildNumber.properties
 # Server
 /Servers
 
-#vscode
+# Vscode
 /.vscode
+
+# Exclude *.jar but local maven repository ones.
+!/local-maven-repo/*/*/*/*/*.jar
