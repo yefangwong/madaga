@@ -11,12 +11,12 @@
 	    <maven.compiler.target>1.7</maven.compiler.target>
    	    <maven.compiler.source>1.7</maven.compiler.source>
 	    <springframework.version>4.0.0.RELEASE</springframework.version>
-            <local.maven.repo.basedir>${parent.parent.relativePath}</local.maven.repo.basedir>
+            <main.basedir>${project.parent.parent.basedir}</main.basedir>
 	</properties>
 	<repositories>
 		<repository>
 			<id>local-maven-repo</id>
-			<url>file:${file.separator}${file.separator}${file.separator}${local.maven.repo.basedir}${file.separator}local-maven-repo</url>
+			<url>file:${file.separator}${file.separator}${file.separator}${main.basedir}${file.separator}local-maven-repo</url>
 		</repository>
 	</repositories>
 	<modules>
