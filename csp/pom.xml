@@ -11,7 +11,7 @@
 	    <maven.compiler.target>1.7</maven.compiler.target>
    	    <maven.compiler.source>1.7</maven.compiler.source>
 	    <springframework.version>4.0.0.RELEASE</springframework.version>
-            <local.maven.repo.basedir>${project.parent.parent.basedir}</local.maven.repo.basedir>
+            <local.maven.repo.basedir>${parent.parent.relativePath}</local.maven.repo.basedir>
 	</properties>
 	<repositories>
 		<repository>
