@@ -11,7 +11,7 @@
 	    <maven.compiler.target>1.7</maven.compiler.target>
    	    <maven.compiler.source>1.7</maven.compiler.source>
 	    <springframework.version>4.0.0.RELEASE</springframework.version>
-            <main.basedir>../${project.basedir}</main.basedir>
+            <main.basedir>../../../${project.basedir}</main.basedir>
 	</properties>
 	<repositories>
 		<repository>
