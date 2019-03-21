@@ -9,31 +9,18 @@
 	<description>Cornelius Service Platform</description>
 	<properties>
 	    <maven.compiler.target>1.7</maven.compiler.target>
-   		<maven.compiler.source>1.7</maven.compiler.source>
-		<springframework.version>4.0.0.RELEASE</springframework.version>
+   	    <maven.compiler.source>1.7</maven.compiler.source>
+	    <springframework.version>4.0.0.RELEASE</springframework.version>
 	</properties>
-    <!-- 
-	<distributionManagement>
-		<repository>
-			<id>ip-10-204-243-185</id>
-			<name>ip-10-204-243-185-releases</name>
-			<url>http://184.73.190.130:8080/artifactory/libs-release-local</url>
-		</repository>
-		<snapshotRepository>
-			<id>ip-10-204-243-185</id>
-			<name>ip-10-204-243-185-snapshots</name>
-			<url>http://184.73.190.130:8080/artifactory/libs-snapshot-local</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<repositories>
 		<repository>
-			<id>ip-10-204-243-185</id>
-			<url>http://184.73.190.130:8080/artifactory/libs-release-local</url>
+			<id>local-maven-repo</id>
+			<url>file:////${project.parent.parent.basedir}/local-maven-repo</url>
 		</repository>
-	</repositories>-->
+	</repositories>
 	<modules>
 		<module>csp-base</module>
-		<!-- <module>csp-base-domain</module> -->
+		<module>csp-base-domain</module>
 		<module>csp-common</module>
 		<module>csp-domain-jpa</module>
 		<module>csp-persistence-api</module>
