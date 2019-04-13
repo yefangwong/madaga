@@ -26,8 +26,7 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 	
 	@Override
-	public String[] attributeTypeFor(String arg0)
-			throws IllegalArgumentException {
+	public String[] attributeTypeFor(String arg0) {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
@@ -40,9 +39,7 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	public abstract String[] getAttributeNames();
 
 	@Override
-	public Object getAttributeValue(String arg0)
-			throws IllegalArgumentException, IllegalStateException,
-			OssUnsupportedAttributeException {
+	public Object getAttributeValue(String arg0) {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
@@ -73,8 +70,7 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract boolean isPopulated(String arg0) throws IllegalArgumentException,
-			OssUnsupportedAttributeException;
+	public abstract boolean isPopulated(String arg0);
 	
 	@Override
 	public Object make(String arg0) throws IllegalArgumentException {
