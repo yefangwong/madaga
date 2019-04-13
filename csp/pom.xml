@@ -12,6 +12,7 @@
    	    <maven.compiler.source>1.7</maven.compiler.source>
 	    <springframework.version>4.0.0.RELEASE</springframework.version>
         <main.basedir>${session.executionRootDirectory}</main.basedir>
+		<jenkins.e2eTests.reportsDirectory>target/protractor-reports</jenkins.e2eTests.reportsDirectory>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
 	</properties>
