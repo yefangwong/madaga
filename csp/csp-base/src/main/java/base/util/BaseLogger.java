@@ -44,7 +44,7 @@ public class BaseLogger extends AbstractCustomLogger {
 			 methodName = methodName + "|";
 		 
 			 lineNumber = Thread.currentThread().getStackTrace()[3].getLineNumber();
-		 } catch (Throwable e) {
+		 } catch (Exception e) {
 			 getLog().warn(ExceptionUtils.getFullStackTrace(e));
 		 }
 		 
