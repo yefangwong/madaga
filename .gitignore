@@ -154,3 +154,6 @@ Temporary Items
 .settings/org.eclipse.m2e.core.prefs
 *.class
 *.MF
+
+#Peronal Dev Web Server Config
+/Servers
