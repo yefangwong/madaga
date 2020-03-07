@@ -10,7 +10,9 @@
 	<groupId>com.hongfang.csp.webframeworx.web</groupId>
 	<artifactId>csp-webframeworx-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<properties>
+    <name>Cornelius Service Platform - Web Framework</name>
+    <description>Cornelius Service Platform - Kernel</description>
+    <properties>
 		<jdk.version>1.7</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<aspectj.version>1.7.0</aspectj.version>

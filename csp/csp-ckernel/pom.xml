@@ -3,10 +3,13 @@
   <groupId>com.hongfang.csp.ckernel</groupId>
   <artifactId>csp-ckernel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>Cornelius Service Platform - Tools</name>
+  <description>Cornelius Service Platform - Tools</description>
+
   <parent>
-    <artifactId>csp</artifactId>
-    <groupId>com.hongfang.csp</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+      <artifactId>csp</artifactId>
+      <groupId>com.hongfang.csp</groupId>
+      <version>0.0.1-SNAPSHOT</version>
   </parent>
   <properties>
   </properties>
@@ -34,6 +37,10 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
     </dependency>
     <dependency>
     	<groupId>org.puremvc</groupId>
@@ -76,6 +83,11 @@
 		        <groupId>javax.mail</groupId>
 		        <artifactId>mail</artifactId>
 		    </exclusion>
+            <!-- FIX CVE-2011-4461 -->
+            <exclusion>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+            </exclusion>
 		</exclusions>
 	</dependency>
 	<!-- FIX CVE-2018-10237 -->

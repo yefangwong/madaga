@@ -10,7 +10,7 @@
 	<properties>
 	    <maven.compiler.target>1.7</maven.compiler.target>
    		<maven.compiler.source>1.7</maven.compiler.source>
-		<springframework.version>4.0.0.RELEASE</springframework.version>
+		<springframework.version>4.0.2.RELEASE</springframework.version>
 	</properties>
     <!-- 
 	<distributionManagement>
@@ -410,12 +410,24 @@
 						<groupId>org.slf4j</groupId>
 						<artifactId>jcl-over-slf4j</artifactId>
 					</exclusion>
-				</exclusions>
+                    <!-- Fix CVE-2014-0114 -->
+                    <exclusion>
+                        <groupId>commons-beanutils</groupId>
+                        <artifactId>commons-beanutils</artifactId>
+                    </exclusion>
+                </exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.tiles</groupId>
 				<artifactId>tiles-jsp</artifactId>
 				<version>2.2.2</version>
+                <exclusions>
+                    <!-- Fix CVE-2014-0114 -->
+                    <exclusion>
+                        <groupId>commons-beanutils</groupId>
+                        <artifactId>commons-beanutils</artifactId>
+                    </exclusion>
+                </exclusions>
 			</dependency>
 			<!--End of Tiles -->
 			<!--csp -->
