@@ -13,28 +13,6 @@
   <build>
 	<plugins> 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<finalName>${artifactId}-${version}</finalName>
-					<artifactSet>
-                            <includes>
-                  				<include>*:gson</include>
-                  				<include>*:httpcomponents</include>
-                  				<include>*:core</include>
-                            </includes>
-                        </artifactSet>
-				</configuration>
-			</plugin>
-			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-compiler-plugin</artifactId>
 			    <version>2.3.2</version>
@@ -88,6 +66,23 @@
 		<artifactId>core</artifactId>
 		<version>1.47.1</version>
 		<scope>compile</scope>
+		<exclusions>
+		    <exclusion>
+		        <groupId>com.google.guava</groupId>
+		        <artifactId>guava</artifactId>
+		    </exclusion>
+		    <!-- FIX CVE-2007-6059 -->
+		    <exclusion>
+		        <groupId>javax.mail</groupId>
+		        <artifactId>mail</artifactId>
+		    </exclusion>
+		</exclusions>
+	</dependency>
+	<!-- FIX CVE-2018-10237 -->
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>27.0.1-jre</version>
 	</dependency>
 </dependencies>
 </project>

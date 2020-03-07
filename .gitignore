@@ -155,5 +155,10 @@ Temporary Items
 *.class
 *.MF
 
+<<<<<<< HEAD
 #Peronal Dev Web Server Config
 /Servers
+=======
+# Tomcat Server
+Servers
+>>>>>>> 1ac4828... 移除本地端開發環境的 Tomcat 設定。
