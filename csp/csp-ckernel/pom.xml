@@ -93,9 +93,14 @@
 		        <groupId>com.google.guava</groupId>
 		        <artifactId>guava</artifactId>
 		    </exclusion>
+		    <!-- FIX CVE-2007-6059 -->
+		    <exclusion>
+		        <groupId>javax.mail</groupId>
+		        <artifactId>mail</artifactId>
+		    </exclusion>
 		</exclusions>
 	</dependency>
-	<!-- FIX CVE 2018 10237 -->
+	<!-- FIX CVE-2018-10237 -->
 	<dependency>
 	    <groupId>com.google.guava</groupId>
 	    <artifactId>guava</artifactId>
