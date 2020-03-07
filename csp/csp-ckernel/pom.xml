@@ -13,28 +13,6 @@
   <build>
 	<plugins> 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<finalName>${artifactId}-${version}</finalName>
-					<artifactSet>
-                            <includes>
-                  				<include>*:gson</include>
-                  				<include>*:httpcomponents</include>
-                  				<include>*:core</include>
-                            </includes>
-                        </artifactSet>
-				</configuration>
-			</plugin>
-			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-compiler-plugin</artifactId>
 			    <version>2.3.2</version>
