@@ -41,7 +41,7 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>csp.tools</groupId>
+			<groupId>com.hongfang.csp</groupId>
 			<artifactId>csp-tools</artifactId>
 			<scope>compile</scope>
 		</dependency>
