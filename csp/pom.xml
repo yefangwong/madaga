@@ -28,15 +28,14 @@
 		<module>csp-persistence-jpa</module>
 		<module>csp-service-api</module>
 		<module>csp-service</module>
-		<!-- <module>csp-server</module> -->
-		<!-- <module>csp-api</module> -->
 		<module>csp-processor</module>
 		<module>csp-ckernel</module>
 		<module>csp-webframeworx-common</module>
 		<module>csp-webframeworx-auth</module>
 		<module>csp-webframeworx-web</module>
 		<module>csp-web-template</module>
-		<module>csp-tool</module>
+		<module>csp-tools</module>
+		<module>csp-portal-web</module>
 	</modules>
 	<build>
 		<pluginManagement>

@@ -8,6 +8,7 @@
 	</parent>
 	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-common</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<name>Cornelius Service Platform - Common</name>
 	<dependencies>
 		<dependency>
@@ -29,5 +30,4 @@
 			<artifactId>commons-logging</artifactId>
 		</dependency>
 	</dependencies>
-	<version>1.0-SNAPSHOT</version>
 </project>
