@@ -1,9 +1,5 @@
-package com.hongfang.csp.system.entity;
-
-import com.hongfang.csp.base.entity.BaseEntity;
-
 /*
- * Copyright 2019-2029 yefangwong(https://github.com/yefangwong)
+ * Copyright 2020 yefangwong(https://github.com/yefangwong)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,5 +13,12 @@ import com.hongfang.csp.base.entity.BaseEntity;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.hongfang.csp.system.entity;
+
+import com.hongfang.csp.base.entity.BaseEntity;
+import lombok.Data;
+
+@Data
 public class SysUser extends BaseEntity {
 }

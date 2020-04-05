@@ -18,6 +18,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.hongfang.csp</groupId>
       <artifactId>csp-base</artifactId>
     </dependency>
