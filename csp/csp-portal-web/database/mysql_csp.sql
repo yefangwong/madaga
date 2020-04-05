@@ -130,7 +130,7 @@ create table if not exists sys_user
     username varchar(20) not null comment '用户名',
     nickname varchar(20) null comment '暱稱',
     password varchar(64) not null comment '密碼',
-    salt varchar(32) null comment '種子',
+    salt varchar(32) null comment '鹽值',
     phone varchar(20) not null comment '手機號碼',
     gender int default 1 not null comment '性别，0：女，1：男，預設1',
     head varchar(200) null comment '大頭照',

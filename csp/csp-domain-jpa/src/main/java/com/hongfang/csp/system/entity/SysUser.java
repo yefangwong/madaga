@@ -16,9 +16,50 @@
 
 package com.hongfang.csp.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.hongfang.csp.base.entity.BaseEntity;
+import io.geekidea.springbootplus.framework.core.validator.groups.Add;
+import io.geekidea.springbootplus.framework.core.validator.groups.Update;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
+
+/**
+ * <pre>
+ *     系統使用者
+ * </pre>
+ *
+ * @author yefangwong
+ * @since 2020-04-05
+ */
 @Data
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "SysUser對象", description = "系統使用者")
 public class SysUser extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("主鍵")
+    @NotNull(message = "ID不能為空", groups = {Update.class})
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
+
+    @ApiModelProperty("使用者姓名")
+    @NotNull(message = "使用者姓名不能為空", groups = {Add.class})
+    private String username;
+
+    @ApiModelProperty("暱稱")
+    private String nickname;
+
+    @ApiModelProperty("密碼")
+    private String password;
+
+    @ApiModelProperty("鹽值")
+    private String salt;
 }
