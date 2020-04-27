@@ -14,62 +14,40 @@
  * limitations under the License.
  */
 
-package com.hongfang.csp.system.entity;
+package com.hongfang.csp.system.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.hongfang.csp.base.entity.BaseEntity;
-import io.geekidea.springbootplus.framework.core.validator.groups.Add;
-import io.geekidea.springbootplus.framework.core.validator.groups.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <pre>
- *     系統使用者
+ * 系统使用者 查詢结果對象
  * </pre>
  *
  * @author yefangwong
- * @since 2020-04-05
+ * @date 2020-04-16
  */
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "SysUser對象", description = "系統使用者")
-public class SysUser extends BaseEntity {
-
+@ApiModel(value = "SysUserQueryVo對象", description = "系统用户查詢參數")
+public class SysUserQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("主鍵")
-    @NotNull(message = "ID不能為空", groups = {Update.class})
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("使用者姓名")
-    @NotNull(message = "使用者姓名不能為空", groups = {Add.class})
+    @ApiModelProperty("用户名")
     private String username;
 
     @ApiModelProperty("暱稱")
     private String nickname;
 
-    @ApiModelProperty("密碼")
-    private String password;
-
-    @ApiModelProperty("鹽值")
-    private String salt;
-
     @ApiModelProperty("手機號碼")
-    @NotBlank(message = "手機號碼不能為空")
     private String phone;
 
     @ApiModelProperty("性别，0：女，1：男，預設1")
@@ -78,35 +56,33 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("大頭照")
     private String head;
 
-    @ApiModelProperty("備註")
+    @ApiModelProperty("remark")
     private String remark;
 
     @ApiModelProperty("狀態，0：禁用，1：啟用，2：鎖定")
     private Integer state;
 
     @ApiModelProperty("部門id")
-    @NotNull(message = "部門id不能為空")
     private Long departmentId;
 
     @ApiModelProperty("角色id")
-    @NotNull(message = "角色id不能為空")
     private Long roleId;
 
     @ApiModelProperty("邏輯删除，0：未删除，1：已删除")
-    @Null(message = "邏輯删除不用傳")
-    @TableLogic
     private Integer deleted;
 
     @ApiModelProperty("版本")
-    @Null(message = "版本不用傳")
-    @Version
     private Integer version;
 
     @ApiModelProperty("建立時間")
-    @Null(message = "建立時間不用傳")
     private Date createTime;
 
-    @ApiModelProperty("修改時間")
-    @Null(message = "修改時間不用傳")
+    @ApiModelProperty("修改时间")
     private Date updateTime;
+
+    @ApiModelProperty("部門名稱")
+    private String departmentName;
+
+    @ApiModelProperty("角色名稱")
+    private String roleName;
 }
