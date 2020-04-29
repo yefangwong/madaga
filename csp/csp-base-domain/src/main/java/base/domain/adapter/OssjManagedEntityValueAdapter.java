@@ -44,9 +44,11 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract Map getAttributeValues(String[] arg0)
+	public Map getAttributeValues(String[] arg0)
 			throws IllegalArgumentException, IllegalStateException,
-			OssUnsupportedAttributeException;
+			OssUnsupportedAttributeException {
+		throw new java.lang.UnsupportedOperationException();
+	}
 
 	@Override
 	public String[] getPopulatedAttributeNames() {
@@ -70,7 +72,9 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract boolean isPopulated(String arg0);
+	public boolean isPopulated(String arg0) {
+		throw new java.lang.UnsupportedOperationException();
+	}
 	
 	@Override
 	public Object make(String arg0) throws IllegalArgumentException {
@@ -78,12 +82,16 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract void setAttributeValue(String arg0, Object arg1)
-			throws IllegalArgumentException, OssUnsupportedAttributeException;
+	public void setAttributeValue(String arg0, Object arg1)
+			throws IllegalArgumentException, OssUnsupportedAttributeException {
+		throw new java.lang.UnsupportedOperationException();
+	}
 
 	@Override
-	public abstract void setAttributeValues(Map arg0) throws IllegalArgumentException,
-			OssUnsupportedAttributeException;
+	public void setAttributeValues(Map arg0) throws IllegalArgumentException,
+			OssUnsupportedAttributeException {
+		throw new java.lang.UnsupportedOperationException();
+	}
 
 	@Override
 	public void unpopulateAllAttributes() {
@@ -102,7 +110,9 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract ManagedEntityKey getManagedEntityKey() throws IllegalStateException;
+	public ManagedEntityKey getManagedEntityKey() throws IllegalStateException {
+		throw new java.lang.UnsupportedOperationException();
+	}
 
 	@Override
 	public String[] getSettableAttributeNames() {
@@ -110,7 +120,9 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract ManagedEntityKey makeManagedEntityKey();
+	public ManagedEntityKey makeManagedEntityKey() {
+		throw new java.lang.UnsupportedOperationException();
+	}
 
 	@Override
 	public void setLastUpdateVersionNumber(long arg0)
@@ -119,6 +131,8 @@ public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValu
 	}
 
 	@Override
-	public abstract void setManagedEntityKey(ManagedEntityKey arg0)
-			throws IllegalArgumentException;
+	public void setManagedEntityKey(ManagedEntityKey arg0)
+			throws IllegalArgumentException {
+		throw new java.lang.UnsupportedOperationException();
+	}
 }

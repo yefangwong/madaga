@@ -16,8 +16,12 @@ import base.domain.adapter.OssjManagedEntityValueAdapter;
  * @author   : Mark Wong <br>
  * @version  : 1.0.0 <P>
  */
-public abstract class CspManagedEntityValue extends OssjManagedEntityValueAdapter {
+public class CspManagedEntityValue extends OssjManagedEntityValueAdapter {
 
 	private static final long serialVersionUID = 328410887344014051L;
 
+	@Override
+	public String[] getAttributeNames() {
+		return new String[]{"Temperature"};
+	}
 }
