@@ -5,19 +5,6 @@ import javax.oss.ManagedEntityKey;
 import javax.oss.ManagedEntityValue;
 import javax.oss.OssUnsupportedAttributeException;
 
-/**
- * 
- * 作 業 代 碼 ：<br>
- * 作 業 名 稱 ：<br>
- * 程 式 代 號 ：CspManagedEntity.java<br>
- * 描             述 ：橋接 OSSj 移除 CSP 不會用到之函數<br>
- * 公             司 ：Hongfang intelligent technology.<br><br>
- *【 資 料 來 源】  ：<br>
- *【 輸 出 報 表】  ：<br>
- *【 異 動 紀 錄】  ：<br>
- * @author   : Mark Wong <br>
- * @version  : 1.0.0 下午12:45:57<P>
- */
 public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValue  {
 	private static final long serialVersionUID = 1196306496662570486L;
 
