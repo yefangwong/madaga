@@ -1,24 +1,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.hongfang.csp</groupId>
+    <groupId>com.hongfang.csp</groupId>
 	<artifactId>csp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Cornelius Service Platform - Overview</name>
 	<description>Cornelius Service Platform</description>
+    <url>https://github.com/yefangwong/madaga.git</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>csp</id>
+            <name>yefangwong</name>
+            <email>yefang.wong@gmail.com</email>
+        </developer>
+    </developers>
+
 	<properties>
-	    <maven.compiler.target>1.7</maven.compiler.target>
-   	    <maven.compiler.source>1.7</maven.compiler.source>
-	    <springframework.version>4.0.0.RELEASE</springframework.version>
-            <main.basedir>${session.executionRootDirectory}</main.basedir>
+		<java.version>1.8</java.version>
+	    <maven.compiler.target>1.8</maven.compiler.target>
+   	    <maven.compiler.source>1.8</maven.compiler.source>
+        <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
+	    <springframework.version>5.1.2.RELEASE</springframework.version>
+        <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
+        <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
+        <csp-domain-jpa.version>0.0.1-SNAPSHOT</csp-domain-jpa.version>
+        <csp-ckernel.version>0.0.1-SNAPSHOT</csp-ckernel.version>
+        <csp-tools.version>0.0.1-SNAPSHOT</csp-tools.version>
 	</properties>
-	<repositories>
-		<repository>
-			<id>local-maven-repo</id>
-			<url>file:${file.separator}${file.separator}${file.separator}${main.basedir}${file.separator}local-maven-repo</url>
-		</repository>
-	</repositories>
+
 	<modules>
 		<module>csp-base</module>
 		<module>csp-base-domain</module>
@@ -98,8 +116,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -128,6 +146,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<!--General -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.2</version>
+			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
@@ -237,8 +260,77 @@
 				<artifactId>ant</artifactId>
 				<version>1.8.2</version>
 			</dependency>
-			<!--End of General -->
-			<!--Spring Framework -->
+			<!-- End of General -->
+            <!-- Spring Boot Framework -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring-boot start -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-json</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Spring Boot end -->
+
+			<!-- Spring Boot Plus -->
+			<dependency>
+				<groupId>io.geekidea.springbootplus</groupId>
+				<artifactId>framework</artifactId>
+				<version>2.0</version>
+			</dependency>
+
+			<!-- Spring Framework -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
@@ -391,12 +483,17 @@
 			<!--End of Tiles -->
 			<!--csp -->
 			<dependency>
-				<groupId>csp.base</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>csp-base</artifactId>
-				<version>0.0.1</version>
-			</dependency>			
-			<dependency>
-				<groupId>com.hongfang.csp</groupId>
+				<version>${csp-base.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>csp-base-domain</artifactId>
+                <version>${csp-base-domain.version}</version>
+            </dependency>
+            <dependency>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>csp-common</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>			
@@ -408,7 +505,7 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>csp-domain-jpa</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>${csp-domain-jpa.version}</version>
 			</dependency>
 
 			<dependency>
@@ -443,7 +540,7 @@
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>csp.tools</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>csp-tools</artifactId>
 				<version>${project.version}</version>
 			</dependency>	
@@ -451,7 +548,12 @@
 				<groupId>com.hongfang.csp.webframeworx.web</groupId>
 				<artifactId>csp-webframeworx-web</artifactId>
 				<version>${project.version}</version>
-			</dependency>			
+			</dependency>
+			<dependency>
+				<groupId>com.hongfang.csp</groupId>
+				<artifactId>csp-webframeworx-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<!--End of csp -->
 		</dependencies>
 	</dependencyManagement>

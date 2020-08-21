@@ -1,0 +1,22 @@
+spring:
+  # DB 連線設定
+  datasource:
+    url: jdbc:mysql://localhost:3306/csp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&rewriteBatchedStatements=true
+    username: csp
+    password: ILoveJesus1@CSP
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    # SpringBoot 2.0 後預設的 Datasource Pool
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      # JDBC Driver 較舊時需要設定 Test Query, 不然會拋 Exception; 換 driver / DB 後可以拿掉
+      connection-test-query: SELECT 1
+server:
+  port: 8080
+
+

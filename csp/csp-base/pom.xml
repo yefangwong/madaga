@@ -6,9 +6,9 @@
 		<groupId>com.hongfang.csp</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>csp.base</groupId>
+	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-base</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Cornelius Service Platform - Base</name>
 	<properties>
 	    <maven.compiler.target>1.8</maven.compiler.target>
@@ -19,7 +19,7 @@
 				<plugin>
 				<groupId>com.github.wvengen</groupId>
 				<artifactId>proguard-maven-plugin</artifactId>
-				<version>2.0.6</version>
+				<version>2.1.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -30,7 +30,7 @@
 				</executions>
 				<configuration>
 					<obfuscate>true</obfuscate>
-					<proguardVersion>5.1</proguardVersion>
+					<proguardVersion>5.2.1</proguardVersion>
 					<proguardInclude>${basedir}/proguard.conf</proguardInclude>
 					<libs>
 						<lib>${java.home}/lib/rt.jar</lib>
