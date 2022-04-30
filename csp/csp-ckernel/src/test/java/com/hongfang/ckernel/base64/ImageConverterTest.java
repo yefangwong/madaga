@@ -18,10 +18,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gdata.util.common.util.Base64;
 import org.junit.Test;
 
 import com.hongfang.ckernel.image.ImageComparator;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import junit.framework.Assert;
 
