@@ -42,35 +42,4 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserMapper.getSysUserById(id);
     }
 
-    @Override public boolean saveBatch(Collection<SysUser> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override public boolean saveOrUpdateBatch(Collection<SysUser> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override public boolean updateBatchById(Collection<SysUser> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override public boolean saveOrUpdate(SysUser entity) {
-        return false;
-    }
-
-    @Override public SysUser getOne(Wrapper<SysUser> queryWrapper, boolean throwEx) {
-        return null;
-    }
-
-    @Override public Map<String, Object> getMap(Wrapper<SysUser> queryWrapper) {
-        return null;
-    }
-
-    @Override public <V> V getObj(Wrapper<SysUser> queryWrapper, Function<? super Object, V> mapper) {
-        return null;
-    }
-
-    @Override public BaseMapper<SysUser> getBaseMapper() {
-        return null;
-    }
 }

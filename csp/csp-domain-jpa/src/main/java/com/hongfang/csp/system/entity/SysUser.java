@@ -21,8 +21,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.hongfang.csp.base.entity.BaseEntity;
-import io.geekidea.springbootplus.framework.core.validator.groups.Add;
-import io.geekidea.springbootplus.framework.core.validator.groups.Update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -51,12 +49,12 @@ public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("主鍵")
-    @NotNull(message = "ID不能為空", groups = {Update.class})
+    @NotNull(message = "ID不能為空")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("使用者姓名")
-    @NotNull(message = "使用者姓名不能為空", groups = {Add.class})
+    @NotNull(message = "使用者姓名不能為空")
     private String username;
 
     @ApiModelProperty("暱稱")
