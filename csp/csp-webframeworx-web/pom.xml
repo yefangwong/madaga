@@ -11,7 +11,7 @@
 	<artifactId>csp-webframeworx-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <name>Cornelius Service Platform - Web Framework</name>
-    <description>Cornelius Service Platform - Kernel</description>
+    <description>Cornelius Service Platform - Web Framework</description>
     <properties>
 		<jdk.version>1.7</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -7,8 +7,8 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>csp-persistence-jpa</name>
-  <url>http://maven.apache.org</url>
+  <name>Cornelius Service Platform - Persistence Implementation</name>
+  <description>The DAO Implementation of CSP.</description>
 
   <parent>
     <artifactId>csp</artifactId>

@@ -9,7 +9,8 @@
     <groupId>com.hongfang.csp</groupId>
     <artifactId>csp-webframeworx-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <name>Cornelius Service Platform - Web Framework Common</name>
+    <description>WebFramework Common Project for Cornelius Service Platform of HongFang.</description>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>

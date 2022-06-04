@@ -68,5 +68,9 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-webframeworx-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>

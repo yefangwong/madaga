@@ -11,8 +11,9 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
-    <name>csp-domain-jpa</name>
-    <url>http://maven.apache.org</url>
+    <name>Cornelius Service Platform - Model Implementation</name>
+    <description>The Model Implementation of CSP.</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swagger2.version>2.9.2</swagger2.version>

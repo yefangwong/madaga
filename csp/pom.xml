@@ -35,6 +35,8 @@
         <csp-domain-jpa.version>0.0.1-SNAPSHOT</csp-domain-jpa.version>
         <csp-ckernel.version>0.0.1-SNAPSHOT</csp-ckernel.version>
         <csp-tools.version>0.0.1-SNAPSHOT</csp-tools.version>
+		<csp-webframeworx-common.version>0.0.1-SNAPSHOT</csp-webframeworx-common.version>
+		<csp-webframeworx-web.version>0.0.1-SNAPSHOT</csp-webframeworx-web.version>
 	</properties>
 
 	<modules>
@@ -570,17 +572,17 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>csp-tools</artifactId>
-				<version>${project.version}</version>
+				<version>${csp-tools.version}</version>
 			</dependency>	
 			<dependency>
 				<groupId>com.hongfang.csp.webframeworx.web</groupId>
 				<artifactId>csp-webframeworx-web</artifactId>
-				<version>${project.version}</version>
+				<version>${csp-webframeworx-web.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.hongfang.csp</groupId>
 				<artifactId>csp-webframeworx-common</artifactId>
-				<version>${project.version}</version>
+				<version>${csp-webframeworx-common.version}</version>
 			</dependency>
 			<!--End of csp -->
 		</dependencies>
