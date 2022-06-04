@@ -6,7 +6,7 @@
 		<groupId>com.hongfang.csp</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>csp.base.domain</groupId>
+	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-base-domain</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Cornelius Service Platform - Base Domain</name>
@@ -35,10 +35,11 @@
 		</dependency>
 
 		<!-- CSP -->
-		<dependency>
-			<groupId>csp.base</groupId>
-			<artifactId>csp-base</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-base</artifactId>
+        </dependency>
+
 		<!-- OSSj 1.5 -->
 		<dependency>
 			<groupId>ossj.jsr144</groupId>

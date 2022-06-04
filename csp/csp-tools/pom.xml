@@ -6,7 +6,7 @@
 		<groupId>com.hongfang.csp</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>csp.tools</groupId>
+	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-tools</artifactId>
 	<version>0.0.1-SNAPSHOT</version>	
 	<name>Cornelius Service Platform - Tools</name>

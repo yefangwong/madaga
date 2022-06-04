@@ -3,8 +3,8 @@
   <groupId>com.hongfang.csp.ckernel</groupId>
   <artifactId>csp-ckernel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Cornelius Service Platform - Tools</name>
-  <description>Cornelius Service Platform - Tools</description>
+  <name>Cornelius Service Platform - Kernel</name>
+  <description>The Kernel of Cornelius Service Platform</description>
 
   <parent>
       <artifactId>csp</artifactId>

@@ -8,4 +8,6 @@
   <groupId>com.hongfang.csp.webframeworx.auth</groupId>
   <artifactId>csp-webframeworx-auth</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>Cornelius Service Platform - Web Auth</name>
+  <description>The Authentication and Authorization of CSP.</description>
 </project>
