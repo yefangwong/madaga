@@ -97,5 +97,9 @@
 	    <artifactId>guava</artifactId>
 	    <version>27.0.1-jre</version>
 	</dependency>
-</dependencies>
+      <dependency>
+          <groupId>com.hongfang.csp</groupId>
+          <artifactId>csp-webframeworx-common</artifactId>
+      </dependency>
+  </dependencies>
 </project>

@@ -11,13 +11,11 @@ package com.hongfang.csp.webframeworx.common.mediator;
  * @author   : Wong Ye Fang <br>
  * @version  : 1.0.0 2022/06/04<P>
  */
-public abstract class Colleague {
+public abstract class Colleague implements Runnable {
     protected Mediator mediator;
-
     public void setMedium(Mediator mediator) {
         this.mediator = mediator;
     }
-
     public abstract void receive(String msg);
     public abstract void send(MediatorType type, String msg);
 }
