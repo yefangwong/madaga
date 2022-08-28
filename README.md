@@ -8,6 +8,6 @@ Because this project is written by Java language so I decide to follow this codi
 
 https://google.github.io/styleguide/javaguide.html
 
-Founder
+DeHongFang Funder
 
 Mark Wong
