@@ -29,7 +29,7 @@
 	    <maven.compiler.target>1.8</maven.compiler.target>
    	    <maven.compiler.source>1.8</maven.compiler.source>
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
-	    <springframework.version>5.1.2.RELEASE</springframework.version>
+	    <springframework.version>5.2.20.RELEASE</springframework.version>
         <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>0.0.1-SNAPSHOT</csp-domain-jpa.version>
@@ -422,17 +422,17 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>${springframework.version}</version>
+				<version>5.5.7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>${springframework.version}</version>
+				<version>5.5.7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-taglibs</artifactId>
-				<version>${springframework.version}</version>
+				<version>5.5.7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
