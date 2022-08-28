@@ -28,7 +28,7 @@
 		<java.version>1.8</java.version>
 	    <maven.compiler.target>1.8</maven.compiler.target>
    	    <maven.compiler.source>1.8</maven.compiler.source>
-	    <springframework.version>5.2.20.RELEASE</springframework.version>
+	    <springframework.version>5.2.21.RELEASE</springframework.version>
         <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>0.0.1-SNAPSHOT</csp-domain-jpa.version>
