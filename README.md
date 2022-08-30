@@ -1,4 +1,4 @@
-[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=yefangwong_madaga)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=code_smells)](https://sonarcloud.io/component_measures/metric/coverage/list?id=yefangwong_madaga)
 
 # madaga
 Cornelius Service Platform Project
