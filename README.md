@@ -1,5 +1,6 @@
 [![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=bugs)](https://sonarcloud.io/project/issues?resolved=false&types=BUG&id=yefangwong_madaga)
 [![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=vulnerabilities)](https://sonarcloud.io/project/issues?resolved=false&types=VULNERABILITY&id=yefangwong_madaga)
+[![SonarCloud Code Smells](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=code_smells)](https://sonarcloud.io/project/issues?resolved=false&types=VULNERABILITY&id=yefangwong_madaga)
 
 # Madaga
 Base on CSP (Cornelius Service Platform).
