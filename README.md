@@ -1,3 +1,5 @@
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=madaga&metric=coverage)](https://{domain}/component_measures/metric/coverage/list?id=madaga)
+
 # madaga
 Cornelius Service Platform Project
 
