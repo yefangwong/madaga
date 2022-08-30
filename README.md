@@ -1,9 +1,8 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=yefangwong_madaga&metric=bugs)](https://sonarcloud.io/project/issues?resolved=false&types=BUG&id=yefangwong_madaga)
 
-# madaga
-Cornelius Service Platform Project
+# Madaga
+Base on CSP (Cornelius Service Platform).
 
-I hope this project will be the blessing of the join member.
 
 # Coding Standard
 Because this project is written by Java language so I decide to follow this coding standard and Google is one of the best IT company in the world, so I decide to follow their coding standard such as there are 100 columns per row:
