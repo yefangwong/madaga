@@ -1,5 +1,5 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import VueWriter from 'vue-writer'
 </script>
 
 <template>
@@ -12,25 +12,28 @@ import HelloWorld from './components/HelloWorld.vue'
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 offset-md-4">
+        <div class="col-md-8 offset-md-3">
           <main>
               <!-- 自然語言查詢表單開始 -->
-              <form role="form">
+              <form ref="form" role="form" @submit.prevent="doCompile">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control-lg" size="50" placeholder="請輸入要轉換的查詢語句">
-                  <button 
-                    class="btn btn-outline-secondary dropdown-toggle" 
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    選擇執行算法
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Open AI</a></li>
-                  </ul>
+                  <input v-model="sourceString" type="text" class="form-control-lg" size="40" placeholder="請輸入要轉換的查詢語句">
+                  <select class="form-selet" >
+                    <option value="0" selected>選擇算法</option>
+                    <option value="1">Open AI</option>
+                    <option value="2">SQLNet</option>
+                    <option value="3">NLP2SQLCompiler</option>
+                  </select>
+                  &nbsp;
+                  <button class="btn execute">執行</button>
                 </div>
                 <div class="input-group mb-3">
-                    <h3 class="typing">SELECT NAME FROM Customer</h3>
+                  <VueWriter
+                    :array="arr" 
+                    :iterations='1' 
+                    :typeSpeed="70"
+                    :style="{visibility: status}"
+                    :key="componentKey" />
                 </div>
               </form>
               <!-- 自然語言查詢表單結束 -->
@@ -39,23 +42,47 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </div>
 </template>
-
-<style>
-.typing {
-    width: 15em;
-    white-space: nowrap;
-    border-right: 2px solid transparent;
-    animation: typing 3.5s steps(15, end), blink-caret .75s step-end infinite;
-    overflow: hidden;
-}
-/* 打字效果 */
-@keyframes typing {
-  from { width: 0; }
-  to { width: 15em; }
-}
-/* 光標閃爍 */
-@keyframes blink-caret {
-  from, to { box-shadow: 1px 0 0 0 transparent; }
-  50% { box-shadow: 1px 0 0 0; }
+<style lang="scss">
+$secondary: rgb(14, 36, 240);
+.execute {
+   background: $secondary!important;
+   &:hover {
+     color: white!important;
+     background: darken($secondary, 5%)!important;
+   }
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      arr: [""],
+      status: "hidden",
+      componentKey: 0,
+      sourceString: "",
+      targetString: ""
+    }
+  },
+  methods: {
+    reRender() {
+      this.componentKey++;
+    },
+    doSubmit() {
+      console.log("doSubmit:");
+      this.$refs.form.submit();
+    },
+    doCompile() {
+      // 描述要查詢的自然語言語句
+      const nlSource = this.sourceString;
+      console.log("doCompile:", nlSource);
+      // 執行編譯轉換
+      this.targetString = "SELECT COUNT(*) FROM Order";
+      this.arr = [this.targetString];
+      this.status = 'visible';
+      this.reRender();
+    }
+  }
+}
+</script>
+
