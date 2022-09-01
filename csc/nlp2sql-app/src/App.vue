@@ -1,5 +1,8 @@
 <script setup>
 import VueWriter from 'vue-writer'
+import axios from 'axios'
+import apiConfig from './config/apiConfig'
+import { Configuration, OpenAIApi } from "openai"
 </script>
 
 <template>
@@ -19,8 +22,8 @@ import VueWriter from 'vue-writer'
                 <div class="input-group mb-3">
                   <input v-model="sourceString" type="text" class="form-control-lg" size="40" placeholder="請輸入要轉換的查詢語句">
                   <select class="form-selet" >
-                    <option value="0" selected>選擇算法</option>
-                    <option value="1">Open AI</option>
+                    <option value="0">選擇算法</option>
+                    <option value="1" selected>OpenAI</option>
                     <option value="2">SQLNet</option>
                     <option value="3">NLP2SQLCompiler</option>
                   </select>
@@ -42,15 +45,9 @@ import VueWriter from 'vue-writer'
     </div>
   </div>
 </template>
+
 <style lang="scss">
-$secondary: rgb(14, 36, 240);
-.execute {
-   background: $secondary!important;
-   &:hover {
-     color: white!important;
-     background: darken($secondary, 5%)!important;
-   }
-}
+@import url('@/assets/my.scss');
 </style>
 
 <script>
@@ -72,12 +69,32 @@ export default {
       console.log("doSubmit:");
       this.$refs.form.submit();
     },
-    doCompile() {
+    getPrompt() {
+      return `Create a SQL request to ${this.sourceString}`;
+    },
+    async doCompile() {
       // 描述要查詢的自然語言語句
       const nlSource = this.sourceString;
       console.log("doCompile:", nlSource);
+      const { apiKey } = apiConfig;
+      const configuration = new Configuration({
+        apiKey: apiKey,
+      });
+      const openai = new OpenAIApi(configuration);
       // 執行編譯轉換
-      this.targetString = "SELECT COUNT(*) FROM Order";
+      const response = await openai.createCompletion({
+          model: "text-davinci-002",
+          prompt: this.getPrompt(),
+          temperature: 0.3,
+          max_tokens: 60,
+          top_p: 1.0,
+          frequency_penalty: 0.0,
+          presence_penalty: 0.0,
+          stop: ["#", ";"],
+        });
+      console.log("prompt:", this.getPrompt());
+      console.log("response:", response.data.choices[0].text);
+      this.targetString = response.data.choices[0].text;
       this.arr = [this.targetString];
       this.status = 'visible';
       this.reRender();
