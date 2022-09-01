@@ -1,0 +1,50 @@
+$secondary: rgb(14, 36, 240);
+.execute {
+   background: $secondary!important;
+   &:hover {
+     color: white!important;
+     background: darken($secondary, 5%)!important;
+   }
+}
+/*vue-writer start*/
+.is-typed {
+    font-family: "Courier New";
+    font-size: 2em;
+  }
+  
+  .is-typed span.typed {
+    color: black;
+  }
+  
+  .is-typed span.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: black;
+    animation: blink 1s infinite;
+  }
+  
+  .is-typed span.underscore {
+    display: inline-flex;
+    width: 10px;
+    height: 1px;
+    align-items:flex-end;
+    background-color: black;
+    animation: blink 1s infinite;
+  }
+  
+  .is-typed span.cursor.typing {
+    animation: none;
+  }
+  
+  @keyframes blink {
+    49% {
+      background-color: black;
+    }
+    50% {
+      background-color: transparent;
+    }
+    99% {
+      background-color: transparent;
+    }
+  }
+  /*vue-writer end*/
