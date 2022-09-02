@@ -21,8 +21,8 @@ import { Configuration, OpenAIApi } from "openai"
               <form ref="form" role="form" @submit.prevent="doCompile">
                 <div class="input-group mb-3">
                   <input v-model="sourceString" type="text" class="form-control-lg" size="40" placeholder="請輸入要轉換的查詢語句">
-                  <select class="form-selet" >
-                    <option value="0">選擇算法</option>
+                  <select class="form-selet" v-model="modelType">
+                    <option value="0">選擇模型</option>
                     <option value="1" selected>OpenAI</option>
                     <option value="2">SQLNet</option>
                     <option value="3">NLP2SQLCompiler</option>
@@ -58,7 +58,8 @@ export default {
       status: "hidden",
       componentKey: 0,
       sourceString: "",
-      targetString: ""
+      targetString: "",
+      modelType: 1 // 1為 OpenAI (預設);2為 SQLNet
     }
   },
   methods: {
@@ -72,10 +73,8 @@ export default {
     getPrompt() {
       return `Create a SQL request to ${this.sourceString}`;
     },
-    async doCompile() {
-      // 描述要查詢的自然語言語句
-      const nlSource = this.sourceString;
-      console.log("doCompile:", nlSource);
+    async compileByOpenAI() {
+      console.log('compileByOpenAI');
       const { apiKey } = apiConfig;
       const configuration = new Configuration({
         apiKey: apiKey,
@@ -98,6 +97,25 @@ export default {
       this.arr = [this.targetString];
       this.status = 'visible';
       this.reRender();
+    },
+    doCompileBySQLNet() {
+      
+    },
+    doCompile() {
+      // 描述要查詢的自然語言語句
+      const nlSource = this.sourceString;
+      console.log("doCompile:", nlSource);
+      console.log('modelType:', this.modelType);
+      switch(this.modelType) {
+        case 1:
+          this.compileByOpenAI();
+          break;
+        case 2:
+          this.compileBySQLNet();
+          break;
+        default:
+          break;
+      }
     }
   }
 }
