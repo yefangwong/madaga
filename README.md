@@ -8,7 +8,7 @@ This was the platform roadmap built at June, 2012.
 ![Cornelius Architecture](https://user-images.githubusercontent.com/9351189/187391339-75a2c098-6ca7-4c43-ae61-bd5c4cd1fa5c.png)
 
 # Build
-java SE 8 : mvn clean install -P jdk8
+java SE 8 : mvn clean install -P jdk8 <br>
 java SE 11 : mvn clean install -P jdk11
 
 # Coding Standard
