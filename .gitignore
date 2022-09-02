@@ -1,3 +1,5 @@
+# base test
+csp/csp-base/src/test/**
 # iCloud
 *.icloud
 # Created by https://www.gitignore.io/api/java,eclipse,java-web,code-java
