@@ -31,7 +31,7 @@
 	    <springframework.version>5.2.22.RELEASE</springframework.version>
         <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
-        <csp-domain-jpa.version>0.0.1-SNAPSHOT</csp-domain-jpa.version>
+        <csp-domain-jpa.version>1.0-SNAPSHOT</csp-domain-jpa.version>
         <csp-ckernel.version>0.0.1-SNAPSHOT</csp-ckernel.version>
         <csp-tools.version>0.0.1-SNAPSHOT</csp-tools.version>
 		<csp-webframeworx-common.version>0.0.1-SNAPSHOT</csp-webframeworx-common.version>
@@ -55,6 +55,7 @@
 		<module>csp-web-template</module>
 		<module>csp-tools</module>
 		<module>csp-portal-web</module>
+		<module>csp-api</module>
 	</modules>
 	<build>
 		<pluginManagement>
@@ -389,8 +390,8 @@
 			<!--Persistence -->
 			<dependency>
 				<groupId>javax.persistence</groupId>
-				<artifactId>persistence-api</artifactId>
-				<version>1.0</version>
+				<artifactId>javax.persistence-api</artifactId>
+				<version>2.2</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.validation</groupId>
