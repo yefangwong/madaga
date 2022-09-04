@@ -184,17 +184,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- End of Hongfang -->
-        <!-- add by M for Json format response 2014-08-03 -->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.6.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.6.3</version>
-        </dependency>
         <!-- add by M for Church Service Platform 2014-09-05 -->
         <dependency>
             <groupId>com.hongfang.csp</groupId>
