@@ -1,5 +1,6 @@
-# base test
-csp/csp-base/src/test/**
+# exclude base util
+csp/csp-base/src/main/java/com/dehongfang/csp/base/util/**
+csp/csp-base/src/test/**/base/util/**
 # iCloud
 *.icloud
 # Created by https://www.gitignore.io/api/java,eclipse,java-web,code-java

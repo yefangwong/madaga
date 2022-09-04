@@ -16,7 +16,7 @@ import com.hongfang.ckernel.models.User;
 /**
  * 作 業 代 碼 ：<br>
  * 作 業 名 稱 ：<br>
- * 程 式 代 號 ：V1Controller.java<br>
+ * 程 式 代 號 ：LoginController.java<br>
  * 描             述 ：<br>
  * 公             司 ：Hongfang intelligent technology.<br><br>
  *【 資 料 來 源】  ：<br>

@@ -177,13 +177,18 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Hongfang -->
+        <!-- DeHongFang -->
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.hongfang.csp.ckernel</groupId>
             <artifactId>csp-ckernel</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- End of Hongfang -->
+        <!-- End of DeHongFang -->
         <!-- add by M for Church Service Platform 2014-09-05 -->
         <dependency>
             <groupId>com.hongfang.csp</groupId>
