@@ -7,7 +7,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
       <param-name>contextConfigLocation</param-name>
       <param-value>/WEB-INF/conf/spring/ApplicationContext.xml</param-value>
   </context-param>
-  
+
   <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
