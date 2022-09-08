@@ -58,13 +58,40 @@
                         <configuration>
                             <obfuscate>true</obfuscate>
                             <proguardVersion>6.1.0beta2</proguardVersion>
-                            <proguardInclude>${basedir}/proguard.conf</proguardInclude>
                             <libs>
                                 <!-- for jdk8 -->
                                 <lib>${java.home}/lib/rt.jar</lib>
                                 <lib>${java.home}/lib/jsse.jar</lib>
                                 <lib>${java.home}/lib/jce.jar</lib>
                             </libs>
+                            <injar>${project.build.finalName}.jar</injar>
+                            <outputDirectory>
+                                ${project.build.directory}
+                            </outputDirectory>
+                            <outjar>${project.build.finalName}.jar</outjar>
+                            <options>
+                                <option>-dontshrink</option>
+                                <option>-dontoptimize</option>
+                                <option>-keepdirectories</option>
+                                <option>-keepattributes Exceptions, InnerClasses, Signature, Deprecated,
+                                SourceFile, LineNumberTable, *Annotation*, EnclosingMethod</option>
+                                <option>-adaptclassstrings</option>
+                                <option>-keep class com.hongfang.csp.api.CspApiApplication { *; }</option>
+                                <option>-keepnames interface ** { *; }</option>
+                                <option>
+                                    -keep class * {
+                                        @org.springframework.beans.factory.annotation.Autowired *;
+                                        @org.springframework.beans.factory.annotation.Value *;
+                                        @org.springframework.stereotype.Service *;
+                                        @org.springframework.scheduling.annotation.Scheduled *;
+                                    }
+                                </option>
+                                <option>
+                                    -keep class com.dehongfang.csp.base.util.EncryptUtil {
+                                        *;
+                                    }
+                                </option>
+                            </options>
                         </configuration>
                         <dependencies>
                             <dependency>

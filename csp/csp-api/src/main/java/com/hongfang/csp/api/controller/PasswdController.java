@@ -43,7 +43,7 @@ public class PasswdController {
     private static final Logger logger = LoggerFactory.getLogger(PasswdController.class);
 
     @PostMapping(value = "/decode/{str}", produces="application/json")
-    public String decode(@PathVariable String str) throws Exception {
+    public String decode(@PathVariable Object str) throws Exception {
         logger.info("PasswdController decode");
         Object result = EncryptUtil.decrypt(str);
         //decrypt
