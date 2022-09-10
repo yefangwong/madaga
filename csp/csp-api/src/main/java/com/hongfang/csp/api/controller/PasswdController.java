@@ -30,16 +30,14 @@ package com.hongfang.csp.api.controller;
 import com.dehongfang.csp.base.util.EncryptUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/v1/passwd")
 @RestController
 public class PasswdController {
     private static final Logger logger = LoggerFactory.getLogger(PasswdController.class);
 
+    @CrossOrigin
     @PostMapping(value = "/decode/{str}", produces="application/json")
     public String decode(@PathVariable Object str) throws Exception {
         Object result = EncryptUtil.decrypt(str);
