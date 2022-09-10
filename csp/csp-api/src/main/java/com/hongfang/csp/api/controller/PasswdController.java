@@ -35,19 +35,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.MessageFormat;
-
 @RequestMapping("/v1/passwd")
 @RestController
 public class PasswdController {
     private static final Logger logger = LoggerFactory.getLogger(PasswdController.class);
 
     @PostMapping(value = "/decode/{str}", produces="application/json")
-    public String decode(@PathVariable String str) throws Exception {
-        logger.info("PasswdController decode");
+    public String decode(@PathVariable Object str) throws Exception {
+        //logger.info("PasswdController decode");
         Object result = EncryptUtil.decrypt(str);
         //decrypt
-        logger.info(MessageFormat.format("string decode result {0}", result));
+        //logger.info(MessageFormat.format("string decode result {0}", result));
         return (String)result;
     }
 }
