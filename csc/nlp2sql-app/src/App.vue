@@ -73,33 +73,48 @@ export default {
     getPrompt() {
       return `Create a SQL request to ${this.sourceString}`;
     },
-    async compileByOpenAI() {
-      console.log('compileByOpenAI');
-      const { apiKey } = apiConfig;
-      const configuration = new Configuration({
-        apiKey: apiKey,
-      });
-      const openai = new OpenAIApi(configuration);
-      // 執行編譯轉換
-      const response = await openai.createCompletion({
-          model: "text-davinci-002",
-          prompt: this.getPrompt(),
-          temperature: 0.3,
-          max_tokens: 60,
-          top_p: 1.0,
-          frequency_penalty: 0.0,
-          presence_penalty: 0.0,
-          stop: ["#", ";"],
-        });
-      console.log("prompt:", this.getPrompt());
-      console.log("response:", response.data.choices[0].text);
-      this.targetString = response.data.choices[0].text;
-      this.arr = [this.targetString];
-      this.status = 'visible';
-      this.reRender();
+    executeCompileByOpenAI(encodedStr, decodeApiUrl) {
+     // 先透過 axios 取得解碼後的 key
+     axios
+       .post(decodeApiUrl + "/" + encodedStr)
+       .then(res => {
+          // console.log(res.data);
+          const configuration = new Configuration({
+            apiKey: res.data
+          });
+          console.log('apiKey:', configuration.apiKey);
+          const openai = new OpenAIApi(configuration);
+          // 呼叫 OpenAI 執行自然語言轉 SQL
+          const response = openai.createCompletion({
+              model: "text-davinci-002",
+              prompt: this.getPrompt(),
+              temperature: 0.3,
+              max_tokens: 60,
+              top_p: 1.0,
+              frequency_penalty: 0.0,
+              presence_penalty: 0.0,
+              stop: ["#", ";"],
+            });
+          console.log("prompt:", this.getPrompt());
+          const p = Promise.resolve(response);
+          p.then(value => {
+            // console.log("response:", value.data.choices[0].text);
+            this.targetString = value.data.choices[0].text;
+            this.arr = [this.targetString];
+            this.status = 'visible';
+            this.reRender();
+          }).catch(err => console.log("err:", err));
+       })
+       .catch(err => console.log("err:", err));
     },
-    doCompileBySQLNet() {
-      
+    compileByOpenAI() {
+      console.log('compileByOpenAI');
+      const { apiKey, apiPathMap } = apiConfig;
+      const { decode } = apiPathMap;
+      this.executeCompileByOpenAI(apiKey, decode)
+    },
+    compileBySQLNet() {
+      //TODO
     },
     doCompile() {
       // 描述要查詢的自然語言語句
