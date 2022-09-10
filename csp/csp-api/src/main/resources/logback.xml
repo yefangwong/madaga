@@ -2,7 +2,7 @@
 <configuration>
     <!-- 檔案日志输出 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/Users/yfwong/Documents/GitHub/madaga/csp/csp-api/logs/cspApi.log</file>
+        <file>/home/yefang_wong/log/cspApi.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>cspApi.%i.log.zip</fileNamePattern>

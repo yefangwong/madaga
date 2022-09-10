@@ -29,6 +29,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,14 +91,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
         <dependency>
@@ -187,6 +185,12 @@
             <groupId>com.hongfang.csp.ckernel</groupId>
             <artifactId>csp-ckernel</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- End of DeHongFang -->
         <!-- add by M for Church Service Platform 2014-09-05 -->
@@ -263,21 +267,14 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- Heroku Maven Plugin Configuration -->
+            <!-- Google Cloud Platform Plugin Configuration -->
             <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>2.0.3</version>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>2.2.0</version>
                 <configuration>
-                    <appName>csp-api</appName>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>${project.build.directory}/${project.build.finalName}.jar</include>
-                    </includes>
-                    <jdkVersion>${java.version}</jdkVersion>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.jar</web>
-                    </processTypes>
+                    <version>1</version>
+                    <projectId>dhf-csp-api</projectId>
                 </configuration>
             </plugin>
         </plugins>
@@ -286,13 +283,11 @@
         <profile>
             <id>DEV</id>
             <properties>
-                <tomcat-url>http://localhost:8080/manager</tomcat-url>
             </properties>
         </profile>
         <profile>
             <id>SIT</id>
             <properties>
-                <tomcat-url>http://54.179.196.102:8080/manager</tomcat-url>
             </properties>
         </profile>
     </profiles>
