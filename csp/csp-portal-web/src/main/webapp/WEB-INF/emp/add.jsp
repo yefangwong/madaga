@@ -5,7 +5,8 @@
   2023/2/1 yfwong inital version.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="zh_TW">
 <head>
     <link rel="stylesheet" href="resources/css/style.css" type="text/css">
     <title>新增員工</title>

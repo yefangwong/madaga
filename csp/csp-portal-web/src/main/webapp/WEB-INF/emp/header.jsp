@@ -5,7 +5,8 @@
   2023/2/1 yfwong initial version
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="zh_TW">
 <head>
     <title>Title</title>
 </head>
