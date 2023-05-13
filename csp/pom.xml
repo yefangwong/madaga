@@ -165,10 +165,6 @@
 			<version>1.8.5</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>com.hongfang.csp</groupId>
-            <artifactId>csp-common</artifactId>
-        </dependency>
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
