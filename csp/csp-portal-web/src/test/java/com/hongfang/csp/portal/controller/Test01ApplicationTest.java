@@ -16,7 +16,7 @@
 
 package com.hongfang.csp.portal.controller;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +25,7 @@ public class Test01ApplicationTest {
     @Autowired
     private TestController testController;
     @Test
-    void testTest() {
+    public void testTest() {
         testController.test();
     }
 }

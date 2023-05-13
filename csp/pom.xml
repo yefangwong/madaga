@@ -47,7 +47,7 @@
 		<module>csp-persistence-jpa</module>
 		<module>csp-service-api</module>
 		<module>csp-service</module>
-		<module>csp-processor</module>
+		<!--<module>csp-processor</module>-->
 		<module>csp-ckernel</module>
 		<module>csp-webframeworx-common</module>
 		<module>csp-webframeworx-auth</module>
@@ -55,7 +55,7 @@
 		<module>csp-web-template</module>
 		<module>csp-tools</module>
 		<module>csp-portal-web</module>
-		<module>csp-api</module>
+		<!--<module>csp-api</module>-->
 	</modules>
 	<build>
 		<pluginManagement>
@@ -142,12 +142,17 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13-beta-2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
@@ -160,9 +165,21 @@
 			<version>1.8.5</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-common</artifactId>
+        </dependency>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
+            <!--Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.2.6.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 			<!--General -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -311,6 +328,11 @@
 				<artifactId>spring-core</artifactId>
 				<version>${springframework.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
