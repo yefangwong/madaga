@@ -28,4 +28,22 @@
         <cve>CVE-2016-6662</cve>
         <cve>CVE-2017-3599</cve>
     </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        False positives per issue #684.
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed.*$</gav>
+        <cve>CVE-2017-6056</cve>
+        <cve>CVE-2016-6325</cve>
+        <cve>CVE-2016-5425</cve>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per #987
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
+        <cpe>cpe:/a:apache:tomcat</cpe>
+        <cpe>cpe:/a:apache_tomcat:apache_tomcat</cpe>
+        <cpe>cpe:/a:apache_software_foundation:tomcat</cpe>
+    </suppress>
 </suppressions>

@@ -109,8 +109,8 @@
                 <configuration>
                     <cveValidForHours>12</cveValidForHours>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
-                    <format>XML</format>
-					<suppressionFile>${user.dir}/csp/config/dependency-check/suppressions.xml</suppressionFile>
+					<!-- FIX some False Positive CVEs  -->
+                    <suppressionFile>${user.dir}/csp/config/dependency-check/suppressions.xml</suppressionFile>
                 </configuration>
                 <executions>
                     <execution>
