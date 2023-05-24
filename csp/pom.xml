@@ -28,8 +28,10 @@
 		<java.version>1.8</java.version>
 	    <maven.compiler.target>1.8</maven.compiler.target>
    	    <maven.compiler.source>1.8</maven.compiler.source>
-	    <springframework.version>5.2.22.RELEASE</springframework.version>
-        <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
+	    <springframework.version>5.3.27</springframework.version>
+		<logback.version>1.2.9</logback.version>
+		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
+		<csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>1.0-SNAPSHOT</csp-domain-jpa.version>
         <csp-ckernel.version>0.0.1-SNAPSHOT</csp-ckernel.version>
@@ -207,11 +209,13 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.4</version>
 			</dependency>
+			<!-- Fix CVE-2021-29425(4.8) Begin -->
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.4</version>
+				<version>2.7</version>
 			</dependency>
+			<!-- Fix CVE-2021-29425(4.8) End -->
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
@@ -264,15 +268,16 @@
 				<!-- Fix CVE-2020-9493, CVE-2022-23307, CVE-2023-26464 End -->
 			</dependency>
 			<!--	Fix CVE-2021-37533 End -->
+			<!-- Fix CVE-2021-42250 Begin -->
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-core</artifactId>
-				<version>1.2.0</version>
+				<version>${logback.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>1.2.0</version>
+				<version>${logback.version}</version>
 				<exclusions>
 					<exclusion>
 						<artifactId>slf4j-api</artifactId>
@@ -280,6 +285,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			<!-- Fix CVE-2021-42250 End -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
@@ -323,11 +329,13 @@
 				<artifactId>jxl</artifactId>
 				<version>2.6.12</version>
 			</dependency>
+			<!-- Fix CVE-2021-36374(5.5), CVE-2020-1945(6.3), CVE-2012-2098(5.0) Begin -->
 			<dependency>
 				<groupId>org.apache.ant</groupId>
 				<artifactId>ant</artifactId>
-				<version>1.8.2</version>
+				<version>1.10.13</version>
 			</dependency>
+			<!-- Fix CVE-2021-36374(5.5), CVE-2020-1945(6.3), CVE-2012-2098(5.0) End -->
 			<!-- End of General -->
 
 			<!-- Spring Framework -->
@@ -345,6 +353,18 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${springframework.version}</version>
+				<exclusions>
+					<!-- CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+					CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+					CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) Begin -->
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-jcl</artifactId>
+					</exclusion>
+					<!-- CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+                    CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+                    CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) End -->
+				</exclusions>
 			</dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -437,6 +457,12 @@
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>1.0.0.GA</version>
+			</dependency>
+			<!-- MyBatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cglib</groupId>

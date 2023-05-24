@@ -23,6 +23,16 @@
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
+			<!-- CVE-2021-4104(7.5), CVE-2020-9493(9.8), CVE-2022-23307(8.8), CVE-2022-23305(9.8),
+			CVE-2023-26464(7.5), CVE-2019-17571(9.8), CVE-2022-23302(8.8) Begin -->
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+			<!-- CVE-2021-4104(7.5), CVE-2020-9493(9.8), CVE-2022-23307(8.8), CVE-2022-23305(9.8),
+			CVE-2023-26464(7.5), CVE-2019-17571(9.8), CVE-2022-23302(8.8) End -->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>

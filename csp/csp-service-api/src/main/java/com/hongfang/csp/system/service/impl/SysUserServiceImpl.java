@@ -16,8 +16,6 @@
 
 package com.hongfang.csp.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hongfang.csp.system.entity.SysUser;
 import com.hongfang.csp.system.mapper.SysUserMapper;
 import com.hongfang.csp.system.service.SysUserService;

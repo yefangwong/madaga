@@ -16,17 +16,12 @@
 
 package com.hongfang.csp.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.hongfang.csp.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -51,7 +46,6 @@ public class SysUser extends BaseEntity {
 
     @ApiModelProperty("主鍵")
     @NotNull(message = "ID不能為空")
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("使用者姓名")
@@ -93,12 +87,10 @@ public class SysUser extends BaseEntity {
 
     @ApiModelProperty("邏輯删除，0：未删除，1：已删除")
     @Null(message = "邏輯删除不用傳")
-    @TableLogic
     private Integer deleted;
 
     @ApiModelProperty("版本")
     @Null(message = "版本不用傳")
-    @Version
     private Integer version;
 
     @ApiModelProperty("建立時間")
