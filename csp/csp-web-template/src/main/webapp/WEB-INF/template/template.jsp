@@ -16,9 +16,13 @@
  	}
 </script>
 <!-- jQuery JavaScript -->
-<script src="<c:url value='/scripts/jquery/jquery-1.12.4.min.js' />"></script>
+<!-- Fix CVE-2015-9251(6.1), CVE-2019-11358(6.1), CVE-2020-11023(6.1), CVE-2020-11022(6.1) Begin -->
+<script src="<c:url value='/scripts/jquery/jquery-3.0.0.min.js' />"></script>
+<!-- Fix CVE-2015-9251(6.1), CVE-2019-11358(6.1), CVE-2020-11023(6.1), CVE-2020-11022(6.1) End -->
 <!-- Angular JavaScript -->
-<script src="<c:url value='/scripts/angular/angular.min.js' />"></script>
+<!-- Fix CVE-2020-7676(5.4), Prototype pollution(6.9) Begin -->
+<!--<script src="<c:url value='/scripts/angular/angular.min.js' />"></script>-->
+<!-- Fix CVE-2020-7676(5.4), Prototype pollution(6.9) End -->
 <!-- Kendo UI combined JavaScript -->
 <script src="<c:url value='/scripts/kendo/kendo.all.min.js' />"></script>
 <sitemesh:write property='head' />

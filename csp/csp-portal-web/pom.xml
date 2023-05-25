@@ -22,7 +22,7 @@
         <shiro.version>1.7.1</shiro.version>
         <jwt.version>3.10.1</jwt.version>
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.15.1</jackson.version>
     </properties>
     <build>
         <plugins>
@@ -82,6 +82,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- Fix CVE-2020-10693(5.3) Begin -->
+                <exclusion>
+                    <groupId>org.hibernate.validator</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2020-10693(5.3) End -->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,15 +106,48 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.mobaijun</groupId>
-            <artifactId>mybatis-plus-spring-boot-starter</artifactId>
-            <version>1.0.6</version>
-        </dependency>
+        <!--    Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8) Begin -->
+        <!--        <dependency>-->
+<!--            <groupId>com.mobaijun</groupId>-->
+<!--            <artifactId>mybatis-plus-spring-boot-starter</artifactId>-->
+<!--            <version>1.1.4</version>-->
+<!--            <exclusions>-->
+<!--                &lt;!&ndash; Fix CVE-2020-10693(5.3) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.hibernate.validator</groupId>-->
+<!--                    <artifactId>hibernate-validator</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2020-10693(5.3) End &ndash;&gt;-->
+<!--                &lt;!&ndash; Fix CVE-2020-29582(5.3), CVE-2022-24329(5.3) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.jetbrains.kotlin</groupId>-->
+<!--                    <artifactId>kotlin-stdlib-jdk7</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2020-29582(5.3), CVE-2022-24329(5.3) End &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.baomidou</groupId>-->
+<!--                    <artifactId>mybatis-plus</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.baomidou</groupId>-->
+<!--                    <artifactId>mybatis-plus-annotation</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.baomidou</groupId>-->
+<!--                    <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>com.baomidou</groupId>-->
+<!--                    <artifactId>mybatis-plus-spring-boot-starter</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8) End &ndash;&gt;-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+        <!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8) End -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -133,8 +174,8 @@
             <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
