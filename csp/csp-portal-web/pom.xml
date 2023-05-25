@@ -60,10 +60,16 @@
             <scope>provided</scope>
         </dependency>
         <!-- JSTL -->
+        <!-- Fix CVE-2015-0254(7.5) Begin -->
+        <!--			<dependency>-->
+        <!--				<groupId>javax.servlet</groupId>-->
+        <!--				<artifactId>jstl</artifactId>-->
+        <!--			</dependency>-->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
         </dependency>
+        <!-- Fix CVE-2015-0254(7.5) End -->
         <!-- JSTL 標簽庫 -->
         <!-- Fix CVE-2015-0254 start-->
         <dependency>

@@ -4,6 +4,11 @@
               xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd
               https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd ">
     <suppress>
+        <notes><![CDATA[Ignored since we are not vulnerable]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework/spring.*$</packageUrl>
+        <cve>CVE-2016-1000027</cve>
+    </suppress>
+    <suppress>
         <notes><![CDATA[
             mysql-connector-java
             False positive claims this CVEs for 8.0.30,

@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+/*Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+		CVE-2022-22976(5.3), CVE-2021-22119(7.5)*/
+//import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * AP Controller 請務必繼承此類別
@@ -34,13 +36,17 @@ public class CoreController {
 	/**
 	 * 系統執行發生錯誤時，請工程師協助了解問題發生原因
 	 */
-	@ExceptionHandler(Exception.class)
+	/*Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+		CVE-2022-22976(5.3), CVE-2021-22119(7.5)*/
+	//@ExceptionHandler(Exception.class)
 	public String handleException(Exception e, HttpServletRequest request) {
 		logger.error("系統執行過程發生錯誤，請工程師協助了解問題發生原因。");
 		return "exception/exception";
 	}
 
-	@ExceptionHandler(Error.class)
+	/*Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+		CVE-2022-22976(5.3), CVE-2021-22119(7.5)*/
+	//@ExceptionHandler(Error.class)
 	public String handleError(Exception e, HttpServletRequest request) {
 		logger.error("系統執行過程發生錯誤，請工程師協助了解問題發生原因。");
 		return "exception/exception";

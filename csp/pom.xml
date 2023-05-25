@@ -29,6 +29,7 @@
 	    <maven.compiler.target>1.8</maven.compiler.target>
    	    <maven.compiler.source>1.8</maven.compiler.source>
 	    <springframework.version>5.3.27</springframework.version>
+		<springframework.security.version>6.1.0</springframework.security.version>
 		<logback.version>1.2.9</logback.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
 		<csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
@@ -194,11 +195,18 @@
 				<artifactId>servlet-api</artifactId>
 				<version>2.5</version>
 			</dependency>
+			<!-- Fix CVE-2015-0254(7.5) Begin -->
+<!--			<dependency>-->
+<!--				<groupId>javax.servlet</groupId>-->
+<!--				<artifactId>jstl</artifactId>-->
+<!--				<version>1.2</version>-->
+<!--			</dependency>-->
 			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>1.2</version>
+				<groupId>org.apache.taglibs</groupId>
+				<artifactId>taglibs-standard-impl</artifactId>
+				<version>1.2.5</version>
 			</dependency>
+			<!-- Fix CVE-2015-0254(7.5) End -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
@@ -410,12 +418,28 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
+			<!-- Fix CVE-2016-1000027(9.8) Begin -->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework</groupId>-->
+<!--				<artifactId>spring-web</artifactId>-->
+<!--				<version>${springframework.version}</version>-->
+<!--			</dependency>-->
+			<!-- Fix CVE-2016-1000027(9.8) End -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
@@ -424,27 +448,78 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+				CVE-2022-22976(5.3), CVE-2021-22119(7.5) Begin -->
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-crypto</artifactId>
+					</exclusion>
+				</exclusions>
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+                CVE-2022-22976(5.3), CVE-2021-22119(7.5) End -->
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<exclusions>
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${springframework.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-taglibs</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8),
+				CVE-2020-5407(8.8), CVE-2022-22976(5.3), CVE-2021-22119(7.5) Begin -->
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-acl</artifactId>
+					</exclusion>
+					<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8),
+                    CVE-2020-5407(8.8), CVE-2022-22976(5.3), CVE-2021-22119(7.5) End -->
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-ldap</artifactId>
-				<version>3.0.3.RELEASE</version>
+				<version>${springframework.security.version}</version>
 			</dependency>
 			<!--End of Spring Framework -->
 			<!--Persistence -->
