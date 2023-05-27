@@ -19,8 +19,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
-        <shiro.version>1.7.1</shiro.version>
+        <shiro.version>1.11.0</shiro.version><!-- CVE-2021-41303(9.8), CVE-2022-32532(9.8), CVE-2023-22602(7.5),
+        CVE-2022-40664(9.8) -->
         <jwt.version>3.10.1</jwt.version>
+        <spring-boot.version>2.7.12</spring-boot.version>
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <jackson.version>2.15.1</jackson.version>
     </properties>
@@ -89,6 +91,26 @@
                     <artifactId>hibernate-validator</artifactId>
                 </exclusion>
                 <!-- Fix CVE-2020-10693(5.3) End -->
+                <!-- Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
+                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin -->
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
+                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) End -->
+                <!-- Fix CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2022-27772(7.8) End -->
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-autoconfigure</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
             </exclusions>
         </dependency>
         <dependency>
@@ -104,6 +126,18 @@
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
+                <!-- Fix CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2022-27772(7.8) End -->
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-autoconfigure</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
             </exclusions>
         </dependency>
         <!--    Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8) Begin -->
@@ -148,6 +182,20 @@
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>3.6.1</version>
+            <exclusions>
+                <!-- Fix CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2022-27772(7.8) End -->
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-autoconfigure</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -157,8 +205,31 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+            <exclusions>
+                <!-- Fix CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2022-27772(7.8) End -->
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-autoconfigure</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
+            </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
@@ -208,10 +279,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
         </dependency>
+        <!-- Fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+        CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+        CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) Begin -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
+            <version>5.3.27</version>
         </dependency>
+        <!-- Fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+        CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+        CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) End -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
@@ -240,6 +318,14 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
+            <exclusions>
+                <!-- Fix CVE-2022-3171(7.5), CVE-2022-3510(7.5), CVE-2022-3509(7.5) Begin -->
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2022-3171(7.5), CVE-2022-3510(7.5), CVE-2022-3509(7.5) End -->
+            </exclusions>
         </dependency>
 
         <!-- Jackson: Spring MVC 預設使用 JSON 轉換套件 -->
