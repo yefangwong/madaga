@@ -45,7 +45,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.3.2</version>
                 <configuration>
                     <attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -83,6 +83,21 @@
         <!-- SpringBoot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5), CVE-2022-41854(6.5),
+            CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+            <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
+            CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5),
+            CVE-2022-1471(9.8) End -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <!-- Fix CVE-2020-10693(5.3) Begin -->
@@ -112,6 +127,10 @@
                 </exclusion>
                 <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -243,11 +262,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>

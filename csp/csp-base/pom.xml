@@ -38,9 +38,6 @@
     <profiles>
         <profile>
             <id>jdk8</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -134,6 +131,47 @@
                                 <groupId>net.sf.proguard</groupId>
                                 <artifactId>proguard-base</artifactId>
                                 <version>6.1.0beta2</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk17</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.wvengen</groupId>
+                        <artifactId>proguard-maven-plugin</artifactId>
+                        <version>2.6.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>proguard</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <obfuscate>true</obfuscate>
+                            <proguardVersion>7.2.0beta1</proguardVersion>
+                            <proguardInclude>${basedir}/proguard.conf</proguardInclude>
+                            <libs>
+                                <!-- for jdk11 -->
+                                <lib>${java.home}/jmods/</lib>
+                            </libs>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sf.proguard</groupId>
+                                <artifactId>proguard-base</artifactId>
+                                <version>7.2.0beta1</version>
+                                <scope>system</scope>
+                                <systemPath>/opt/proguard/proguard-base-7.2.0-beta1.jar</systemPath>
                             </dependency>
                         </dependencies>
                     </plugin>
