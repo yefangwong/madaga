@@ -158,7 +158,7 @@
                         </executions>
                         <configuration>
                             <obfuscate>true</obfuscate>
-                            <proguardVersion>7.2.0beta1</proguardVersion>
+                            <proguardVersion>7.2.0-beta4</proguardVersion>
                             <proguardInclude>${basedir}/proguard.conf</proguardInclude>
                             <libs>
                                 <!-- for jdk11 -->
@@ -167,11 +167,9 @@
                         </configuration>
                         <dependencies>
                             <dependency>
-                                <groupId>net.sf.proguard</groupId>
+                                <groupId>com.guardsquare</groupId>
                                 <artifactId>proguard-base</artifactId>
-                                <version>7.2.0beta1</version>
-                                <scope>system</scope>
-                                <systemPath>/opt/proguard/proguard-base-7.2.0-beta1.jar</systemPath>
+                                <version>7.2.0-beta4</version>
                             </dependency>
                         </dependencies>
                     </plugin>
