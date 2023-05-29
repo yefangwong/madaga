@@ -149,4 +149,10 @@
       </dependency>
 
     </dependencies>-->
+    <dependencies>
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-persistence-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>
