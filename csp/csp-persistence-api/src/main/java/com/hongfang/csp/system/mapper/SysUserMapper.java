@@ -15,7 +15,6 @@
  */
 
 package com.hongfang.csp.system.mapper;
-import com.hongfang.csp.system.entity.SysUser;
 import com.hongfang.csp.system.vo.SysUserQueryVo;
 
 import java.io.Serializable;

@@ -16,7 +16,6 @@
 
 package com.hongfang.csp.system.service.impl;
 
-import com.hongfang.csp.system.entity.SysUser;
 import com.hongfang.csp.system.mapper.SysUserMapper;
 import com.hongfang.csp.system.service.SysUserService;
 import com.hongfang.csp.system.vo.SysUserQueryVo;
@@ -25,9 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
-import java.util.function.Function;
 
 @Slf4j
 @Service
