@@ -102,11 +102,13 @@
         </exclusions>
 	</dependency>
 	<!-- FIX CVE-2018-10237 -->
-	<dependency>
-	    <groupId>com.google.guava</groupId>
-	    <artifactId>guava</artifactId>
-	    <version>27.0.1-jre</version>
-	</dependency>
+      <!-- Fix CVE-2023-2976(6.2) Begin -->
+<!--	<dependency>-->
+<!--	    <groupId>com.google.guava</groupId>-->
+<!--	    <artifactId>guava</artifactId>-->
+<!--	    <version>31.1-jre</version>-->
+<!--	</dependency>-->
+      <!-- Fix CVE-2023-2976(6.2) End -->
       <dependency>
           <groupId>com.hongfang.csp</groupId>
           <artifactId>csp-webframeworx-common</artifactId>
