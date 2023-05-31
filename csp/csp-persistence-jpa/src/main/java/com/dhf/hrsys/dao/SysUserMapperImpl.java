@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 yefangwong(https://github.com/yefangwong)
+ * Copyright 2023 yefangwong(https://github.com/yefangwong)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package com.hongfang.csp.system.service.impl;
+package com.dhf.hrsys.dao;
 
 import com.hongfang.csp.system.mapper.SysUserMapper;
-import com.hongfang.csp.system.service.SysUserService;
 import com.hongfang.csp.system.vo.SysUserQueryVo;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 
-@Slf4j
-@Service
-public class SysUserServiceImpl implements SysUserService {
-    @Override public SysUserQueryVo getSysUserById(Serializable id) throws Exception {
-        return null;
+@Repository
+public class SysUserMapperImpl implements SysUserMapper {
+
+    private final SqlSessionFactory sqlSessionFactory;
+
+    public SysUserMapperImpl(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
+    @Override
+    public SysUserQueryVo getSysUserById(Serializable id) {
+        return null;
+    }
 }
