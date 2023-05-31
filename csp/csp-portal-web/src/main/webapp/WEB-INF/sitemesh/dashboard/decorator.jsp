@@ -57,6 +57,18 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            Employees
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="box"></span>
+                            Departments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
                             <span data-feather="file"></span>
                             Orders
                         </a>
