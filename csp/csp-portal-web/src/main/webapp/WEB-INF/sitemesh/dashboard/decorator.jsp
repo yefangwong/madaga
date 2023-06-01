@@ -27,24 +27,6 @@
  	function getBaseUrl() {
  		return '${webapps.contextPath}';
  	}
-    function changeActiveLink(event, link) {
-        // Remove the "active" class from all links
-        var links = document.querySelectorAll('a');
-        links.forEach(function(element) {
-            element.classList.remove('active');
-        });
-
-        // Add the "active" class to the clicked link
-        link.classList.add('active');
-
-        event.preventDefault(); // Prevent the default behavior of the link
-
-        // Get the target URL from the "href" attribute of the clicked link
-        var targetUrl = link.getAttribute('href');
-
-        // Perform the navigation programmatically
-        //window.location.href = targetUrl;
-    }
     $(document).ready(function() {
         // Remove the "active" class from all links
         var links = document.querySelectorAll('a');

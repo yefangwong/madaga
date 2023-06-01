@@ -12,6 +12,9 @@
     <title>員工展示</title>
 </head>
 <body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">員工管理</h1>
+    </div>
     <div id="container">
         <form id="search" action="search" method="post">
             <div class="align">
