@@ -26,6 +26,24 @@
  	function getBaseUrl() {
  		return '${webapps.contextPath}';
  	}
+    function changeActiveLink(event, link) {
+        // Remove the "active" class from all links
+        var links = document.querySelectorAll('a');
+        links.forEach(function(element) {
+            element.classList.remove('active');
+        });
+
+        // Add the "active" class to the clicked link
+        link.classList.add('active');
+
+        event.preventDefault(); // Prevent the default behavior of the link
+
+        // Get the target URL from the "href" attribute of the clicked link
+        var targetUrl = link.getAttribute('href');
+
+        // Perform the navigation programmatically
+        window.location.href = targetUrl;
+    }
 </script>
 <sitemesh:write property='head' />
 
@@ -50,13 +68,13 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link active" aria-current="page" href="/dashboard/index">
                             <span data-feather="home"></span>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/emp/search">
                             <span data-feather="users"></span>
                             Employees
                         </a>
@@ -143,9 +161,8 @@
 
 <!-- Bootstrap core CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-<script src="<c:url value='/js/dashboard.js' />"></script>
+<script src="/js/dashboard.js"></script>
 </body>
 </html>

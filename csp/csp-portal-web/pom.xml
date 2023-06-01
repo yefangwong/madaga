@@ -56,12 +56,14 @@
     </build>
     <dependencies>
         <!-- Java Web 元件庫 -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>8.0.1</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- Fix Dashboard Index Init Error Begin -->
+<!--        <dependency>-->
+<!--            <groupId>javax</groupId>-->
+<!--            <artifactId>javaee-web-api</artifactId>-->
+<!--            <version>8.0.1</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+        <!-- Fix Dashboard Index Init Error End -->
         <!-- JSTL -->
         <!-- Fix CVE-2015-0254(7.5) Begin -->
         <!--			<dependency>-->

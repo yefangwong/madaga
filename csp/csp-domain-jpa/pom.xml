@@ -30,11 +30,12 @@
         </dependency>
         <!-- swagger start -->
         <!-- fix  CVE-2018-10237 start -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
-        </dependency>
+        <!--	<dependency>-->
+        <!--	    <groupId>com.google.guava</groupId>-->
+        <!--	    <artifactId>guava</artifactId>-->
+        <!--	    <version>31.1-jre</version>-->
+        <!--	</dependency>-->
+        <!-- Fix CVE-2023-2976(6.2) End -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>

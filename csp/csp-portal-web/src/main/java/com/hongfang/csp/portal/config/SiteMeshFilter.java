@@ -23,6 +23,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
     @Override
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
         builder.addDecoratorPath("/dashboard/*", "/WEB-INF/sitemesh/dashboard/decorator.jsp");
+        builder.addDecoratorPath("/emp/*", "/WEB-INF/sitemesh/dashboard/decorator.jsp");
     }
 
 }

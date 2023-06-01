@@ -8,7 +8,7 @@
 <!DOCTYPE>
 <html lang="zh_TW">
 <head>
-    <link rel="stylesheet" href="resources/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
     <title>員工展示</title>
 </head>
 <body>
