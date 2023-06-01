@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
 <!-- Bootstrap core CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <style>
@@ -42,8 +43,28 @@
         var targetUrl = link.getAttribute('href');
 
         // Perform the navigation programmatically
-        window.location.href = targetUrl;
+        //window.location.href = targetUrl;
     }
+    $(document).ready(function() {
+        // Remove the "active" class from all links
+        var links = document.querySelectorAll('a');
+        links.forEach(function(element) {
+            element.classList.remove('active');
+        });
+
+        // Get the current URL path
+        var currentPath = window.location.pathname;
+
+        // Loop through each navigation link
+        $('.nav-link').each(function() {
+            var linkPath = $(this).attr('href');
+
+            // Check if the link's path matches the current URL path
+            if (linkPath === currentPath) {
+                $(this).addClass('active'); // Add a class to mark the link as active
+            }
+        });
+    });
 </script>
 <sitemesh:write property='head' />
 
@@ -153,7 +174,9 @@
         </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <sitemesh:write property='body'/>
+            <div id="content">
+                <sitemesh:write property='body'/>
+            </div>
         </main>
     </div>
 </div>
