@@ -16,13 +16,26 @@
 
 package com.hongfang.csp.portal.controller;
 
+import com.dhf.hrsys.service.EmployeeService;
+import com.hongfang.csp.system.entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TestController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
     @RequestMapping("test")
-    public void test() {
-        System.out.println("Hello World");
+    public ModelAndView test() {
+        ModelAndView mv = new ModelAndView("test");
+        //System.out.println("Hello World");
+        Employee emp = employeeService.searchById(1);
+        mv.addObject("msg", "<h1>Hello World!</h1>");
+        mv.addObject("emp", emp);
+        return mv;
     }
 }

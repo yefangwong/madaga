@@ -33,8 +33,10 @@ public class EmployeeController {
     @RequestMapping("search")
     public ModelAndView search() {
        ModelAndView mv = new ModelAndView("emp/show");
+       Condition condition = new Condition();
        List<Employee> list = getEmployeeList();
        List<Department> depList = new ArrayList<Department>();
+       mv.addObject("c", condition);
        mv.addObject("list", list);
        mv.addObject("depList", depList);
        return mv;

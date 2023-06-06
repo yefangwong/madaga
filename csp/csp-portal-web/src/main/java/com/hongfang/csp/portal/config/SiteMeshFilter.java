@@ -22,8 +22,8 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
     @Override
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-        builder.addDecoratorPath("/dashboard/*", "/WEB-INF/sitemesh/dashboard/decorator.jsp");
-        builder.addDecoratorPath("/emp/*", "/WEB-INF/sitemesh/dashboard/decorator.jsp");
+        builder.addDecoratorPath("/dashboard/*", "/sitemesh/dashboard");
+        builder.addDecoratorPath("/emp/*", "/sitemesh/dashboard");
     }
 
 }

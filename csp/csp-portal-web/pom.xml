@@ -70,18 +70,20 @@
         <!--				<groupId>javax.servlet</groupId>-->
         <!--				<artifactId>jstl</artifactId>-->
         <!--			</dependency>-->
-        <dependency>
-            <groupId>org.apache.taglibs</groupId>
-            <artifactId>taglibs-standard-impl</artifactId>
-        </dependency>
+        <!-- @deprecated for Thymeleaf -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.taglibs</groupId>-->
+            <!--<artifactId>taglibs-standard-impl</artifactId>-->
+        <!--</dependency>-->
         <!-- Fix CVE-2015-0254(7.5) End -->
         <!-- JSTL 標簽庫 -->
+        <!-- @deprecated for Thymeleaf -->
         <!-- Fix CVE-2015-0254 start-->
-        <dependency>
-            <groupId>org.apache.taglibs</groupId>
-            <artifactId>taglibs-standard-impl</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.taglibs</groupId>-->
+            <!--<artifactId>taglibs-standard-impl</artifactId>-->
+            <!--<version>1.2.3</version>-->
+        <!--</dependency>-->
         <!-- Fix CVE-2015-0254 end-->
         <!-- SpringBoot -->
         <dependency>
@@ -252,15 +254,16 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
+        <!-- @deprecated for Thymeleaf -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.tomcat.embed</groupId>-->
+            <!--<artifactId>tomcat-embed-jasper</artifactId>-->
+        <!--</dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>el-impl</artifactId>
             <version>2.2.1-b05</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -409,6 +412,10 @@
                     <artifactId>slf4j-nop</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-service</artifactId>
         </dependency>
         <dependency>
             <groupId>com.hongfang.csp</groupId>

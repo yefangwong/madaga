@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="Thymeleaf官網網址">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Hello World!
+    <div th:utext="${msg}"></div>
+    <div th:object="${emp}">
+        <p th:text="*{name}"/>
+        <p th:text="*{gender}"/>
+        <p th:text="*{age}"/>
+        <a th:href="@{/index(userId=1,age=20)}">點擊</a>
+        <a href="/index">點擊</a>
+    </div>
+    <div th:text="${emp.name+' '+emp.gender}"/>
+    <div th:text="${emp.name}+' '+${emp.gender}"/>
+</body>
+</html>
