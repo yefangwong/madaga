@@ -47,4 +47,12 @@ public class Employee {
     public void setDep(Department dep) {
         this.dep = dep;
     }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 }
