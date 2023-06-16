@@ -16,6 +16,7 @@
 
 package com.hongfang.csp.portal.controller.dashboard;
 
+import com.dhf.hrsys.annotation.Layout;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,4 +27,5 @@ public class DashboardController {
     @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
     public String indexPage() {
         return "dashboard/index";
-    }}
+    }
+}

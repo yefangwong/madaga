@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 yefangwong(https://github.com/yefangwong)
+ * Copyright 2023 yefangwong(https://github.com/yefangwong)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package com.hongfang.csp.portal.config;
+package com.dhf.hrsys.annotation;
 
-import org.sitemesh.builder.SiteMeshFilterBuilder;
-import org.sitemesh.config.ConfigurableSiteMeshFilter;
+import java.lang.annotation.*;
 
-public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
-    @Override
-    protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-        builder.addDecoratorPath("/dashboard/*", "/sitemesh/dashboard");
-        builder.addDecoratorPath("/emp/*", "/sitemesh/dashboard");
-    }
+/**
+ * 樣式裝飾器 註解 在 Controller 中註解
+ * Mark
+ * @date 20230613
+ */
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Layout {
+    /**
+     * no layout will be used
+     */
+    String none = "none";
+    /**
+     * default layout will be used
+     */
+    String defaultLayout = "/layout/default";
 
+    String value() default defaultLayout;
 }
