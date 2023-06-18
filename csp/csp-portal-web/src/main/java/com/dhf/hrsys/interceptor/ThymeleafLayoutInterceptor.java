@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
-    private static final String DEFAULT_LAYOUT = "sitemesh/dashboard/decorator";
+    private static final String DEFAULT_LAYOUT = "layout/default";
     private static final String DEFAULT_VIEW_ATTRIBUTE_NAME = "view";
 
     private String defaultLayout = DEFAULT_LAYOUT;

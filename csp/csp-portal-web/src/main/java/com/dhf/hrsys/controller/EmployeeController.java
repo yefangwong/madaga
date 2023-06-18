@@ -47,6 +47,7 @@ public class EmployeeController {
         List<Employee> list = new ArrayList<Employee>();
         Employee e = new Employee();
         e.setId(1);
+        e.setNumber(10001);
         e.setName("翁Ｘ芳");
         e.setAge(18);
         e.setGender("男");
@@ -54,6 +55,7 @@ public class EmployeeController {
         list.add(e);
         e = new Employee();
         e.setId(2);
+        e.setNumber(10002);
         e.setName("劉Ｘ華");
         e.setAge(18);
         e.setGender("女");

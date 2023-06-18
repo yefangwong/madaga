@@ -1,8 +1,8 @@
-<%--
+<!--
   History
   --------------------------------------------
   2023/2/1 yfwong inital version.
---%>
+-->
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{'../css/style.css'}"/>
@@ -14,36 +14,41 @@
     </div>
     <div id="container">
         <form id="search" action="search" method="post">
-            <div class="align">
-                <input type="text" name="number" placeholder="編號" th:value="${c.number}" />
-            </div>
-            <div class="align">
-                <input type="text" name="name" placeholder="姓名" value="${c.name}" />
-            </div>
-            <div class="align">
-                <select name="gender" id="">
-                    <option value="">性別</option>
-                    <option value="男" th:selected="${c.gender == '男'}">男</option>
-                    <option value="女" th:selected="${c.gender == '女'}">女</option>
-                </select>
-            </div>
-            <div class="align">
-                <input type="text" name="age" placeholder="年齡" th:value="${c.age != null}?${c.age}:''">
-            </div>
-            <div class="align">
-                <select name="dep.id">
-                    <option value="">部門</option>
-                    <option th:each="dep:${depList}" th:selected="${c.dep!=null?${dep.id==c.dep.id}:false" th:text="${dep.name}" th:value="${dep.id}"></option>
-                </select>
-            </div>
-            <div class="align">
-                <button type="submit">搜尋</button>
+            <div class="row">
+                <div class="col-md-2 align">
+                    <input type="text" class="form-control" name="number" placeholder="編號" th:value="${c.number==0?'':c.number}" />
+                </div>
+                <div class="col-md-2 align">
+                    <input type="text" class="form-control" name="name" placeholder="姓名" th:value="${c.name}" />
+                </div>
+                <div class="col-md-2 align">
+                    <select class="form-control" name="gender" id="">
+                        <option value="">性別</option>
+                        <option value="男" th:selected="${c.gender == '男'}">男</option>
+                        <option value="女" th:selected="${c.gender == '女'}">女</option>
+                    </select>
+                </div>
+                <div class="col-md-2 align">
+                    <input type="text" class="form-control" name="age" placeholder="年齡" th:value="${c.age==0}?'':${c.age}">
+                </div>
+                <div class="col-md-2 align">
+                    <select class="form-control" name="dep.id">
+                        <option value="">部門</option>
+                        <option th:each="dep:${depList}" th:selected="${c.dep!=null?${dep.id==c.dep.id}:false" th:text="${dep.name}" th:value="${dep.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-2 align">
+                    <div class="d-grid gap-2 d-md-block" role="toolbar">
+                        <button type="submit" class="btn btn-primary">搜尋</button>
+                        <button type="button" id="export" class="btn btn-success">匯出</button>
+                    </div>
+                </div>
             </div>
         </form>
-        <table id="data" border="1">
+        <table id="data" class="table table-bordered" border="1">
             <tr>
                 <th>編號</th>
-                <th>性名</th>
+                <th>姓名</th>
                 <th>姓別</th>
                 <th>年齡</th>
                 <th>部門</th>
@@ -56,9 +61,11 @@
                 <td th:text="${emp.dep==null}?'':${emp.dep.name}"></td>
             </tr>
         </table>
-        <button type="button" id="add">新增</button>
-        <button type="button" id="update">修改</button>
-        <button type="button" id="delete">刪除</button>
+        <div class="d-grid gap-2 d-md-block" role="toolbar">
+            <button type="button" id="add" class="btn btn-primary">新增</button>
+            <button type="button" id="update" class="btn btn-primary">修改</button>
+            <button type="button" id="delete" class="btn btn-primary">刪除</button>
+        </div>
     </div>
 </body>
 </html>
