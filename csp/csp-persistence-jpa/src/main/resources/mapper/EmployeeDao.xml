@@ -1,0 +1,14 @@
+<mapper namespace="com.dhf.hrsys.dao.impl.EmployeeDao">
+    <resultMap type="com.hongfang.csp.system.entity.Employee" id="EmpAndDep">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="age" column="age"/>
+        <association property="dep" javaType="com.hongfang.csp.system.entity.Department">
+            <id property="id" column="dep_id"/>
+            <result property="number" column="number"/>
+            <result property="name" column="depName"/>
+        </association>
+    </resultMap>
+</mapper>

@@ -1,8 +1,10 @@
 package com.dhf.hrsys.controller;
 
-import com.dhf.hrsys.annotation.Layout;
+import com.dhf.hrsys.service.DepartmentService;
+import com.dhf.hrsys.service.EmployeeService;
 import com.hongfang.csp.system.entity.Department;
 import com.hongfang.csp.system.entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,11 @@ import java.util.List;
 @RequestMapping("emp")
 public class EmployeeController {
 
+    @Autowired
+    EmployeeService empService;
+
+    @Autowired
+    DepartmentService depService;
     private static List<Department> depList = new ArrayList<Department>();
 
     static {
@@ -35,7 +42,7 @@ public class EmployeeController {
     public ModelAndView search() {
        ModelAndView mv = new ModelAndView("emp/show");
        Condition condition = new Condition();
-       List<Employee> list = getEmployeeList();
+       List<Employee> list = getEmployeeList(condition);
        List<Department> depList = new ArrayList<Department>();
        mv.addObject("c", condition);
        mv.addObject("list", list);
@@ -43,25 +50,25 @@ public class EmployeeController {
        return mv;
     }
 
-    private List<Employee> getEmployeeList() {
-        List<Employee> list = new ArrayList<Employee>();
-        Employee e = new Employee();
-        e.setId(1);
-        e.setNumber(10001);
-        e.setName("翁Ｘ芳");
-        e.setAge(18);
-        e.setGender("男");
-        e.setDep(depList.get(0));
-        list.add(e);
-        e = new Employee();
-        e.setId(2);
-        e.setNumber(10002);
-        e.setName("劉Ｘ華");
-        e.setAge(18);
-        e.setGender("女");
-        e.setDep(depList.get(1));
-        list.add(e);
-        return list;
+    private List<Employee> getEmployeeList(Condition condition) {
+//        List<Employee> list = new ArrayList<Employee>();
+//        Employee e = new Employee();
+//        e.setId(1);
+//        e.setNumber(10001);
+//        e.setName("翁Ｘ芳");
+//        e.setAge(18);
+//        e.setGender("男");
+//        e.setDep(depList.get(0));
+//        list.add(e);
+//        e = new Employee();
+//        e.setId(2);
+//        e.setNumber(10002);
+//        e.setName("劉Ｘ華");
+//        e.setAge(18);
+//        e.setGender("女");
+//        e.setDep(depList.get(1));
+//        list.add(e);
+        return empService.searchAll();
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {

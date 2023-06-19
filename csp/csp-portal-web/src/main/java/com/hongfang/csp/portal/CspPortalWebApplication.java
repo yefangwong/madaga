@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableConfigurationProperties
 @ServletComponentScan
-@MapperScan({"com.example.**.mapper"})
 @SpringBootApplication(scanBasePackages = {"com.hongfang", "com.dhf"})
 public class CspPortalWebApplication {
 
