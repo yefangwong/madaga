@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2022 yefangwong(https://github.com/yefangwong)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 載入 db.properties -->
+    <context:property-placeholder location="classpath:db.properties" />
+    <!-- 配置資料庫，使用 dbcp 資料庫連線池 -->
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <beans:property name="driverClassName" value="${jdbc.driver}" />
+        <beans:property name="url" value="${jdbc.url}" />
+        <beans:property name="username" value="${jdbc.username}" />
+        <beans:property name="password" value="${jdbc.password}" />
+        <beans:property name="maxActive" value="30" />
+        <beans:property name="maxIdle" value="20" />
+    </beans:bean>
+    <!-- 配置 sqlSessionFactory -->
+    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="mapperLocations" value="classpath:mapper/*.xml"></beans:property>
+    </beans:bean>
+    <!-- DAO 層接口掃瞄器 -->
+    <beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <beans:property name="basePackage" value="com.dhf.hrsys.dao"></beans:property>
+        <beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></beans:property>
+    </beans:bean>
+    <!-- 交易事務管理器，對 MyBatis 操作資料庫進行事務控制，Spring 使用 JDBC 的事務控制類 -->
+    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <beans:property name="dataSource" ref="dataSource"></beans:property>
+    </beans:bean>
+    <beans:bean id="baseDAO" class="com.dhf.system.dao.impl.BaseDAO">
+        <beans:property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </beans:bean>
+</beans:beans>

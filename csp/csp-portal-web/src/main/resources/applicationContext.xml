@@ -17,40 +17,17 @@
 <beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
              xmlns:context="http://www.springframework.org/schema/context"
-             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+             xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <!-- 載入 db.properties -->
-    <context:property-placeholder location="classpath:db.properties" />
+    <beans:import resource="classpath:applicationContext-persistence-jpa.xml"/>
     <!-- 做套件掃描，對標注 Spring 註解的類別，對應生成對象，同時完成 Bean 的注入 -->
-    <context:component-scan base-package="com.dhf.hrsys"/>
+    <context:component-scan base-package="com.dhf"/>
+    <context:component-scan base-package="com.hongfang"/>
     <!-- 啟動對 @AspectJ 註解的支援 -->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-    <!-- 配置資料庫，使用 dbcp 資料庫連線池 -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-        <property name="maxActive" value="30" />
-        <property name="maxIdle" value="20" />
-    </bean>
-    <!-- 配置 sqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
-    </bean>
-    <!-- DAO 層接口掃瞄器 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.dhf.hrsys.dao"></property>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-    </bean>
-    <!-- 交易事務管理器，對 MyBatis 操作資料庫進行事務控制，Spring 使用 JDBC 的事務控制類 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
     <!-- 通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -63,6 +40,6 @@
     </tx:advice>
     <!-- AOP -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.dhf.hrsys.service.impl.*.*(..)" />
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.dhf.hrsys.service.impl.*.*(..))" />
     </aop:config>
 </beans:beans>

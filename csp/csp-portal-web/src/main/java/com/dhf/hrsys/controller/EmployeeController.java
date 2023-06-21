@@ -2,6 +2,7 @@ package com.dhf.hrsys.controller;
 
 import com.dhf.hrsys.service.DepartmentService;
 import com.dhf.hrsys.service.EmployeeService;
+import com.dhf.hrsys.service.GeneralDAOServiceFacade;
 import com.hongfang.csp.system.entity.Department;
 import com.hongfang.csp.system.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,8 @@ import java.util.List;
 @RequestMapping("emp")
 public class EmployeeController {
 
-    @Autowired
-    EmployeeService empService;
+    @Autowired GeneralDAOServiceFacade serviceFacade;
 
-    @Autowired
-    DepartmentService depService;
     private static List<Department> depList = new ArrayList<Department>();
 
     static {
@@ -39,7 +37,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("search")
-    public ModelAndView search() {
+    public ModelAndView search() throws Exception {
        ModelAndView mv = new ModelAndView("emp/show");
        Condition condition = new Condition();
        List<Employee> list = getEmployeeList(condition);
@@ -50,7 +48,7 @@ public class EmployeeController {
        return mv;
     }
 
-    private List<Employee> getEmployeeList(Condition condition) {
+    private List<Employee> getEmployeeList(Condition condition) throws Exception {
 //        List<Employee> list = new ArrayList<Employee>();
 //        Employee e = new Employee();
 //        e.setId(1);
@@ -68,7 +66,7 @@ public class EmployeeController {
 //        e.setGender("女");
 //        e.setDep(depList.get(1));
 //        list.add(e);
-        return empService.searchAll();
+        return serviceFacade.queryForList("CUST_EMPLOYEE.SQL1");
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {

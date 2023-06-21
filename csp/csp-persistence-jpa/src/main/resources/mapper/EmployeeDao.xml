@@ -1,4 +1,4 @@
-<mapper namespace="com.dhf.hrsys.dao.impl.EmployeeDao">
+<mapper namespace="com.dhf.hrsys.dao.EmployeeDao">
     <resultMap type="com.hongfang.csp.system.entity.Employee" id="EmpAndDep">
         <id property="id" column="id"/>
         <result property="number" column="number"/>

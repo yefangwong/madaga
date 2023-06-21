@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dhf.hrsys.dao.impl;
+package com.dhf.hrsys.dao;
 
 import com.hongfang.csp.system.entity.Employee;
 
