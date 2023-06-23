@@ -15,13 +15,10 @@
   ~ limitations under the License.
   -->
 <beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
              xmlns:context="http://www.springframework.org/schema/context"
-             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+             xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- 載入 db.properties -->
     <context:property-placeholder location="classpath:db.properties" />
     <!-- 配置資料庫，使用 dbcp 資料庫連線池 -->
@@ -33,9 +30,12 @@
         <beans:property name="maxActive" value="30" />
         <beans:property name="maxIdle" value="20" />
     </beans:bean>
+    <!-- MyBatis Configuration -->
+    <beans:import resource="classpath:mybatis-config.xml"/>
     <!-- 配置 sqlSessionFactory -->
     <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="configLocation" value="classpath:mybatis-config.xml"/>
         <beans:property name="mapperLocations" value="classpath:mapper/*.xml"></beans:property>
     </beans:bean>
     <!-- DAO 層接口掃瞄器 -->

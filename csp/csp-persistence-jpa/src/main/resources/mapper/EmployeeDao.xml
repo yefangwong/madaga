@@ -1,4 +1,8 @@
-<mapper namespace="com.dhf.hrsys.dao.EmployeeDao">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CUST_EMPLOYEE">
     <resultMap type="com.hongfang.csp.system.entity.Employee" id="EmpAndDep">
         <id property="id" column="id"/>
         <result property="number" column="number"/>
@@ -11,4 +15,7 @@
             <result property="name" column="depName"/>
         </association>
     </resultMap>
+    <select id="SQL1">
+
+    </select>
 </mapper>
