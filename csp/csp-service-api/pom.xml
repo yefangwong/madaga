@@ -32,6 +32,14 @@
       <groupId>com.hongfang.csp</groupId>
       <artifactId>csp-domain-jpa</artifactId>
       <scope>compile</scope>
+      <exclusions>
+        <!-- Fix CVE-2023-32697(9.8) Begin -->
+        <exclusion>
+          <groupId>org.xerial</groupId>
+          <artifactId>sqlite-jdbc</artifactId>
+        </exclusion>
+        <!-- Fix CVE-2023-32697(9.8) End -->
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.hongfang.csp</groupId>

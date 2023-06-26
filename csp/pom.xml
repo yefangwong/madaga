@@ -106,6 +106,29 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.commonjava.maven.plugins</groupId>
+				<artifactId>directory-maven-plugin</artifactId>
+				<version>0.1</version>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>
+                                directory-of
+                            </goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>csp.basedir</property>
+                            <project>
+                                <groupId>com.hongfang.csp</groupId>
+                                <artifactId>csp</artifactId>
+                            </project>
+                        </configuration>
+                    </execution>
+                </executions>
+			</plugin>
 		    <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -115,7 +138,7 @@
                     <cveValidForHours>12</cveValidForHours>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
 					<!-- FIX some False Positive CVEs  -->
-                    <suppressionFile>${user.dir}/csp/config/dependency-check/suppressions.xml</suppressionFile>
+                    <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -548,6 +571,12 @@
 				<artifactId>cglib-nodep</artifactId>
 				<version>2.2</version>
 			</dependency>
+            <!-- SQLite Driver -->
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>3.42.0.0</version>
+            </dependency>
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>

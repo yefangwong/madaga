@@ -30,8 +30,6 @@
         <beans:property name="maxActive" value="30" />
         <beans:property name="maxIdle" value="20" />
     </beans:bean>
-    <!-- MyBatis Configuration -->
-    <beans:import resource="classpath:mybatis-config.xml"/>
     <!-- 配置 sqlSessionFactory -->
     <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
