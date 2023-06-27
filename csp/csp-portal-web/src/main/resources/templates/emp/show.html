@@ -53,12 +53,12 @@
                 <th>年齡</th>
                 <th>部門</th>
             </tr>
-            <tr class="data" th:each="emp:${list}" th:data-id="${emp.id}">
-                <td th:text="${emp.number}"></td>
-                <td th:text="${emp.name}"></td>
+            <tr class="data" th:each="emp:${list}" th:data-id="${emp.empId}">
+                <td th:text="${emp.empNumber}"></td>
+                <td th:text="${emp.empName}"></td>
                 <td th:text="${emp.gender}"></td>
                 <td th:text="${emp.age}"></td>
-                <td th:text="${emp.dep==null}?'':${emp.dep.name}"></td>
+                <td th:text="${emp.depName}"></td>
             </tr>
         </table>
         <div class="d-grid gap-2 d-md-block" role="toolbar">

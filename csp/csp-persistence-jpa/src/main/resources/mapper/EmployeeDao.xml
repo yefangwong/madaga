@@ -15,7 +15,18 @@
             <result property="name" column="depName"/>
         </association>
     </resultMap>
-    <select id="SQL1">
-
+    <!-- 取得全部員工清單 -->
+    <select id="SQL1" resultType="hashmap">
+        SELECT
+            emp.id as empId,                                                    <!-- 流水號 -->
+            age,                                                                <!-- 年齡 -->
+            gender,                                                             <!-- 性別 -->
+            emp.name as empName,                                                <!-- 姓名 -->
+            emp.number as empNumber,                                            <!-- 編號 -->
+            dep.name as depName                                                 <!-- 部門編號 -->
+        FROM
+            employee emp
+        LEFT JOIN department dep
+        ON emp.dep_id = dep.id
     </select>
 </mapper>

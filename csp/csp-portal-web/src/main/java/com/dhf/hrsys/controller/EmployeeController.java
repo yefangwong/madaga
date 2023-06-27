@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -40,7 +41,7 @@ public class EmployeeController {
     public ModelAndView search() throws Exception {
        ModelAndView mv = new ModelAndView("emp/show");
        Condition condition = new Condition();
-       List<Employee> list = getEmployeeList(condition);
+       List<HashMap> list = getEmployeeList(condition);
        List<Department> depList = new ArrayList<Department>();
        mv.addObject("c", condition);
        mv.addObject("list", list);
@@ -48,7 +49,7 @@ public class EmployeeController {
        return mv;
     }
 
-    private List<Employee> getEmployeeList(Condition condition) throws Exception {
+    private List<HashMap> getEmployeeList(Condition condition) throws Exception {
 //        List<Employee> list = new ArrayList<Employee>();
 //        Employee e = new Employee();
 //        e.setId(1);
