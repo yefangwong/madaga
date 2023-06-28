@@ -5,8 +5,21 @@
 -->
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{'../css/style.css'}"/>
     <title>員工展示</title>
+    <script>
+        $(function(){
+            // 匯出 Excel
+            $('#export').click(function(){
+                doExportToXls();
+            });
+        });
+        // 匯出 Excel
+        function doExportToXls() {
+            var actionURI = '/emp/export';
+            var params = '&a=1';
+            csp.toPostSubmit(actionURI + params);
+        }
+    </script>
 </head>
 <body>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

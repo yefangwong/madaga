@@ -49,6 +49,13 @@ public class EmployeeController {
        return mv;
     }
 
+    @RequestMapping("export")
+    public ModelAndView export() throws Exception {
+        ModelAndView mv = new ModelAndView("emp/show");
+        //TODO
+        return mv;
+    }
+
     private List<HashMap> getEmployeeList(Condition condition) throws Exception {
 //        List<Employee> list = new ArrayList<Employee>();
 //        Employee e = new Employee();
