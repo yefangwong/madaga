@@ -20,9 +20,13 @@ var csp = {
                 sTmp += ('<input type="hidden" name="' + listArr[i] + '" value="' +
                     listArr[i+1]+'">');
             }
-            alert(tmp);
+            //alert(tmp);
             sTmp += ('</form>');
-            winObj.document.write(sTmp);
+            if(winObj.divToPostFormSubmit != null) {
+                winObj.divToPostFormSubmit.innerHTML = sTmp;
+            } else {
+                winObj.document.write(sTmp);
+            }
             winObj.document.toPostForm.action = listArr[0];
             winObj.document.toPostForm.submit();
         } catch (e) {

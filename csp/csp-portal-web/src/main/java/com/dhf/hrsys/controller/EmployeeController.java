@@ -3,10 +3,12 @@ package com.dhf.hrsys.controller;
 import com.dhf.hrsys.service.DepartmentService;
 import com.dhf.hrsys.service.EmployeeService;
 import com.dhf.hrsys.service.GeneralDAOServiceFacade;
+import com.dhf.util.JXLExcelBuilder;
 import com.hongfang.csp.system.entity.Department;
 import com.hongfang.csp.system.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,10 +51,36 @@ public class EmployeeController {
        return mv;
     }
 
-    @RequestMapping("export")
-    public ModelAndView export() throws Exception {
-        ModelAndView mv = new ModelAndView("emp/show");
-        //TODO
+    @PostMapping("export")
+    public ModelAndView export(HttpServletRequest req,
+        HttpServletResponse res) throws Exception {
+        ModelAndView mv = null;
+        Condition condition = new Condition();
+        List<HashMap> dataList = getEmployeeList(condition);
+
+        res.setContentType("application/vnd.ms-excel");
+        res.setHeader("Content-disposition", "attachment;filename=Report.xls");
+
+        JXLExcelBuilder excelBuilder = new JXLExcelBuilder(res.getOutputStream());
+        String titles[] = new String[] {
+            "編號",
+            "姓名",
+            "姓別",
+            "年齡",
+            "部門"
+        };
+
+        String colsMapTitles[] = new String[] {
+            "empId",
+            "empName",
+            "gender",
+            "age",
+            "depName"
+        };
+
+        excelBuilder.buildTitle(titles, colsMapTitles).buildBody(dataList);
+        excelBuilder.build();
+        
         return mv;
     }
 
