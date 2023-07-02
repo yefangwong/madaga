@@ -19,6 +19,39 @@
             $('#export').on('click', function(){
                 doExportToXls();
             });
+            let vue=new Vue({
+                el:"#container",
+                data:{
+                    mes:'你好',
+                    question:'',
+                    eventSource: null
+                },
+                methods:{
+                    send:function () {
+                        this.mes = "Hello";
+                        this.eventSource = new EventSource('/api/question');
+
+                        this.eventSource.onmessage = (event) => {
+                            const response = JSON.parse(event.data);
+                            console.log('response:', response);
+                        };
+
+                        this.eventSource.send(JSON.stringify({
+                            question: this.question
+                        }));
+                    },
+                    closeConnection() {
+                        // Close the SSE connection
+                        if (this.eventSource) {
+                            this.eventSource.close();
+                            this.eventSource = null;
+                        }
+                    }
+                },
+                beforeDestroy() {
+                    this.closeConnection();
+                }
+            })
         });
         // 交談查詢模式
         function doChat() {
@@ -42,29 +75,72 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="send-box">
-                            <form action="">
-                                <input type="text" class="form-control" aria-label="message…" placeholder="Write message…">
-                                <button type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
-                            </form>
-                            <div class="send-btns">
-                                <div class="attach">
-                                    <div class="button-wrapper">
-                                         <span class="label">
-                                             <img class="img-fluid" src="https://mehedihtml.com/chatbox/assets/img/upload.svg" alt="image title"> attached file
-                                         </span>
+                        <div class="msg-body">
+                            <ul>
+                                <li class="sender">
+                                    <p> Hey, Are you there? </p>
+                                    <span class="time">10:06 am</span>
+                                </li>
+                                <li class="sender">
+                                    <p> Hey, Are you there? </p>
+                                    <span class="time">10:16 am</span>
+                                </li>
+                                <li class="repaly">
+                                    <p>yes!</p>
+                                    <span class="time">10:20 am</span>
+                                </li>
+                                <li class="sender">
+                                    <p> Hey, Are you there? </p>
+                                    <span class="time">10:26 am</span>
+                                </li>
+                                <li class="sender">
+                                    <p> Hey, Are you there? </p>
+                                    <span class="time">10:32 am</span>
+                                </li>
+                                <li class="repaly">
+                                    <p>How are you?</p>
+                                    <span class="time">10:35 am</span>
+                                </li>
+                                <li>
+                                    <div class="divider">
+                                        <h6>Today</h6>
                                     </div>
+                                </li>
+
+                                <li class="repaly">
+                                    <p> yes, tell me</p>
+                                    <span class="time">10:36 am</span>
+                                </li>
+                                <li class="repaly">
+                                    <p>yes... on it</p>
+                                    <span class="time">剛剛</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div v-text="mes"></div>
+                    <div class="send-box">
+                        <form action="">
+                            <input type="text" class="form-control" aria-label="message…" placeholder="輸入您想問的問題…">
+                            <button type="button" v-on:click="send"><i class="fa fa-paper-plane" aria-hidden="true"></i> 送出</button>
+                        </form>
+                        <div class="send-btns">
+                            <div class="attach">
+                                <div class="button-wrapper" style="width: fit-content">
+                                     <span class="label">
+                                         <i class="fa fa-file-excel-o pe-2" aria-hidden="true"></i> 匯出
+                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                     </div>
                 </div>
             </div>
