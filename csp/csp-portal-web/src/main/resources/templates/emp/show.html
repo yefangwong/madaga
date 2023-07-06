@@ -26,19 +26,47 @@
                     question:'',
                     eventSource: null
                 },
+                created(){},
                 methods:{
-                    send:function () {
-                        this.mes = "Hello";
-                        this.eventSource = new EventSource('/api/question');
-
-                        this.eventSource.onmessage = (event) => {
-                            const response = JSON.parse(event.data);
-                            console.log('response:', response);
+                    startSSE() {
+                        const source = new EventSource('/api/startSSE')
+                        source.onmessage = (event) => {
+                            console.log('event:', event.data);
+                            this.mes = event.data;
+                        }
+                        // const headers = { 'Content-Type': 'text/event-stream' };
+                        // const url = '/api/startSSE?headers=' + encodeURIComponent(JSON.stringify(headers));
+                        //
+                        // this.eventSource = new EventSource(url);
+                        // this.eventSource.onmessage = (event) => {
+                        //     const response = JSON.parse(event.data);
+                        //     console.log('response:', response);
+                        // };
+                        //
+                        // this.eventSource.send(JSON.stringify({
+                        //     question: this.question
+                        // }));
+                    },
+                    send() {
+                        //this.mes = "Hello";
+                        this.startSSE();
+                        const question = {
+                            id: 1,
+                            text: 'What is your favorite color?',
                         };
-
-                        this.eventSource.send(JSON.stringify({
-                            question: this.question
-                        }));
+                        var self = this;
+                        $.ajax({
+                            type: 'post',
+                            url: '/api/question',
+                            data: JSON.stringify(question),
+                            contentType: 'application/json;charset=UTF-8',
+                            dataType: 'json',
+                            success: function (result) {
+                                self.mes = result.answer;
+                            },
+                            error: function() {
+                                console.error('Failed to send question:');
+                            }});
                     },
                     closeConnection() {
                         // Close the SSE connection

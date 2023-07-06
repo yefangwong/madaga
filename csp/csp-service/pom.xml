@@ -41,7 +41,18 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- add ChatGPT Support Begin-->
 		<dependency>
+			<groupId>com.unfbx</groupId>
+			<artifactId>chatgpt-java</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp-sse</artifactId>
+        </dependency>
+        <!-- add ChatGPT Support End-->
+
+        <dependency>
 			<groupId>com.hongfang.csp</groupId>
 			<artifactId>csp-service-api</artifactId>
 			<scope>compile</scope>

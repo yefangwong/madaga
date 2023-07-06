@@ -87,7 +87,7 @@
 		</cookie-config>
 	</session-config>
 
-	<!-- Default page to serve -->
+	<!-- Default page chat serve -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

@@ -33,6 +33,8 @@
 		<spring-boot.version>2.7.12</spring-boot.version>
 		<logback.version>1.2.9</logback.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
+		<okhttp.fixcve.1.version>4.10.0-CSP</okhttp.fixcve.1.version><!-- Fix CVE 2021-0341 -->
+        <okhttp.version>3.14.9</okhttp.version>
 		<csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>1.0-SNAPSHOT</csp-domain-jpa.version>
@@ -217,6 +219,20 @@
                             <packaging>jar</packaging>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>install-CVE-2021-0341-fix-4</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${csp.basedir}/dependencies/okhttp-4.10.0.jar</file>
+                            <groupId>com.squareup.okhttp3</groupId>
+                            <artifactId>okhttp</artifactId>
+                            <version>4.10.0-CSP</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <!-- Fix CVE-2023-35116 End -->
@@ -263,7 +279,7 @@
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.24</version><!-- Upgrade to Java 17 -->
+				<version>1.18.24</version><!-- Upgrade chat Java 17 -->
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -649,6 +665,42 @@
 				<version>4.0.2.GA</version>
 			</dependency>
 			<!--End of Persistence -->
+			<!-- ChatGPT related Begin -->
+            <dependency>
+                <groupId>com.unfbx</groupId>
+                <artifactId>chatgpt-java</artifactId>
+                <version>1.0.12</version>
+                <exclusions>
+                    <!-- Fix CVE-2023-33695 Begin -->
+                    <exclusion>
+                        <groupId>cn.hutool</groupId>
+                        <artifactId>hutool-all</artifactId>
+                    </exclusion>
+                    <!-- Fix CVE-2023-33695 End -->
+                    <!-- Fix CVE-2023-35116 Begin -->
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                    <!-- Fix CVE-2023-35116 End -->
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.fixcve.1.version}</version>
+            </dependency>
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp-sse</artifactId>
+				<version>${okhttp.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+			<!-- ChatGPT related End -->
 			<!--Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>

@@ -616,6 +616,21 @@
             </exclusions>
         </dependency>
 
+        <!-- ChatGPT related Begin -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.unfbx</groupId>
+            <artifactId>chatgpt-java</artifactId>
+        </dependency>
+        <!-- ChatGPT related End -->
+
         <!-- Jackson: Spring MVC 預設使用 JSON 轉換套件 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -675,6 +690,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- add Madaga CSP Software Framework Begin -->
+        <dependency>
+            <groupId>com.hongfang.csp</groupId>
+            <artifactId>csp-base-domain</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.hongfang.csp</groupId>
             <artifactId>csp-service</artifactId>
@@ -684,6 +704,7 @@
             <artifactId>csp-webframeworx-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- add Madaga CSP Software Framework End -->
     </dependencies>
 
 </project>

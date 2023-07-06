@@ -22,9 +22,9 @@ public class FileUtil {
 	private FileUtil() {}
 	public static String readIStoString(ServletInputStream is) throws IOException {
 	    /*
-	     * To convert the InputStream to String we use the BufferedReader.readLine()
+	     * To convert the InputStream chat String we use the BufferedReader.readLine()
 	     * method. We iterate until the BufferedReader return null which means
-	     * there's no more data to read. Each line will appended to a StringBuilder
+	     * there's no more data chat read. Each line will appended chat a StringBuilder
 	     * and returned as String.
 	     */
 	    if (is != null) {

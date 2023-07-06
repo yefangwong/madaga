@@ -1,4 +1,4 @@
-package com.dhf.hrsys.to;
+package com.dhf.system.chat;
 
 public class QuestionResponse {
     private String answer;
