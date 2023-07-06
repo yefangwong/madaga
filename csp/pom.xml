@@ -32,9 +32,10 @@
 		<springframework.security.version>5.8.3</springframework.security.version>
 		<spring-boot.version>2.7.12</spring-boot.version>
 		<logback.version>1.2.9</logback.version>
+		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
 		<okhttp.fixcve.1.version>4.10.0-CSP</okhttp.fixcve.1.version><!-- Fix CVE 2021-0341 -->
-        <okhttp.version>3.14.9</okhttp.version>
+        <okhttp.version>4.10.0</okhttp.version>
 		<csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>1.0-SNAPSHOT</csp-domain-jpa.version>
@@ -366,27 +367,37 @@
 			</dependency>
 			<!--	Fix CVE-2021-37533 End -->
 			<!-- Fix CVE-2021-42250 Begin -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-core</artifactId>
-				<version>${logback.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>slf4j-api</artifactId>
-						<groupId>org.slf4j</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>ch.qos.logback</groupId>-->
+<!--				<artifactId>logback-core</artifactId>-->
+<!--				<version>${logback.version}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>ch.qos.logback</groupId>-->
+<!--				<artifactId>logback-classic</artifactId>-->
+<!--				<version>${logback.version}</version>-->
+<!--				<exclusions>-->
+<!--					<exclusion>-->
+<!--						<artifactId>slf4j-api</artifactId>-->
+<!--						<groupId>org.slf4j</groupId>-->
+<!--					</exclusion>-->
+<!--				</exclusions>-->
+<!--			</dependency>-->
 			<!-- Fix CVE-2021-42250 End -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.15.1</version>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.easymock</groupId>
@@ -685,6 +696,11 @@
                     <!-- Fix CVE-2023-35116 End -->
                 </exclusions>
             </dependency>
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>5.8.20</version>
+			</dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>

@@ -1,7 +1,7 @@
 package com.dhf.hrsys.service;
 
+import com.dhf.system.chat.ChatResponse;
 import com.dhf.system.chat.Question;
-import com.dhf.system.chat.QuestionResponse;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 /**
@@ -25,5 +25,5 @@ public interface SseService {
      * 客户端發送訊息到服務端
      * @param chatRequest
      */
-    QuestionResponse sseChat(Question chatRequest) throws Exception;
+    ChatResponse sseChat(Question chatRequest) throws Exception;
 }

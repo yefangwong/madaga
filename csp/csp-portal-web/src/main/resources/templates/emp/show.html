@@ -62,7 +62,7 @@
                             contentType: 'application/json;charset=UTF-8',
                             dataType: 'json',
                             success: function (result) {
-                                self.mes = result.answer;
+                                self.mes = "tokens:"+result.question_tokens;
                             },
                             error: function() {
                                 console.error('Failed to send question:');
