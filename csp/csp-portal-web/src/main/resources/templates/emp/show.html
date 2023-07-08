@@ -19,11 +19,15 @@
             $('#export').on('click', function(){
                 doExportToXls();
             });
+            let questionData = {
+                id: 1,
+                text: '我想查詢公司財務部有沒有范小華小姐'
+            };
             let vue=new Vue({
                 el:"#container",
                 data:{
-                    mes:'你好',
-                    question:'',
+                    mes:'',
+                    question:questionData,
                     eventSource: null
                 },
                 created(){},
@@ -32,37 +36,30 @@
                         const source = new EventSource('/api/startSSE')
                         source.onmessage = (event) => {
                             console.log('event:', event.data);
-                            this.mes = event.data;
+                            //this.mes = event.data;
                         }
-                        // const headers = { 'Content-Type': 'text/event-stream' };
-                        // const url = '/api/startSSE?headers=' + encodeURIComponent(JSON.stringify(headers));
-                        //
-                        // this.eventSource = new EventSource(url);
-                        // this.eventSource.onmessage = (event) => {
-                        //     const response = JSON.parse(event.data);
-                        //     console.log('response:', response);
-                        // };
-                        //
-                        // this.eventSource.send(JSON.stringify({
-                        //     question: this.question
-                        // }));
                     },
                     send() {
                         //this.mes = "Hello";
                         this.startSSE();
-                        const question = {
-                            id: 1,
-                            text: 'What is your favorite color?',
+                        console.log('text:',this.question.text);
+                        let questionData = {
+                            id: 2,
+                            text: this.question.text+'，請提供一個SQL查詢語句'
+                            /*id: 2,
+                            text: '公司財務部=table:department + column:name, 范小華小姐=table:employee+column:gender，請提供一個SQL查詢語句'*/,
                         };
-                        var self = this;
+                        //TODO
+                        let self = this;
                         $.ajax({
                             type: 'post',
                             url: '/api/question',
-                            data: JSON.stringify(question),
+                            data: JSON.stringify(questionData),
                             contentType: 'application/json;charset=UTF-8',
                             dataType: 'json',
                             success: function (result) {
-                                self.mes = "tokens:"+result.question_tokens;
+                                //self.mes = "tokens:"+result.question_tokens;
+                                console.log("tokens:"+result.question_tokens);
                             },
                             error: function() {
                                 console.error('Failed to send question:');
@@ -153,7 +150,8 @@
                     <div v-text="mes"></div>
                     <div class="send-box">
                         <form action="">
-                            <input type="text" class="form-control" aria-label="message…" placeholder="輸入您想問的問題…">
+                            <input type="text" class="form-control" aria-label="message…"
+                                   v:model="question.text" :value="question.text" placeholder="輸入您想問的問題…">
                             <button type="button" v-on:click="send"><i class="fa fa-paper-plane" aria-hidden="true"></i> 送出</button>
                         </form>
                         <div class="send-btns">
