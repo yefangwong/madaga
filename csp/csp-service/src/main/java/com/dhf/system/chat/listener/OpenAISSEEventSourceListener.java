@@ -18,6 +18,7 @@ public class OpenAISSEEventSourceListener extends EventSourceListener
 
     private long tokens;
     private SseEmitter sseEmitter;
+
     public OpenAISSEEventSourceListener(SseEmitter sseEmitter) {
         this.sseEmitter = sseEmitter;
     }
@@ -30,32 +31,27 @@ public class OpenAISSEEventSourceListener extends EventSourceListener
     @SneakyThrows
     @Override
     public void onEvent(EventSource eventSource, String id, String type, String data) {
-        log.info("OpenAI返回數據：{}", data);
+        log.info("OpenAI返回數據---：{}", data);
         tokens += 1;
         if (data.equals("[DONE]")) {
             log.info("OpenAI返回數據結束了");
-            sseEmitter.send(SseEmitter.event()
-                    .id("[TOKENS]")
-                    .data("<br/><br/>tokens:" + tokens())
-                    .reconnectTime(3000));
-            sseEmitter.send(SseEmitter.event()
-                    .id("[DONE]")
-                    .data("[DONE]")
-                    .reconnectTime(3000));
+            sseEmitter.send(SseEmitter.event().id("[TOKENS]").data("<br/><br/>tokens:" + tokens()).reconnectTime(3000));
+            sseEmitter.send(SseEmitter.event().id("[DONE]").data("[DONE]").reconnectTime(3000));
             // 傳輸完成後自動關閉sse
             sseEmitter.complete();
-            ObjectMapper mapper = new ObjectMapper();
-            ChatCompletionResponse completionResponse = mapper.readValue(data, ChatCompletionResponse.class); // 讀取Json
-            try {
-                sseEmitter.send(SseEmitter.event()
+            return;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        ChatCompletionResponse completionResponse = mapper.readValue(data, ChatCompletionResponse.class); // 讀取Json
+        try {
+            sseEmitter.send(SseEmitter.event()
                         .id(completionResponse.getId())
                         .data(completionResponse.getChoices().get(0).getDelta())
                         .reconnectTime(3000));
-            } catch (Exception e) {
-                log.error("sse訊息推送失敗！");
-                eventSource.cancel();
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            log.error("sse訊息推送失敗！");
+            eventSource.cancel();
+            e.printStackTrace();
         }
     }
 
