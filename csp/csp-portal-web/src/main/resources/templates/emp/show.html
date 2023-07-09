@@ -7,6 +7,13 @@
 <head>
     <title>員工展示</title>
     <link rel="stylesheet" th:href="@{'../css/chatbox.css'}"/>
+    <style>
+        #loading-indicator {
+            display: none;
+            padding: 10px;
+            text-align: right;
+        }
+    </style>
     <script>
         $(function(){
             // init
@@ -33,23 +40,59 @@
                 created(){},
                 methods:{
                     startSSE() {
-                        const source = new EventSource('/api/startSSE')
+                        const source = new EventSource('/api/startSSE');
                         source.onmessage = (event) => {
-                            console.log('event:', event.data);
+                            if (event.data.indexOf("{")==0) {
+                                var data = JSON.parse(event.data);
+                                console.log('word:', data.content);
+                                this.hideLoadingIndicator();
+                                if (data.content==''){
+                                    $('.msg-body ul').last().append('<li class="repaly"><p>');
+                                } else {
+                                    $('.msg-body ul li.repaly').last().find('p').append(data.content);
+                                }
+                            } else if (event.data.indexOf("DONE")>0) {
+                                    console.log('end=======')
+                                    $('.msg-body ul li.repaly').last().append(
+                                        '<span class="time">剛剛</span>'+
+                                        '</li>'
+                                    );
+                            }
+                            this.scrollToBottom();
                             //this.mes = event.data;
                         }
+                    },
+                    showLoadingIndicator() {
+                        $('.msg-body ul').append('<li>\n' +
+                            '<div id="loading-indicator">' +
+                            '<img src="https://media.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif" style="width: 40px;" alt="Loading..." />'+
+                            '</div>'+
+                            '</li>');
+                        $(".msg-body ul li #loading-indicator").last().show();
+                        this.scrollToBottom();
+                    },
+                    hideLoadingIndicator() {
+                        $("div#loading-indicator").hide();
+                    },
+                    scrollToBottom() {
+                        $('#divChat .modal-body').animate({ scrollTop: $('#divChat .modal-body').prop("scrollHeight") }, 'fast');
                     },
                     send() {
                         //this.mes = "Hello";
                         this.startSSE();
                         console.log('text:',this.question.text);
+                        $('.msg-body ul').append('<li class="sender">\n' +
+                            '<p> '+this.question.text+' </p>\n' +
+                            '<span class="time">剛剛</span>\n' +
+                            '</li>');
                         let questionData = {
                             id: 2,
                             text: this.question.text+'，請提供一個SQL查詢語句'
                             /*id: 2,
                             text: '公司財務部=table:department + column:name, 范小華小姐=table:employee+column:gender，請提供一個SQL查詢語句'*/,
                         };
-                        //TODO
+                        //this.question.text='';
+                        this.showLoadingIndicator();
                         let self = this;
                         $.ajax({
                             type: 'post',
@@ -106,22 +149,6 @@
                     <div class="modal-body">
                         <div class="msg-body">
                             <ul>
-                                <li class="sender">
-                                    <p> Hey, Are you there? </p>
-                                    <span class="time">10:06 am</span>
-                                </li>
-                                <li class="sender">
-                                    <p> Hey, Are you there? </p>
-                                    <span class="time">10:16 am</span>
-                                </li>
-                                <li class="repaly">
-                                    <p>yes!</p>
-                                    <span class="time">10:20 am</span>
-                                </li>
-                                <li class="sender">
-                                    <p> Hey, Are you there? </p>
-                                    <span class="time">10:26 am</span>
-                                </li>
                                 <li class="sender">
                                     <p> Hey, Are you there? </p>
                                     <span class="time">10:32 am</span>
