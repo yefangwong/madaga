@@ -86,10 +86,17 @@
                             '<span class="time">剛剛</span>\n' +
                             '</li>');
                         let questionData = {
-                            id: 2,
-                            text: this.question.text+'，請提供一個SQL查詢語句'
-                            /*id: 2,
-                            text: '公司財務部=table:department + column:name, 范小華小姐=table:employee+column:gender，請提供一個SQL查詢語句'*/,
+                            // id: 2,
+                            // text: this.question.text+'，請提供一個SQL查詢語句'
+                            // id: 3,
+                            // text: '公司財務部=table:department + column:name, 范小華小姐=table:employee+column:name+gender，請提供一個SQL查詢語句',
+                            id: 4,
+                            text: '給定一個 MySQL SQL 表格, 並有下列屬性\n'+
+                                    'department(id,name,number)'+
+                                    'employee(id,age,gender,name,number,dep_id)'+
+                                    '\n'+
+                                    '撰寫一個 SQL 查詢語句獲得下列問題的答案： '+
+                                    this.question.text
                         };
                         //this.question.text='';
                         this.showLoadingIndicator();

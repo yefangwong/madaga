@@ -642,6 +642,21 @@
         </dependency>
         <!-- ChatGPT related End -->
 
+        <!-- Stanford CoreNLP -->
+        <!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>4.5.4</version>
+            <exclusions>
+                <!--<exclusion>-->
+                    <!--&lt;!&ndash; Fix CVE-2010-0538 &ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId></groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId></artifactId>&ndash;&gt;-->
+                <!--</exclusion>-->
+            </exclusions>
+        </dependency>
+
         <!-- Jackson: Spring MVC 預設使用 JSON 轉換套件 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
