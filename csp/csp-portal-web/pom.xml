@@ -649,11 +649,30 @@
             <artifactId>stanford-corenlp</artifactId>
             <version>4.5.4</version>
             <exclusions>
-                <!--<exclusion>-->
-                    <!--&lt;!&ndash; Fix CVE-2010-0538 &ndash;&gt;-->
-                    <!--&lt;!&ndash;<groupId></groupId>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<artifactId></artifactId>&ndash;&gt;-->
-                <!--</exclusion>-->
+                <exclusion>
+                    <!-- Fix CVE-2010-0538 Begin -->
+                    <groupId>com.apple</groupId>
+                    <artifactId>AppleJavaExtensions</artifactId>
+                    <!-- Fix CVE-2010-0538 End -->
+                </exclusion>
+                <exclusion>
+                    <!-- Fix CVE-2022-34169 Begin -->
+                    <groupId>xalan</groupId>
+                    <artifactId>serializer</artifactId>
+                    <!-- Fix CVE-2022-34169 End -->
+                </exclusion>
+                <exclusion>
+                    <!-- Fix CVE-2022-34169 Begin -->
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                    <!-- Fix CVE-2022-34169 End -->
+                </exclusion>
+                <exclusion>
+                    <!-- Fix CVE-2018-2799 Begin -->
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                    <!-- Fix CVE-2018-2799 End -->
+                </exclusion>
             </exclusions>
         </dependency>
 
