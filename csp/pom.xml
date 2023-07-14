@@ -234,6 +234,20 @@
                             <packaging>jar</packaging>
                         </configuration>
                     </execution>
+					<execution>
+						<id>install-Jieba4j-WordSegment-4</id>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${csp.basedir}/dependencies/jieba4j-tag-0.0.1-SNAPSHOT.jar</file>
+							<groupId>com.yhnlp</groupId>
+							<artifactId>jieba4j-tag</artifactId>
+							<version>0.0.1-SNAPSHOT-CSP</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
                 </executions>
             </plugin>
             <!-- Fix CVE-2023-35116 End -->

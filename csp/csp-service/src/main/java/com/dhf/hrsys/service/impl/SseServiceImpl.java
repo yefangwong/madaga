@@ -85,6 +85,7 @@ public class SseServiceImpl implements SseService {
             throw new Exception("参數異常，text不能為空~");
         }
         String prompt = Synthesizer.getInstance().synthesize(chatRequest.getText());
+        log.info("prompt:{}", prompt);
         chatRequest.setText(prompt);
         String messageContext = (String) localCache.get("msg1");
         List<Message> messages = new ArrayList<>();

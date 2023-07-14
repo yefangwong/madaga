@@ -60,6 +60,64 @@
 		</dependency>
         <!-- add ChatGPT Support End-->
 
+		<!-- Stanford CoreNLP -->
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>4.5.4</version>
+			<exclusions>
+				<exclusion>
+					<!-- Fix CVE-2010-0538 Begin -->
+					<groupId>com.apple</groupId>
+					<artifactId>AppleJavaExtensions</artifactId>
+					<!-- Fix CVE-2010-0538 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2022-34169 Begin -->
+					<groupId>xalan</groupId>
+					<artifactId>serializer</artifactId>
+					<!-- Fix CVE-2022-34169 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2022-34169 Begin -->
+					<groupId>xalan</groupId>
+					<artifactId>xalan</artifactId>
+					<!-- Fix CVE-2022-34169 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2018-2799 Begin -->
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+					<!-- Fix CVE-2018-2799 End -->
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+        <!-- Used by Ckip Begin -->
+		<!-- deprecated by yfwong for used jieba to do word segment-->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+        <!-- Used by Ckip End -->
+
+		<!-- jieba Begin -->
+<!--		<dependency>-->
+<!--			<groupId>com.huaban</groupId>-->
+<!--			<artifactId>jieba-analysis</artifactId>-->
+<!--			<version>1.0.2</version>-->
+<!--		</dependency>-->
+		<!-- 增加詞性標註功能 Begin -->
+		<dependency>
+			<groupId>com.yhnlp</groupId>
+			<artifactId>jieba4j-tag</artifactId>
+			<version>0.0.1-SNAPSHOT-CSP</version>
+		</dependency>
+		<!-- 增加詞性標註功能 End -->
+		<!-- jieba End -->
+
         <dependency>
 			<groupId>com.hongfang.csp</groupId>
 			<artifactId>csp-service-api</artifactId>

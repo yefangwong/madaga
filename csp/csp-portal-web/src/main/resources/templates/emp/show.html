@@ -91,12 +91,12 @@
                             // id: 3,
                             // text: '公司財務部=table:department + column:name, 范小華小姐=table:employee+column:name+gender，請提供一個SQL查詢語句',
                             id: 4,
-                            text: '給定一個 MySQL SQL 表格, 並有下列屬性\n'+
-                                    'department(id,name,number)'+
-                                    'employee(id,age,gender,name,number,dep_id)'+
-                                    '\n'+
-                                    '撰寫一個 SQL 查詢語句獲得下列問題的答案： '+
-                                    this.question.text
+                            text: '[question] '+
+                                    this.question.text+'[/question]'+
+                                   '，撰寫一個 MySQL SQL, 包含\n'+
+                                'table:department(id,name,number)'+
+                                'table:employee(id,age,gender,name,number,dep_id)'+
+                                '\n'
                         };
                         //this.question.text='';
                         this.showLoadingIndicator();
