@@ -19,8 +19,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

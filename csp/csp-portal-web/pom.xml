@@ -22,7 +22,7 @@
         <shiro.version>1.11.0</shiro.version><!-- CVE-2021-41303(9.8), CVE-2022-32532(9.8), CVE-2023-22602(7.5),
         CVE-2022-40664(9.8) -->
         <jwt.version>3.10.1</jwt.version>
-        <spring-boot.version>2.7.12</spring-boot.version>
+        <spring-boot.version>3.1.1</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <jackson.version>2.16.0-SNAPSHOT</jackson.version><!-- Fix
         CVE-2023-35116 -->
@@ -90,50 +90,58 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5), CVE-2022-41854(6.5),
-            CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin -->
             <exclusions>
+                <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5), CVE-2022-41854(6.5),
+                CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin -->
                 <exclusion>
                     <groupId>org.yaml</groupId>
                     <artifactId>snakeyaml</artifactId>
                 </exclusion>
+                <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
+                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5),
+                CVE-2022-1471(9.8) End -->
             </exclusions>
-            <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
-            CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5),
-            CVE-2022-1471(9.8) End -->
         </dependency>
+        <!-- @deprecated for Thymeleaf -->
+        <!-- @date 2023/07/20 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--            <exclusions>-->
+<!--                &lt;!&ndash; Fix CVE-2020-10693(5.3) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.hibernate.validator</groupId>-->
+<!--                    <artifactId>hibernate-validator</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2020-10693(5.3) End &ndash;&gt;-->
+<!--                &lt;!&ndash; Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),-->
+<!--                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.yaml</groupId>-->
+<!--                    <artifactId>snakeyaml</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),-->
+<!--                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) End &ndash;&gt;-->
+<!--                &lt;!&ndash; Fix CVE-2022-27772(7.8) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2022-27772(7.8) End &ndash;&gt;-->
+<!--                &lt;!&ndash; Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin &ndash;&gt;-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-autoconfigure</artifactId>-->
+<!--                </exclusion>-->
+<!--                &lt;!&ndash; Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End &ndash;&gt;-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+        <!-- Logging for SpringBoot 3 Begin -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <!-- Fix CVE-2020-10693(5.3) Begin -->
-                <exclusion>
-                    <groupId>org.hibernate.validator</groupId>
-                    <artifactId>hibernate-validator</artifactId>
-                </exclusion>
-                <!-- Fix CVE-2020-10693(5.3) End -->
-                <!-- Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
-                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) Begin -->
-                <exclusion>
-                    <groupId>org.yaml</groupId>
-                    <artifactId>snakeyaml</artifactId>
-                </exclusion>
-                <!-- Fix CVE-2017-18640(7.5), CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
-                CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5), CVE-2022-1471(9.8) End -->
-                <!-- Fix CVE-2022-27772(7.8) Begin -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot</artifactId>
-                </exclusion>
-                <!-- Fix CVE-2022-27772(7.8) End -->
-                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) Begin -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-autoconfigure</artifactId>
-                </exclusion>
-                <!-- Fix CVE-2023-20883(7.5), CVE-2022-27772(7.8) End -->
-            </exclusions>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
+        <!-- Logging for SpringBoot 3 End -->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -226,8 +234,25 @@
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
                 </exclusion>
+                <!-- Fix CVE-2023-38286 Begin -->
+                <exclusion>
+                    <groupId>org.thymeleaf</groupId>
+                    <artifactId>thymeleaf-spring5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.thymeleaf</groupId>
+                    <artifactId>thymeleaf-spring6</artifactId>
+                </exclusion>
+                <!-- Fix CVE-2023-38286 End -->
             </exclusions>
         </dependency>
+        <!-- Fix CVE-2023-38286 Begin -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        <!-- Fix CVE-2023-38286 End -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -337,6 +362,11 @@
                     <artifactId>reactory-netty-http</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
@@ -591,17 +621,21 @@
             <version>1.4</version>
         </dependency>
 
+        <!-- @deprecated for SpringBoot3 myBatis starter Begin -->
+        <!-- @date 2023/07/20 -->
         <!-- MyBatis -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis</groupId>-->
+<!--            <artifactId>mybatis</artifactId>-->
+<!--        </dependency>-->
         <!-- MyBatis 與 Spring 整合 -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>2.0.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis</groupId>-->
+<!--            <artifactId>mybatis-spring</artifactId>-->
+<!--            <version>2.0.3</version>-->
+<!--        </dependency>-->
+        <!-- @deprecated for SpringBoot3 myBatis starter End -->
+
         <!-- SQLite Driver -->
         <dependency>
             <groupId>org.xerial</groupId>
@@ -728,12 +762,6 @@
         <dependency>
             <groupId>com.hongfang.csp</groupId>
             <artifactId>csp-service-api</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-nop</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- add Madaga CSP Software Framework Begin -->
         <dependency>

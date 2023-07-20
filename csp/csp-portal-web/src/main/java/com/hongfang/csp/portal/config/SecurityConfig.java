@@ -16,25 +16,55 @@
 
 package com.hongfang.csp.portal.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.anonymous();
-        //http.authorizeHttpRequests().anyRequest().authenticated().and()
-        //.formLogin().loginPage("/auth/signUp").permitAll().and().logout().permitAll();
-    }
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/emp/export",
-            "/api/question");
-
+@EnableMethodSecurity
+public class SecurityConfig {
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.anonymous();
+//        //http.authorizeHttpRequests().anyRequest().authenticated().and()
+//        //.formLogin().loginPage("/auth/signUp").permitAll().and().logout().permitAll();
+//    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/emp/export",
+//            "/api/question");
+//
+//    }
+    /*@Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/emp/export", "/api/question");
+    }*/
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+        .csrf(crsf -> crsf.disable())
+        // giving permission to every request for /login endpoint
+        .authorizeRequests(auth -> {
+            try {
+                //auth.requestMatchers("/auth/signUp").permitAll()
+                auth.anyRequest().permitAll()
+            // for everything else, the user has to be authenticated
+            // setting stateless session, because we choose to implement Rest API
+            .and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        // adding the custom filter before UsernamePasswordAuthenticationFilter in the filter chain
+        //http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 }
