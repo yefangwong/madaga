@@ -26,15 +26,14 @@
             $('#export').on('click', function(){
                 doExportToXls();
             });
-            let questionData = {
-                id: 1,
-                text: '我想查詢公司財務部有沒有范小華小姐'
-            };
             let vue=new Vue({
                 el:"#container",
                 data:{
                     mes:'',
-                    question:questionData,
+                    question:{
+                        id: 1,
+                        text: '我想查詢公司財務部有沒有范小華小姐'
+                    },
                     eventSource: null
                 },
                 created(){},
@@ -49,7 +48,10 @@
                                 if (data.content==''){
                                     $('.msg-body ul').last().append('<li class="repaly"><p>');
                                 } else {
-                                    $('.msg-body ul li.repaly').last().find('p').append(data.content);
+                                    if (data.content !== undefined) {
+                                        let word = data.content.replace("\n", ' ');
+                                        $('.msg-body ul li.repaly').last().find('p').append(word);
+                                    }
                                 }
                             } else if (event.data.indexOf("DONE")>0) {
                                     console.log('end=======')
@@ -110,6 +112,10 @@
                             success: function (result) {
                                 //self.mes = "tokens:"+result.question_tokens;
                                 console.log("tokens:"+result.question_tokens);
+                                self.question = {
+                                    id:-1,
+                                    text:''
+                                };
                             },
                             error: function() {
                                 console.error('Failed to send question:');
@@ -185,8 +191,9 @@
                     <div class="send-box">
                         <form action="">
                             <input type="text" class="form-control" aria-label="message…"
-                                   v:model="question.text" :value="question.text" placeholder="輸入您想問的問題…">
-                            <button type="button" v-on:click="send"><i class="fa fa-paper-plane" aria-hidden="true"></i> 送出</button>
+                                   v-model="question.text" placeholder="輸入您想問的問題…">
+                            <button type="button" v-on:click="send">
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i> 送出</button>
                         </form>
                         <div class="send-btns">
                             <div class="attach">
