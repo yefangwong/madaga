@@ -16,8 +16,13 @@
 
 package com.hongfang.csp.portal.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,6 +30,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -43,25 +51,23 @@ public class SecurityConfig {
 //            "/api/question");
 //
 //    }
-    /*@Bean
+    @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/emp/export", "/api/question");
-    }*/
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-        .csrf(crsf -> crsf.disable())
+        http.anonymous(Customizer.withDefaults())
+            //.formLogin(form -> form.loginPage("/login").permitAll())
+            //.httpBasic(Customizer.withDefaults())
+            //.csrf(crsf -> crsf.disable())
         // giving permission to every request for /login endpoint
-        .authorizeRequests(auth -> {
-            try {
+            .authorizeHttpRequests(auth -> {
                 //auth.requestMatchers("/auth/signUp").permitAll()
-                auth.anyRequest().permitAll()
+                auth.requestMatchers("/**").permitAll();
             // for everything else, the user has to be authenticated
             // setting stateless session, because we choose to implement Rest API
-            .and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            //.and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         });
         // adding the custom filter before UsernamePasswordAuthenticationFilter in the filter chain
         //http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

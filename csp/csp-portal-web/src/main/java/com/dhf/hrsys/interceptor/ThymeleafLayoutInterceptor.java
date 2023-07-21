@@ -17,14 +17,14 @@
 package com.dhf.hrsys.interceptor;
 
 import com.dhf.hrsys.annotation.Layout;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
@@ -52,7 +52,6 @@ public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
         if (modelAndView == null || !modelAndView.hasView()) {
             return;
         }
-
         String originalViewName = modelAndView.getViewName();
         if (isRedirectOrForward(originalViewName)) {
             return;
