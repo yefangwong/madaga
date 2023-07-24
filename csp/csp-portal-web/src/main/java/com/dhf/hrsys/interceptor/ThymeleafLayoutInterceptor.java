@@ -17,8 +17,11 @@
 package com.dhf.hrsys.interceptor;
 
 import com.dhf.hrsys.annotation.Layout;
+import com.dhf.hrsys.service.impl.SseServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -28,7 +31,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
-    private static final String DEFAULT_LAYOUT = "layout/default";
+    private static final Logger log = LoggerFactory.getLogger(ThymeleafLayoutInterceptor.class);
+
+    private static final String DEFAULT_LAYOUT = "default";
     private static final String DEFAULT_VIEW_ATTRIBUTE_NAME = "view";
 
     private String defaultLayout = DEFAULT_LAYOUT;
@@ -60,7 +65,7 @@ public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
         if (Layout.none.equals(layoutName)) {
             return;
         }
-        modelAndView.setViewName(layoutName);
+        modelAndView.setViewName("layout/" + layoutName);
         modelAndView.addObject(this.viewAttributeName, originalViewName);
     }
 

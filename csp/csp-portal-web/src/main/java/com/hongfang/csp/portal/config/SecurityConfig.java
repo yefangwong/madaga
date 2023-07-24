@@ -53,7 +53,9 @@ public class SecurityConfig {
 //    }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/emp/export", "/api/question");
+        return (web) -> web.ignoring().requestMatchers(
+            "/emp/export",
+            "/api/question");
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
