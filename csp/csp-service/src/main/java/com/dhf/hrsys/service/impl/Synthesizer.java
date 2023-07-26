@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -29,7 +28,12 @@ public class Synthesizer {
     }
 
     public String synthesize(String text) {
-        return (genderPrompt(namePrompt(text)));
+        return instruct((genderPrompt(namePrompt(text))));
+    }
+
+    private String instruct(String str) {
+        return str + "\n" + "只要輸出SQL，不要加上說明，查詢條件的姓名第二個字要用Ｘ取代，" + "\n" +
+            "查詢條件的姓名不要有_";
     }
 
     private String namePrompt(String text) {
@@ -48,10 +52,27 @@ public class Synthesizer {
                 String NER = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
                 log.info(NER);
                 if (StringUtils.equals(NER, "PERSON"))
-                    text = text + ",姓名：" + token.value();
+                    text = text + ",例如：姓名為" + mask(token.value());
             }
         }
         return text;
+    }
+
+    private String mask(String name) {
+        if (name == null || name.isEmpty()) {
+            return "";
+        }
+        log.info("mask name:{}", name);
+        StringBuilder sb = new StringBuilder();
+        char[] cc = name.toCharArray();
+        for (int i = 0; i < cc.length; i++) {
+            if (i == 1) {
+                sb.append("Ｘ");
+            } else {
+                sb.append(cc[i]);
+            }
+        }
+        return sb.toString();
     }
 
     private String genderPrompt(String text) {
@@ -59,9 +80,9 @@ public class Synthesizer {
         jiebaService.setRawText(text);
         for(Term t : jiebaService.getTerm()) {
             if(";先生;Mr.;".contains(t.getTerm())) {
-                text = text + ",性別：男";
+                text = text + ",gender(性別)=男";
             } else if (";小姐;Miss;".contains(t.getTerm())) {
-                text = text + ",性別：女";
+                text = text + ",gender(性別)=女";
             }
         }
         return text;

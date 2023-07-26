@@ -32,7 +32,7 @@
                     mes:'',
                     question:{
                         id: 1,
-                        text: '我想查詢公司財務部有沒有吳Ｘ瑄小姐'
+                        text: '我想查詢公司財務部有沒有吳華瑄小姐'
                     },
                     eventSource: null
                 },
@@ -104,7 +104,8 @@
                                     this.question.text+'[/question]'+
                                    '，撰寫一個 MySQL SQL, 包含\n'+
                                 'table:department(id,name,number)'+
-                                'table:employee(id,age,gender,name,number,dep_id)，只要輸出SQL就好'+
+                                'table:employee(id,age,gender,name,number,dep_id)，'+
+                                '輸出number(員工編號)、emp_name(員工姓名)、dep_name(部門名稱)\n'+
                                 '\n'
                         };
                         //this.question.text='';
@@ -150,20 +151,20 @@
                         $('.msg-body ul').last().append('<li class="reply"><p>');
                         let hint = '';
                         if (result.length>0){
-                            hint = '好的，以下是我們查詢到關於'+result[0].name+'的資料</br>';
+                            hint = '好的，以下是我們查詢到關於'+result[0].emp_name+'的資料</br>';
                             let tableResult = '<table class="tableResult"><tr><td>員工編號</td><td>員工姓名</td><td>部門</td></tr>';
                             let emp = '';
                             for (let i=0; i<result.length; i++){
                                 emp = result[i];
                                 tableResult+=('<tr><td>'+emp.number+'</td><td>'+
-                                emp.name+'</td><td>'+emp.name+'</td></tr>');
+                                emp.emp_name+'</td><td>'+emp.dep_name+'</td></tr>');
                             }
                             tableResult+='</table>';
                             $('.msg-body ul li.reply').last().find('p')
                                 .append(hint)
                                 .append(tableResult);
                         } else {
-                            hint = '<br/>很抱歉耶～我們沒有查不到資料@@';
+                            hint = '很抱歉耶～我們查不到資料@@';
                             $('.msg-body ul li.reply').last().find('p')
                                 .append(hint)
                         }
