@@ -5,7 +5,7 @@
 <mapper namespace="SQL">
     <!-- 根據 SQL 查詢結果 -->
     <!-- @param SQLAdapter 包含要查詢的 sql-->
-    <select id="SQL1" resultType="hashmap">
-        SELECT * FROM employee INNER JOIN department ON employee.dep_id = department.id WHERE employee.name = '吳Ｘ瑄' AND employee.gender = '女' AND department.name = '財務部'
+    <select id="SQL1" parameterType="sqlAdapter" resultType="hashmap">
+        ${sql}
     </select>
 </mapper>

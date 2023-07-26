@@ -45,25 +45,25 @@
                             console.log(event.data.indexOf("UUID"));
                             if (event.data.indexOf("{")==0) {
                                 let data = JSON.parse(event.data);
-                                console.log('word:', data.content);
-                                this.hideLoadingIndicator();
+                                //console.log('word:', data.content);
+                                //this.hideLoadingIndicator();
                                 if (data.content==''){
-                                    $('.msg-body ul').last().append('<li class="reply"><p>');
+                                    //$('.msg-body ul').last().append('<li class="reply"><p>');
                                 } else {
                                     if (data.content !== undefined) {
-                                        let word = data.content.replace("\n", ' ');
-                                        $('.msg-body ul li.reply').last().find('p').append(word);
+                                        //let word = data.content.replace("\n", ' ');
+                                        //$('.msg-body ul li.reply').last().find('p').append(word);
                                     } else if (data.UUID !== undefined) {
                                         this.doQueryBySQL(data.UUID);
                                     }
                                 }
                             } else if (event.data.indexOf("DONE")>0) {
-                                let sql = $('li.reply').last().find('p').html();
-                                console.log('end=======:', sql);
-                                $('.msg-body ul li.reply').last().append(
-                                    '<span class="time">剛剛</span>'+
-                                    '</li>'
-                                );
+                                //let sql = $('li.reply').last().find('p').html();
+                                //console.log('end=======:', sql);
+                                // $('.msg-body ul li.reply').last().append(
+                                //     '<span class="time">剛剛</span>'+
+                                //     '</li>'
+                                // );
                             }
                             this.scrollToBottom();
                             //this.mes = event.data;
@@ -131,6 +131,7 @@
                     doQueryBySQL(uuid){
                         let actionURI = '/sql/query';
                         let params = '/'+uuid;
+                        let self = this;
                         $.ajax({
                             type: 'get',
                             url: actionURI+params,
@@ -138,14 +139,38 @@
                             dataType: 'json',
                             success: function (result) {
                                 console.log("JSON:"+result);
-                                /*self.question = {
-                                    id:-1,
-                                    text:''
-                                };*/
+                                self.renderQueryResult(result);
                             },
                             error: function() {
                                 console.error('Failed to send sql:');
                             }});
+                    },
+                    renderQueryResult(result){
+                        this.hideLoadingIndicator();
+                        $('.msg-body ul').last().append('<li class="reply"><p>');
+                        let hint = '';
+                        if (result.length>0){
+                            hint = '好的，以下是我們查詢到關於'+result[0].name+'的資料</br>';
+                            let tableResult = '<table class="tableResult"><tr><td>員工編號</td><td>員工姓名</td><td>部門</td></tr>';
+                            let emp = '';
+                            for (let i=0; i<result.length; i++){
+                                emp = result[i];
+                                tableResult+=('<tr><td>'+emp.number+'</td><td>'+
+                                emp.name+'</td><td>'+emp.name+'</td></tr>');
+                            }
+                            tableResult+='</table>';
+                            $('.msg-body ul li.reply').last().find('p')
+                                .append(hint)
+                                .append(tableResult);
+                        } else {
+                            hint = '<br/>很抱歉耶～我們沒有查不到資料@@';
+                            $('.msg-body ul li.reply').last().find('p')
+                                .append(hint)
+                        }
+                        $('.msg-body ul li.reply').last().append(
+                             '<span class="time">剛剛</span>'+
+                             '</li>'
+                         );
                     },
                     closeConnection() {
                         // Close the SSE connection

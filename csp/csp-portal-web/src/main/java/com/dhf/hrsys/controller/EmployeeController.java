@@ -48,7 +48,7 @@ public class EmployeeController {
        ModelAndView mv = new ModelAndView("emp/show");
        Condition condition = new Condition();
        List<HashMap> list = getEmployeeList(condition);
-       log.info("emp size:{}", list.size());
+       log.debug("emp size:{}", list.size());
        List<Department> depList = new ArrayList<Department>();
        mv.addObject("c", condition);
        mv.addObject("list", list);
