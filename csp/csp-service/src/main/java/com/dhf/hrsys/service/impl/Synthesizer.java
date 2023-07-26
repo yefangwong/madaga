@@ -28,12 +28,11 @@ public class Synthesizer {
     }
 
     public String synthesize(String text) {
-        return instruct((genderPrompt(namePrompt(text))));
+        return (namePrompt(genderPrompt(instruct(text))));
     }
 
     private String instruct(String str) {
-        return str + "\n" + "只要輸出SQL，不要加上說明，查詢條件的姓名第二個字要用Ｘ取代，" + "\n" +
-            "查詢條件的姓名不要有_";
+        return str + "\n" + "只要輸出SQL，不要加上說明";
     }
 
     private String namePrompt(String text) {
@@ -52,7 +51,7 @@ public class Synthesizer {
                 String NER = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
                 log.info(NER);
                 if (StringUtils.equals(NER, "PERSON"))
-                    text = text + ",例如：姓名為" + mask(token.value());
+                    text = text + ",例如：員工姓名為(e.name)" + mask(token.value());
             }
         }
         return text;
