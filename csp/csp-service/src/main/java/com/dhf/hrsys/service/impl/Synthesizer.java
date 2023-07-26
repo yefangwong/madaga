@@ -28,11 +28,16 @@ public class Synthesizer {
     }
 
     public String synthesize(String text) {
-        return (namePrompt(genderPrompt(instruct(text))));
+        return (namePrompt(genderPrompt(instructPrompt(text))));
     }
 
-    private String instruct(String str) {
-        return str + "\n" + "只要輸出SQL，不要加上說明";
+    private String instructPrompt(String str) {
+        return str +
+            "，撰寫一個 MySQL SQL, 包含\n" +
+            "table:department(id,name,number)(部門id,員工姓名,部門編號)"+
+            "table:employee(id,age,gender,name,number,dep_id)(id,年齡,員工姓名,員工編號,部門id)，"+
+            "輸出number、emp_name、dep_name\n"+
+            "只要輸出SQL，不要加上說明\n";
     }
 
     private String namePrompt(String text) {
@@ -51,7 +56,7 @@ public class Synthesizer {
                 String NER = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
                 log.info(NER);
                 if (StringUtils.equals(NER, "PERSON"))
-                    text = text + ",例如：員工姓名為(e.name)" + mask(token.value());
+                    text = text + ",員工姓名為(e.name)" + mask(token.value());
             }
         }
         return text;

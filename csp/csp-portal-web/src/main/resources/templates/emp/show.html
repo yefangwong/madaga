@@ -73,12 +73,7 @@
                         let questionData = {
                             id: 4,
                             text: '[question] '+
-                                    this.question.text+'[/question]'+
-                                   '，撰寫一個 MySQL SQL, 包含\n'+
-                                'table:department(id,name,number)'+
-                                'table:employee(id,age,gender,name,number,dep_id)，'+
-                                '輸出number(員工編號)、emp_name(員工姓名)、dep_name(部門名稱)\n'+
-                                '\n'
+                                    this.question.text+'[/question]'
                         };
                         this.showLoadingIndicator();
                         let self = this;
@@ -224,7 +219,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                     </div>
                 </div>
             </div>
