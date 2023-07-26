@@ -5,6 +5,7 @@ import com.dhf.hrsys.service.SseService;
 import com.dhf.system.chat.ChatResponse;
 import com.dhf.system.chat.Question;
 import com.dhf.system.chat.listener.OpenAISSEEventSourceListener;
+import com.hongfang.csp.system.service.impl.LocalCacheService;
 import com.unfbx.chatgpt.OpenAiStreamClient;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.Message;
@@ -29,11 +30,9 @@ public class SseServiceImpl implements SseService {
     private static final Logger log = LoggerFactory.getLogger(SseServiceImpl.class);
 
     private final OpenAiStreamClient openAiStreamClient;
-
     public SseServiceImpl(OpenAiStreamClient openAiStreamClient) {
         this.openAiStreamClient = openAiStreamClient;
     }
-    private HashMap localCache = new HashMap();
 
     @Override public SseEmitter createSse() {
         //預設逾時為30秒,設定為0L表示不超時
@@ -66,16 +65,16 @@ public class SseServiceImpl implements SseService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        localCache.put("1", sseEmitter);
+        LocalCacheService.putCache("1", sseEmitter);
         log.info("[{}]建立sse连接成功！");
         return sseEmitter;    }
 
     @Override public void closeSse() {
-        SseEmitter sse = (SseEmitter) localCache.get("1");
+        SseEmitter sse = (SseEmitter) LocalCacheService.cache.get("1");
         if (sse != null) {
             sse.complete();
             //移除
-            localCache.remove("1");
+            LocalCacheService.cache.remove("1");
         }
     }
 
@@ -88,7 +87,7 @@ public class SseServiceImpl implements SseService {
         log.info("prompt:{}", prompt);
         chatRequest.setText(prompt);
         //chatRequest.setText(chatRequest.getText());
-        String messageContext = (String) localCache.get("msg1");
+        String messageContext = (String) LocalCacheService.cache.get("msg1");
         List<Message> messages = new ArrayList<>();
         if (StringUtils.isNotBlank(messageContext)) {
             messages = JSONUtil.toList(messageContext, Message.class);
@@ -103,7 +102,7 @@ public class SseServiceImpl implements SseService {
             messages.add(currentMessage);
         }
 
-        SseEmitter sseEmitter = (SseEmitter) localCache.get("1");
+        SseEmitter sseEmitter = (SseEmitter) LocalCacheService.cache.get("1");
 
         if (sseEmitter == null) {
             log.info("聊天訊息推送失敗,没有建立連接，請重試。");
@@ -116,7 +115,7 @@ public class SseServiceImpl implements SseService {
             .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
             .build();
         openAiStreamClient.streamChatCompletion(completion, openAIEventSourceListener);
-        localCache.put("msg1", JSONUtil.toJsonStr(messages));
+        LocalCacheService.putCache("msg1", JSONUtil.toJsonStr(messages));
         ChatResponse response = new ChatResponse();
         response.setQuestionTokens(completion.tokens());
         return response;

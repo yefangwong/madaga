@@ -6,6 +6,7 @@ import com.dhf.hrsys.service.GeneralDAOServiceFacade;
 import com.dhf.util.JXLExcelBuilder;
 import com.hongfang.csp.system.entity.Department;
 import com.hongfang.csp.system.entity.Employee;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("emp")
+@Slf4j
 public class EmployeeController {
-
-    @Autowired GeneralDAOServiceFacade serviceFacade;
-
+    final GeneralDAOServiceFacade serviceFacade;
     private static List<Department> depList = new ArrayList<Department>();
 
     static {
@@ -39,11 +39,16 @@ public class EmployeeController {
         depList.add(dep);
     }
 
+    public EmployeeController(GeneralDAOServiceFacade serviceFacade) {
+        this.serviceFacade = serviceFacade;
+    }
+
     @RequestMapping("search")
     public ModelAndView search() throws Exception {
        ModelAndView mv = new ModelAndView("emp/show");
        Condition condition = new Condition();
        List<HashMap> list = getEmployeeList(condition);
+       log.info("emp size:{}", list.size());
        List<Department> depList = new ArrayList<Department>();
        mv.addObject("c", condition);
        mv.addObject("list", list);
@@ -85,23 +90,6 @@ public class EmployeeController {
     }
 
     private List<HashMap> getEmployeeList(Condition condition) throws Exception {
-//        List<Employee> list = new ArrayList<Employee>();
-//        Employee e = new Employee();
-//        e.setId(1);
-//        e.setNumber(10001);
-//        e.setName("翁Ｘ芳");
-//        e.setAge(18);
-//        e.setGender("男");
-//        e.setDep(depList.get(0));
-//        list.add(e);
-//        e = new Employee();
-//        e.setId(2);
-//        e.setNumber(10002);
-//        e.setName("劉Ｘ華");
-//        e.setAge(18);
-//        e.setGender("女");
-//        e.setDep(depList.get(1));
-//        list.add(e);
         return serviceFacade.queryForList("CUST_EMPLOYEE.SQL1");
     }
 

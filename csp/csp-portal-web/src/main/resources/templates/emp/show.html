@@ -32,7 +32,7 @@
                     mes:'',
                     question:{
                         id: 1,
-                        text: '我想查詢公司財務部有沒有范小華小姐'
+                        text: '我想查詢公司財務部有沒有吳Ｘ瑄小姐'
                     },
                     eventSource: null
                 },
@@ -41,24 +41,29 @@
                     startSSE() {
                         const source = new EventSource('/api/startSSE');
                         source.onmessage = (event) => {
+                            console.log(event.data);
+                            console.log(event.data.indexOf("UUID"));
                             if (event.data.indexOf("{")==0) {
-                                var data = JSON.parse(event.data);
+                                let data = JSON.parse(event.data);
                                 console.log('word:', data.content);
                                 this.hideLoadingIndicator();
                                 if (data.content==''){
-                                    $('.msg-body ul').last().append('<li class="repaly"><p>');
+                                    $('.msg-body ul').last().append('<li class="reply"><p>');
                                 } else {
                                     if (data.content !== undefined) {
                                         let word = data.content.replace("\n", ' ');
-                                        $('.msg-body ul li.repaly').last().find('p').append(word);
+                                        $('.msg-body ul li.reply').last().find('p').append(word);
+                                    } else if (data.UUID !== undefined) {
+                                        this.doQueryBySQL(data.UUID);
                                     }
                                 }
                             } else if (event.data.indexOf("DONE")>0) {
-                                    console.log('end=======')
-                                    $('.msg-body ul li.repaly').last().append(
-                                        '<span class="time">剛剛</span>'+
-                                        '</li>'
-                                    );
+                                let sql = $('li.reply').last().find('p').html();
+                                console.log('end=======:', sql);
+                                $('.msg-body ul li.reply').last().append(
+                                    '<span class="time">剛剛</span>'+
+                                    '</li>'
+                                );
                             }
                             this.scrollToBottom();
                             //this.mes = event.data;
@@ -123,6 +128,25 @@
                                 console.error('Failed to send question:');
                             }});
                     },
+                    doQueryBySQL(uuid){
+                        let actionURI = '/sql/query';
+                        let params = '/'+uuid;
+                        $.ajax({
+                            type: 'get',
+                            url: actionURI+params,
+                            contentType: 'application/json;charset=UTF-8',
+                            dataType: 'json',
+                            success: function (result) {
+                                console.log("JSON:"+result);
+                                /*self.question = {
+                                    id:-1,
+                                    text:''
+                                };*/
+                            },
+                            error: function() {
+                                console.error('Failed to send sql:');
+                            }});
+                    },
                     closeConnection() {
                         // Close the SSE connection
                         if (this.eventSource) {
@@ -142,8 +166,8 @@
         }
         // 匯出 Excel
         function doExportToXls() {
-            var actionURI = '/emp/export';
-            var params = '&a=1';
+            let actionURI = '/emp/export';
+            let params = '&a=1';
             csp.toPostSubmit(actionURI + params);
         }
     </script>
@@ -168,7 +192,7 @@
                                     <p> Hey, Are you there? </p>
                                     <span class="time">10:32 am</span>
                                 </li>
-                                <li class="repaly">
+                                <li class="reply">
                                     <p>How are you?</p>
                                     <span class="time">10:35 am</span>
                                 </li>
@@ -178,11 +202,11 @@
                                     </div>
                                 </li>
 
-                                <li class="repaly">
+                                <li class="reply">
                                     <p> yes, tell me</p>
                                     <span class="time">10:36 am</span>
                                 </li>
-                                <li class="repaly">
+                                <li class="reply">
                                     <p>yes... on it</p>
                                     <span class="time">剛剛</span>
                                 </li>
