@@ -46,6 +46,5 @@ public class SqlController extends BaseController {
     private String processForMyBatis(String s) {
         s = s.replace(";", "");// MyBatis 查詢不要 ;
         return s;
-        //return "SELECT * FROM employee INNER JOIN department ON employee.dep_id = department.id WHERE employee.name LIKE '%吳Ｘ瑄%' AND employee.gender = '女' AND department.name = '財務部'";
     }
 }

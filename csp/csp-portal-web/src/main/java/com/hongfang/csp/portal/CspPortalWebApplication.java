@@ -45,8 +45,8 @@ public class CspPortalWebApplication {
 		//
 		//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 7890));
 		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new OpenAILogger());
-		//!!!!!!测试或者发布到服务器千万不要配置Level == BODY!!!!
-		//!!!!!!测试或者发布到服务器千万不要配置Level == BODY!!!!
+		//!!!!!!測試或者發布到伺服器千万不要配置Level == BODY!!!!
+		//!!!!!!測試或者發布到伺服器千万不要配置Level == BODY!!!!
 		httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
 		OkHttpClient okHttpClient = new OkHttpClient
 			.Builder()

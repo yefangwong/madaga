@@ -7,7 +7,7 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed chat in writing, software
+ * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -39,18 +39,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.anonymous();
-//        //http.authorizeHttpRequests().anyRequest().authenticated().and()
-//        //.formLogin().loginPage("/auth/signUp").permitAll().and().logout().permitAll();
-//    }
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/emp/export",
-//            "/api/question");
-//
-//    }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
@@ -63,7 +51,7 @@ public class SecurityConfig {
             //.formLogin(form -> form.loginPage("/login").permitAll())
             //.httpBasic(Customizer.withDefaults())
             //.csrf(crsf -> crsf.disable())
-        // giving permission to every request for /login endpoint
+            // giving permission to every request for /login endpoint
             .authorizeHttpRequests(auth -> {
                 //auth.requestMatchers("/auth/signUp").permitAll()
                 auth.requestMatchers("/**").permitAll();
