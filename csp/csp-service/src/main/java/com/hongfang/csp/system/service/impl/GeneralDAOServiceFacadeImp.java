@@ -45,7 +45,7 @@ public class GeneralDAOServiceFacadeImp implements GeneralDAOServiceFacade {
     }
 
     @Override public Object queryForObject(String statementId, Object parameterObject) throws Exception {
-        return generalDAO.queryForList(statementId, parameterObject);
+        return null;
     }
 
     @Override public List queryForList(String statementId) throws Exception {
@@ -53,6 +53,6 @@ public class GeneralDAOServiceFacadeImp implements GeneralDAOServiceFacade {
     }
 
     @Override public List queryForList(String statementId, Object parameterObject) throws Exception {
-        return null;
+        return generalDAO.queryForList(statementId, parameterObject);
     }
 }

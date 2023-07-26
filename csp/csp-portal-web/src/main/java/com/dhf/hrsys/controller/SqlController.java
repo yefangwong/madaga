@@ -38,7 +38,7 @@ public class SqlController extends BaseController {
         String sql = processForMyBatis((String)LocalCacheService.cache.get(uuid));
         log.info("sql from cache:\n{}", sql);
         SQLAdapter sqlAdapter = new SQLAdapter(sql);
-        List<HashMap> resultList = serviceFacade.queryForList("SQL.SQL1");
+        List<HashMap> resultList = serviceFacade.queryForList("SQL.SQL1", sqlAdapter);
         log.info("result.size:{}", resultList==null?0:resultList.size());
         return resultList==null? Collections.emptyList() : resultList;
     }
