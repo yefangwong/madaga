@@ -59,7 +59,7 @@ public class ClientHandler implements Runnable {
                         for (ClientHandler clientHandler : clients) {
                             if (clientHandler.id != null && clientHandler.id.contains("SERVICE")) {
                                 //mediator.relay(MediatorType.SERVICE, relayMessage);
-                                clientHandler.out.writeUTF("[SERVER] relay message chat client: " + relayMessage + "\n");
+                                clientHandler.out.writeUTF("[SERVER] relay message to client: " + relayMessage + "\n");
                             }
                         }
                     }
