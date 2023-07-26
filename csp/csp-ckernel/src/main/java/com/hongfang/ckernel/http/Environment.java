@@ -38,7 +38,7 @@ public class Environment {
 	public final String siteName;
 
 	/**
-	 * Timeout value, in milliseconds, chat be used when trying chat conect chat the
+	 * Timeout value, in milliseconds, to be used when trying to conect to the
 	 * cornelius service platform api server. If the timeout expires before the
 	 * connection can be established, a java.net.SocketTimeoutException is
 	 * raised. A timeout of zero is interpreted as an infinite timeout.
@@ -47,7 +47,7 @@ public class Environment {
 	 Integer.getInteger("com.hongfang.ckernel.api.http.timeout.connect", 15000);
 
 	/**
-	 * Timeout value, in milliseconds, chat be used when reading response from the
+	 * Timeout value, in milliseconds, to be used when reading response from the
 	 * csp api server. If the timeout expires before there is data available for
 	 * read, a java.net.SocketTimeoutException is raised. A timeout of zero is
 	 * interpreted as an infinite timeout.

@@ -25,17 +25,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   </listener>
   
   <!-- Filters -->
-  <!-- 
-  <filter>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  
-  <filter-mapping>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  -->
   
   <!-- Servlets -->
   <servlet>
@@ -57,7 +46,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   	<session-timeout>30</session-timeout>
   </session-config>
 
-  <!-- Default page chat serve -->
+  <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

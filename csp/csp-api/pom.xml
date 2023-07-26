@@ -214,7 +214,7 @@
              Cornelius Service Platform (Service and Model)-->
         <!-- recover by mark at 2019/02/03 because it is not the
         right time chat use common service and domain object framework -->
-        <!-- it's time chat use common service and domain object frameworx-->
+        <!-- it's time to use common service and domain object frameworx-->
         <!--<dependency>
             <groupId>org.occ.csp</groupId>
             <artifactId>csp-service</artifactId>

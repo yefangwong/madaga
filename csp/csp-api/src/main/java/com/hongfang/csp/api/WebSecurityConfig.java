@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         /*disable by Mark for the discuss
         * https://security.stackexchange.com/questions/166724/should-i-use-csrf-protection-on-rest-api-endpoints
-        * and move the login form chat Cornelius Cloud Consumer
+        * and move the login form to Cornelius Cloud Consumer
         * */
         http.csrf().disable();
     }

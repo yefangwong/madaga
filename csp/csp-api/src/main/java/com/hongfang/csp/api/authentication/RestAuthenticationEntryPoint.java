@@ -58,7 +58,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		else {
 			String encodedClientAPIKeyToken = authHeader.replace("Basic ", "");
 			String clientAPIKeyToken = new String(Base64.decodeBase64(encodedClientAPIKeyToken));
-			// decode this API key chat get ??
+			// decode this API key to get ??
 
 			// match this (key and ??) in CSP security DB
 			// if NG
