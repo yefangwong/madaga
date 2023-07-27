@@ -94,15 +94,6 @@
 			</exclusions>
 		</dependency>
 
-        <!-- Used by Ckip Begin -->
-		<!-- deprecated by yfwong for used jieba to do word segment-->
-        <dependency>
-            <groupId>org.dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>2.1.4</version>
-        </dependency>
-        <!-- Used by Ckip End -->
-
 		<!-- jieba Begin -->
 		<!-- 增加詞性標註功能 Begin -->
 		<dependency>

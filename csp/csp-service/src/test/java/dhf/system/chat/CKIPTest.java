@@ -1,12 +1,9 @@
 package dhf.system.chat;
 
-import com.dhf.hrsys.service.impl.CKIPServiceImpl;
 import com.dhf.hrsys.service.impl.Term;
 import com.dhf.hrsys.service.impl.WordSegmentationService;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 
