@@ -104,11 +104,6 @@
         <!-- Used by Ckip End -->
 
 		<!-- jieba Begin -->
-<!--		<dependency>-->
-<!--			<groupId>com.huaban</groupId>-->
-<!--			<artifactId>jieba-analysis</artifactId>-->
-<!--			<version>1.0.2</version>-->
-<!--		</dependency>-->
 		<!-- 增加詞性標註功能 Begin -->
 		<dependency>
 			<groupId>com.yhnlp</groupId>
