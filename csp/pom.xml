@@ -685,11 +685,15 @@
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>3.4.0.GA</version>
 			</dependency>
+			<!-- Fix GitHub Security Alert#51 Begin
+			SQL injection in hibernate-core
+			-->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>3.3.2.GA</version>
+				<version>5.3.20.Final</version>
 			</dependency>
+			<!-- Fix GitHub Security Alert#51 End -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
