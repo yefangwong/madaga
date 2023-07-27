@@ -3,9 +3,10 @@
   --------------------------------------------
   2023/2/1 yfwong inital version.
 -->
+<!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>員工展示</title>
+    <title>Demo 員工管理</title>
     <link rel="stylesheet" th:href="@{'../css/chatbox.css'}"/>
     <style>
         #loading-indicator {
@@ -271,7 +272,7 @@
                 </div>
             </div>
         </form>
-        <table id="data" class="table table-bordered" border="1">
+        <table id="data" class="table table-bordered" border="1" role="presentation">
             <tr>
                 <th>編號</th>
                 <th>姓名</th>
