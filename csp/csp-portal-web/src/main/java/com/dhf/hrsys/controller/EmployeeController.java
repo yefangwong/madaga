@@ -1,13 +1,9 @@
 package com.dhf.hrsys.controller;
 
-import com.dhf.hrsys.service.DepartmentService;
-import com.dhf.hrsys.service.EmployeeService;
-import com.dhf.hrsys.service.GeneralDAOServiceFacade;
+import com.dhf.hrsys.service.IGeneralDAOService;
 import com.dhf.util.JXLExcelBuilder;
 import com.hongfang.csp.system.entity.Department;
-import com.hongfang.csp.system.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +19,7 @@ import java.util.List;
 @RequestMapping("emp")
 @Slf4j
 public class EmployeeController {
-    final GeneralDAOServiceFacade serviceFacade;
+    final IGeneralDAOService generalDaoService;
     private static List<Department> depList = new ArrayList<Department>();
 
     static {
@@ -39,8 +35,8 @@ public class EmployeeController {
         depList.add(dep);
     }
 
-    public EmployeeController(GeneralDAOServiceFacade serviceFacade) {
-        this.serviceFacade = serviceFacade;
+    public EmployeeController(IGeneralDAOService generalDaoService) {
+        this.generalDaoService = generalDaoService;
     }
 
     @RequestMapping("search")
@@ -90,7 +86,7 @@ public class EmployeeController {
     }
 
     private List<HashMap> getEmployeeList(Condition condition) throws Exception {
-        return serviceFacade.queryForList("CUST_EMPLOYEE.SQL1");
+        return generalDaoService.queryForList("CUST_EMPLOYEE.SQL1");
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {

@@ -1,6 +1,6 @@
 package com.hongfang.csp.system.service.impl;
 
-import com.dhf.hrsys.service.GeneralDAOServiceFacade;
+import com.dhf.hrsys.service.IGeneralDAOService;
 import com.hongfang.csp.system.dao.IGeneralDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GeneralDAOServiceFacadeImp implements GeneralDAOServiceFacade {
+public class GeneralDAOServiceImp implements IGeneralDAOService {
     @Autowired
     private IGeneralDAO generalDAO;
 

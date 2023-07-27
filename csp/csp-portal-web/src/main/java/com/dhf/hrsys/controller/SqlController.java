@@ -1,7 +1,7 @@
 package com.dhf.hrsys.controller;
 
 import com.dhf.csp.system.entity.SQLAdapter;
-import com.dhf.hrsys.service.GeneralDAOServiceFacade;
+import com.dhf.hrsys.service.IGeneralDAOService;
 import com.hongfang.csp.system.service.impl.LocalCacheService;
 import com.hongfang.csp.webframeworx.common.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +25,9 @@ import java.util.List;
 @RequestMapping("/sql")
 @Slf4j
 public class SqlController extends BaseController {
-    final GeneralDAOServiceFacade serviceFacade;
-    public SqlController(GeneralDAOServiceFacade serviceFacade) {
-        this.serviceFacade = serviceFacade;
+    final IGeneralDAOService generalDaoService;
+    public SqlController(IGeneralDAOService generalDaoService) {
+        this.generalDaoService = generalDaoService;
     }
 
     @RequestMapping("/query/{uuid}")
@@ -38,7 +38,7 @@ public class SqlController extends BaseController {
         String sql = processForMyBatis((String)LocalCacheService.cache.get(uuid));
         log.info("sql from cache:\n{}", sql);
         SQLAdapter sqlAdapter = new SQLAdapter(sql);
-        List<HashMap> resultList = serviceFacade.queryForList("SQL.SQL1", sqlAdapter);
+        List<HashMap> resultList = generalDaoService.queryForList("SQL.SQL1", sqlAdapter);
         log.info("result.size:{}", resultList==null?0:resultList.size());
         return resultList==null? Collections.emptyList() : resultList;
     }

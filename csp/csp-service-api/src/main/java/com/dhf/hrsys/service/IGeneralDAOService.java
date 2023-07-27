@@ -2,7 +2,7 @@ package com.dhf.hrsys.service;
 
 import java.util.List;
 
-public interface GeneralDAOServiceFacade {
+public interface IGeneralDAOService {
     // INSERT --------------------------------------------------------------------------
     Object insert(String statementId) throws Exception;
     Object insert(String statementId, Object parameterObject) throws Exception;

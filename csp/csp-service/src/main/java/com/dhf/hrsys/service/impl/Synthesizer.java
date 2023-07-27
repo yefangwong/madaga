@@ -71,7 +71,7 @@ public class Synthesizer {
         char[] cc = name.toCharArray();
         for (int i = 0; i < cc.length; i++) {
             if (i == 1) {
-                sb.append("Ｘ");
+                sb.append("%");
             } else {
                 sb.append(cc[i]);
             }
