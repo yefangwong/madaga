@@ -25,11 +25,19 @@
     </developers>
 
 	<properties>
-		<java.version>1.8</java.version>
-	    <maven.compiler.target>1.8</maven.compiler.target>
-   	    <maven.compiler.source>1.8</maven.compiler.source>
-	    <springframework.version>5.2.22.RELEASE</springframework.version>
-        <csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
+		<java.version>17</java.version>
+	    <maven.compiler.target>17</maven.compiler.target>
+   	    <maven.compiler.source>17</maven.compiler.source>
+	    <springframework.version>6.0.8</springframework.version>
+		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix
+        CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
+		<spring-boot.version>3.1.1</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+		<logback.version>1.2.9</logback.version>
+		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
+		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
+		<okhttp.fixcve.1.version>4.10.0-CSP</okhttp.fixcve.1.version><!-- Fix CVE 2021-0341 -->
+        <okhttp.version>4.10.0</okhttp.version>
+		<csp-base.version>0.0.1-SNAPSHOT</csp-base.version>
         <csp-base-domain.version>0.0.1-SNAPSHOT</csp-base-domain.version>
         <csp-domain-jpa.version>1.0-SNAPSHOT</csp-domain-jpa.version>
         <csp-ckernel.version>0.0.1-SNAPSHOT</csp-ckernel.version>
@@ -47,7 +55,7 @@
 		<module>csp-persistence-jpa</module>
 		<module>csp-service-api</module>
 		<module>csp-service</module>
-		<module>csp-processor</module>
+		<!--<module>csp-processor</module>-->
 		<module>csp-ckernel</module>
 		<module>csp-webframeworx-common</module>
 		<module>csp-webframeworx-auth</module>
@@ -55,7 +63,7 @@
 		<module>csp-web-template</module>
 		<module>csp-tools</module>
 		<module>csp-portal-web</module>
-		<module>csp-api</module>
+		<!--<module>csp-api</module>-->
 	</modules>
 	<build>
 		<pluginManagement>
@@ -102,13 +110,39 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.commonjava.maven.plugins</groupId>
+				<artifactId>directory-maven-plugin</artifactId>
+				<version>0.1</version>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>
+                                directory-of
+                            </goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>csp.basedir</property>
+                            <project>
+                                <groupId>com.hongfang.csp</groupId>
+                                <artifactId>csp</artifactId>
+                            </project>
+                        </configuration>
+                    </execution>
+                </executions>
+			</plugin>
 		    <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>1.3.3</version>
+                <version>8.2.1</version>
                 <configuration>
+					<format>HTML</format>
                     <cveValidForHours>12</cveValidForHours>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
+					<!-- FIX some False Positive CVEs  -->
+                    <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -132,22 +166,108 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0</version>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+            <!-- Fix CVE-2023-35116 Begin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>install-CVE-2023-35116-fix-1</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${csp.basedir}/dependencies/jackson-databind-2.16.0-SNAPSHOT.jar</file>
+                            <groupId>com.fasterxml.jackson.core</groupId>
+                            <artifactId>jackson-databind</artifactId>
+                            <version>2.16.0-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-CVE-2023-35116-fix-2</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${csp.basedir}/dependencies/jackson-core-2.16.0-SNAPSHOT.jar</file>
+                            <groupId>com.fasterxml.jackson.core</groupId>
+                            <artifactId>jackson-core</artifactId>
+                            <version>2.16.0-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-CVE-2023-35116-fix-3</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${csp.basedir}/dependencies/jackson-annotations-2.16.0-SNAPSHOT.jar</file>
+                            <groupId>com.fasterxml.jackson.core</groupId>
+                            <artifactId>jackson-annotations</artifactId>
+                            <version>2.16.0-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-CVE-2021-0341-fix-4</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${csp.basedir}/dependencies/okhttp-4.10.0.jar</file>
+                            <groupId>com.squareup.okhttp3</groupId>
+                            <artifactId>okhttp</artifactId>
+                            <version>4.10.0-CSP</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+					<execution>
+						<id>install-Jieba4j-WordSegment-4</id>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${csp.basedir}/dependencies/jieba4j-tag-0.0.1-SNAPSHOT.jar</file>
+							<groupId>com.yhnlp</groupId>
+							<artifactId>jieba4j-tag</artifactId>
+							<version>0.0.1-SNAPSHOT-CSP</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+                </executions>
+            </plugin>
+            <!-- Fix CVE-2023-35116 End -->
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- Fix CVE-2020-15250 Begin -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+		<!-- Fix CVE-2020-15250 End -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
@@ -160,25 +280,40 @@
 			<version>1.8.5</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
+            <!--Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 			<!--General -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.2</version>
+				<version>1.18.24</version><!-- Upgrade chat Java 17 -->
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>2.5</version>
 			</dependency>
+			<!-- Fix CVE-2015-0254(7.5) Begin -->
+<!--			<dependency>-->
+<!--				<groupId>javax.servlet</groupId>-->
+<!--				<artifactId>jstl</artifactId>-->
+<!--				<version>1.2</version>-->
+<!--			</dependency>-->
 			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>1.2</version>
+				<groupId>org.apache.taglibs</groupId>
+				<artifactId>taglibs-standard-impl</artifactId>
+				<version>1.2.5</version>
 			</dependency>
+			<!-- Fix CVE-2015-0254(7.5) End -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
@@ -189,20 +324,26 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.4</version>
 			</dependency>
+			<!-- Fix CVE-2021-29425(4.8) Begin -->
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.4</version>
+				<version>2.7</version>
 			</dependency>
+			<!-- Fix CVE-2021-29425(4.8) End -->
+			<!-- Fix GitHib Security Alert #55
+			Apache Commons FileUpload denial of service vulnerability begin
+			-->
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
-				<version>1.3.3</version>
+				<version>1.5</version>
 			</dependency>
+			<!-- Fix GitHib Security Alert #55 end -->
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>
+				<version>1.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
@@ -227,28 +368,55 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.6.0</version>
+				<version>2.0.6</version>
 			</dependency>
+			<!--	Fix CVE-2021-37533 Begin -->
 			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-core</artifactId>
-				<version>1.2.0</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.2.0</version>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>2.0.5</version>
+				<!-- Fix CVE-2020-9493, CVE-2022-23307, CVE-2023-26464 Begin -->
 				<exclusions>
 					<exclusion>
-						<artifactId>slf4j-api</artifactId>
-						<groupId>org.slf4j</groupId>
+						<groupId>ch.qos.reload4j</groupId>
+						<artifactId>reload4j</artifactId>
 					</exclusion>
 				</exclusions>
+				<!-- Fix CVE-2020-9493, CVE-2022-23307, CVE-2023-26464 End -->
 			</dependency>
+			<!--	Fix CVE-2021-37533 End -->
+			<!-- Fix CVE-2021-42250 Begin -->
+<!--			<dependency>-->
+<!--				<groupId>ch.qos.logback</groupId>-->
+<!--				<artifactId>logback-core</artifactId>-->
+<!--				<version>${logback.version}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>ch.qos.logback</groupId>-->
+<!--				<artifactId>logback-classic</artifactId>-->
+<!--				<version>${logback.version}</version>-->
+<!--				<exclusions>-->
+<!--					<exclusion>-->
+<!--						<artifactId>slf4j-api</artifactId>-->
+<!--						<groupId>org.slf4j</groupId>-->
+<!--					</exclusion>-->
+<!--				</exclusions>-->
+<!--			</dependency>-->
+			<!-- Fix CVE-2021-42250 End -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>2.8.11</version>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.easymock</groupId>
@@ -277,22 +445,29 @@
 				<scope>compile</scope>
 			</dependency>
 			<!-- add by M for Json format response 2014-08-03 -->
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>1.6.3</version>
-				<scope>compile</scope>
-			</dependency>
+			<!-- deprecated and transfer to jackson-databaind to fix
+			GitHub Security Alert#54
+			Deserialization of Untrusted Data in org.codehaus.jackson:jackson-mapper-asl
+			fix by yfwong 2023/07/27
+			-->
+<!--			<dependency>-->
+<!--				<groupId>org.codehaus.jackson</groupId>-->
+<!--				<artifactId>jackson-mapper-asl</artifactId>-->
+<!--				<version>1.9.13</version>-->
+<!--				<scope>compile</scope>-->
+<!--			</dependency>-->
 			<dependency>
 				<groupId>net.sourceforge.jexcelapi</groupId>
 				<artifactId>jxl</artifactId>
 				<version>2.6.12</version>
 			</dependency>
+			<!-- Fix CVE-2021-36374(5.5), CVE-2020-1945(6.3), CVE-2012-2098(5.0) Begin -->
 			<dependency>
 				<groupId>org.apache.ant</groupId>
 				<artifactId>ant</artifactId>
-				<version>1.8.2</version>
+				<version>1.10.13</version>
 			</dependency>
+			<!-- Fix CVE-2021-36374(5.5), CVE-2020-1945(6.3), CVE-2012-2098(5.0) End -->
 			<!-- End of General -->
 
 			<!-- Spring Framework -->
@@ -310,7 +485,24 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${springframework.version}</version>
+				<exclusions>
+					<!-- CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+					CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+					CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) Begin -->
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-jcl</artifactId>
+					</exclusion>
+					<!-- CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3), CVE-2022-22968(5.3),
+                    CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8), CVE-2022-22971(6.5),
+                    CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2022-22970(5.3) End -->
+				</exclusions>
 			</dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
@@ -350,12 +542,28 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
+			<!-- Fix CVE-2016-1000027(9.8) Begin -->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework</groupId>-->
+<!--				<artifactId>spring-web</artifactId>-->
+<!--				<version>${springframework.version}</version>-->
+<!--			</dependency>-->
+			<!-- Fix CVE-2016-1000027(9.8) End -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
@@ -364,27 +572,83 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+				CVE-2022-22976(5.3), CVE-2021-22119(7.5) Begin -->
+<!--				<exclusions>-->
+<!--					<exclusion>-->
+<!--						<groupId>org.springframework.security</groupId>-->
+<!--						<artifactId>spring-security-crypto</artifactId>-->
+<!--					</exclusion>-->
+<!--				</exclusions>-->
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8), CVE-2020-5407(8.8),
+                CVE-2022-22976(5.3), CVE-2021-22119(7.5) End -->
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-crypto</artifactId>
+				<version>6.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<exclusions>
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${springframework.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-taglibs</artifactId>
-				<version>5.5.7</version>
+				<version>${springframework.security.version}</version>
+				<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8),
+				CVE-2020-5407(8.8), CVE-2022-22976(5.3), CVE-2021-22119(7.5) Begin -->
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-acl</artifactId>
+					</exclusion>
+					<!-- Fix CVE-2020-5408(6.5), CVE-2022-22978(9.8), CVE-2021-22112(8.8),
+                    CVE-2020-5407(8.8), CVE-2022-22976(5.3), CVE-2021-22119(7.5) End -->
+					<exclusion>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                            CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                            CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                            CVE-2022-22970(5.3) Begin -->
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+						<!-- Deprecated for fix CVE-2021-22060(4.3), CVE-2020-5421(6.5), CVE-2021-22096(4.3),
+                        CVE-2022-22968(5.3), CVE-2023-20863(6.5), CVE-2023-20861(6.5), CVE-2022-22965(9.8),
+                        CVE-2022-22971(6.5), CVE-2022-22950(6.5), CVE-2021-22118(7.8), CVE-2016-1000027(9.8),
+                        CVE-2022-22970(5.3) End -->
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-ldap</artifactId>
-				<version>3.0.3.RELEASE</version>
+				<version>${springframework.security.version}</version>
 			</dependency>
 			<!--End of Spring Framework -->
 			<!--Persistence -->
@@ -398,32 +662,93 @@
 				<artifactId>validation-api</artifactId>
 				<version>1.0.0.GA</version>
 			</dependency>
+			<!-- MyBatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>cglib</groupId>
 				<artifactId>cglib-nodep</artifactId>
 				<version>2.2</version>
 			</dependency>
+            <!-- SQLite Driver -->
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>3.42.0.0</version>
+            </dependency>
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
-				<version>2.1.210</version>
+				<version>2.2.220</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>3.4.0.GA</version>
 			</dependency>
+			<!-- Fix GitHub Security Alert#51 Begin
+			SQL injection in hibernate-core
+			-->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>3.3.2.GA</version>
+				<version>5.3.20.Final</version>
 			</dependency>
+			<!-- Fix GitHub Security Alert#51 End -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>4.0.2.GA</version>
 			</dependency>
 			<!--End of Persistence -->
+			<!-- ChatGPT related Begin -->
+            <dependency>
+                <groupId>com.unfbx</groupId>
+                <artifactId>chatgpt-java</artifactId>
+                <version>1.0.12</version>
+                <exclusions>
+                    <!-- Fix CVE-2023-33695 Begin -->
+                    <exclusion>
+                        <groupId>cn.hutool</groupId>
+                        <artifactId>hutool-all</artifactId>
+                    </exclusion>
+                    <!-- Fix CVE-2023-33695 End -->
+                    <!-- Fix CVE-2023-35116 Begin -->
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                    <!-- Fix CVE-2023-35116 End -->
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+                </exclusions>
+            </dependency>
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>5.8.20</version>
+			</dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.fixcve.1.version}</version>
+            </dependency>
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp-sse</artifactId>
+				<version>${okhttp.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+			<!-- ChatGPT related End -->
 			<!--Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>

@@ -13,7 +13,7 @@
     <name>Cornelius Service Platform - Web Framework</name>
     <description>Cornelius Service Platform - Web Framework</description>
     <properties>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>17</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<aspectj.version>1.7.0</aspectj.version>
 	</properties>
@@ -38,10 +38,17 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 		</dependency>
+		<!-- JSTL -->
+		<!-- Fix CVE-2015-0254(7.5) Begin -->
+		<!--			<dependency>-->
+		<!--				<groupId>javax.servlet</groupId>-->
+		<!--				<artifactId>jstl</artifactId>-->
+		<!--			</dependency>-->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
 		</dependency>
+		<!-- Fix CVE-2015-0254(7.5) End -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>

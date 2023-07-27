@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis-config.xml -->
+<configuration>
+    <typeAliases>
+        <typeAlias alias="sqlAdapter" type="com.dhf.csp.system.entity.SQLAdapter" />
+    </typeAliases>
+    <!-- Mappers -->
+    <mappers>
+        <!-- Specify the location of your mapper XML files -->
+        <mapper resource="mapper/EmployeeDao.xml"/>
+        <mapper resource="mapper/SqlDao.xml"/>
+    </mappers>
+</configuration>
+

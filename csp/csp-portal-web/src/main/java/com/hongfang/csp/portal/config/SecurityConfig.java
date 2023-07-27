@@ -16,16 +16,51 @@
 
 package com.hongfang.csp.portal.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.anonymous();
+@EnableMethodSecurity
+public class SecurityConfig {
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers(
+            "/emp/export",
+            "/api/question");
+    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.anonymous(Customizer.withDefaults())
+            //.formLogin(form -> form.loginPage("/login").permitAll())
+            //.httpBasic(Customizer.withDefaults())
+            //.csrf(crsf -> crsf.disable())
+            // giving permission to every request for /login endpoint
+            .authorizeHttpRequests(auth -> {
+                //auth.requestMatchers("/auth/signUp").permitAll()
+                auth.requestMatchers("/**").permitAll();
+            // for everything else, the user has to be authenticated
+            // setting stateless session, because we choose to implement Rest API
+            //.and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        });
+        // adding the custom filter before UsernamePasswordAuthenticationFilter in the filter chain
+        //http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 }

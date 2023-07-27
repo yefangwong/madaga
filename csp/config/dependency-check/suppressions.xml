@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd
+              https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd ">
+    <suppress>
+        <notes><![CDATA[Ignored since we are not vulnerable]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework/spring.*$</packageUrl>
+        <cve>CVE-2016-1000027</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            mysql-connector-java
+            False positive claims this CVEs for 8.0.30,
+            but this is wrong, as they affect the server, only.
+            ]]></notes>
+        <filePath regex="true">.*mysql-connector-java-8\.0\.30\.jar</filePath>
+        <cve>CVE-2012-0553</cve>
+        <cve>CVE-2012-0882</cve>
+        <cve>CVE-2012-3158</cve>
+        <cve>CVE-2012-5627</cve>
+        <cve>CVE-2012-3163</cve>
+        <cve>CVE-2013-1492</cve>
+        <cve>CVE-2014-6491</cve>
+        <cve>CVE-2014-6500</cve>
+        <cve>CVE-2014-6507</cve>
+        <cve>CVE-2015-0411</cve>
+        <cve>CVE-2015-4819</cve>
+        <cve>CVE-2016-0546</cve>
+        <cve>CVE-2016-0639</cve>
+        <cve>CVE-2016-0705</cve>
+        <cve>CVE-2016-3471</cve>
+        <cve>CVE-2016-6662</cve>
+        <cve>CVE-2017-3599</cve>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        False positives per issue #684.
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tomcat\.embed:tomcat-embed.*$</gav>
+        <cve>CVE-2017-6056</cve>
+        <cve>CVE-2016-6325</cve>
+        <cve>CVE-2016-5425</cve>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per #987
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tomcat:tomcat-annotations-api:.*$</gav>
+        <cpe>cpe:/a:apache:tomcat</cpe>
+        <cpe>cpe:/a:apache_tomcat:apache_tomcat</cpe>
+        <cpe>cpe:/a:apache_software_foundation:tomcat</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        因為 springboot-admin 的 Mail Notifier 能夠由UI存取環境變數，但，因目前沒有
+        使用到 springboot-admin 的計畫，因此先 bypass，但以後用到 springboot-admin
+        則要留意可能的資安風險
+        ]]></notes>
+        <gav regex="true">^org\.thymeleaf\:thymeleaf-spring6:.*$</gav>
+        <cve>CVE-2023-38286</cve>
+    </suppress>
+</suppressions>

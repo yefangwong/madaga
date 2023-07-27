@@ -1,6 +1,6 @@
 package common.utils;
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -25,18 +25,23 @@ public abstract class AbstractCustomLogger extends MarkerIgnoringBase implements
 
     /**
      * 先換成 org.apache.commons.logging
+	 * To fix Fix CVE-2021-37533 Begin,
+	 * we replace it by org.slf4j.Logger
+	 * @deprecated
      */
-    private Log log = null;
+	//private Log log = null;
+	private Logger log = null;
     
     protected Class<?> loggerClazz;
 
     public AbstractCustomLogger(Class<?> clazz) {
     	super();
     	this.loggerClazz = clazz;
-    	log = org.apache.commons.logging.LogFactory.getLog(clazz);
-    }
+    	//log = org.apache.commons.logging.LogFactory.getLog(clazz);
+        log = LoggerFactory.getLogger(clazz);
+	}
     
-    protected Log getLog() {
+    protected Logger getLog() {
         return this.log;
     }
     

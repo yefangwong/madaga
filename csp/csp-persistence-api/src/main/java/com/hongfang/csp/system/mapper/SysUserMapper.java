@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package com.hongfang.csp.system.mapper;import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hongfang.csp.system.entity.SysUser;
+package com.hongfang.csp.system.mapper;
 import com.hongfang.csp.system.vo.SysUserQueryVo;
 
 import java.io.Serializable;
@@ -28,7 +27,7 @@ import java.io.Serializable;
  * @author yefangwong
  * @since 2020-04-16
  */
-public interface SysUserMapper extends BaseMapper<SysUser> {
+public interface SysUserMapper {
     /**
      * 根据ID查詢使用者資訊
      *

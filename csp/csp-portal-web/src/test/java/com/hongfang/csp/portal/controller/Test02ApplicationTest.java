@@ -16,11 +16,11 @@
 
 package com.hongfang.csp.portal.controller;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 import java.net.MalformedURLException;
@@ -34,7 +34,7 @@ public class Test02ApplicationTest {
     @Autowired
     private TestRestTemplate template;
     @Test
-    void testTest() throws MalformedURLException {
+    public void testTest() throws MalformedURLException {
         base = new URL("http://localhost:" + port + "/test2");
         ResponseEntity<String> responseEntity = template.getForEntity(base.toString(), String.class);
         System.out.println(responseEntity.getBody());

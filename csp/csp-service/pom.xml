@@ -5,10 +5,11 @@
 
 	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>csp-service</name>
+	<name>Cornelius Service Platform - Service Implementation</name>
+	<description>Service Imp. for Cornelius Service Platform.</description>
 	<url>http://maven.apache.org</url>
 
 	<parent>
@@ -21,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -40,6 +41,74 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- add ChatGPT Support Begin-->
+		<dependency>
+			<groupId>com.unfbx</groupId>
+			<artifactId>chatgpt-java</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp-sse</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
+        <!-- add ChatGPT Support End-->
+
+		<!-- Stanford CoreNLP -->
+		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>4.5.4</version>
+			<exclusions>
+				<exclusion>
+					<!-- Fix CVE-2010-0538 Begin -->
+					<groupId>com.apple</groupId>
+					<artifactId>AppleJavaExtensions</artifactId>
+					<!-- Fix CVE-2010-0538 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2022-34169 Begin -->
+					<groupId>xalan</groupId>
+					<artifactId>serializer</artifactId>
+					<!-- Fix CVE-2022-34169 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2022-34169 Begin -->
+					<groupId>xalan</groupId>
+					<artifactId>xalan</artifactId>
+					<!-- Fix CVE-2022-34169 End -->
+				</exclusion>
+				<exclusion>
+					<!-- Fix CVE-2018-2799 Begin -->
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+					<!-- Fix CVE-2018-2799 End -->
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- jieba Begin -->
+		<!-- 增加詞性標註功能 Begin -->
+		<dependency>
+			<groupId>com.yhnlp</groupId>
+			<artifactId>jieba4j-tag</artifactId>
+			<version>0.0.1-SNAPSHOT-CSP</version>
+		</dependency>
+		<!-- 增加詞性標註功能 End -->
+		<!-- jieba End -->
+
+        <dependency>
+			<groupId>com.hongfang.csp</groupId>
+			<artifactId>csp-service-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.hongfang.csp</groupId>
 			<artifactId>csp-tools</artifactId>
