@@ -37,7 +37,7 @@ public class SseServiceImpl implements SseService {
     @Override public SseEmitter createSse() {
         //預設逾時為30秒,設定為0L表示不超時
         SseEmitter sseEmitter = new SseEmitter(0l);
-        //完成后回调
+        //完成後回呼
         sseEmitter.onCompletion(() -> {
             log.info("结束連結...................");
         });
@@ -86,7 +86,6 @@ public class SseServiceImpl implements SseService {
         String prompt = Synthesizer.getInstance().synthesize(chatRequest.getText());
         log.info("prompt:{}", prompt);
         chatRequest.setText(prompt);
-        //chatRequest.setText(chatRequest.getText());
         String messageContext = (String) LocalCacheService.cache.get("msg1");
         List<Message> messages = new ArrayList<>();
         if (StringUtils.isNotBlank(messageContext)) {

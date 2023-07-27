@@ -14,6 +14,11 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 自然語言轉資料庫查詢語言合成器
+ * @author yfwong
+ * @date 2023/07/27
+ */
 @Component
 public class Synthesizer {
     private static final Logger log = LoggerFactory.getLogger(Synthesizer.class);
