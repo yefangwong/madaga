@@ -331,11 +331,15 @@
 				<version>2.7</version>
 			</dependency>
 			<!-- Fix CVE-2021-29425(4.8) End -->
+			<!-- Fix GitHib Security Alert #55
+			Apache Commons FileUpload denial of service vulnerability begin
+			-->
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
-				<version>1.3.3</version>
+				<version>1.5</version>
 			</dependency>
+			<!-- Fix GitHib Security Alert #55 end -->
 			<dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
