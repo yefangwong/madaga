@@ -44,6 +44,7 @@ public class SqlController extends BaseController {
     }
 
     private String processForMyBatis(String s) {
+        if (s == null) return "";
         s = s.replace(";", "");// MyBatis 查詢不要 ;
         return s;
     }
