@@ -60,4 +60,13 @@
         <gav regex="true">^org\.thymeleaf\:thymeleaf-spring6:.*$</gav>
         <cve>CVE-2023-38286</cve>
     </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        因為 springboot-admin 的 Mail Notifier 能夠由UI存取環境變數，但，因目前沒有
+        使用到 springboot-admin 的計畫，因此先 bypass，但以後用到 springboot-admin
+        則要留意可能的資安風險
+        ]]></notes>
+        <gav regex="true">^org\.thymeleaf\:thymeleaf:.*$</gav>
+        <cve>CVE-2023-38286</cve>
+    </suppress>
 </suppressions>
