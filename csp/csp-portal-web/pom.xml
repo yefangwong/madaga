@@ -22,7 +22,8 @@
         <shiro.version>1.12.0</shiro.version><!-- CVE-2021-41303(9.8), CVE-2022-32532(9.8), CVE-2023-22602(7.5),
         CVE-2022-40664(9.8), CVE-2023-34478(9.1) -->
         <jwt.version>3.10.1</jwt.version>
-        <spring-boot.version>3.1.1</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+        <spring-boot.version>3.1.2</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5),
+         CVE-2023-38286 -->
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <jackson.version>2.16.0-SNAPSHOT</jackson.version><!-- Fix
         CVE-2023-35116 -->

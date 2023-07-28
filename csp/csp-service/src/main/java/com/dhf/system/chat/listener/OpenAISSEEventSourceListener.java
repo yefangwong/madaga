@@ -58,8 +58,10 @@ public class OpenAISSEEventSourceListener extends EventSourceListener
                         .id(completionResponse.getId())
                         .data(delta)
                         .reconnectTime(3000));
-            if (!delta.getContent().equals("null"))
-                sql.append(delta.getContent());
+            if (delta.getContent() != null) {
+                String content = delta.getContent();
+                sql.append(content);
+            }
         } catch (Exception e) {
             log.error("sse訊息推送失敗！");
             eventSource.cancel();
@@ -71,8 +73,7 @@ public class OpenAISSEEventSourceListener extends EventSourceListener
     public void onClosed(EventSource eventSource) {
         log.info("流式輸出返回值總共{}tokens", tokens() - 2);
         log.info("OpenAI關閉sse連線...");
-        LocalCacheService.clear();
-        log.info("清除後端快取...");
+        //TODO 思考清除快取要做在何時
     }
 
     @SneakyThrows
