@@ -11,7 +11,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
-    <name>Cornelius Service Platform - Model Implementation</name>
+    <name>csp-domain-jpa - domain model implementation</name>
     <description>The Model Implementation of CSP.</description>
 
     <properties>

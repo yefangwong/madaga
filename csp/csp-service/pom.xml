@@ -8,9 +8,9 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Cornelius Service Platform - Service Implementation</name>
+	<name>csp-service - service implementation</name>
 	<description>Service Imp. for Cornelius Service Platform.</description>
-	<url>http://maven.apache.org</url>
+	<url></url>
 
 	<parent>
 		<artifactId>csp</artifactId>

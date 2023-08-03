@@ -9,7 +9,7 @@
 	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-tools</artifactId>
 	<version>0.0.1-SNAPSHOT</version>	
-	<name>Cornelius Service Platform - Tools</name>
+	<name>csp-tools - tools</name>
 	<description>Cornelius Service Platform - Tools</description>
 	<dependencies>
 		<dependency>

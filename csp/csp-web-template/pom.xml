@@ -11,7 +11,7 @@
 	<groupId>com.hongfang.csp.web</groupId>
 	<artifactId>csp-web-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <name>Cornelius Service Platform - Web Template</name>
+    <name>csp-web-template - web template</name>
     <description>Cornelius Service Platform</description>
     <packaging>war</packaging>
 	<url>http://maven.apache.org</url>

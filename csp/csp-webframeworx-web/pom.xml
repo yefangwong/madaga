@@ -10,7 +10,7 @@
 	<groupId>com.hongfang.csp.webframeworx.web</groupId>
 	<artifactId>csp-webframeworx-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <name>Cornelius Service Platform - Web Framework</name>
+    <name>csp-webframeworx-web - web framework</name>
     <description>Cornelius Service Platform - Web Framework</description>
     <properties>
 		<jdk.version>17</jdk.version>

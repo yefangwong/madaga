@@ -9,7 +9,7 @@
 	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-base</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Cornelius Service Platform - Base</name>
+	<name>csp-base - csp base library</name>
 	<properties>
 	    <maven.compiler.target>17</maven.compiler.target>
    		<maven.compiler.source>17</maven.compiler.source>

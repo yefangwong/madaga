@@ -5,13 +5,13 @@
     <parent>
         <artifactId>csp</artifactId>
         <groupId>com.hongfang.csp</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </parent>
     <groupId>com.hongfang.csp</groupId>
     <artifactId>csp-portal-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Cornelius Service Platform - Portal</name>
+    <name>csp-portal-web - portal</name>
     <description>Portal project for Cornelius Service Platform of HongFang.</description>
 
     <properties>
