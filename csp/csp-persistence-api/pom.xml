@@ -13,7 +13,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Cornelius Service Platform - Persistence DAO</name>
+  <name>csp-persistence-api - persistent DAO</name>
   <description>The Persistence Interface for Cornelius Service Platform.</description>
 
   <properties>

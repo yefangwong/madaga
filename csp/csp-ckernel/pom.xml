@@ -3,7 +3,7 @@
   <groupId>com.hongfang.csp.ckernel</groupId>
   <artifactId>csp-ckernel</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Cornelius Service Platform - Kernel</name>
+  <name>csp-ckernel - kernel</name>
   <description>The Kernel of Cornelius Service Platform</description>
 
   <parent>

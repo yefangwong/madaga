@@ -9,7 +9,7 @@
 	<groupId>com.hongfang.csp</groupId>
 	<artifactId>csp-base-domain</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Cornelius Service Platform - Base Domain</name>
+	<name>csp-base-domain - base domain object</name>
 	<description>Cornelius Service Platform - Base Domain</description>
 
 	<dependencies>
