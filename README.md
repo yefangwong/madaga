@@ -17,8 +17,8 @@ Download Java SE
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 # Install Stanford CoreNLP
-Download CoreNLP 4.5.4 and Unzip it somewhere:
 I don't have a Debian-based Linux environment available so this is untested, but it should be as follows:
+Download CoreNLP 4.5.4 and Unzip it somewhere:
 (Debian-based Linux and MacOS X)
 
 ```cd /usr/local/
@@ -27,6 +27,36 @@ cd StanfordCoreNLP
 curl -O -L http://nlp.stanford.edu/software/stanford-corenlp-latest.zip
 unzip stanford-corenlp-latest.zip
 cd stanford-corenlp-4.5.4
+```
+The root folder is then, for example:
+```
+/usr/local/StanfordCoreNLP/stanford-corenlp-4.5.4
+```
+Then download Chinese and English models to the root folder above:
+```
+cd /usr/local/StanfordCoreNLP/stanford-corenlp-4.5.4
+wget http://nlp.stanford.edu/software/stanford-corenlp-4.5.4-models-chinese.jar
+wget http://nlp.stanford.edu/software/stanford-corenlp-4.5.4-models-english.jar
+```
+Add all the .jar files to the CLASSPATH and the root folder to CORENLP_HOME
+# MacOSX
+In MacOSX we don’t have the ‘realpath’ module so install as a part of GNU coreutils with homebrew
+```
+brew install coreutils
+```
+In Apple M1 chip:
+```
+arch -arm64 brew install coreutils
+```
+add the following to ~/.bash_profile for user installation
+```
+CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-4.5.4"
+for file in `find $CORENLP_HOME -name "*.jar"`; do export
+CLASSPATH="$CLASSPATH:`realpath $file`"; done
+```
+Now we can run the fowllowing command to activate new classpath setting
+```
+source ~/.bash_profile
 ```
 
 # Build
