@@ -17,7 +17,7 @@ Download Java SE
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 # Install Stanford CoreNLP
-I don't have a Debian-based Linux environment available so this is untested, but it should be as follows:
+I don't have a Debian-based Linux environment available so this is untested, but it should be as follows:</br>
 Download CoreNLP 4.5.4 and Unzip it somewhere:
 (Debian-based Linux and MacOS X)
 
