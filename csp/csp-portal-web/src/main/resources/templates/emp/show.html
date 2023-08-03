@@ -274,11 +274,11 @@
         </form>
         <table id="data" class="table table-bordered" border="1" role="presentation">
             <tr>
-                <th>編號</th>
-                <th>姓名</th>
-                <th>姓別</th>
-                <th>年齡</th>
-                <th>部門</th>
+                <td>編號</td>
+                <td>姓名</td>
+                <td>姓別</td>
+                <td>年齡</td>
+                <td>部門</td>
             </tr>
             <tr class="data" th:each="emp:${list}" th:data-id="${emp.empId}">
                 <td th:text="${emp.empNumber}"></td>
