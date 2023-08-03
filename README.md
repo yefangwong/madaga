@@ -58,7 +58,13 @@ Now we can run the fowllowing command to activate new classpath setting
 ```
 source ~/.bash_profile
 ```
-
+# Running Stanford CoreNLP Server
+Run a NLP server with chinese model
+# MacOSX
+```
+cd $CORENLP_HOME
+java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
+```
 # Build
 java SE 8 : <br/>
 ```$ mvn clean install -P jdk8``` <br/>
