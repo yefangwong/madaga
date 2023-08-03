@@ -67,16 +67,16 @@ java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverPrope
 ```
 # Build
 Now we can rum maven install
-```cd $CSP_HOME
+```
+cd $CSP_HOME
 ./build.sh
-``` <br/>
+```
 # Run Portal Server
 Then you can run the Portal with the following commands as follow
 ```
 cd $CSP_HOME
 ./run_portal.sh
 ```
-
 # Coding Standard
 Because this project is written by Java language so I decide to follow this coding standard and Google is one of the best IT company in the world, so I decide to follow their coding standard such as there are 100 columns per row:
 
