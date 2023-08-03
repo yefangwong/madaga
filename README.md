@@ -77,6 +77,9 @@ Then you can run the Portal with the following commands as follow
 cd $CSP_HOME
 ./run_portal.sh
 ```
+After running success, open the browser to see <br/>
+http://localhost:8081
+Enjoy! 
 # Coding Standard
 Because this project is written by Java language so I decide to follow this coding standard and Google is one of the best IT company in the world, so I decide to follow their coding standard such as there are 100 columns per row:
 
