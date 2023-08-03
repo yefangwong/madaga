@@ -7,6 +7,28 @@ Base on CSP (Cornelius Service Platform).
 This was the platform roadmap built at June, 2012.
 ![Cornelius Architecture](https://user-images.githubusercontent.com/9351189/187391339-75a2c098-6ca7-4c43-ae61-bd5c4cd1fa5c.png)
 
+# Install Java Development Kit
+To see if previously installed
+
+```javac -version```
+
+Download Java SE
+
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+# Install Stanford CoreNLP
+Download CoreNLP 4.5.4 and Unzip it somewhere:
+I don't have a Debian-based Linux environment available so this is untested, but it should be as follows:
+(Debian-based Linux and MacOS X)
+
+```cd /usr/local/
+mkdir StanfordCoreNLP
+cd StanfordCoreNLP
+curl -O -L http://nlp.stanford.edu/software/stanford-corenlp-latest.zip
+unzip stanford-corenlp-latest.zip
+cd stanford-corenlp-4.5.4
+```
+
 # Build
 java SE 8 : <br/>
 ```$ mvn clean install -P jdk8``` <br/>
