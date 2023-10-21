@@ -1,13 +1,19 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!--
+    History
+    2015/08/24 replace church service platform's code with
+               Cornelius Service Platform (Service and Model)
+    2019/02/03 because it is not the right time chat use common
+               service and domain object framework. it's time
+               to use common service and domain object frameworx
+     -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.12</version>
-        <relativePath />
-        <!-- lookup parent from repository -->
+        <artifactId>csp</artifactId>
+        <groupId>com.hongfang.csp</groupId>
+        <version>0.1</version>
     </parent>
     <groupId>com.hongfang.csp.api</groupId>
     <artifactId>csp-api</artifactId>
@@ -209,13 +215,7 @@
             <artifactId>csp-common</artifactId>
             <version>${csp.project.version}</version>
         </dependency>
-        <!-- deprecated by mark at 2015/08/24 -->
-        <!-- replace church service platform's code with
-             Cornelius Service Platform (Service and Model)-->
-        <!-- recover by mark at 2019/02/03 because it is not the
-        right time chat use common service and domain object framework -->
-        <!-- it's time to use common service and domain object frameworx-->
-        <!--<dependency>
+         <!--<dependency>
             <groupId>org.occ.csp</groupId>
             <artifactId>csp-service</artifactId>
             <version>${csp.project.version}</version>

@@ -25,6 +25,7 @@
         <spring-boot.version>3.1.2</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5),
          CVE-2023-38286 -->
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
+        <netty.version>4.1.100.Final</netty.version><!-- Fix  CVE-2023-4586(7.4), CVE-2023-44487(7.5) -->
         <jackson.version>2.16.0-SNAPSHOT</jackson.version><!-- Fix
         CVE-2023-35116 -->
     </properties>
@@ -101,7 +102,16 @@
                 <!-- Fix CVE-2022-38752(6.5), CVE-2022-38751(6.5), CVE-2022-38750(5.5),
                 CVE-2022-41854(6.5), CVE-2022-25857(7.5), CVE-2022-38749(6.5),
                 CVE-2022-1471(9.8) End -->
+                <exclusion>
+                    <groupId>org.springframework.security</groupId><!--CVE-2023-34042(4.1)-->
+                    <artifactId>spring-security-config</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId><!--Fix CVE-2023-34042(4.1)-->
+            <artifactId>spring-security-config</artifactId>
+            <version>6.1.5</version>
         </dependency>
         <!-- @deprecated for Thymeleaf -->
         <!-- @date 2023/07/20 -->
@@ -394,7 +404,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.94.Final</version>
+            <version>${netty.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -517,7 +527,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver</artifactId>
-            <version>4.1.94.Final</version>
+            <version>${netty.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -528,12 +538,12 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-common</artifactId>
-            <version>4.1.94.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns</artifactId>
-            <version>4.1.94.Final</version>
+            <version>${netty.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -558,6 +568,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
+            <version>11.0.0-M13</version>
         </dependency>
 
         <!-- Spring 核心 -->
