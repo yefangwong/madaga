@@ -69,4 +69,13 @@
         <gav regex="true">^org\.thymeleaf\:thymeleaf:.*$</gav>
         <cve>CVE-2023-38286</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+        Fixed via by manually setting up TLS hostname verification
+        until upstream fix is available
+        ref:https://github.com/jeremylong/DependencyCheck/issues/5912
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.netty/netty-.*@.*$</packageUrl>
+        <cve>CVE-2023-4586</cve>
+    </suppress>
 </suppressions>
