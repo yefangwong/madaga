@@ -574,6 +574,7 @@ date         item                                              author
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
             <version>11.0.0-M13</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring 核心 -->
