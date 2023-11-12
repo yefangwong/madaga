@@ -31,7 +31,8 @@
 	    <springframework.version>6.0.8</springframework.version>
 		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix
         CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
-		<spring-boot.version>3.1.1</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+		<spring-boot.version>3.1.5</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+		<tomcat.version>10.1.15</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) -->
 		<logback.version>1.2.9</logback.version>
 		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
@@ -326,6 +327,7 @@
 	<dependencyManagement>
 		<dependencies>
             <!--Spring Boot -->
+			<!-- Fix Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) Begin -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -333,6 +335,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-core</artifactId>
+				<version>${tomcat.version}</version>
+			</dependency>
+			<!-- Fix Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) End -->
 			<!--General -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
