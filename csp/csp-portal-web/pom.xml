@@ -2,7 +2,7 @@
 <!--
 History
 date         item                                              author
-2023/12/12   Fix CVE-2023-22102 in MySQL Connector 8.0.30     yefangwong
+2023/11/12   Fix CVE-2023-22102 in MySQL Connector 8.0.30     yefangwong
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">

@@ -8,7 +8,12 @@
 	<name>Cornelius Service Platform - csp</name>
 	<description>Cornelius Service Platform</description>
     <url>https://github.com/yefangwong/madaga.git</url>
-
+	<!--
+    History
+    date          item                                              author
+    2023/11/12    Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3),
+                  CVE-2023-41080(6.1), CVE-2023-45648(5.3)          yefangwong
+    -->
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -29,8 +34,7 @@
 	    <maven.compiler.target>17</maven.compiler.target>
    	    <maven.compiler.source>17</maven.compiler.source>
 	    <springframework.version>6.0.8</springframework.version>
-		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix
-        CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
+		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
 		<spring-boot.version>3.1.5</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
 		<tomcat.version>10.1.15</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) -->
 		<logback.version>1.2.9</logback.version>
