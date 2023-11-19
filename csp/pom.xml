@@ -803,6 +803,11 @@
                 <version>${okhttp.version}</version>
             </dependency>
 			<!-- ChatGPT related End -->
+			<dependency>
+				<groupId>org.sitemesh</groupId>
+				<artifactId>sitemesh</artifactId>
+				<version>3.0.1</version>
+			</dependency>
 			<!--Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>

@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>csp</artifactId>
 		<groupId>com.hongfang.csp</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1</version>
 	</parent>
 
 	<groupId>com.hongfang.csp.web</groupId>
@@ -104,11 +104,10 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.sitemesh</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>3.0.1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.sitemesh</groupId>-->
+<!--			<artifactId>sitemesh</artifactId>-->
+<!--		</dependency>-->
 		<!-- Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
