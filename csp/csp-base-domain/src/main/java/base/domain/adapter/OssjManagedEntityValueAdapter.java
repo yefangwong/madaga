@@ -1,125 +1,125 @@
 package base.domain.adapter;
 import java.util.Map;
 
-import javax.oss.ManagedEntityKey;
+/*port javax.oss.ManagedEntityKey;
 import javax.oss.ManagedEntityValue;
-import javax.oss.OssUnsupportedAttributeException;
+import javax.oss.OssUnsupportedAttributeException;*/
 
-public abstract class OssjManagedEntityValueAdapter implements ManagedEntityValue  {
+public abstract class OssjManagedEntityValueAdapter/*mplements ManagedEntityValue */{
 	private static final long serialVersionUID = 1196306496662570486L;
 
 	public Object clone() {
 		return null;
 	}
 	
-	@Override
+	//@override
 	public String[] attributeTypeFor(String arg0) {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public Map getAllPopulatedAttributes() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public abstract String[] getAttributeNames();
 
-	@Override
+	//@Override
 	public Object getAttributeValue(String arg0) {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public Map getAttributeValues(String[] arg0)
-			throws IllegalArgumentException, IllegalStateException,
-			OssUnsupportedAttributeException {
+			throws IllegalArgumentException, IllegalStateException/*,
+			OssUnsupportedAttributeException */{
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public String[] getPopulatedAttributeNames() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public String[] getSupportedOptionalAttributeNames() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public boolean isEnumerationBased(String arg0)
 			throws IllegalArgumentException {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public boolean isFullyPopulated() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public boolean isPopulated(String arg0) {
 		throw new java.lang.UnsupportedOperationException();
 	}
 	
-	@Override
+	//@Override
 	public Object make(String arg0) throws IllegalArgumentException {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public void setAttributeValue(String arg0, Object arg1)
-			throws IllegalArgumentException, OssUnsupportedAttributeException {
+			throws IllegalArgumentException/*, OssUnsupportedAttributeException*/ {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
-	public void setAttributeValues(Map arg0) throws IllegalArgumentException,
-			OssUnsupportedAttributeException {
+	//@Override
+	public void setAttributeValues(Map arg0) throws IllegalArgumentException/*,
+			OssUnsupportedAttributeException*/ {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public void unpopulateAllAttributes() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public void unpopulateAttribute(String arg0)
-			throws IllegalArgumentException, OssUnsupportedAttributeException {
+			throws IllegalArgumentException/*, OssUnsupportedAttributeException*/ {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
+	//@Override
 	public long getLastUpdateVersionNumber() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
-	public ManagedEntityKey getManagedEntityKey() throws IllegalStateException {
+	//@Override
+	/*public ManagedEntityKey getManagedEntityKey() throws IllegalStateException {
 		throw new java.lang.UnsupportedOperationException();
-	}
+	}*/
 
-	@Override
+	//@Override
 	public String[] getSettableAttributeNames() {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
-	public ManagedEntityKey makeManagedEntityKey() {
+	//@Override
+	/*public ManagedEntityKey makeManagedEntityKey() {
 		throw new java.lang.UnsupportedOperationException();
-	}
+	}*/
 
-	@Override
+	//@Override
 	public void setLastUpdateVersionNumber(long arg0)
 			throws IllegalArgumentException {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
-	@Override
-	public void setManagedEntityKey(ManagedEntityKey arg0)
+	//@Override
+	/*public void setManagedEntityKey(ManagedEntityKey arg0)
 			throws IllegalArgumentException {
 		throw new java.lang.UnsupportedOperationException();
-	}
+	}*/
 }
