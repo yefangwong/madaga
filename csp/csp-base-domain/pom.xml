@@ -45,6 +45,8 @@
         </dependency>
 
 		<!-- OSSj 1.5 -->
+		<!-- deprecated by yefangwong -->
+		<!--
 		<dependency>
 			<groupId>ossj.jsr144</groupId>
 			<artifactId>oss_common_spec</artifactId>
@@ -109,6 +111,6 @@
 			<groupId>ossj.jsr144</groupId>
 			<artifactId>oss_shared_alarm_spec</artifactId>
 			<version>1.5</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 </project>
