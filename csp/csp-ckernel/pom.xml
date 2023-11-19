@@ -15,29 +15,29 @@
     <name>csp-ckernel - kernel</name>
     <description>The Kernel of Cornelius Service Platform</description>
 
-    <parent>
-        <artifactId>csp</artifactId>
-        <groupId>com.hongfang.csp</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-    <properties>
-    </properties>
-    <build>
-	  <plugins>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-			  <version>3.7.0</version>
-			  <configuration>
-              <source>1.8</source>
-              <target>1.8</target>
-              <encoding>UTF-8</encoding>
-              <compilerArguments>
-              <verbose />
-              </compilerArguments>
-              </configuration>
-          </plugin>
-          <plugin>
+  <parent>
+      <artifactId>csp</artifactId>
+      <groupId>com.hongfang.csp</groupId>
+      <version>0.1</version>
+  </parent>
+  <properties>
+  </properties>
+  <build>
+	<plugins> 
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-compiler-plugin</artifactId>
+			    <version>3.7.0</version>
+			    <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                    <verbose />
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+		    <plugin>
               <groupId>org.owasp</groupId>
               <artifactId>dependency-check-maven</artifactId>
               <version>8.2.1</version>
@@ -101,78 +101,78 @@
       </plugins>
   </build>
   <dependencies>
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.11</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-      </dependency>
-      <dependency>
-      	  <groupId>org.puremvc</groupId>
-    	  <artifactId>PureMVC_Java_MultiCore</artifactId>
-    	  <version>2.0</version>
-      </dependency>
-      <!--  Gson: Java chat Json conversion -->
-      <dependency>
-          <groupId>com.google.code.gson</groupId>
-          <artifactId>gson</artifactId>
-          <version>2.10.1</version>
-          <scope>compile</scope>
-      </dependency>
-      <!-- HttpClient 2014-07-18 add by Mark Wong -->
-	  <dependency>
-	  	  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpclient</artifactId>
-		  <version>4.5.14</version>
-		  <scope>compile</scope>
-	  </dependency>
-	  <dependency>
-	  	  <groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpcore</artifactId>
-		  <version>4.4.15</version>
-		  <scope>compile</scope>
-	  </dependency>
-      <!-- GData 2014-07-19 add by Mark Wong for Googles's CharEscapers.java -->
-	  <dependency>
-		  <groupId>com.google.gdata</groupId>
-		  <artifactId>core</artifactId>
-		  <version>1.47.1</version>
-		  <scope>compile</scope>
-		  <exclusions>
-		      <exclusion>
-		          <groupId>com.google.guava</groupId>
-		          <artifactId>guava</artifactId>
-		      </exclusion>
-		      <!-- FIX CVE-2007-6059 -->
-		      <exclusion>
-		          <groupId>javax.mail</groupId>
-		          <artifactId>mail</artifactId>
-		      </exclusion>
-              <!-- FIX CVE-2011-4461 -->
-              <exclusion>
-                  <groupId>org.mortbay.jetty</groupId>
-                  <artifactId>jetty</artifactId>
-              </exclusion>
-              <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) Begin -->
-              <exclusion>
-                  <groupId>com.google.oauth-client</groupId>
-                  <artifactId>google-oauth-client</artifactId>
-              </exclusion>
-              <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) End -->
-              <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) Begin -->
-              <exclusion>
-                  <groupId>com.google.oauth-client</groupId>
-                  <artifactId>google-oauth-client-jetty</artifactId>
-              </exclusion>
-              <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) End -->
-          </exclusions>
-	  </dependency>
-	  <!-- FIX CVE-2018-10237 -->
-        <!-- Fix CVE-2023-2976(6.2) Begin -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>org.puremvc</groupId>
+    	<artifactId>PureMVC_Java_MultiCore</artifactId>
+    	<version>2.0</version>
+    </dependency>
+    <!--  Gson: Java chat Json conversion -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- HttpClient 2014-07-18 add by Mark Wong -->
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>4.5.14</version>
+		<scope>compile</scope>
+	</dependency>
+	<dependency> 
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpcore</artifactId>
+		<version>4.4.15</version>
+		<scope>compile</scope>
+	</dependency>
+    <!-- GData 2014-07-19 add by Mark Wong for Googles's CharEscapers.java -->
+	<dependency>
+		<groupId>com.google.gdata</groupId>
+		<artifactId>core</artifactId>
+		<version>1.47.1</version>
+		<scope>compile</scope>
+		<exclusions>
+		    <exclusion>
+		        <groupId>com.google.guava</groupId>
+		        <artifactId>guava</artifactId>
+		    </exclusion>
+		    <!-- FIX CVE-2007-6059 -->
+		    <exclusion>
+		        <groupId>javax.mail</groupId>
+		        <artifactId>mail</artifactId>
+		    </exclusion>
+            <!-- FIX CVE-2011-4461 -->
+            <exclusion>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+            </exclusion>
+            <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) Begin -->
+            <exclusion>
+                <groupId>com.google.oauth-client</groupId>
+                <artifactId>google-oauth-client</artifactId>
+            </exclusion>
+            <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) End -->
+            <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) Begin -->
+            <exclusion>
+                <groupId>com.google.oauth-client</groupId>
+                <artifactId>google-oauth-client-jetty</artifactId>
+            </exclusion>
+            <!-- FIX CVE-2020-7692(9.1), CVE-2021-22573(7.3) End -->
+        </exclusions>
+	</dependency>
+	<!-- FIX CVE-2018-10237 -->
+      <!-- Fix CVE-2023-2976(6.2) Begin -->
 <!--	<dependency>-->
 <!--	    <groupId>com.google.guava</groupId>-->
 <!--	    <artifactId>guava</artifactId>-->
