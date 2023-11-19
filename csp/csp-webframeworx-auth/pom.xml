@@ -3,7 +3,7 @@
   <parent>
     <artifactId>csp</artifactId>
     <groupId>com.hongfang.csp</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <groupId>com.hongfang.csp.webframeworx.auth</groupId>
   <artifactId>csp-webframeworx-auth</artifactId>
