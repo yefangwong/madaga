@@ -296,6 +296,20 @@
 							<packaging>jar</packaging>
 						</configuration>
 					</execution>
+					<execution>
+						<id>install-csp-base</id>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${csp.basedir}/dependencies/csp-base-0.0.1-SNAPSHOT.jar</file>
+							<groupId>com.hongfang.csp</groupId>
+							<artifactId>csp-base</artifactId>
+							<version>0.0.1-SNAPSHOT</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
                 </executions>
             </plugin>
             <!-- Fix CVE-2023-35116 End -->
