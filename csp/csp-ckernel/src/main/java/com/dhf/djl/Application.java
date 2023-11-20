@@ -53,8 +53,8 @@ public class Application {
     public static void main(String[] args) throws IOException, TranslateException {
         ai.djl.Application application = ai.djl.Application.CV.IMAGE_CLASSIFICATION;
 
-        long inputSize = 28*28;
-        long outputSize = 10;
+        long inputSize = 28L*28L;
+        long outputSize = 10L;
 
         SequentialBlock block = new SequentialBlock();
         block.add(Blocks.batchFlattenBlock(inputSize));
