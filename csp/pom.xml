@@ -8,7 +8,12 @@
 	<name>Cornelius Service Platform - csp</name>
 	<description>Cornelius Service Platform</description>
     <url>https://github.com/yefangwong/madaga.git</url>
-
+	<!--
+    History
+    date          item                                              author
+    2023/11/12    Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3),
+                  CVE-2023-41080(6.1), CVE-2023-45648(5.3)          yefangwong
+    -->
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -29,9 +34,9 @@
 	    <maven.compiler.target>17</maven.compiler.target>
    	    <maven.compiler.source>17</maven.compiler.source>
 	    <springframework.version>6.0.8</springframework.version>
-		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix
-        CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
-		<spring-boot.version>3.1.1</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
+		<spring-boot.version>3.1.5</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
+		<tomcat.version>10.1.15</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) -->
 		<logback.version>1.2.9</logback.version>
 		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
@@ -138,7 +143,14 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>8.2.1</version>
                 <configuration>
-					<format>HTML</format>
+					<!-- Generate all report formats -->
+					<format>ALL</format>
+					<!-- Generate output report directory -->
+					<outputDirectory>output</outputDirectory>
+					<!-- Do not use Nexus Analyzer -->
+					<centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+					<!-- Am I the latest version? -->
+					<versionCheckEnabled>true</versionCheckEnabled>
                     <cveValidForHours>12</cveValidForHours>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
 					<!-- FIX some False Positive CVEs  -->
@@ -152,6 +164,41 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+	            <executions>
+					<execution>
+	                    <goals>
+							<goal>transform</goal>
+                        </goals>
+		            </execution>
+		        </executions>
+		        <configuration>
+		            <transformationSets>
+		                <transformationSet>
+							<dir>${csp.basedir}/output</dir>
+		                    <includes>
+		                        <include>dependency-check-report.xml</include>
+		                    </includes>
+				            <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
+		                    <outputDir>${csp.basedir}/output</outputDir>
+		                    <fileMappers>
+		                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                    <targetName>dependency-check-report-pmd.xml</targetName>
+						        </fileMapper>
+		                    </fileMappers>
+		                </transformationSet>
+		            </transformationSets>
+		        </configuration>
+		        <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>saxon</artifactId>
+						<version>8.7</version>
+					</dependency>
+		        </dependencies>
+		    </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -284,6 +331,7 @@
 	<dependencyManagement>
 		<dependencies>
             <!--Spring Boot -->
+			<!-- Fix Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) Begin -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -291,6 +339,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+				<groupId>org.apache.tomcat.embed</groupId>
+				<artifactId>tomcat-embed-core</artifactId>
+				<version>${tomcat.version}</version>
+			</dependency>
+			<!-- Fix Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) End -->
 			<!--General -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -749,6 +803,11 @@
                 <version>${okhttp.version}</version>
             </dependency>
 			<!-- ChatGPT related End -->
+			<dependency>
+				<groupId>org.sitemesh</groupId>
+				<artifactId>sitemesh</artifactId>
+				<version>3.0.1</version>
+			</dependency>
 			<!--Tiles -->
 			<dependency>
 				<groupId>org.apache.tiles</groupId>

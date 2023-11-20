@@ -14,7 +14,7 @@ public class CKIPTest {
     public void init() {
 
         //TODO You should change this before you run a test.
-        this.service = new CKIPServiceImpl("140.109.20.151", 1501, "", "");
+        //this.service = new CKIPServiceImpl("140.109.20.151", 1501, "", "");
 
         String testString = "台新金控12月3日將召開股東臨時會進行董監改選。";
 

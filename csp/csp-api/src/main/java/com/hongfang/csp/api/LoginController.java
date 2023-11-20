@@ -1,7 +1,7 @@
 package com.hongfang.csp.api;
 
-import org.occ.csp.domain.ChurchMember;
-import org.occ.csp.service.CspService;
+//import org.occ.csp.domain.ChurchMember;
+//import org.occ.csp.service.CspService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import com.hongfang.ckernel.models.User;
  *【 資 料 來 源】  ：<br>
  *【 輸 出 報 表】  ：<br>
  *【 異 動 紀 錄】  ：<br>
+ * 2023/10/10 deprecated for JavaDL library import Mark
  * @author   : Mark Wong <br>
  * @version  : 1.0.0 2014/7/31<P>
  */
@@ -30,20 +31,21 @@ import com.hongfang.ckernel.models.User;
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@Autowired
-	private CspService cspService;
-	
+//	@Autowired
+//	private CspService cspService;
+//
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces="application/json")
 	public @ResponseBody User login(@RequestBody User user) throws Exception {
 		logger.info("LoginController login");
-		ChurchMember cm = cspService.getChurchMemberByEmail(user.email);
-		if (cm != null) {
-			String password = cm.getMemberPassword();
-			user.loginSuccess = user.password.equals(password)?true:false;
-			return user;
-		} else {
-			user.loginSuccess = false;
-			return user;
-		}
+//		ChurchMember cm = cspService.getChurchMemberByEmail(user.email);
+//		if (cm != null) {
+//			String password = cm.getMemberPassword();
+//			user.loginSuccess = user.password.equals(password)?true:false;
+//			return user;
+//		} else {
+//			user.loginSuccess = false;
+//			return user;
+//		}
+		return null;
 	}
 }

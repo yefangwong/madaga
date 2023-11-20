@@ -1,10 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.hongfang.csp.ckernel</groupId>
-  <artifactId>csp-ckernel</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>csp-ckernel - kernel</name>
-  <description>The Kernel of Cornelius Service Platform</description>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+    History
+    2015/08/24 replace church service platform's code with
+               Cornelius Service Platform (Service and Model)
+    2019/02/03 because it is not the right time chat use common
+               service and domain object framework. it's time
+               to use common service and domain object frameworx
+    2023/10/10 Introduce Java-Deep Learning Library
+    -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hongfang.csp.ckernel</groupId>
+    <artifactId>csp-ckernel</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>csp-ckernel - kernel</name>
+    <description>The Kernel of Cornelius Service Platform</description>
 
   <parent>
       <artifactId>csp</artifactId>
@@ -28,7 +37,68 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-		</plugins>
+		    <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>8.2.1</version>
+              <configuration>
+                  <!-- Generate all report formats -->
+                  <format>ALL</format>
+                  <!-- Generate output report directory -->
+                  <outputDirectory>output</outputDirectory>
+                  <!-- Do not use Nexus Analyzer -->
+                  <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                  <!-- Am I the latest version? -->
+                  <versionCheckEnabled>true</versionCheckEnabled>
+                  <cveValidForHours>12</cveValidForHours>
+                  <failBuildOnCVSS>4</failBuildOnCVSS>
+                  <!-- FIX some False Positive CVEs  -->
+                  <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
+              </configuration>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>xml-maven-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>transform</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <transformationSets>
+                      <transformationSet>
+                          <dir>output</dir>
+                          <includes>
+                              <include>dependency-check-report.xml</include>
+                          </includes>
+                          <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
+                          <outputDir>output</outputDir>
+                          <fileMappers>
+                              <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                  <targetName>dependency-check-report-pmd.xml</targetName>
+                              </fileMapper>
+                          </fileMappers>
+                      </transformationSet>
+                  </transformationSets>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                      <groupId>net.sf.saxon</groupId>
+                      <artifactId>saxon</artifactId>
+                      <version>8.7</version>
+                  </dependency>
+              </dependencies>
+          </plugin>
+      </plugins>
   </build>
   <dependencies>
     <dependency>
@@ -109,6 +179,54 @@
 <!--	    <version>31.1-jre</version>-->
 <!--	</dependency>-->
       <!-- Fix CVE-2023-2976(6.2) End -->
+      <!-- Deep Learning Java Begin-->
+      <dependency>
+          <groupId>ai.djl</groupId>
+          <artifactId>api</artifactId>
+          <version>0.23.0</version>
+          <exclusions>
+              <!-- Fix CVE-2023-42503(5.5) Begin -->
+              <exclusion>
+                  <groupId>org.apache.commons</groupId>
+                  <artifactId>commons-compress</artifactId>
+              </exclusion>
+              <!-- Fix CVE-2023-42503(5.5) End -->
+          </exclusions>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl</groupId>
+          <artifactId>basicdataset</artifactId>
+          <version>0.23.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl</groupId>
+          <artifactId>model-zoo</artifactId>
+          <version>0.23.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-compress</artifactId>
+          <version>1.24.0</version>
+      </dependency>
+      <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) Begin -->
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-engine</artifactId>-->
+<!--          <version>0.25.0</version> &lt;!&ndash;  CVE-2022-24294(7.5), CVE-2018-1281(6.5) &ndash;&gt;-->
+<!--      </dependency>-->
+      <dependency>
+          <groupId>ai.djl.mxnet</groupId>
+          <artifactId>mxnet-native-mkl</artifactId>
+          <classifier>osx-x86_64</classifier> <!-- For Mac to use the Intel Math Kernel Library -->
+          <version>1.9.1</version>
+          <scope>runtime</scope>
+      </dependency>
+      <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) End -->
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+      </dependency>
+      <!-- Deep Learning Java End-->
       <dependency>
           <groupId>com.hongfang.csp</groupId>
           <artifactId>csp-webframeworx-common</artifactId>
