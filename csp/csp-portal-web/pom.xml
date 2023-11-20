@@ -24,8 +24,9 @@ date         item                                              author
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
-        <shiro.version>1.12.0</shiro.version><!-- CVE-2021-41303(9.8), CVE-2022-32532(9.8), CVE-2023-22602(7.5),
-        CVE-2022-40664(9.8), CVE-2023-34478(9.1) -->
+        <shiro.version>1.13.0</shiro.version><!-- CVE-2021-41303(9.8), CVE-2022-32532(9.8), CVE-2023-22602(7.5),
+        CVE-2022-40664(9.8), CVE-2023-34478(9.1)
+        CVE-2023-46750(6.1)-->
         <jwt.version>3.10.1</jwt.version>
         <spring-boot.version>3.1.2</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5),
          CVE-2023-38286 -->
@@ -372,6 +373,10 @@ date         item                                              author
                 <exclusion>
                     <groupId>io.projectreactor.netty</groupId>
                     <artifactId>reactory-netty-http</artifactId>
+                </exclusion>
+                <exclusion> <!-- Fix CVE-2023-34062(7.5) -->
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-reactor-netty</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
