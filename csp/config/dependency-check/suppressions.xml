@@ -84,7 +84,7 @@
         2. DJL only use MXNet C API, it doesn't support distributed mode.
         ref:https://github.com/deepjavalibrary/djl/issues/2863#issuecomment-1819295443
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/ai\.djl\.mxnet/mxnet-engine-.*@.*$</packageUrl>
+        <gav regex="true">^ai\.djl\.mxnet:mxnet-engine:.*$</gav>
         <cve>CVE-2022-24294</cve>
         <cve>CVE-2018-1281</cve>
     </suppress>

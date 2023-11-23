@@ -209,11 +209,11 @@
           <version>1.24.0</version>
       </dependency>
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) Begin -->
-<!--      <dependency>-->
-<!--          <groupId>ai.djl.mxnet</groupId>-->
-<!--          <artifactId>mxnet-engine</artifactId>-->
-<!--          <version>0.25.0</version> &lt;!&ndash;  CVE-2022-24294(7.5), CVE-2018-1281(6.5) &ndash;&gt;-->
-<!--      </dependency>-->
+      <dependency>
+          <groupId>ai.djl.mxnet</groupId>
+          <artifactId>mxnet-engine</artifactId>
+          <version>0.25.0</version> <!--  CVE-2022-24294(7.5), CVE-2018-1281(6.5) -->
+      </dependency>
       <dependency>
           <groupId>ai.djl.mxnet</groupId>
           <artifactId>mxnet-native-mkl</artifactId>
