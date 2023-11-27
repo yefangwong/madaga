@@ -201,7 +201,12 @@
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>model-zoo</artifactId>
-          <version>0.23.0</version>
+          <version>0.24.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl</groupId>
+          <artifactId>examples</artifactId>
+          <version>0.6.0</version>
       </dependency>
       <dependency>
           <groupId>org.apache.commons</groupId>
@@ -216,8 +221,20 @@
       </dependency>
       <dependency>
           <groupId>ai.djl.mxnet</groupId>
+          <artifactId>mxnet-model-zoo</artifactId>
+          <version>0.25.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.mxnet</groupId>
           <artifactId>mxnet-native-mkl</artifactId>
           <classifier>osx-x86_64</classifier> <!-- For Mac to use the Intel Math Kernel Library -->
+          <version>1.9.1</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.mxnet</groupId>
+          <artifactId>mxnet-native-mkl</artifactId>
+          <classifier>win-x86_64</classifier> <!-- For Window to use the Intel Math Kernel Library -->
           <version>1.9.1</version>
           <scope>runtime</scope>
       </dependency>
