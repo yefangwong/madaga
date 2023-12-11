@@ -88,4 +88,12 @@
         <cve>CVE-2022-24294</cve>
         <cve>CVE-2018-1281</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-core:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
 </suppressions>
