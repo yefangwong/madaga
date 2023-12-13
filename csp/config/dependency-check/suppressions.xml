@@ -96,4 +96,36 @@
         <gav regex="true">^org\.apache\.tiles:tiles-core:.*$</gav>
         <cve>CVE-2023-49735</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-api:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-jsp:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-servlet:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-template:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
 </suppressions>

@@ -12,7 +12,6 @@ date         item                                              author
         <groupId>com.hongfang.csp</groupId>
         <version>0.1</version>
     </parent>
-    <groupId>com.hongfang.csp</groupId>
     <artifactId>csp-portal-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -28,8 +27,6 @@ date         item                                              author
         CVE-2022-40664(9.8), CVE-2023-34478(9.1)
         CVE-2023-46750(6.1)-->
         <jwt.version>3.10.1</jwt.version>
-        <spring-boot.version>3.1.2</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5),
-         CVE-2023-38286 -->
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <netty.version>4.1.100.Final</netty.version><!-- Fix CVE-2023-4586(7.4), CVE-2023-44487(7.5) -->
         <jackson.version>2.16.0-SNAPSHOT</jackson.version><!-- Fix
@@ -288,12 +285,10 @@ date         item                                              author
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <!-- @deprecated for Thymeleaf -->
         <!--<dependency>-->

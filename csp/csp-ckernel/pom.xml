@@ -183,7 +183,7 @@
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>api</artifactId>
-          <version>0.23.0</version>
+          <version>0.25.0</version>
           <exclusions>
               <!-- Fix CVE-2023-42503(5.5) Begin -->
               <exclusion>
@@ -196,17 +196,27 @@
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>basicdataset</artifactId>
-          <version>0.23.0</version>
+          <version>0.25.0</version>
       </dependency>
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>model-zoo</artifactId>
-          <version>0.24.0</version>
+          <version>0.25.0</version>
       </dependency>
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>examples</artifactId>
           <version>0.6.0</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-api</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.apache.logging.log4j</groupId>
+                  <artifactId>log4j-slf4j-impl</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
           <groupId>org.apache.commons</groupId>
@@ -214,39 +224,65 @@
           <version>1.24.0</version>
       </dependency>
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) Begin -->
-      <dependency>
-          <groupId>ai.djl.mxnet</groupId>
-          <artifactId>mxnet-engine</artifactId>
-          <version>0.25.0</version> <!--  CVE-2022-24294(7.5), CVE-2018-1281(6.5) -->
-      </dependency>
+      <!-- @deprecated -->
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-engine</artifactId>-->
+<!--          <version>0.25.0</version> &lt;!&ndash;  CVE-2022-24294(7.5), CVE-2018-1281(6.5) &ndash;&gt;-->
+<!--      </dependency>-->
       <dependency>
           <groupId>ai.djl.mxnet</groupId>
           <artifactId>mxnet-model-zoo</artifactId>
           <version>0.25.0</version>
       </dependency>
-      <dependency>
-          <groupId>ai.djl.mxnet</groupId>
-          <artifactId>mxnet-native-mkl</artifactId>
-          <classifier>osx-x86_64</classifier> <!-- For Mac to use the Intel Math Kernel Library -->
-          <version>1.9.1</version>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>ai.djl.mxnet</groupId>
-          <artifactId>mxnet-native-mkl</artifactId>
-          <classifier>win-x86_64</classifier> <!-- For Window to use the Intel Math Kernel Library -->
-          <version>1.9.1</version>
-          <scope>runtime</scope>
-      </dependency>
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-native-mkl</artifactId>-->
+<!--          <classifier>osx-x86_64</classifier> &lt;!&ndash; For Mac to use the Intel Math Kernel Library &ndash;&gt;-->
+<!--          <version>1.9.1</version>-->
+<!--          <scope>runtime</scope>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-native-mkl</artifactId>-->
+<!--          <classifier>win-x86_64</classifier> &lt;!&ndash; For Window to use the Intel Math Kernel Library &ndash;&gt;-->
+<!--          <version>1.9.1</version>-->
+<!--          <scope>runtime</scope>-->
+<!--      </dependency>-->
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) End -->
       <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-engine</artifactId>
+          <version>0.25.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-native-cu118</artifactId>
+          <classifier>win-x86_64</classifier>
+          <version>2.0.1</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-jni</artifactId>
+          <version>2.0.1-0.25.0</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-model-zoo</artifactId>
+          <version>0.25.0</version>
       </dependency>
       <!-- Deep Learning Java End-->
       <dependency>
           <groupId>com.hongfang.csp</groupId>
           <artifactId>csp-webframeworx-common</artifactId>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-api</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
   </dependencies>
 </project>

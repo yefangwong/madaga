@@ -36,7 +36,8 @@
 	    <springframework.version>6.0.14</springframework.version><!-- Fix CVE-2023-34053 -->
 		<springframework.security.version>6.1.2</springframework.security.version><!-- Fix CVE-2023-34035(9.1), CVE-2023-34034(9.1) -->
 		<spring-boot.version>3.1.6</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5), CVE-2023-34055 -->
-		<tomcat.version>10.1.15</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) -->
+		<tomcat.version>10.1.16</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1),
+		CVE-2023-45648(5.3)、CVE-2023-46589(7.5) -->
         <logback.version>1.4.14</logback.version><!-- Fix CVE-2021-42250 -->
 		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
@@ -339,6 +340,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-autoconfigure</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.tomcat.embed</groupId>
 				<artifactId>tomcat-embed-core</artifactId>
