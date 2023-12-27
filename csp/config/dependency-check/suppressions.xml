@@ -78,4 +78,54 @@
         <packageUrl regex="true">^pkg:maven/io\.netty/netty-.*@.*$</packageUrl>
         <cve>CVE-2023-4586</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+        1. MXNet 1.9.1 is not use any python code.
+        2. DJL only use MXNet C API, it doesn't support distributed mode.
+        ref:https://github.com/deepjavalibrary/djl/issues/2863#issuecomment-1819295443
+        ]]></notes>
+        <gav regex="true">^ai\.djl\.mxnet:mxnet-engine:.*$</gav>
+        <cve>CVE-2022-24294</cve>
+        <cve>CVE-2018-1281</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-core:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-api:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-jsp:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-servlet:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        This vulnerability only affects products that are no longer supported by the maintainer
+        ref:https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49735
+        ]]></notes>
+        <gav regex="true">^org\.apache\.tiles:tiles-template:.*$</gav>
+        <cve>CVE-2023-49735</cve>
+    </suppress>
 </suppressions>
