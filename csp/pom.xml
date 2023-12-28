@@ -773,7 +773,7 @@
             <dependency>
                 <groupId>com.unfbx</groupId>
                 <artifactId>chatgpt-java</artifactId>
-                <version>1.0.12</version>
+                <version>1.0.15</version>
                 <exclusions>
                     <!-- Fix CVE-2023-33695 Begin -->
                     <exclusion>
