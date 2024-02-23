@@ -239,7 +239,7 @@
                         <option value="女" th:selected="${c.gender == '女'}">女</option>
                     </select>
                 </div>
-                <div class="col-md-2 align">
+                <div class="col-md-1 align">
                     <input type="text" class="form-control" name="age" placeholder="年齡" th:value="${c.age==0}?'':${c.age}">
                 </div>
                 <div class="col-md-2 align">
@@ -248,7 +248,7 @@
                         <option th:each="dep:${depList}" th:selected="${c.dep!=null?${dep.id==c.dep.id}:false" th:text="${dep.name}" th:value="${dep.id}"></option>
                     </select>
                 </div>
-                <div class="col-md-3 align">
+                <div class="col-md-4 align">
                     <div class="d-grid gap-2 d-md-block" role="toolbar">
                         <button type="submit" class="btn btn-primary csp-btn-spacing">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
