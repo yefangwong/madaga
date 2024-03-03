@@ -29,4 +29,9 @@
         LEFT JOIN department dep
         ON emp.dep_id = dep.id
     </select>
+    <select id="search" resultMap="EmpAndDep">
+        select e.*, d.name as depName from
+        employee as e left join department as d on
+        e.dept_id = d.id order by e.id
+    </select>
 </mapper>

@@ -267,6 +267,7 @@ date         item                                              author
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+            <scope>runtime</scope>
             <exclusions>
                 <!-- Fix CVE-2022-27772(7.8) Begin -->
                 <exclusion>

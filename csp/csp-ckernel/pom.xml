@@ -221,7 +221,7 @@
       <dependency>
           <groupId>org.apache.commons</groupId>
           <artifactId>commons-compress</artifactId>
-          <version>1.24.0</version>
+          <version>1.26.0</version>
       </dependency>
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) Begin -->
       <!-- @deprecated -->

@@ -1,12 +1,16 @@
 package com.dhf.hrsys.controller;
 
+import com.dhf.hrsys.service.EmployeeService;
 import com.dhf.hrsys.service.IGeneralDAOService;
 import com.dhf.util.JXLExcelBuilder;
 import com.hongfang.csp.system.entity.Department;
+import com.hongfang.csp.system.entity.Employee;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +25,7 @@ import java.util.List;
 public class EmployeeController {
     final IGeneralDAOService generalDaoService;
     private static List<Department> depList = new ArrayList<Department>();
+    EmployeeService empService;
 
     static {
         Department dep = new Department();
@@ -35,21 +40,22 @@ public class EmployeeController {
         depList.add(dep);
     }
 
-    public EmployeeController(IGeneralDAOService generalDaoService) {
+    public EmployeeController(IGeneralDAOService generalDaoService,
+                              EmployeeService empService) {
         this.generalDaoService = generalDaoService;
+        this.empService = empService;
+    }
+
+    @RequestMapping(value="show")
+    public String show() {
+        return "emp/show";
     }
 
     @RequestMapping("search")
-    public ModelAndView search() throws Exception {
-       ModelAndView mv = new ModelAndView("emp/show");
-       Condition condition = new Condition();
-       List<HashMap> list = getEmployeeList(condition);
-       log.debug("emp size:{}", list.size());
-       List<Department> depList = new ArrayList<Department>();
-       mv.addObject("c", condition);
-       mv.addObject("list", list);
-       mv.addObject("depList", depList);
-       return mv;
+    @ResponseBody
+    public List<Employee> search(Employee condition) throws Exception {
+        List<Employee> list = empService.search(condition);
+       return list;
     }
 
     @PostMapping("export")

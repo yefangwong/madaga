@@ -1,7 +1,8 @@
 <!--
   History
   --------------------------------------------
-  2023/2/1 yfwong inital version.
+  2023/2/1 yfwong inital version. (Thymleaf)
+  2024/3/3 yfwong move front end template to Vue.js
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
@@ -26,14 +27,31 @@
                 el:"#container",
                 data:{
                     mes:'',
+                    list:[],
+                    depList:[],
+                    form: {
+                      number: null,
+                      name: null,
+                      gender: null,
+                      age: null,
+                      'dep.id': ""
+                    },
                     question:{
                         id: 1,
                         text: '我想查詢公司財務部有沒有吳華瑄小姐'
                     },
                     eventSource: null
                 },
-                created(){},
+                created(){
+                    this.search();
+                },
                 methods:{
+                    search: function() {
+                      axios.get('search')
+                          .then(function (res) {
+                              this.list = res.data;
+                          }.bind(this))
+                    },
                     startSSE() {
                         const source = new EventSource('/api/startSSE');
                         source.onmessage = (event) => {
@@ -144,6 +162,9 @@
                             this.eventSource.close();
                             this.eventSource = null;
                         }
+                    },
+                    showAdd() {
+                        location.href = "showAdd";
                     }
                 },
                 beforeDestroy() {
@@ -224,28 +245,28 @@
                 </div>
             </div>
         </div>
-        <form id="search" action="search" method="post">
+        <form id="search" action="search" method="post" @submit.prevent="search()">
             <div class="row">
                 <div class="col-md-2 pb-3 align">
-                    <input type="text" class="form-control" name="number" placeholder="編號" th:value="${c.number==0?'':c.number}" />
+                    <input type="text" class="form-control" name="number" placeholder="編號" v-model="form.number" />
                 </div>
                 <div class="col-md-2 align">
-                    <input type="text" class="form-control" name="name" placeholder="姓名" th:value="${c.name}" />
+                    <input type="text" class="form-control" name="name" placeholder="姓名" v-model="form.name" />
                 </div>
                 <div class="col-md-1 align">
                     <select class="form-control" name="gender" id="">
                         <option value="">性別</option>
-                        <option value="男" th:selected="${c.gender == '男'}">男</option>
-                        <option value="女" th:selected="${c.gender == '女'}">女</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
                     </select>
                 </div>
                 <div class="col-md-1 align">
-                    <input type="text" class="form-control" name="age" placeholder="年齡" th:value="${c.age==0}?'':${c.age}">
+                    <input type="text" class="form-control" name="age" placeholder="年齡">
                 </div>
                 <div class="col-md-2 align">
-                    <select class="form-control" name="dep.id">
+                    <select class="form-control" v-model="form['dep.id']">
                         <option value="">部門</option>
-                        <option th:each="dep:${depList}" th:selected="${c.dep!=null?${dep.id==c.dep.id}:false" th:text="${dep.name}" th:value="${dep.id}"></option>
+                        <option v-for="dep in depList" v-text="dep.name" v-bind:value="dep.id"></option>
                     </select>
                 </div>
                 <div class="col-md-4 align">
@@ -280,16 +301,16 @@
                 <td>年齡</td>
                 <td>部門</td>
             </tr>
-            <tr class="data" th:each="emp:${list}" th:data-id="${emp.empId}">
-                <td th:text="${emp.empNumber}"></td>
-                <td th:text="${emp.empName}"></td>
-                <td th:text="${emp.gender}"></td>
-                <td th:text="${emp.age}"></td>
-                <td th:text="${emp.depName}"></td>
+            <tr class="data" v-for="emp in list">
+                <td v-text="emp.number"></td>
+                <td v-text="emp.name"></td>
+                <td v-text="emp.gender"></td>
+                <td v-text="emp.age"></td>
+                <td v-text="emp.dep!=null?emp.dep.name:''"></td>
             </tr>
         </table>
         <div class="d-grid gap-2 d-md-block" role="toolbar">
-            <button type="button" id="add" class="btn btn-primary csp-btn-spacing">新增</button>
+            <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
             <button type="button" id="update" class="btn btn-primary csp-btn-spacing">修改</button>
             <button type="button" id="delete" class="btn btn-primary csp-btn-spacing">刪除</button>
         </div>
