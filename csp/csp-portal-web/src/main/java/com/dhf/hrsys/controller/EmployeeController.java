@@ -55,7 +55,6 @@ public class EmployeeController {
     @ResponseBody
     public List<Employee> search(Employee condition) throws Exception {
         List<Employee> list = empService.search(condition);
-        log.debug("size:" + list.size());
        return list;
     }
 

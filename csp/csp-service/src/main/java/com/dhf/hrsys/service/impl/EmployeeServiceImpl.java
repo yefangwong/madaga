@@ -23,9 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> search(Employee condition) {
-        log.debug("service search executed!");
         List<Employee> list = empDao.search(condition);
-        log.debug("service size:" + list.size());
         return list;
     }
 
