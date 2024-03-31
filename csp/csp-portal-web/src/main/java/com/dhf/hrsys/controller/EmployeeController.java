@@ -51,6 +51,11 @@ public class EmployeeController {
         return "emp/show";
     }
 
+    @RequestMapping(value="showAdd")
+    public String showAdd() {
+        return "emp/add";
+    }
+
     @RequestMapping("search")
     @ResponseBody
     public List<Employee> search(Employee condition) throws Exception {
