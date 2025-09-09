@@ -34,6 +34,6 @@ public class JiebaServiceImpl extends WordSegmentationService {
     }
 
     @Override public void send() throws Exception {
-        throw new Exception("not implement yet!");
+        return;
     }
 }

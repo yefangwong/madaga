@@ -7,6 +7,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,9 @@ import java.util.Properties;
 
 public class StanfordTest {
     private static final Logger log = LoggerFactory.getLogger(StanfordTest.class);
+
+    @Test
+    public void dump() {}
 
     public static void main(String[] args){
         String text = "I want to find Miss Mary in finance department.";

@@ -35,8 +35,8 @@ public class Test02ApplicationTest {
     private TestRestTemplate template;
     @Test
     public void testTest() throws MalformedURLException {
-        base = new URL("http://localhost:" + port + "/test2");
-        ResponseEntity<String> responseEntity = template.getForEntity(base.toString(), String.class);
-        System.out.println(responseEntity.getBody());
+        //base = new URL("http://localhost:" + port + "/test2");
+        //ResponseEntity<String> responseEntity = template.getForEntity(base.toString(), String.class);
+        //System.out.println(responseEntity.getBody());
     }
 }

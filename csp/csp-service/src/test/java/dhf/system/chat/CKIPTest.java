@@ -1,5 +1,6 @@
 package dhf.system.chat;
 
+import com.dhf.hrsys.service.impl.JiebaServiceImpl;
 import com.dhf.hrsys.service.impl.Term;
 import com.dhf.hrsys.service.impl.WordSegmentationService;
 import org.junit.Before;
@@ -15,6 +16,7 @@ public class CKIPTest {
 
         //TODO You should change this before you run a test.
         //this.service = new CKIPServiceImpl("140.109.20.151", 1501, "", "");
+        this.service = new JiebaServiceImpl();
 
         String testString = "台新金控12月3日將召開股東臨時會進行董監改選。";
 
