@@ -1,3 +1,3 @@
-mvn clean install 
+csp/csp-portal-web/mvnw clean install 
 cd csp/csp-portal-web
-mvn spring-boot:run
+csp/csp/csp-portal-web/mvnw spring-boot:run
