@@ -59,7 +59,7 @@
                   <!-- Use local NVD data cache -->
                   <nvdApiDelay>4000</nvdApiDelay>
                   <connectionTimeout>60000</connectionTimeout>
-                  <dataDirectory>${csp.basedir}/output/nvd-cache</dataDirectory>
+                  <dataDirectory>${csp.basedir}/cache/nvd-cache</dataDirectory>
               </configuration>
               <executions>
                   <execution>
