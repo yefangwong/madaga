@@ -614,3 +614,9 @@ replay_pid*
 # accept dependencies folder jar
 !csp/dependencies/**.jar
 
+# ignore CVD Database
+/csp/cache/
+
+# Ignore the project's output directory
+**/output/
+
