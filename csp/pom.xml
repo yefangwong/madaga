@@ -40,7 +40,7 @@
 		<spring-boot.version>3.1.5</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5) -->
 		<tomcat.version>10.1.15</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) -->
 		<logback.version>1.2.9</logback.version>
-		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
+		<jackson.version>2.16.0</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
 		<okhttp.fixcve.1.version>4.10.0-CSP</okhttp.fixcve.1.version><!-- Fix CVE 2021-0341 -->
         <okhttp.version>4.10.0</okhttp.version>
@@ -217,20 +217,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>install-CVE-2023-35116-fix-2</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>${csp.basedir}/dependencies/jackson-core-2.16.0-SNAPSHOT.jar</file>
-                            <groupId>com.fasterxml.jackson.core</groupId>
-                            <artifactId>jackson-core</artifactId>
-                            <version>2.16.0-SNAPSHOT</version>
-                            <packaging>jar</packaging>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>install-CVE-2023-35116-fix-3</id>
                         <phase>install</phase>
                         <goals>
@@ -244,7 +230,7 @@
                             <packaging>jar</packaging>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!--<execution>
                         <id>install-CVE-2021-0341-fix-4</id>
                         <phase>install</phase>
                         <goals>
@@ -257,7 +243,7 @@
                             <version>4.10.0-CSP</version>
                             <packaging>jar</packaging>
                         </configuration>
-                    </execution>
+                    </execution>-->
 					<execution>
 						<id>install-Jieba4j-WordSegment-4</id>
 						<phase>install</phase>
@@ -268,7 +254,7 @@
 							<file>${csp.basedir}/dependencies/jieba4j-tag-0.0.1-SNAPSHOT.jar</file>
 							<groupId>com.yhnlp</groupId>
 							<artifactId>jieba4j-tag</artifactId>
-							<version>0.0.1-SNAPSHOT-CSP</version>
+							<version>0.0.1-SNAPSHOT</version>
 							<packaging>jar</packaging>
 						</configuration>
 					</execution>
@@ -306,6 +292,20 @@
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<!-- 升级 Apache Commons Compress -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>1.26.0</version> <!-- 修復 CVE-2024-26308/CVE-2024-25710 -->
+			</dependency>
+
+			<!-- 升级 Gson -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.11.0</version> <!-- 官方最新稳定版 -->
+			</dependency>
+
             <!--Spring Boot -->
 			<!-- Fix Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1), CVE-2023-45648(5.3) Begin -->
             <dependency>

@@ -31,7 +31,7 @@ date         item                                              author
          CVE-2023-38286 -->
         <spring-boot-admin.version>2.2.2</spring-boot-admin.version>
         <netty.version>4.1.100.Final</netty.version><!-- Fix CVE-2023-4586(7.4), CVE-2023-44487(7.5) -->
-        <jackson.version>2.16.0-SNAPSHOT</jackson.version><!-- Fix
+        <jackson.version>2.16.0</jackson.version><!-- Fix
         CVE-2023-35116 -->
     </properties>
     <build>
