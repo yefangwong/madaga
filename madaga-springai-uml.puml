@@ -1,27 +1,84 @@
 @startuml
-'https://plantuml.com/class-diagram
+title Madaga + Spring AI 架構整合圖
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+package "madaga.backend" {
+  class MadagaController {
+    +chat(request: ChatRequest): ChatResponse
+  }
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+  class MadagaService {
+    +handleChat(request: ChatRequest): ChatResponse
+  }
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
+  interface AIModelAdapter {
+    +generate(request: ModelRequest): ModelResponse
+    +embed(text: String): float[]
+  }
 
-class ArrayList {
-Object[] elementData
-size()
+  class OllamaAdapter {
+    +generate(request: ModelRequest): ModelResponse
+    +embed(text: String): float[]
+  }
+
+  class RAGService {
+    +answer(query: String): String
+  }
+
+  class VectorStoreManager {
+    +store(Embedding): void
+    +search(query: String): List<Document>
+  }
+
+  MadagaController --> MadagaService
+  MadagaService --> AIModelAdapter
+  AIModelAdapter <|-- OllamaAdapter
+  MadagaService --> RAGService
+  RAGService --> VectorStoreManager
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+package "Spring AI Core" {
+  interface Model
+  interface ChatModel extends Model
+  interface EmbeddingModel extends Model
+
+  class ChatClient {
+    +chat(request: ChatRequest): ChatResponse
+  }
+
+  class EmbeddingClient {
+    +embed(text: String): EmbeddingResponse
+  }
+
+  ChatClient --> ChatModel
+  EmbeddingClient --> EmbeddingModel
 }
 
+package "Spring AI Vector" {
+  interface VectorStore {
+    +add(Embedding): void
+    +similaritySearch(query: String): List<Document>
+  }
+
+  class VectorStoreRetriever {
+    +retrieve(query: String): List<Document>
+  }
+
+  VectorStoreRetriever --> VectorStore
+}
+
+package "Spring AI RAG" {
+  class RetrievalAugmentedGenerationService {
+    +answer(query: String): String
+  }
+
+  RetrievalAugmentedGenerationService --> ChatClient
+  RetrievalAugmentedGenerationService --> VectorStoreRetriever
+}
+
+' ==== 整合連結 ====
+MadagaService --> ChatClient : uses
+OllamaAdapter --> ChatModel : delegates
+OllamaAdapter --> EmbeddingModel : delegates
+VectorStoreManager --> VectorStore : uses
+RAGService --> RetrievalAugmentedGenerationService : wraps
 @enduml

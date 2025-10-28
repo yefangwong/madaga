@@ -1,27 +1,38 @@
 @startuml
-'https://plantuml.com/class-diagram
+package "madaga.backend" {
+  class MadagaApplication
+  class MadagaController {
+    +chat(request: ChatRequest): ChatResponse
+  }
+  class MadagaService {
+    +handleChat(request: ChatRequest): ChatResponse
+  }
+  interface AIModelAdapter {
+    +generate(request: ModelRequest): ModelResponse
+    +embed(text: String): float[]
+  }
+  class OllamaAdapter {
+    +generate(request: ModelRequest): ModelResponse
+    +embed(text: String): float[]
+  }
+  class OpenAIAdapter {
+    +generate(request: ModelRequest): ModelResponse
+    +embed(text: String): float[]
+  }
+  class ModelRequest
+  class ModelResponse
+  class SessionManager
+  class JobQueue
+  class VectorStore
+  class RAGService
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+  MadagaController --> MadagaService
+  MadagaService --> AIModelAdapter
+  AIModelAdapter <|-- OllamaAdapter
+  AIModelAdapter <|-- OpenAIAdapter
+  MadagaService --> SessionManager
+  MadagaService --> JobQueue
+  RAGService --> VectorStore
+  MadagaService --> RAGService
 }
-
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
-
 @enduml
