@@ -1,0 +1,133 @@
+@startuml
+class com.dhf.hrsys.controller.SqlController {
+~ IGeneralDAOService generalDaoService
++ List<HashMap> query(String)
+- String processForMyBatis(String)
+}
+
+
+class com.dhf.hrsys.interceptor.ThymeleafLayoutInterceptor {
+- {static} Logger log
+- {static} String DEFAULT_LAYOUT
+- {static} String DEFAULT_VIEW_ATTRIBUTE_NAME
+- String defaultLayout
+- String viewAttributeName
++ void setDefaultLayout(String)
++ void setViewAttributeName(String)
++ boolean preHandle(HttpServletRequest,HttpServletResponse,Object)
++ void postHandle(HttpServletRequest,HttpServletResponse,Object,ModelAndView)
+- String getLayoutName(Object)
+- Layout getMethodOrTypeAnnotation(HandlerMethod)
+- boolean isRedirectOrForward(String)
+}
+
+
+class com.dhf.energy.EnergyController {
++ String index()
+}
+
+class com.hongfang.csp.portal.controller.dashboard.DashboardController {
++ String indexPage()
+}
+
+class com.hongfang.csp.portal.controller.SysUserController {
+- SysUserService sysUserService
++ ApiResult<SysUserQueryVo> getSysUser(Long)
+}
+
+
+class com.dhf.hrsys.controller.QuestionController {
+- SseService sseService
++ SseEmitter startSSE()
++ ChatResponse sendQuestion(Question)
+}
+
+
+class com.hongfang.csp.portal.config.InterceptorConfig {
+- ThymeleafLayoutInterceptor thymeleafLayoutInterceptor
++ void addInterceptors(InterceptorRegistry)
+}
+
+
+class com.hongfang.csp.portal.CspPortalWebApplication {
+- List<String> apiKey
+- String apiHost
++ {static} void main(String[])
++ OpenAiStreamClient openAiStreamClient()
+}
+
+
+class com.dhf.util.JXLExcelBuilder {
+- {static} Logger logger
+- {static} int DEFAULT_CELL_SIZE
+- WritableWorkbook writableWorkBook
+- WritableSheet writableSheet
+- WritableCellFormat titleFormat
+- WritableCellFormat cellFormat
+- String[] titles
+- String[] titlesMap
+- void createDefaultSheet()
+- void setTitle(String[])
++ JXLExcelBuilder buildTitle(String[],String[])
++ JXLExcelBuilder buildBody(List<HashMap>)
++ void build()
+- WritableWorkbook getWritableWorkBook()
+- WritableCellFormat getTitleFormat()
+}
+
+
+class com.dhf.hrsys.controller.EmployeeController {
+~ IGeneralDAOService generalDaoService
+- {static} List<Department> depList
++ ModelAndView search()
++ ModelAndView export(HttpServletRequest,HttpServletResponse)
+- List<HashMap> getEmployeeList(Condition)
+- void delete(HttpServletRequest,HttpServletResponse)
+- void update(HttpServletRequest,HttpServletResponse)
+- void add(HttpServletRequest,HttpServletResponse)
+- void search(HttpServletRequest,HttpServletResponse)
+}
+
+
+class com.hongfang.csp.portal.controller.TestController {
+- EmployeeService employeeService
++ ModelAndView test()
+}
+
+
+class com.hongfang.csp.portal.controller.auth.AuthController {
++ String signUpPage()
+}
+
+class com.hongfang.csp.portal.config.SecurityConfig {
++ WebSecurityCustomizer webSecurityCustomizer()
++ SecurityFilterChain filterChain(HttpSecurity)
+}
+
+class com.dhf.hrsys.controller.Condition {
+- int number
+- String name
+- String gender
+- int age
++ int getNumber()
++ void setNumber(int)
++ String getName()
++ void setName(String)
++ int getAge()
++ void setAge(int)
++ String getGender()
++ void setGender(String)
+}
+
+
+class com.hongfang.csp.portal.controller.IndexController {
++ String homePage()
+}
+
+
+
+com.hongfang.csp.webframeworx.common.controller.BaseController <|-- com.dhf.hrsys.controller.SqlController
+org.springframework.web.servlet.HandlerInterceptor <|.. com.dhf.hrsys.interceptor.ThymeleafLayoutInterceptor
+com.hongfang.csp.webframeworx.common.controller.BaseController <|-- com.hongfang.csp.portal.controller.SysUserController
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. com.hongfang.csp.portal.config.InterceptorConfig
+@enduml
