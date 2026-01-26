@@ -14,6 +14,11 @@
             padding: 10px;
             text-align: right;
         }
+        .search-area {
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
     </style>
     <script>
         $(function(){
@@ -224,7 +229,8 @@
                 </div>
             </div>
         </div>
-        <form id="search" action="search" method="post">
+        <div class="search-area">
+            <form id="search" action="search" method="post">
             <div class="row">
                 <div class="col-md-2 align">
                     <input type="text" class="form-control" name="number" placeholder="編號" th:value="${c.number==0?'':c.number}" />
@@ -272,7 +278,9 @@
                 </div>
             </div>
         </form>
-        <table id="data" class="table table-bordered" border="1" role="presentation">
+        </div>
+        <div class="table-area">
+            <table id="data" class="table table-bordered" border="1" role="presentation">
             <tr>
                 <td>編號</td>
                 <td>姓名</td>
@@ -288,6 +296,7 @@
                 <td th:text="${emp.depName}"></td>
             </tr>
         </table>
+        </div>
         <div class="d-grid gap-2 d-md-block" role="toolbar">
             <button type="button" id="add" class="btn btn-primary">新增</button>
             <button type="button" id="update" class="btn btn-primary">修改</button>
