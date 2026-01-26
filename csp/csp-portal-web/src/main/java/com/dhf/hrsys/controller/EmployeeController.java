@@ -45,10 +45,10 @@ public class EmployeeController {
        Condition condition = new Condition();
        List<HashMap> list = getEmployeeList(condition);
        log.debug("emp size:{}", list.size());
-       List<Department> depList = new ArrayList<Department>();
+       //List<Department> depList = new ArrayList<Department>();
        mv.addObject("c", condition);
        mv.addObject("list", list);
-       mv.addObject("depList", depList);
+       //mv.addObject("depList", depList);
        return mv;
     }
 
