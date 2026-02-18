@@ -45,7 +45,10 @@ public class SqlController extends BaseController {
 
     private String processForMyBatis(String s) {
         if (s == null) return "";
-        s = s.replace(";", "");// MyBatis 查詢不要 ;
-        return s;
+        // 移除 Markdown 代碼塊標記，避免 SQLITE 報錯
+        s = s.replaceAll("(?i)```sql", ""); 
+        s = s.replaceAll("```", "");
+        s = s.replace(";", ""); // MyBatis 查詢不要 ;
+        return s.trim();
     }
 }

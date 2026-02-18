@@ -51,6 +51,8 @@ public class OpenAISSEEventSourceListener extends EventSourceListener
             return;
         }
         ObjectMapper mapper = new ObjectMapper();
+        // 這會強制 Jackson 忽略 Ollama 返回的所有未知屬性（包括引發崩潰的 system_fingerprint），從而讓解析器能順利讀取 ChatCompletionResponse
+        mapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         ChatCompletionResponse completionResponse = mapper.readValue(data, ChatCompletionResponse.class); // 讀取Json
         try {
             Message delta = completionResponse.getChoices().get(0).getDelta();

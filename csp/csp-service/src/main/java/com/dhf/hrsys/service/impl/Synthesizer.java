@@ -38,7 +38,7 @@ public class Synthesizer {
 
     private String instructPrompt(String str) {
         return str +
-            "，撰寫一個 MySQL SQL, 包含\n" +
+            "，撰寫一個 SQLite SQL, 包含\n" +
             "table:department(id,name,number)(部門id,員工姓名,部門編號)"+
             "table:employee(id,age,gender,name,number,dep_id)(id,年齡,員工姓名,員工編號,部門id)，"+
             "輸出number、emp_name、dep_name\n"+

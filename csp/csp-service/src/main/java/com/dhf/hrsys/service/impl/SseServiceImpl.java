@@ -110,12 +110,14 @@ public class SseServiceImpl implements SseService {
         ChatCompletion completion = ChatCompletion
             .builder()
             .messages(messages)
-            .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
+            .model("qwen2.5-coder:7b")
             .build();
         openAiStreamClient.streamChatCompletion(completion, openAIEventSourceListener);
         LocalCacheService.putCache("msg1", JSONUtil.toJsonStr(messages));
         ChatResponse response = new ChatResponse();
-        response.setQuestionTokens(completion.tokens());
+        //response.setQuestionTokens(completion.tokens());
+        // 修改 遮蔽雲端 Token 計算
+        response.setQuestionTokens(0); // 因改用地端模型，因此，預設雲端 Tokens 數量為 0
         return response;
     }
 }
