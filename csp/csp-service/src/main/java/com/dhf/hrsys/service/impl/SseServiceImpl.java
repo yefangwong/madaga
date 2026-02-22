@@ -110,7 +110,7 @@ public class SseServiceImpl implements SseService {
         ChatCompletion completion = ChatCompletion
             .builder()
             .messages(messages)
-            .model("qwen2.5-coder:7b")
+            .model("qwen2.5-coder-7b-instruct")
             .build();
         openAiStreamClient.streamChatCompletion(completion, openAIEventSourceListener);
         LocalCacheService.putCache("msg1", JSONUtil.toJsonStr(messages));
