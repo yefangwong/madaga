@@ -13,6 +13,8 @@
     date          item                                              author
     2023/11/12    Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3),
                   CVE-2023-41080(6.1), CVE-2023-45648(5.3)          yefangwong
+    2025/7/18     Fix CVE-2025-48924 to avoid system uncontrolled   yefangwong
+                  recursion to reduce system stability.
     -->
     <licenses>
         <license>
@@ -38,7 +40,7 @@
 		<spring-boot.version>3.1.6</spring-boot.version><!-- Fix CVE-2023-20873(9.8), CVE-2023-20883(7.5), CVE-2023-34055 -->
 		<tomcat.version>10.1.16</tomcat.version><!-- Fix CVE-2023-44487(7.5), CVE-2023-42795(5.3), CVE-2023-41080(6.1),
 		CVE-2023-45648(5.3)、CVE-2023-46589(7.5) -->
-        <logback.version>1.4.14</logback.version><!-- Fix CVE-2021-42250 -->
+        <logback.version>1.5.18</logback.version><!-- Fix CVE-2021-42250、 CVE-2024-12798 -->
 		<jackson.version>2.16.0-SNAPSHOT</jackson.version>
 		<mybatis.version>3.5.13</mybatis.version><!-- Fix CVE-2020-26945(8.1), CVE-2023-25330(9.8)-->
 		<okhttp.fixcve.1.version>4.10.0-CSP</okhttp.fixcve.1.version><!-- Fix CVE 2021-0341 -->
@@ -112,6 +114,23 @@
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>generate-sources</id>
+							<phase>generate-sources</phase>
+							<configuration>
+								<tasks>
+									<mkdir dir="output"/>
+								</tasks>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -378,11 +397,11 @@
 				<artifactId>taglibs-standard-impl</artifactId>
 				<version>1.2.5</version>
 			</dependency>
-			<!-- Fix CVE-2015-0254(7.5) End -->
+			<!-- Fix CVE-2015-0254(7.5)、CVE-2025-48924 End -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.12.0</version>
+				<version>3.18.0</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-lang</groupId>
