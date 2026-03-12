@@ -15,6 +15,11 @@
             padding: 10px;
             text-align: right;
         }
+        .search-area {
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
     </style>
     <script>
         $(function(){
@@ -245,7 +250,8 @@
                 </div>
             </div>
         </div>
-        <form id="search" action="search" method="post" @submit.prevent="search()">
+        <div class="search-area">
+            <form id="search" action="search" method="post" @submit.prevent="search()">
             <div class="row">
                 <div class="col-md-2 pb-3 align">
                     <input type="text" class="form-control" name="number" placeholder="編號" v-model="form.number" />
@@ -293,7 +299,9 @@
                 </div>
             </div>
         </form>
-        <table id="data" class="table table-bordered" border="1" role="presentation">
+        </div>
+        <div class="table-area">
+            <table id="data" class="table table-bordered" border="1" role="presentation">
             <tr>
                 <td>編號</td>
                 <td>姓名</td>
@@ -309,6 +317,7 @@
                 <td v-text="emp.dep!=null?emp.dep.name:''"></td>
             </tr>
         </table>
+        </div>
         <div class="d-grid gap-2 d-md-block" role="toolbar">
             <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
             <button type="button" id="update" class="btn btn-primary csp-btn-spacing">修改</button>
