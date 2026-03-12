@@ -60,7 +60,13 @@ public class EmployeeController {
     @ResponseBody
     public List<Employee> search(Employee condition) throws Exception {
         List<Employee> list = empService.search(condition);
-       return list;
+        return list;
+    }
+
+    @RequestMapping("getDepList")
+    @ResponseBody
+    public List<Department> getDepList() {
+        return depList;
     }
 
     @PostMapping("export")

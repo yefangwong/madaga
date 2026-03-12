@@ -49,8 +49,15 @@
                 },
                 created(){
                     this.search();
+                    this.getDepList();
                 },
                 methods:{
+                    getDepList: function() {
+                      axios.get('getDepList')
+                          .then(function (res) {
+                              this.depList = res.data;
+                          }.bind(this))
+                    },
                     search: function() {
                       axios.get('search')
                           .then(function (res) {
