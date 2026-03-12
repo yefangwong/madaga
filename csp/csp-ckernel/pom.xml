@@ -63,43 +63,57 @@
                   </execution>
               </executions>
           </plugin>
-          <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>xml-maven-plugin</artifactId>
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>transform</goal>
-                      </goals>
-                  </execution>
-              </executions>
-              <configuration>
-                  <transformationSets>
-                      <transformationSet>
-                          <dir>output</dir>
-                          <includes>
-                              <include>dependency-check-report.xml</include>
-                          </includes>
-                          <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
-                          <outputDir>output</outputDir>
-                          <fileMappers>
-                              <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
-                                  <targetName>dependency-check-report-pmd.xml</targetName>
-                              </fileMapper>
-                          </fileMappers>
-                      </transformationSet>
-                  </transformationSets>
-              </configuration>
-              <dependencies>
-                  <dependency>
-                      <groupId>net.sf.saxon</groupId>
-                      <artifactId>saxon</artifactId>
-                      <version>8.7</version>
-                  </dependency>
-              </dependencies>
-          </plugin>
       </plugins>
   </build>
+  <profiles>
+      <profile>
+          <id>xml-transform</id>
+          <activation>
+              <file>
+                  <exists>output/dependency-check-report.xml</exists>
+              </file>
+          </activation>
+          <build>
+              <plugins>
+                  <plugin>
+                      <groupId>org.codehaus.mojo</groupId>
+                      <artifactId>xml-maven-plugin</artifactId>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>transform</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+                      <configuration>
+                          <transformationSets>
+                              <transformationSet>
+                                  <dir>output</dir>
+                                  <includes>
+                                      <include>dependency-check-report.xml</include>
+                                  </includes>
+                                  <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
+                                  <outputDir>output</outputDir>
+                                  <fileMappers>
+                                      <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                          <targetName>dependency-check-report-pmd.xml</targetName>
+                                      </fileMapper>
+                                  </fileMappers>
+                              </transformationSet>
+                          </transformationSets>
+                      </configuration>
+                      <dependencies>
+                          <dependency>
+                              <groupId>net.sf.saxon</groupId>
+                              <artifactId>saxon</artifactId>
+                              <version>8.7</version>
+                          </dependency>
+                      </dependencies>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
