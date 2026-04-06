@@ -16,11 +16,11 @@
 
 package com.hongfang.csp.portal.controller;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(properties = "madaga.home=${user.dir}/../..")
 public class Test01ApplicationTest {
     @Autowired
     private TestController testController;
