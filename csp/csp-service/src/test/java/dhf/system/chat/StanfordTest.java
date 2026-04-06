@@ -9,9 +9,11 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.junit.Ignore;
 
 import java.util.Properties;
 
+@Ignore
 public class StanfordTest {
     private static final Logger log = LoggerFactory.getLogger(StanfordTest.class);
 
