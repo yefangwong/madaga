@@ -16,7 +16,7 @@
 
 package com.hongfang.csp.portal.controller;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "madaga.home=${user.dir}/../..")
 public class Test02ApplicationTest {
     @LocalServerPort
     private int port;

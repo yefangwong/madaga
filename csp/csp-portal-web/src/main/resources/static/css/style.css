@@ -4,6 +4,9 @@
   @date 2023/07/26
  */
 .align {}
+.csp-btn-spacing {
+    margin-right: 10px; /* Adjust this value to set the desired spacing between buttons */
+ }
 /*繪製 AI 查詢結果的CSS*/
 .tableResult {
     font-size: 14px;

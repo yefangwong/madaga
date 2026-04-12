@@ -10,6 +10,7 @@
     <!-- Mappers -->
     <mappers>
         <!-- Specify the location of your mapper XML files -->
+        <mapper resource="mapper/cust/CustEmployeeDao.xml"/>
         <mapper resource="mapper/EmployeeDao.xml"/>
         <mapper resource="mapper/SqlDao.xml"/>
     </mappers>

@@ -40,7 +40,7 @@
 		    <plugin>
               <groupId>org.owasp</groupId>
               <artifactId>dependency-check-maven</artifactId>
-              <version>8.2.1</version>
+              <version>12.1.0</version>
               <configuration>
                   <!-- Generate all report formats -->
                   <format>ALL</format>
@@ -48,9 +48,15 @@
                   <outputDirectory>output</outputDirectory>
                   <!-- Do not use Nexus Analyzer -->
                   <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                  <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+                  <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                  <nugetconfAnalyzerEnabled>false</nugetconfAnalyzerEnabled>
+                  <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                  <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+                  <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
+
                   <!-- Am I the latest version? -->
                   <versionCheckEnabled>true</versionCheckEnabled>
-                  <cveValidForHours>12</cveValidForHours>
                   <failBuildOnCVSS>4</failBuildOnCVSS>
                   <!-- FIX some False Positive CVEs  -->
                   <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
@@ -63,43 +69,57 @@
                   </execution>
               </executions>
           </plugin>
-          <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>xml-maven-plugin</artifactId>
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>transform</goal>
-                      </goals>
-                  </execution>
-              </executions>
-              <configuration>
-                  <transformationSets>
-                      <transformationSet>
-                          <dir>output</dir>
-                          <includes>
-                              <include>dependency-check-report.xml</include>
-                          </includes>
-                          <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
-                          <outputDir>output</outputDir>
-                          <fileMappers>
-                              <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
-                                  <targetName>dependency-check-report-pmd.xml</targetName>
-                              </fileMapper>
-                          </fileMappers>
-                      </transformationSet>
-                  </transformationSets>
-              </configuration>
-              <dependencies>
-                  <dependency>
-                      <groupId>net.sf.saxon</groupId>
-                      <artifactId>saxon</artifactId>
-                      <version>8.7</version>
-                  </dependency>
-              </dependencies>
-          </plugin>
       </plugins>
   </build>
+  <profiles>
+      <profile>
+          <id>xml-transform</id>
+          <activation>
+              <file>
+                  <exists>output/dependency-check-report.xml</exists>
+              </file>
+          </activation>
+          <build>
+              <plugins>
+                  <plugin>
+                      <groupId>org.codehaus.mojo</groupId>
+                      <artifactId>xml-maven-plugin</artifactId>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>transform</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+                      <configuration>
+                          <transformationSets>
+                              <transformationSet>
+                                  <dir>output</dir>
+                                  <includes>
+                                      <include>dependency-check-report.xml</include>
+                                  </includes>
+                                  <stylesheet>${csp.basedir}/resources/dependencycheck_to_pmd.xsl</stylesheet>
+                                  <outputDir>output</outputDir>
+                                  <fileMappers>
+                                      <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
+                                          <targetName>dependency-check-report-pmd.xml</targetName>
+                                      </fileMapper>
+                                  </fileMappers>
+                              </transformationSet>
+                          </transformationSets>
+                      </configuration>
+                      <dependencies>
+                          <dependency>
+                              <groupId>net.sf.saxon</groupId>
+                              <artifactId>saxon</artifactId>
+                              <version>8.7</version>
+                          </dependency>
+                      </dependencies>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -183,7 +203,7 @@
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>api</artifactId>
-          <version>0.23.0</version>
+          <version>0.25.0</version>
           <exclusions>
               <!-- Fix CVE-2023-42503(5.5) Begin -->
               <exclusion>
@@ -196,19 +216,35 @@
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>basicdataset</artifactId>
-          <version>0.23.0</version>
+          <version>0.25.0</version>
       </dependency>
       <dependency>
           <groupId>ai.djl</groupId>
           <artifactId>model-zoo</artifactId>
-          <version>0.23.0</version>
+          <version>0.25.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl</groupId>
+          <artifactId>examples</artifactId>
+          <version>0.6.0</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-api</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.apache.logging.log4j</groupId>
+                  <artifactId>log4j-slf4j-impl</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
           <groupId>org.apache.commons</groupId>
           <artifactId>commons-compress</artifactId>
-          <version>1.24.0</version>
+          <version>1.26.0</version>
       </dependency>
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) Begin -->
+      <!-- @deprecated -->
 <!--      <dependency>-->
 <!--          <groupId>ai.djl.mxnet</groupId>-->
 <!--          <artifactId>mxnet-engine</artifactId>-->
@@ -216,20 +252,57 @@
 <!--      </dependency>-->
       <dependency>
           <groupId>ai.djl.mxnet</groupId>
-          <artifactId>mxnet-native-mkl</artifactId>
-          <classifier>osx-x86_64</classifier> <!-- For Mac to use the Intel Math Kernel Library -->
-          <version>1.9.1</version>
-          <scope>runtime</scope>
+          <artifactId>mxnet-model-zoo</artifactId>
+          <version>0.25.0</version>
       </dependency>
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-native-mkl</artifactId>-->
+<!--          <classifier>osx-x86_64</classifier> &lt;!&ndash; For Mac to use the Intel Math Kernel Library &ndash;&gt;-->
+<!--          <version>1.9.1</version>-->
+<!--          <scope>runtime</scope>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>ai.djl.mxnet</groupId>-->
+<!--          <artifactId>mxnet-native-mkl</artifactId>-->
+<!--          <classifier>win-x86_64</classifier> &lt;!&ndash; For Window to use the Intel Math Kernel Library &ndash;&gt;-->
+<!--          <version>1.9.1</version>-->
+<!--          <scope>runtime</scope>-->
+<!--      </dependency>-->
       <!-- Fix MXNet CVE-2022-24294(7.5), CVE-2018-1281(6.5) End -->
       <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-engine</artifactId>
+          <version>0.25.0</version>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-native-cu118</artifactId>
+          <classifier>win-x86_64</classifier>
+          <version>2.0.1</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-jni</artifactId>
+          <version>2.0.1-0.25.0</version>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>ai.djl.pytorch</groupId>
+          <artifactId>pytorch-model-zoo</artifactId>
+          <version>0.25.0</version>
       </dependency>
       <!-- Deep Learning Java End-->
       <dependency>
           <groupId>com.hongfang.csp</groupId>
           <artifactId>csp-webframeworx-common</artifactId>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.slf4j</groupId>
+                  <artifactId>slf4j-api</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
   </dependencies>
 </project>

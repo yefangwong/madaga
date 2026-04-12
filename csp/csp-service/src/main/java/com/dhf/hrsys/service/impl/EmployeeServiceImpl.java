@@ -1,13 +1,21 @@
 package com.dhf.hrsys.service.impl;
 
+import com.dhf.hrsys.dao.EmployeeDao;
 import com.dhf.hrsys.service.EmployeeService;
 import com.hongfang.csp.system.entity.Employee;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
+    EmployeeDao empDao;
+    public EmployeeServiceImpl(EmployeeDao empDao) {
+       this.empDao = empDao;
+    }
 
     public List<Employee> searchAll() {
         return null;
@@ -15,7 +23,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> search(Employee condition) {
-        return null;
+        List<Employee> list = empDao.search(condition);
+        return list;
     }
 
     @Override
