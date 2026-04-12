@@ -52,7 +52,6 @@
         <csp-tools.version>0.0.1-SNAPSHOT</csp-tools.version>
 		<csp-webframeworx-common.version>0.0.1-SNAPSHOT</csp-webframeworx-common.version>
 		<csp-webframeworx-web.version>0.0.1-SNAPSHOT</csp-webframeworx-web.version>
-	    <nvd.api.key>97465736-6454-491b-b791-6977f5b9f5bf</nvd.api.key>
 	</properties>
 
 	<modules>
@@ -175,7 +174,6 @@
 					<cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
 					<versionCheckEnabled>true</versionCheckEnabled>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
-                    <nvdApiKey>${nvd.api.key}</nvdApiKey>
                     <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
                 </configuration>
                 <executions>

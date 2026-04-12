@@ -188,6 +188,7 @@
         ]]></notes>
         <gav regex="true">^com\.google\.protobuf:protobuf-java:.*$</gav>
         <cve>CVE-2024-7254</cve>
+        <cve>CVE-2026-0994</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[

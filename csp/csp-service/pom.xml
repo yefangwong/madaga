@@ -68,6 +68,10 @@
 			<version>4.5.4</version>
 			<exclusions>
 				<exclusion>
+					<groupId>com.google.protobuf</groupId>
+					<artifactId>protobuf-java</artifactId>
+				</exclusion>
+				<exclusion>
 					<!-- Fix CVE-2010-0538 Begin -->
 					<groupId>com.apple</groupId>
 					<artifactId>AppleJavaExtensions</artifactId>
@@ -92,6 +96,11 @@
 					<!-- Fix CVE-2018-2799 End -->
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.25.5</version>
 		</dependency>
 
 		<!-- jieba Begin -->
