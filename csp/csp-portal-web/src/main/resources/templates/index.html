@@ -346,26 +346,46 @@
                     <strong class="text-white d-block mt-3 mb-1">Mark Wong</strong>
                     <ul>
                         <li>18+ years of enterprise software engineering</li>
-                        <li>Education: B.S. in Civil Engineering (NCKU) / M.S. in CS (TKU)</li>
-                        <li>Certificates: SCJP, SCWCD</li>
-                        <li>Training: PMP Project Management Professional Training</li>
+                        <li>Education:
+                            <ul class="ps-3 mt-1" style="list-style-type: circle;">
+                                <li>M.S. in Computer Science &amp; Information Engineering, Tamkang University (2023)<br>
+                                    <span class="text-muted" style="font-size: 0.85rem; font-style: italic;">Thesis: <a href="https://hdl.handle.net/11296/v4w5an" target="_blank" class="text-gradient-mint text-decoration-none">Text-to-SQL Query Generation using Deep Learning</a></span>
+                                </li>
+                                <li>B.S. in Civil Engineering, National Cheng Kung University (1996)</li>
+                            </ul>
+                        </li>
+                        <li>Certificates: SCJP, SCWCD Certified Developer</li>
+                        <li>Training: Project Management Professional (PMP) Program, Institute for Information Industry</li>
                         <li>Focus: Deep learning, Natural Language Processing</li>
                         <li>Hobbies: Mountaineering, Cinema</li>
                     </ul>
                 </div>
 
                 <div class="about-panel mb-4">
-                    <h4 class="mb-3 text-gradient-mint">Open Source Links</h4>
-                    <ol class="list-unstyled mb-0 d-flex flex-column gap-2">
+                    <h4 class="mb-3 text-gradient-mint">Technical Portfolio</h4>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
                         <li>
-                            <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="Madaga CSP" class="me-2"/>
-                            <a href="https://github.com/yefangwong/madaga" class="text-gradient-mint text-decoration-none fw-bold">Madaga CSP GitHub</a>
+                            <div class="d-flex align-items-center mb-1">
+                                <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
+                                <a href="https://github.com/yefangwong/madaga" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">madaga</a>
+                            </div>
+                            <span class="text-muted small">Enterprise-grade Text-to-SQL architecture using Spring Boot.</span>
                         </li>
                         <li>
-                            <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="LLM-SQL-Guard" class="me-2"/>
-                            <a href="https://github.com/yefangwong/llm-sql-guard" class="text-gradient-mint text-decoration-none fw-bold">LLM-SQL-Guard GitHub</a>
+                            <div class="d-flex align-items-center mb-1">
+                                <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
+                                <a href="https://github.com/yefangwong/llm-sql-guard" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">llm-sql-guard</a>
+                            </div>
+                            <span class="text-muted small">AI application security defense layer (Text-to-SQL diagnostics).</span>
                         </li>
-                    </ol>
+                        <li>
+                            <div class="d-flex align-items-center mb-1">
+                                <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
+                                <a href="https://github.com/yefangwong/min-char-irnn" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">min-char-irnn</a>
+                            </div>
+                            <span class="text-muted small">Java implementation of Identity RNN (IRNN) for solving vanishing gradient in long sequences.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
