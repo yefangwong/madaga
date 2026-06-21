@@ -52,8 +52,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/contact/submit"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index", "/index_zh", "/auth/signUp", "/auth/signIn", "/css/**", "/js/**", "/images/**",
-                                "/energy/**", "/favicon.ico", "/contact/submit")
+                        .requestMatchers("/", "/index", "/index_zh", "/sustainability", "/sustainability_zh", "/suite", "/suite_zh",
+                                "/auth/signUp", "/auth/signIn", "/css/**", "/js/**", "/images/**", "/energy/**", "/favicon.ico", "/contact/submit")
                         .permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form

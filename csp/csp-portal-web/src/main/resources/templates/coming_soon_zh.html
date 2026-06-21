@@ -1,0 +1,102 @@
+<!--
+  ~ Copyright 2026 yefangwong(https://github.com/yefangwong)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!doctype html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="德鴻方 - 功能建置中">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <title>德鴻方 DHF - 敬請期待</title>
+
+    <!-- Custom CSS -->
+    <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="blog-header-logo text-decoration-none" href="/index_zh">德鴻方 DHF</a>
+            </div>
+            <div class="col-4 text-center">
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center gap-3">
+                <a class="text-gradient-mint text-decoration-none small fw-bold" th:href="${switchUrl}">English</a>
+                <a class="btn btn-sm btn-sustain-primary pulse-glow" href="/auth/signUp">系統展示 Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-scroller py-1 mb-3">
+        <nav class="nav d-flex justify-content-start gap-4">
+            <a class="p-2 nav-link-sustain text-decoration-none" href="/index_zh">首頁 Home</a>
+            <a class="p-2 nav-link-sustain text-decoration-none" href="/sustainability_zh">永續 Sustainable</a>
+            <a class="p-2 nav-link-sustain text-decoration-none" href="/suite_zh">AI 解決方案套件</a>
+            <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index">能源 Energy</a>
+        </nav>
+    </div>
+</div>
+
+<main class="container my-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="glass-card p-5 text-center" style="max-width: 650px; width: 100%; border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+        <!-- Construction Animated Icon -->
+        <div class="mb-4">
+            <span class="display-1 text-gradient-mint pulse-glow" style="display: inline-block;">⚙️</span>
+        </div>
+        
+        <!-- Badge -->
+        <div class="mb-3">
+            <span class="carbon-badge">敬請期待</span>
+        </div>
+        
+        <!-- Dynamic Title -->
+        <h1 class="display-5 text-gradient-mint mb-3" th:text="${title}">功能模組</h1>
+        
+        <!-- Dynamic Description -->
+        <p class="lead text-muted mb-4" th:text="${description}">我們正在努力建置此模組，敬請期待。</p>
+        
+        <!-- Simulated Progress Bar -->
+        <div class="mb-4 text-start">
+            <div class="d-flex justify-content-between text-muted small mb-1">
+                <span>系統建置進度</span>
+                <span class="text-gradient-mint fw-bold">75%</span>
+            </div>
+            <div class="progress bg-dark" style="height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(0,245,160,0.15);">
+                <div class="progress-bar" role="progressbar" style="width: 75%; background: var(--gradient-mint-forest); border-radius: 4px;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        
+        <!-- Action Button -->
+        <div>
+            <a href="/index_zh" class="btn btn-sustain-primary px-4 py-2">返回首頁</a>
+        </div>
+    </div>
+</main>
+
+<footer class="sustain-footer py-4 mt-5 text-center">
+    <div class="container">
+        <p class="mb-2">© 2026 德鴻方 DHF - 企業軟體永續化工程</p>
+    </div>
+</footer>
+</body>
+</html>
