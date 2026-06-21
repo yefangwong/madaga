@@ -52,18 +52,23 @@ public class ContactController {
             @RequestParam("name") String name,
             @RequestParam("email") String email,
             @RequestParam("subject") String subject,
-            @RequestParam("message") String message) {
+            @RequestParam("message") String message,
+            @RequestParam(value = "lang", required = false, defaultValue = "zh") String lang) {
+
+        boolean isEn = "en".equalsIgnoreCase(lang);
 
         logger.info("================ [收到聯絡信件] ================");
         logger.info("姓名: {}", name);
         logger.info("Email: {}", email);
         logger.info("諮詢主題: {}", subject);
         logger.info("詳細需求: {}", message);
+        logger.info("語系: {}", lang);
         logger.info("=============================================");
 
         if (mailSender == null || fromEmail == null || fromEmail.isEmpty()) {
             logger.warn("郵件發送器未配置，將以本地日誌模式歸檔。請在 application.properties 配置 spring.mail 屬性。");
-            return ApiResult.ok("信件已於本地日誌歸檔！(SMTP 未配置)");
+            String logMsg = isEn ? "Inquiry archived in local logs! (SMTP not configured)" : "信件已於本地日誌歸檔！(SMTP 未配置)";
+            return ApiResult.ok(logMsg);
         }
 
         try {
@@ -85,11 +90,15 @@ public class ContactController {
             
             mailSender.send(mailMessage);
             logger.info("信件成功發送至：{}", toEmail);
-            return ApiResult.ok("信件已成功發送！");
+            String successMsg = isEn ? "Inquiry sent successfully!" : "信件已成功發送！";
+            return ApiResult.ok(successMsg);
         } catch (Exception e) {
             logger.error("郵件發送失敗: ", e);
             // Return failure info matching system format
-            return ApiResult.result(null, "郵件發送失敗，請稍後再試。原因: " + e.getMessage(), null);
+            String failMsg = isEn 
+                    ? "Failed to send email. Please try again later. Reason: " + e.getMessage()
+                    : "郵件發送失敗，請稍後再試。原因: " + e.getMessage();
+            return ApiResult.result(null, failMsg, null);
         }
     }
 }
