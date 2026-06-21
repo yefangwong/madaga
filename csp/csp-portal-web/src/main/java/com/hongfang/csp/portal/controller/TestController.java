@@ -30,6 +30,7 @@ public class TestController {
     private EmployeeService employeeService;
 
     @RequestMapping("test")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAuthority('sys:test')")
     public ModelAndView test() {
         ModelAndView mv = new ModelAndView("test");
         Employee emp = employeeService.searchById(1);

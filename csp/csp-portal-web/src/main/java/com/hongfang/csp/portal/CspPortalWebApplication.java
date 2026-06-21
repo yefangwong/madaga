@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 @EnableTransactionManagement
 @EnableConfigurationProperties
 @ServletComponentScan
+@org.mybatis.spring.annotation.MapperScan("com.hongfang.csp.system.mapper")
 @SpringBootApplication(scanBasePackages = {"com.hongfang", "com.dhf"})
 @ImportResource("classpath:applicationContext.xml")
 public class CspPortalWebApplication {

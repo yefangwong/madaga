@@ -13,6 +13,9 @@
         <mapper resource="mapper/cust/CustEmployeeDao.xml"/>
         <mapper resource="mapper/EmployeeDao.xml"/>
         <mapper resource="mapper/SqlDao.xml"/>
+        <mapper resource="mapper/system/SysUserMapper.xml"/>
+        <mapper resource="mapper/system/SysRoleMapper.xml"/>
+        <mapper resource="mapper/system/SysPermissionMapper.xml"/>
     </mappers>
 </configuration>
 
