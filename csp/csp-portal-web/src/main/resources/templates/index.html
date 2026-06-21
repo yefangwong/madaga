@@ -17,14 +17,14 @@
   History
   --------------------------------------------
   2023/7/27 yfwong initial version
-  2026/6/21 yfwong Refactored for Sustainable Web Design Principles, AI-Native Solutions & LLM SqlGuard Product Showcase
+  2026/6/21 yfwong Refactored for Sustainable Web Design & Enterprise AI Solution Suite Showcase (MADAGA + LLM-SQL-Guard)
 -->
 <!doctype html>
 <html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="德鴻方資訊 DHF - 提供 AI 原生解決方案與綠色數位轉型，引領次世代媒合系統架構、LLM SqlGuard 安全診斷中心、GPU 算力與 MLOps 自動化治理。">
+    <meta name="description" content="德鴻方資訊 DHF - 企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)，整合 MADAGA 與 LLM-SQL-Guard 技術，對齊 SDG 9 與 SDG 12 的企業級永續軟體工程開發服務。">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     
     <!-- Google Fonts: Outfit for Modern Aesthetics -->
@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>德鴻方 DHF - AI 原生解決方案與數位轉型</title>
+    <title>德鴻方 DHF - 企業級 AI 解決方案套件 (MADAGA + LLM-SQL-Guard)</title>
 
     <!-- Custom Premium Sustainability stylesheet -->
     <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
@@ -56,7 +56,7 @@
         <nav class="nav d-flex justify-content-start gap-4">
             <a class="p-2 nav-link-sustain text-decoration-none" href="#">首頁 Home</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="#">永續 Sustainable</a>
-            <a class="p-2 nav-link-sustain text-decoration-none" href="#sqlguard">LLM SqlGuard</a>
+            <a class="p-2 nav-link-sustain text-decoration-none" href="#suite">AI 解決方案套件</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index">能源 Energy</a>
         </nav>
     </div>
@@ -73,7 +73,7 @@
             <p class="lead mb-4">德鴻方資訊致力於以最小的碳足跡代價，打造高效、穩健、低能耗的企業級數位系統。我們將 <strong>AI 原生解決方案</strong> 深植於核心架構，引領企業全面進行<strong>數位轉型</strong>，對齊聯合國永續發展目標 SDG 9 與 SDG 12，提供綠色低碳的軟體訂製服務。</p>
             <div class="d-flex gap-3">
                 <a href="#calculator" class="btn btn-sustain-primary">數位碳足跡計算</a>
-                <a href="#sqlguard" class="btn btn-sustain-outline">SqlGuard 解決方案</a>
+                <a href="#suite" class="btn btn-sustain-outline">AI 套件展示</a>
             </div>
        </div>
     </div>
@@ -121,45 +121,60 @@
         </div>
     </div>
 
-    <!-- Product Showcase: LLM SqlGuard -->
-    <div id="sqlguard" class="row my-5">
+    <!-- Product Showcase: Enterprise AI Solution Suite -->
+    <div id="suite" class="row my-5">
         <div class="col-12">
             <div class="glass-card p-4 p-md-5 hero-sustain" style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%);">
                 <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <span class="carbon-badge mb-3">AI 核心防護產品</span>
-                        <h2 class="display-5 text-gradient-mint mb-3">LLM SqlGuard — SQL 安全診斷中心</h2>
-                        <p class="lead mb-4 text-white">基於 LLM 的次世代 SQL 安全堡壘。我們串接本地專屬 AI 引擎，提供隱私無虞的 SQL 語法糾錯、效能瓶頸診斷與 SQL 注入惡意攻擊阻斷解決方案，為企業數位資產築起第一道防線。</p>
+                    <div class="col-lg-7">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="carbon-badge">2026/3 ~ Active (仍在進行)</span>
+                            <span class="carbon-badge bg-dark border-secondary">企業級旗艦套件</span>
+                        </div>
+                        <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
+                        <h4 class="text-white-50 mb-4">企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)</h4>
+                        <p class="lead mb-4 text-white">此套件高度整合了兩大核心技術，旨在為企業提供『高效能且安全』的生成式 AI 數據查詢與治理方案：</p>
                         
-                        <div class="row text-white mb-4">
-                            <div class="col-md-6 mb-3">
-                                <h5>🛡️ 隱私優先 (Privacy-First)</h5>
-                                <p class="text-muted small">支援透過本地 guard.yaml 動態配置連線，將 SQL 分析與診斷完全保留在企業內部私有雲，杜絕敏感資料外洩。</p>
+                        <div class="row text-white">
+                            <!-- MADAGA -->
+                            <div class="col-12 mb-4">
+                                <h5 class="text-gradient-mint mb-2">1. MADAGA (Text-to-SQL Engine)</h5>
+                                <p class="text-muted small mb-0">利用自然語言處理技術，將非技術人員的指令精準轉譯為複雜的 SQL 查詢。結合 19 年企業系統和金融核心 (eBAF、eBAO、LIS共5年) 經驗，確保跨多元異質資料庫對接與流轉之極致準確度。</p>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <h5>🚀 仿 CLI 高保真視覺診斷</h5>
-                                <p class="text-muted small">融合標準化 UI 組件庫 (guard-ui)，以仿終端機的精緻卡片呈現診斷報告，提供高可讀性的 ANSI 級別語法高亮與修正對比。</p>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <h5>📈 業界標準適配與 Benchmark</h5>
-                                <p class="text-muted small">完美適配 Spider 標準資料集，經過大規模 Benchmark 性能調優，確保 AI 診斷的精度與業務即時反應速度。</p>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <h5>🔄 LLMOps 自動化部署</h5>
-                                <p class="text-muted small">打通 MLOps/LLMOps 生態，實現從規則訓練、測試到防護規則動態更新的完整閉環，全天候監控線上效能。</p>
+                            <!-- LLM-SQL-Guard -->
+                            <div class="col-12 mb-3">
+                                <h5 class="text-gradient-mint mb-2">2. LLM-SQL-Guard (Security Layer)</h5>
+                                <p class="text-muted small mb-0">專為金融與能源數據設計的安全防禦層。實作 SQL Parsing 語法剖析與檢驗機制，自動偵測並秒級封鎖 SQL Injection、DROP/TRUNCATE 等高危險惡意指令，確保 AI 生成內容完美符合 ACID 與資安合規規範。</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 text-center mt-3 mt-lg-0">
-                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.45); border: 1px solid var(--primary-mint); box-shadow: 0 0 15px rgba(0, 245, 160, 0.1);">
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "SELECT * FROM users WHERE id = 1 OR 1=1"</div>
-                            <div class="font-monospace text-warning mb-2" style="font-size: 0.8rem;">[WARNING] Potential SQL Injection detected!</div>
-                            <div class="font-monospace text-muted mb-3" style="font-size: 0.8rem;">Reason: Tautology detected in WHERE clause.</div>
-                            <div class="font-monospace text-gradient-mint mb-3" style="font-size: 0.85rem;">✔ Recommended Secure Query:</div>
-                            <div class="font-monospace text-white bg-dark p-2 rounded mb-3" style="font-size: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.05);">SELECT * FROM users WHERE id = :id</div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="carbon-badge bg-danger text-white border-0" style="font-size: 0.75rem;">阻斷成功 (Blocked)</span>
-                                <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 12ms</small>
+                    <!-- CLI Interactive Panel -->
+                    <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+                            <!-- Terminal Header -->
+                            <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary" style="opacity: 0.85;">
+                                <span class="badge bg-danger rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
+                                <span class="badge bg-warning rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
+                                <span class="badge bg-success rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
+                                <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Enterprise AI Terminal</small>
+                            </div>
+                            <!-- Translate Process -->
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Translate Natural Language via MADAGA</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --translate "刪除所有客戶資料"</div>
+                            <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3" style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                Generated: <span class="text-warning">DROP TABLE customers;</span>
+                            </div>
+                            
+                            <!-- Security Check Process -->
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: Validate Security via LLM-SQL-Guard</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "DROP TABLE customers"</div>
+                            <div class="font-monospace text-danger mb-1" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] DROP table operation is strictly forbidden!</div>
+                            <div class="font-monospace text-muted mb-3" style="font-size: 0.75rem;">Detail: Command violates ACID & data safety protocols.</div>
+                            
+                            <!-- Result -->
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                                <span class="badge bg-danger text-white border-0" style="font-size: 0.75rem; padding: 0.35rem 0.6rem;">BLOCKED (安全阻斷)</span>
+                                <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 7ms</small>
                             </div>
                         </div>
                     </div>
@@ -195,7 +210,7 @@
                     <h3 class="h4 mb-0 text-gradient-mint">二、AI 基礎設施與算力規劃</h3>
                 </div>
                 <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
-                    <li><strong>高彈性 GPU/LLM 算力規劃</strong>：於應用層實作具備安全、彈性擴展與極致成本效益 the GPU 算力及資源調配解決方案。</li>
+                    <li><strong>高彈性 GPU/LLM 算力規劃</strong>：於應用層實作具備安全、彈性擴展與極致成本效益的 GPU 算力及資源調配解決方案。</li>
                     <li><strong>自動化 MLOps & LLMOps 流程</strong>：建立模型研發、訓練至自動化部署上線的標準化工程路徑，保障模型交付的高效運轉。</li>
                     <li><strong>模型導入與工具鏈優化</strong>：針對開源大模型與商用 API 提供底層技術支援、推論效能優化，並建立相應的開發工具鏈。</li>
                     <li><strong>全生命週期模型品質監控</strong>：協同演算法團隊共同制定 LLM/模型品質監控指標與即時回饋機制。</li>
@@ -246,7 +261,7 @@
                 <p>我們將 <strong>AI 原生 (AI-Native)</strong> 思想深度融入企業數位轉型。這不只意味著將 AI 當作附屬功能，更是將智能化、自主代理人 (Agents) 作為系統的核心設計模式。在推動業務敏捷的同時，我們特別關注：</p>
                 <ul class="sustain-list">
                     <li><strong>智慧綠色推論</strong>：優化 Prompt 設計與模型推論流程，以最小的 Token 傳輸達成目標，降低 AI 運算的電力耗損。</li>
-                    <li><strong>架構平滑重構</strong>：透過低能耗微服務與容器化技術，幫助企業逐步汰換傳統的龐大單體架構，實踐綠色數位轉型。</li>
+                    <li><strong>架構平滑重構</strong>：透過 low 能耗微服務與容器化技術，幫助企業逐步汰換傳統的龐大單體架構，實踐綠色數位轉型。</li>
                 </ul>
 
                 <h3>低熵代碼實踐</h3>
