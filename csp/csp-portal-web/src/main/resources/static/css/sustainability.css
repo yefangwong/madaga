@@ -1,0 +1,249 @@
+/*
+ * sustainability.css
+ * Core design system and utilities for Madaga CSP Portal - Sustainable Redesign
+ * Uses a premium tech-mint & forest-green gradient and glassmorphism styling.
+ */
+
+:root {
+    --primary-mint: #00F5A0;
+    --primary-mint-hover: #00D289;
+    --forest-green: #0A3C30;
+    --forest-dark: #051A15;
+    --forest-bg: #030F0C;
+    --card-bg-glass: rgba(10, 60, 48, 0.15);
+    --card-border-glass: rgba(0, 245, 160, 0.15);
+    --card-bg-glass-hover: rgba(10, 60, 48, 0.25);
+    --text-white: #E6F4F0;
+    --text-muted: #8AA69F;
+    --gradient-mint-forest: linear-gradient(135deg, var(--primary-mint) 0%, #008f68 100%);
+    --gradient-dark: linear-gradient(180deg, var(--forest-dark) 0%, var(--forest-bg) 100%);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --glow-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+}
+
+/* Base resets & theme styles */
+body {
+    background-color: var(--forest-bg);
+    color: var(--text-white);
+    font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 245, 160, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(10, 60, 48, 0.3) 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+/* Custom header & nav links */
+.blog-header {
+    border-bottom: 1px solid rgba(0, 245, 160, 0.1);
+}
+
+.blog-header-logo {
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #ffffff, var(--primary-mint));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+    text-shadow: 0 0 10px rgba(0, 245, 160, 0.2);
+}
+
+.nav-link-sustain {
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link-sustain:hover {
+    color: var(--primary-mint);
+    border-bottom: 2px solid var(--primary-mint);
+    text-shadow: 0 0 8px rgba(0, 245, 160, 0.4);
+}
+
+/* Premium Glassmorphism Card Style */
+.glass-card {
+    background: var(--card-bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border-glass);
+    border-radius: 16px;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    background: var(--card-bg-glass-hover);
+    border-color: rgba(0, 245, 160, 0.4);
+    box-shadow: 0 12px 40px 0 rgba(0, 245, 160, 0.15);
+}
+
+/* Featured Hero Area */
+.hero-sustain {
+    position: relative;
+    border-radius: 20px;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(5, 26, 21, 0.9) 0%, rgba(3, 15, 12, 0.95) 100%);
+    border: 1px solid rgba(0, 245, 160, 0.2);
+    overflow: hidden;
+}
+
+.hero-sustain::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 245, 160, 0.12) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-sustain-content {
+    position: relative;
+    z-index: 1;
+}
+
+.text-gradient-mint {
+    background: var(--gradient-mint-forest);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Buttons styling */
+.btn-sustain-primary {
+    background: var(--gradient-mint-forest);
+    color: var(--forest-dark);
+    font-weight: 600;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+}
+
+.btn-sustain-primary:hover {
+    box-shadow: var(--glow-shadow);
+    transform: scale(1.03);
+    color: #000000;
+}
+
+.btn-sustain-outline {
+    background: transparent;
+    color: var(--primary-mint);
+    border: 1px solid var(--primary-mint);
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+}
+
+.btn-sustain-outline:hover {
+    background: rgba(0, 245, 160, 0.1);
+    box-shadow: var(--glow-shadow);
+    color: #FFFFFF;
+}
+
+/* Carbon Footprint Widget */
+.carbon-calculator-widget {
+    background: rgba(5, 26, 21, 0.85);
+    border: 1px dashed var(--primary-mint);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0, 245, 160, 0.05);
+}
+
+.carbon-counter {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary-mint);
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 12px rgba(0, 245, 160, 0.3);
+}
+
+.carbon-badge {
+    background: rgba(0, 245, 160, 0.1);
+    color: var(--primary-mint);
+    border: 1px solid rgba(0, 245, 160, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+/* Custom Lists */
+.sustain-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sustain-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.sustain-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-mint);
+    font-weight: bold;
+}
+
+/* Side About panel refinement */
+.about-panel {
+    background: rgba(10, 60, 48, 0.15);
+    border: 1px solid rgba(0, 245, 160, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.about-panel ul {
+    padding-left: 1.2rem;
+}
+
+.about-panel li {
+    margin-bottom: 0.4rem;
+    color: var(--text-white);
+}
+
+/* Footer sustainability signature */
+.sustain-footer {
+    border-top: 1px solid rgba(0, 245, 160, 0.1);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background: #030F0C;
+}
+
+/* Micro-animations */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(0, 245, 160, 0.4); }
+    100% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); }
+}
+
+.pulse-glow {
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Responsive adjust */
+@media (max-width: 768px) {
+    .hero-sustain {
+        padding: 1.5rem;
+    }
+}
+
+/* Form controls custom styling */
+.form-control:focus, .form-select:focus {
+    background-color: rgba(10, 60, 48, 0.2) !important;
+    border-color: var(--primary-mint) !important;
+    box-shadow: 0 0 10px rgba(0, 245, 160, 0.3) !important;
+    color: #FFFFFF !important;
+}
