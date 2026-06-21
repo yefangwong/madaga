@@ -619,3 +619,6 @@ replay_pid*
 csp/cache/
 csp/csp-ckernel/output/
 
+# Email private configuration (sensitive keys)
+csp/csp-portal-web/src/main/resources/mail.properties
+
