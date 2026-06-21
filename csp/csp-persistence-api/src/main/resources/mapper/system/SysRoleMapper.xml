@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongfang.csp.system.mapper.SysRoleMapper">
+    <select id="getSysRoleById" resultType="com.hongfang.csp.system.entity.SysRole">
+        select
+            id, name, code, type, state, remark, version,
+            create_time as createTime, update_time as updateTime
+        from sys_role
+        where id = #{id}
+    </select>
+</mapper>

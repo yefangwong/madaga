@@ -41,16 +41,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("admin@madaga.com")
-            .password(passwordEncoder.encode("password123"))
-            .roles("ADMIN", "USER")
-            .build());
-        return manager;
-    }
-
-    @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
             "/emp/export",

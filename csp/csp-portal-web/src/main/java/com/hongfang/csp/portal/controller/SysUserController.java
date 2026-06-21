@@ -49,6 +49,7 @@ public class SysUserController extends BaseController {
      * 根据id取得系统使用者
      */
     @GetMapping("/info/{id}")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAuthority('sys:user:info')")
     public ApiResult<SysUserQueryVo> getSysUser(@PathVariable("id") Long id) throws Exception {
         SysUserQueryVo sysUserQueryVo = sysUserService.getSysUserById(id);
         return ApiResult.ok(sysUserQueryVo);

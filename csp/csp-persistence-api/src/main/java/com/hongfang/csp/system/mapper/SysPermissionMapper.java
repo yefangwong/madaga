@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 yefangwong(https://github.com/yefangwong)
+ * Copyright 2026 yefangwong(https://github.com/yefangwong)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,34 +15,19 @@
  */
 
 package com.hongfang.csp.system.mapper;
-import com.hongfang.csp.system.entity.SysUser;
-import com.hongfang.csp.system.vo.SysUserQueryVo;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
- * <pre>
- * 系统使用者 Mapper 介面
- * </pre>
- *
+ * 系統權限 Mapper 介面
  * @author yefangwong
- * @since 2020-04-16
+ * @since 2026-06-21
  */
-public interface SysUserMapper {
+public interface SysPermissionMapper {
     /**
-     * 根据ID查詢使用者資訊
-     *
-     * @param id
+     * 根據角色ID查詢該角色擁有的權限編碼列表
+     * @param roleId
      * @return
      */
-    SysUserQueryVo getSysUserById(Serializable id);
-
-    /**
-     * 根據使用者名稱（Email）查詢使用者資訊
-     *
-     * @param username
-     * @return
-     */
-    SysUser getSysUserByUsername(String username);
-
+    List<String> getPermissionCodesByRoleId(Long roleId);
 }
