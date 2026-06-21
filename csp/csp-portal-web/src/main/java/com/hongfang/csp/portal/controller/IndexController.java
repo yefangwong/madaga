@@ -24,8 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    @RequestMapping(value = {"/index"})
+    @RequestMapping(value = {"/index", "/"})
     public String homePage() {
         return "index";
+    }
+
+    @RequestMapping(value = {"/index_zh"})
+    public String homePageZh() {
+        return "index_zh";
     }
 }
