@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2022 yefangwong(https://github.com/yefangwong)
+  ~ Copyright 2026 yefangwong(https://github.com/yefangwong)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,306 +17,310 @@
   History
   --------------------------------------------
   2023/7/27 yfwong initial version
+  2026/6/21 yfwong Refactored for Sustainable Web Design Principles & AI-Native Solutions (Abstracted Pillars)
 -->
 <!doctype html>
-<html lang="en">
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>永續發展</title>
+    <meta name="description" content="德鴻方資訊 DHF - 提供 AI 原生解決方案與綠色數位轉型，引領次世代媒合系統架構、GPU/LLM 算力規劃與 MLOps 自動化治理。">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+    <!-- Google Fonts: Outfit for Modern Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="../css/blog.css" rel="stylesheet">
+    <title>德鴻方 DHF - AI 原生解決方案與數位轉型</title>
+
+    <!-- Custom Premium Sustainability stylesheet -->
+    <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
 </head>
+
 <body>
-<div class="container">
-    <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-<!--                <a class="link-secondary" href="#">Subscribe</a>-->
-            </div>
-            <div class="col-4 text-center">
-<!--                <a class="blog-header-logo text-dark" href="/index">德鴻方 DHF</a>-->
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-                </a>
-                <a class="btn btn-sm btn-outline-secondary" href="/auth/signUp">Demo</a>
-            </div>
-        </div>
-    </header>
-
-    <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="#">永續 Sustainable</a>
-            <a class="p-2 link-secondary" href="#">科技 Technology</a>
-            <a class="p-2 link-secondary" href="energy/index">能源 Energy</a>
-            <a class="p-2 link-secondary" href="#">聯絡我們 Contact Us</a>
-        </nav>
-    </div>
-</div>
-
-<main class="container">
-    <div class="row p-4 p-md-5 mb-4 text-white rounded bg-dark">
-        <div class="col-md-5">
-            <img src="/images/1.jpg" class="img-fluid" alt="軟體開發永續" />
-        </div>
-        <div class="col-md-5 px-0">
-            <div>
-                <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-                <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
-            </div>
-       </div>
-    </div>
-
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary">永續</strong>
-                    <h3 class="mb-0">Featured post</h3>
-                    <div class="mb-1 text-muted">Nov 12</div>
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="stretched-link">Continue reading</a>
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="blog-header-logo text-decoration-none" href="/index">德鴻方 DHF</a>
                 </div>
-                <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <image href="/images/2.jpg" x=-25 y=-32 height="125%" width="125%" />
-                    </svg>
+                <div class="col-4 text-center">
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <a class="btn btn-sm btn-sustain-primary pulse-glow" href="/auth/signUp">系統展示 Demo</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-success">科技</strong>
-                    <h3 class="mb-0">Post title</h3>
-                    <div class="mb-1 text-muted">Nov 11</div>
-                    <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <image href="/images/3.jpg" x=-25 y=-32 height="125%" width="125%" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
+        </header>
 
-    <div class="row g-5">
-        <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                From the Firehose
-            </h3>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">Sample blog post</h2>
-                <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
-
-                <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
-                <hr>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h2>Blockquotes</h2>
-                <p>This is an example blockquote in action:</p>
-                <blockquote class="blockquote">
-                    <p>Quoted text goes here.</p>
-                </blockquote>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Example lists</h3>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p>
-                <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ul>
-                <p>And this is an ordered list:</p>
-                <ol>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ol>
-                <p>And this is a definition list:</p>
-                <dl>
-                    <dt>HyperText Markup Language (HTML)</dt>
-                    <dd>The language used to describe and define the content of a Web page</dd>
-                    <dt>Cascading Style Sheets (CSS)</dt>
-                    <dd>Used to describe the appearance of Web content</dd>
-                    <dt>JavaScript (JS)</dt>
-                    <dd>The programming language used to build advanced Web sites and applications</dd>
-                </dl>
-                <h2>Inline HTML elements</h2>
-                <p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
-                <ul>
-                    <li><strong>To bold text</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
-                    <li><em>To italicize text</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
-                    <li>Abbreviations, like <abbr title="HyperText Markup Langage">HTML</abbr> should use <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, with an optional <code class="language-plaintext highlighter-rouge">title</code> attribute for the full phrase.</li>
-                    <li>Citations, like <cite>— Mark Otto</cite>, should use <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
-                    <li><del>Deleted</del> text should use <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> and <ins>inserted</ins> text should use <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
-                    <li>Superscript <sup>text</sup> uses <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
-                </ul>
-                <p>Most of these elements are styled by browsers with few modifications on our part.</p>
-                <h2>Heading</h2>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Sub-heading</h3>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <pre><code>Example code block</code></pre>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">Another blog post</h2>
-                <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
-
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <blockquote>
-                    <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
-                </blockquote>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Example table</h3>
-                <p>And don't forget about tables in these posts:</p>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Upvotes</th>
-                        <th>Downvotes</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Alice</td>
-                        <td>10</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>Bob</td>
-                        <td>4</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>Charlie</td>
-                        <td>7</td>
-                        <td>9</td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td>Totals</td>
-                        <td>21</td>
-                        <td>23</td>
-                    </tr>
-                    </tfoot>
-                </table>
-
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">New feature</h2>
-                <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ul>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled">Newer</a>
+        <div class="nav-scroller py-1 mb-3">
+            <nav class="nav d-flex justify-content-start gap-4">
+                <a class="p-2 nav-link-sustain text-decoration-none" href="#">首頁 Home</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="#">永續 Sustainable</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="#">科技 Technology</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index">能源 Energy</a>
             </nav>
+        </div>
+    </div>
 
+    <main class="container">
+        <!-- Hero Banner -->
+        <div class="row hero-sustain mb-4 align-items-center">
+            <div class="col-md-5 mb-3 mb-md-0">
+                <img src="/images/1.webp" th:src="@{/images/1.webp}" class="img-fluid rounded-3 shadow-lg"
+                    alt="綠色軟體開發與數位永續" loading="lazy" width="700" height="393" />
+            </div>
+            <div class="col-md-7 hero-sustain-content">
+                <h1 class="display-4 text-gradient-mint mb-3">AI 原生解決方案與綠色數位轉型</h1>
+                <p class="lead mb-4">德鴻方資訊致力於以最小的碳足跡代價，打造高效、穩健、低能耗的企業級數位系統。我們將 <strong>AI 原生解決方案</strong>
+                    深植於核心架構，引領企業全面進行<strong>數位轉型</strong>，對齊聯合國永續發展目標 SDG 9 與 SDG 12，提供綠色低碳的軟體訂製服務。</p>
+                <div class="d-flex gap-3">
+                    <a href="#calculator" class="btn btn-sustain-primary">數位碳足跡計算</a>
+                    <a href="https://github.com/yefangwong/madaga" class="btn btn-sustain-outline">開源專案</a>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
-                <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="fst-italic">關於我們 About Us</h4>
-                    <p class="mb-0">我們對永續發展和人工智慧有興趣：</p>
-                    <ul>
-                        <li>翁藝芳 Mark Wong：</li>
-                        <ul>
-                            <li>企業軟體開發 18 年經驗</li>
-                            <li>研究主題是深度學習、自然語言處理</li>
-                            <li>平常的嗜好是登山、看電影</li>
-                            <li>我的軟體框架</br><img src="/images/github-mark.png"
-                                    style="vertical-align: middle;
-                                    width: 25px;
-                                    height: 25px;" alt="Madaga CSP"/>
-                                <a href="https://github.com/yefangwong/madaga">Madaga CSP</a>
-                            </li>
-                        </ul>
-                        <li>吳培瑄 Grace Wu：</li>
-                        <ul>
-                            <li>企業永續管理師</li>
-                        </ul>
+        <!-- Featured Sub-cards (3 Columns) -->
+        <div class="row mb-4">
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/4.webp" th:src="@{/images/4.webp}" alt="AI 原生解決方案" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">AI 創新 & 數位轉型</strong>
+                        <h3 class="mb-2 fs-4">AI 原生解決方案</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">基於大語言模型與智慧 Agent
+                            框架，提供企業低碳排、高能效的智能化決策系統，透過推論優化與邊緣運算減少運算能耗，加速數位轉型步伐。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/2.webp" th:src="@{/images/2.webp}" alt="低碳技術" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">永續技術</strong>
+                        <h3 class="mb-2 fs-4">低碳網頁架構實踐</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">透過優化靜態資源（WebP 高效壓縮、延遲載入）與簡化 API
+                            回傳設計，顯著降低網頁每次造訪的傳輸量，進而減少地球資料中心與伺服器的耗電能耗。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/3.webp" th:src="@{/images/3.webp}" alt="自動化治理" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">企業治理</strong>
+                        <h3 class="mb-2 fs-4">ADO 自動化治理與測試</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">將技術債消除與安全漏洞掃描整合至 Azure DevOps
+                            Pipeline 中，達成 CI/CD 自動化品質證據鏈，確保軟體在全生命週期中維持低能耗、高可維護性的健康狀態。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Core Capabilities (2x2 Grid) -->
+        <div class="row my-5">
+            <h2 class="text-center text-gradient-mint mb-4">AI 原生與數位轉型：四大核心能力</h2>
+
+            <!-- Board 1: 核心系統架構設計與工程實現 -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🌐</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">一、核心系統架構設計與工程實現</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>次世代智慧媒合架構</strong>：基於先進資料科學演算法與業務需求，打造高可維護性、易擴展的次世代智慧媒合與搜尋技術生態系。</li>
+                        <li><strong>服務接口與資料流轉</strong>：規劃對外統一的服務 API 接口與標準化資料流轉機制，確保微服務模組間高效協作。</li>
+                        <li><strong>前瞻架構設計與技術攻關</strong>：撰寫詳盡且附有資訊架構圖的設計文件，建立技術標準，攻克核心關鍵技術難點。</li>
                     </ul>
                 </div>
+            </div>
 
-                <div class="p-4">
-                    <h4 class="fst-italic">Archives</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="#">March 2021</a></li>
-                        <li><a href="#">February 2021</a></li>
-                        <li><a href="#">January 2021</a></li>
-                        <li><a href="#">December 2020</a></li>
-                        <li><a href="#">November 2020</a></li>
-                        <li><a href="#">October 2020</a></li>
-                        <li><a href="#">September 2020</a></li>
-                        <li><a href="#">August 2020</a></li>
-                        <li><a href="#">July 2020</a></li>
-                        <li><a href="#">June 2020</a></li>
-                        <li><a href="#">May 2020</a></li>
-                        <li><a href="#">April 2020</a></li>
-                    </ol>
+            <!-- Board 2: AI 基礎設施與算力規劃 -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">⚡</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">二、AI 基礎設施與算力規劃</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>高彈性 GPU/LLM 算力規劃</strong>：於應用層實作具備安全、彈性擴展與極致成本效益的 GPU 算力及資源調配解決方案。</li>
+                        <li><strong>自動化 MLOps & LLMOps 流程</strong>：建立模型研發、訓練至自動化部署上線的標準化工程路徑，保障模型交付的高效運轉。</li>
+                        <li><strong>模型導入與工具鏈優化</strong>：針對開源大模型與商用 API 提供底層技術支援、推論效能優化，並建立相應的開發工具鏈。</li>
+                        <li><strong>全生命週期模型品質監控</strong>：協同演算法團隊共同制定 LLM/模型品質監控指標與即時回饋機制。</li>
+                    </ul>
                 </div>
+            </div>
 
-                <div class="p-4">
-                    <h4 class="fst-italic">Elsewhere</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">GitHub</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ol>
+            <!-- Board 3: 跨部門協作與技術策略 -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🤝</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">三、跨部門協作與技術策略發展</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>搜尋與推薦系統整合</strong>：與資料科學及產品團隊深度協作，進行大規模搜尋推薦場景的技術可行性評估與優化。</li>
+                        <li><strong>演算法落地標準工程流程 (SOP)</strong>：制定模型接入搜尋與推薦系統的標準化 SOP，並建立線上即時效能監控機制。</li>
+                        <li><strong>次世代 AI/ML 技術棧建設</strong>：引領技術團隊拓展架構視野，共同打造專屬的前沿 AI/ML 企業級技術棧。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Board 4: 專案推進與技術溝通 -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🚀</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">四、專案推進與技術溝通</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>關鍵工程專案敏捷推進</strong>：拆解複雜架構任務，制定清晰的開發里程碑，確保交付物高質量且與預期對齊。</li>
+                        <li><strong>跨領域技術溝通橋樑</strong>：在演算法理論、工程實現限制與業務目標之間取得最佳平衡，高效管理各方技術需求。</li>
+                        <li><strong>智能代理與自動化實作</strong>：擴展 AI 落地場景，包含 Intelligent Agents、LLM 業務流程應用及企業內部工具自動化整合。</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 
-</main>
+        <!-- Details Section -->
+        <div class="row g-5">
+            <div class="col-md-8">
+                <article class="blog-post">
+                    <h2 class="pb-3 mb-4 border-bottom text-gradient-mint">對齊 SDG 9 與 SDG 12：企業數位資產的永續與轉型之路</h2>
 
-<footer class="blog-footer">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-    <p>
-        <a href="#">Back to top</a>
-    </p>
-</footer>
+                    <p>在數位化飛速發展的今天，網際網路與伺服器所產生的碳排放已佔全球溫室氣體排放的 3.7% 以上。作為軟體開發者，我們有責任重新思考軟體架構，從傳統的「功能驅動」走向「綠色效能驅動」，並透過 AI
+                        原生解決方案為企業開闢更高效的轉型通道。</p>
 
+                    <h3>AI 原生與數位轉型</h3>
+                    <p>我們將 <strong>AI 原生 (AI-Native)</strong> 思想深度融入企業數位轉型。這不只意味著將 AI 當作附屬功能，更是將智能化、自主代理人 (Agents)
+                        作為系統的核心設計模式。在推動業務敏捷的同時，我們特別關注：</p>
+                    <ul class="sustain-list">
+                        <li><strong>智慧綠色推論</strong>：優化 Prompt 設計與模型推論流程，以最小的 Token 傳輸達成目標，降低 AI 運算的電力耗損。</li>
+                        <li><strong>架構平滑重構</strong>：透過低能耗微服務與容器化技術，幫助企業逐步汰換傳統的龐大單體架構，實踐綠色數位轉型。</li>
+                    </ul>
 
+                    <h3>低熵代碼實踐</h3>
+                    <p>我們秉持<strong>「最小熵增原則」</strong>進行開發。這意味著：</p>
+                    <ul class="sustain-list">
+                        <li><strong>避免冗餘資料傳輸</strong>：僅對齊必要的 API 返回格式，解決編碼亂碼問題，減少頻寬浪費。</li>
+                        <li><strong>演算法複雜度控制</strong>：核心業務邏輯的複雜度嚴格控制在 O(n) 以下，避免耗盡伺服器 CPU 資源。</li>
+                        <li><strong>Thymeleaf 輕量渲染</strong>：不引入龐大的前端 JavaScript 框架，大幅減少客戶端瀏覽器的渲染能耗。</li>
+                    </ul>
 
+                    <h3>精品軟體對齊框架</h3>
+                    <p>軟體品質的永續性來自於可維護性。我們將所有的代碼提交進行管道化（Pipeline-driven）驗證，每一次的功能發布都具有可回溯的安全合規證據，讓技術資產在未來 10
+                        年內依然具備健康的適應力，實踐 SDG 9 中穩健的數位基礎建設願景。</p>
+                </article>
+
+                <!-- Digital Carbon Calculator Widget -->
+                <div id="calculator" class="carbon-calculator-widget my-5">
+                    <h4 class="mb-3 text-gradient-mint">🌱 數位碳足跡即時計數器</h4>
+                    <p class="mb-4 text-muted">本網頁已完成綠色優化（包含 JPG 轉換為高壓縮 WebP 圖像，啟用 Lazy loading，消除多餘腳本）。以下為本頁面之數位能效模擬數據：
+                    </p>
+                    <div class="row text-center my-3">
+                        <div class="col-md-6 mb-3">
+                            <div class="carbon-counter" id="carbonSavings">0.000</div>
+                            <div class="text-white mt-1">每次造訪預估節省碳排 (g CO₂e)</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="carbon-counter" id="pageWeight">0.0</div>
+                            <div class="text-white mt-1">優化後頁面傳輸量 (KB)</div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+                        <span class="carbon-badge">對齊 SDG 12 責任生產與消費</span>
+                        <small class="text-muted">基於 Sustainable Web Design 模型預估</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar panels -->
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div class="about-panel mb-4">
+                        <h4 class="mb-3 text-gradient-mint">關於我們 About Us</h4>
+                        <p class="mb-3 text-white">我們對企業軟體永續發展與人工智慧有著共同的執著：</p>
+
+                        <strong class="text-white d-block mt-3 mb-1">翁藝芳 Mark Wong</strong>
+                        <ul>
+                            <li>企業軟體開發 18 年經驗</li>
+                            <li>研究領域為深度學習、自然語言處理</li>
+                            <li>愛好：登山、電影</li>
+                        </ul>
+
+                        <strong class="text-white d-block mt-3 mb-1">吳培瑄 Grace Wu</strong>
+                        <ul>
+                            <li>企業永續管理師</li>
+                            <li>專注於企業 ESG 轉型與綠色生產鏈管理</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-panel mb-4">
+                        <h4 class="mb-3 text-gradient-mint">開源項目與鏈結</h4>
+                        <ol class="list-unstyled mb-0 d-flex flex-column gap-2">
+                            <li>
+                                <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}"
+                                    style="vertical-align: middle; width: 22px; height: 22px;" alt="Madaga CSP"
+                                    class="me-2" />
+                                <a href="https://github.com/yefangwong/madaga"
+                                    class="text-gradient-mint text-decoration-none fw-bold">Madaga CSP GitHub</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="sustain-footer py-4 mt-5 text-center">
+        <div class="container">
+            <p class="mb-2">© 2026 德鴻方 DHF - 企業軟體永續化工程</p>
+            <p class="mb-0 text-muted" style="font-size: 0.85rem;">本網站完全採用低碳能效標準開發，減少地球資料中心與瀏覽端 CPU 負載。</p>
+        </div>
+    </footer>
+
+    <!-- Page carbon savings animation script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Simple micro-animation for numbers
+            const animateValue = (id, start, end, duration, decimals) => {
+                const obj = document.getElementById(id);
+                if (!obj) return;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const val = progress * (end - start) + start;
+                    obj.innerHTML = val.toFixed(decimals);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            // Trigger animations
+            animateValue("carbonSavings", 0, 0.080, 1500, 3);
+            animateValue("pageWeight", 0, 160.5, 1200, 1);
+        });
+    </script>
 </body>
+
 </html>
