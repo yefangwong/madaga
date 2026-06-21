@@ -565,6 +565,33 @@
             // Trigger animations
             animateValue("carbonSavings", 0, 0.080, 1500, 3);
             animateValue("pageWeight", 0, 160.5, 1200, 1);
+
+            // Customize HTML5 required validation messages for English
+            const form = document.getElementById("contactForm");
+            if (form) {
+                const inputs = form.querySelectorAll("[required]");
+                inputs.forEach(input => {
+                    input.addEventListener("invalid", function () {
+                        if (input.validity.valueMissing) {
+                            if (input.tagName === "SELECT") {
+                                input.setCustomValidity("Please select an option from the list.");
+                            } else {
+                                input.setCustomValidity("Please fill out this field.");
+                            }
+                        } else if (input.validity.typeMismatch && input.type === "email") {
+                            input.setCustomValidity("Please enter a valid email address.");
+                        }
+                    });
+                    input.addEventListener("input", function () {
+                        input.setCustomValidity("");
+                    });
+                    if (input.tagName === "SELECT") {
+                        input.addEventListener("change", function () {
+                            input.setCustomValidity("");
+                        });
+                    }
+                });
+            }
         });
 
         // Handle Contact Us form submission via AJAX Post

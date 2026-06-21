@@ -16,6 +16,7 @@
 
 package com.hongfang.csp.portal.controller;
 
+import com.hongfang.csp.webframeworx.common.api.ApiCode;
 import com.hongfang.csp.webframeworx.common.api.ApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,12 @@ public class ContactController {
         if (mailSender == null || fromEmail == null || fromEmail.isEmpty()) {
             logger.warn("郵件發送器未配置，將以本地日誌模式歸檔。請在 application.properties 配置 spring.mail 屬性。");
             String logMsg = isEn ? "Inquiry archived in local logs! (SMTP not configured)" : "信件已於本地日誌歸檔！(SMTP 未配置)";
-            return ApiResult.ok(logMsg);
+            return ApiResult.<String>builder()
+                    .code(ApiCode.SUCCESS.getCode())
+                    .success(true)
+                    .message(logMsg)
+                    .time(new java.util.Date())
+                    .build();
         }
 
         try {
@@ -91,14 +97,24 @@ public class ContactController {
             mailSender.send(mailMessage);
             logger.info("信件成功發送至：{}", toEmail);
             String successMsg = isEn ? "Inquiry sent successfully!" : "信件已成功發送！";
-            return ApiResult.ok(successMsg);
+            return ApiResult.<String>builder()
+                    .code(ApiCode.SUCCESS.getCode())
+                    .success(true)
+                    .message(successMsg)
+                    .time(new java.util.Date())
+                    .build();
         } catch (Exception e) {
             logger.error("郵件發送失敗: ", e);
             // Return failure info matching system format
             String failMsg = isEn 
                     ? "Failed to send email. Please try again later. Reason: " + e.getMessage()
                     : "郵件發送失敗，請稍後再試。原因: " + e.getMessage();
-            return ApiResult.result(null, failMsg, null);
+            return ApiResult.<String>builder()
+                    .code(ApiCode.FAIL.getCode())
+                    .success(false)
+                    .message(failMsg)
+                    .time(new java.util.Date())
+                    .build();
         }
     }
 }
