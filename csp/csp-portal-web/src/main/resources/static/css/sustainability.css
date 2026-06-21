@@ -239,3 +239,11 @@ h1, h2, h3, h4, h5, h6 {
         padding: 1.5rem;
     }
 }
+
+/* Form controls custom styling */
+.form-control:focus, .form-select:focus {
+    background-color: rgba(10, 60, 48, 0.2) !important;
+    border-color: var(--primary-mint) !important;
+    box-shadow: 0 0 10px rgba(0, 245, 160, 0.3) !important;
+    color: #FFFFFF !important;
+}

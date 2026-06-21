@@ -58,6 +58,7 @@
             <a class="p-2 nav-link-sustain text-decoration-none" href="#">永續 Sustainable</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="#suite">AI 解決方案套件</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index">能源 Energy</a>
+            <a class="p-2 nav-link-sustain text-decoration-none" href="#contact">聯絡我們 Contact Us</a>
         </nav>
     </div>
 </div>
@@ -295,6 +296,43 @@
                     <small class="text-muted">基於 Sustainable Web Design 模型預估</small>
                 </div>
             </div>
+
+            <!-- Contact Us Section -->
+            <div id="contact" class="glass-card p-4 my-5">
+                <h3 class="text-gradient-mint mb-3">✉ 聯絡我們 Contact Us</h3>
+                <p class="text-muted mb-4">如果您對我們的 AI 原生解決方案、LLM-SQL-Guard 或數位轉型服務有興趣，歡迎留下您的資訊，德鴻方團隊將於 24 小時內與您聯繫。</p>
+                
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="contactName" class="form-label text-white small">您的姓名 Name *</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" id="contactName" required placeholder="例如：林先生 / 林小姐">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="contactEmail" class="form-label text-white small">電子郵件 Email *</label>
+                            <input type="email" class="form-control bg-dark text-white border-secondary" id="contactEmail" required placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactSubject" class="form-label text-white small">諮詢項目 Subject *</label>
+                        <select class="form-select bg-dark text-white border-secondary" id="contactSubject" required>
+                            <option value="" disabled selected>請選擇您感興趣的項目</option>
+                            <option value="AI Native">AI 原生解決方案 (次世代智慧媒合)</option>
+                            <option value="SqlGuard">LLM-SQL-Guard 安全診斷與防護</option>
+                            <option value="Transformation">企業綠色數位轉型諮詢</option>
+                            <option value="Collaboration">其他業務合作</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactMessage" class="form-label text-white small">詳細需求說明 Message *</label>
+                        <textarea class="form-control bg-dark text-white border-secondary" id="contactMessage" rows="4" required placeholder="請簡述您的業務需求與系統環境..."></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" id="submitBtn" class="btn btn-sustain-primary">送出諮詢 Submit</button>
+                        <div id="submitStatus" class="d-none font-monospace text-gradient-mint small"></div>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <!-- Sidebar panels -->
@@ -367,6 +405,72 @@
         animateValue("carbonSavings", 0, 0.080, 1500, 3);
         animateValue("pageWeight", 0, 160.5, 1200, 1);
     });
+
+    // Handle Contact Us form submission via AJAX Post
+    function handleContactSubmit(event) {
+        event.preventDefault();
+        const btn = document.getElementById("submitBtn");
+        const status = document.getElementById("submitStatus");
+        
+        const name = document.getElementById("contactName").value;
+        const email = document.getElementById("contactEmail").value;
+        const subject = document.getElementById("contactSubject").value;
+        const message = document.getElementById("contactMessage").value;
+        
+        btn.disabled = true;
+        btn.innerHTML = "提交中...";
+        status.classList.remove("d-none");
+        status.innerHTML = "⚡ 正在建立安全連線...";
+        status.style.color = "var(--text-muted)";
+        
+        // Use URLSearchParams for form-urlencoded format
+        const params = new URLSearchParams();
+        params.append("name", name);
+        params.append("email", email);
+        params.append("subject", subject);
+        params.append("message", message);
+        
+        setTimeout(() => {
+            status.innerHTML = "🚀 正在發送信件數據...";
+            
+            fetch("/contact/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params
+            })
+            .then(response => response.json())
+            .then(res => {
+                btn.disabled = false;
+                btn.innerHTML = "送出諮詢 Submit";
+                if (res.success) {
+                    status.innerHTML = "✔ " + res.message;
+                    status.style.color = "var(--primary-mint)";
+                    // Clear form
+                    document.getElementById("contactForm").reset();
+                } else {
+                    status.innerHTML = "❌ 提交失敗: " + res.message;
+                    status.style.color = "#FF6B6B";
+                }
+                
+                // Automatically hide status text after 5 seconds
+                setTimeout(() => {
+                    status.classList.add("d-none");
+                }, 5000);
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.innerHTML = "送出諮詢 Submit";
+                status.innerHTML = "❌ 連線錯誤，請稍後再試。";
+                status.style.color = "#FF6B6B";
+                
+                setTimeout(() => {
+                    status.classList.add("d-none");
+                }, 5000);
+            });
+        }, 800);
+    }
 </script>
 </body>
 </html>
