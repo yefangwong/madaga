@@ -65,7 +65,60 @@ public class SecurityConfig {
                 .logoutUrl("/auth/signOut")
                 .logoutSuccessUrl("/?logout")
                 .permitAll()
+            )
+            .exceptionHandling(exception -> exception
+                .accessDeniedHandler(accessDeniedHandler())
             );
         return http.build();
     }
+
+    @Bean
+    public org.springframework.security.web.access.AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            String accept = request.getHeader("Accept");
+            String requestedWith = request.getHeader("X-Requested-With");
+            String uri = request.getRequestURI();
+
+            // 判斷是否為 API/JSON 請求，或者是 AJAX 請求
+            if ((accept != null && accept.contains("application/json")) 
+                || "XMLHttpRequest".equals(requestedWith) 
+                || uri.startsWith("/sysUser/info/")) {
+                
+                response.setContentType("application/json;charset=UTF-8");
+                response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write("{\"code\":403,\"success\":false,\"message\":\"您沒有存取此資源的權限 / Access Denied\",\"data\":null}");
+            } else {
+                // 回傳精緻的人性化 HTML 錯誤頁面
+                response.setContentType("text/html;charset=UTF-8");
+                response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write(
+                    "<!DOCTYPE html>" +
+                    "<html>" +
+                    "<head>" +
+                    "    <meta charset=\"UTF-8\">" +
+                    "    <title>403 Access Denied</title>" +
+                    "    <style>" +
+                    "        body { background: #f8f9fa; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; color: #333; }" +
+                    "        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.05); text-align: center; max-width: 450px; border: 1px solid #e9ecef; }" +
+                    "        h1 { color: #dc3545; font-size: 72px; margin: 0 0 10px 0; font-weight: 700; }" +
+                    "        h2 { font-size: 20px; margin: 0 0 20px 0; font-weight: 600; color: #495057; }" +
+                    "        p { color: #6c757d; font-size: 14px; line-height: 1.6; margin: 0 0 30px 0; }" +
+                    "        .btn { display: inline-block; background: #198754; color: white; text-decoration: none; padding: 10px 24px; border-radius: 6px; font-weight: 500; font-size: 14px; transition: all 0.3s; }" +
+                    "        .btn:hover { background: #157347; transform: translateY(-1px); }" +
+                    "    </style>" +
+                    "</head>" +
+                    "<body>" +
+                    "    <div class=\"card\">" +
+                    "        <h1>403</h1>" +
+                    "        <h2>存取被拒絕 / Access Denied</h2>" +
+                    "        <p>抱歉，您目前的帳號沒有足夠的權限存取此資源。如果您認為這是個錯誤，請聯絡系統管理員。</p>" +
+                    "        <a href=\"/dashboard/index\" class=\"btn\">返回首頁</a>" +
+                    "    </div>" +
+                    "</body>" +
+                    "</html>"
+                );
+            }
+        };
+    }
+
 }
