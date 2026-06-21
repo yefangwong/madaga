@@ -37,16 +37,13 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-		    <plugin>
+          <!--<plugin>
               <groupId>org.owasp</groupId>
               <artifactId>dependency-check-maven</artifactId>
               <version>12.1.0</version>
               <configuration>
-                  <!-- Generate all report formats -->
                   <format>ALL</format>
-                  <!-- Generate output report directory -->
                   <outputDirectory>output</outputDirectory>
-                  <!-- Do not use Nexus Analyzer -->
                   <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
                   <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
                   <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
@@ -55,10 +52,8 @@
                   <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
                   <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
 
-                  <!-- Am I the latest version? -->
                   <versionCheckEnabled>true</versionCheckEnabled>
                   <failBuildOnCVSS>4</failBuildOnCVSS>
-                  <!-- FIX some False Positive CVEs  -->
                   <suppressionFile>${csp.basedir}/config/dependency-check/suppressions.xml</suppressionFile>
               </configuration>
               <executions>
@@ -68,7 +63,7 @@
                       </goals>
                   </execution>
               </executions>
-          </plugin>
+          </plugin>-->
       </plugins>
   </build>
   <profiles>

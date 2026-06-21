@@ -16,22 +16,17 @@
 
 package com.hongfang.csp.portal.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.AuthenticationEventPublisher;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -39,28 +34,48 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("admin@madaga.com")
+            .password(passwordEncoder.encode("password123"))
+            .roles("ADMIN", "USER")
+            .build());
+        return manager;
+    }
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
             "/emp/export",
             "/api/question");
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.anonymous(Customizer.withDefaults())
-            //.formLogin(form -> form.loginPage("/login").permitAll())
-            //.httpBasic(Customizer.withDefaults())
-            //.csrf(crsf -> crsf.disable())
-            // giving permission to every request for /login endpoint
-            .authorizeHttpRequests(auth -> {
-                //auth.requestMatchers("/auth/signUp").permitAll()
-                auth.requestMatchers("/**").permitAll();
-            // for everything else, the user has to be authenticated
-            // setting stateless session, because we choose to implement Rest API
-            //.and().sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        });
-        // adding the custom filter before UsernamePasswordAuthenticationFilter in the filter chain
-        //http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/auth/signUp", "/auth/signIn", "/css/**", "/js/**", "/images/**", "/energy/**", "/favicon.ico").permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/auth/signUp")
+                .loginProcessingUrl("/auth/signIn")
+                .defaultSuccessUrl("/dashboard/index", true)
+                .failureUrl("/auth/signUp?error")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/auth/signOut")
+                .logoutSuccessUrl("/?logout")
+                .permitAll()
+            );
         return http.build();
     }
 }
