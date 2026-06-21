@@ -614,3 +614,8 @@ replay_pid*
 # accept dependencies folder jar
 !csp/dependencies/**.jar
 .gemini/
+
+# OWASP Dependency-Check cache and output directories
+csp/cache/
+csp/csp-ckernel/output/
+
