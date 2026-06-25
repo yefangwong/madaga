@@ -135,18 +135,23 @@
                         </div>
                         <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
                         <h4 class="text-white-50 mb-4">企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)</h4>
-                        <p class="lead mb-4 text-white">此套件高度整合了兩大核心技術，旨在為企業提供『高效能且安全』的生成式 AI 數據查詢與治理方案：</p>
+                        <p class="lead mb-4 text-white">為企業突破從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，此套件完美整合數據管線與「馬鞍治理」機制：</p>
                         
                         <div class="row text-white">
                             <!-- MADAGA -->
-                            <div class="col-12 mb-4">
-                                <h5 class="text-gradient-mint mb-2">1. MADAGA (Text-to-SQL Engine)</h5>
-                                <p class="text-muted small mb-0">利用自然語言處理技術，將非技術人員的指令精準轉譯為複雜的 SQL 查詢。結合 19 年企業系統 and 金融核心 (eBAF、eBAO、LIS共5年) 經驗，確保跨多元異質資料庫對接與流轉之極致準確度。</p>
+                            <div class="col-12 mb-3">
+                                <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
+                                <p class="text-muted small mb-0">無縫對接 Lakehouse 與即時串流數據管線，將非技術人員的自然語言精準轉譯為複雜的 SQL 查詢，打破資料流轉延遲瓶頸。</p>
                             </div>
                             <!-- LLM-SQL-Guard -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-2">2. LLM-SQL-Guard (Security Layer)</h5>
-                                <p class="text-muted small mb-0">專為金融與能源數據設計的安全防禦層。實作 SQL Parsing 語法剖析與檢驗機制，自動偵測並秒級封鎖 SQL Injection、DROP/TRUNCATE 等高危險惡意指令，確保 AI 生成內容完美符合 ACID 與資安合規規範。</p>
+                                <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (安全馬鞍 Security Saddle)</h5>
+                                <p class="text-muted small mb-0">為 AI 套上不容逾越的業務邏輯邊界。實作 SQL Parsing 語法剖析，在應用層自動攔截越權存取與高危險惡意指令，確保即時推論的絕對合規。</p>
+                            </div>
+                            <!-- Semantic Cache -->
+                            <div class="col-12 mb-3">
+                                <h5 class="text-gradient-mint mb-1">3. Semantic Cache (算力馬鞍 Compute Saddle)</h5>
+                                <p class="text-muted small mb-0">利用向量模糊匹配攔截高頻重複意圖，跳過 LLM 直接從 Redis 緩存返回結果。有效降低 40% 以上的 API 費用，減輕 GPU 高併發負載。</p>
                             </div>
                         </div>
                     </div>
@@ -170,13 +175,20 @@
                             <!-- Security Check Process -->
                             <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: Validate Security via LLM-SQL-Guard</div>
                             <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "DROP TABLE customers"</div>
-                            <div class="font-monospace text-danger mb-1" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] DROP table operation is strictly forbidden!</div>
-                            <div class="font-monospace text-muted mb-3" style="font-size: 0.75rem;">Detail: Command violates ACID & data safety protocols.</div>
+                            <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                            
+                            <!-- Semantic Cache Process -->
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
+                            <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
                             
                             <!-- Result -->
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
-                                <span class="badge bg-danger text-white border-0" style="font-size: 0.75rem; padding: 0.35rem 0.6rem;">BLOCKED (安全阻斷)</span>
-                                <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 7ms</small>
+                                <div>
+                                    <span class="badge bg-danger text-white border-0 me-1" style="font-size: 0.7rem;">BLOCKED</span>
+                                    <span class="badge bg-info text-dark border-0" style="font-size: 0.7rem;">CACHE HIT</span>
+                                </div>
+                                <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 2ms | GPU Load: 0%</small>
                             </div>
                         </div>
                     </div>
@@ -197,7 +209,7 @@
                     <h3 class="h4 mb-0 text-gradient-mint">一、核心系統架構設計與工程實現</h3>
                 </div>
                 <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
-                    <li><strong>次世代智慧媒合架構</strong>：基於先進資料科學演算法與業務需求，打造高可維護性、易擴展的次世代智慧媒合與搜尋技術生態系。</li>
+                    <li><strong>Lakehouse 即時數據管線</strong>：打破 Offline DB 批次延遲，建構低延遲、高一致性的即時特徵工程，支撐次世代智慧媒合的高併發需求。</li>
                     <li><strong>服務接口與資料流轉</strong>：規劃對外統一的服務 API 接口與標準化資料流轉機制，確保微服務模組間高效協作。</li>
                     <li><strong>前瞻架構設計與技術攻關</strong>：撰寫詳盡且附有資訊架構圖的設計文件，建立技術標準，攻克核心關鍵技術難點。</li>
                 </ul>
@@ -212,7 +224,7 @@
                     <h3 class="h4 mb-0 text-gradient-mint">二、AI 基礎設施與算力規劃</h3>
                 </div>
                 <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
-                    <li><strong>高彈性 GPU/LLM 算力規劃</strong>：於應用層實作具備安全、彈性擴展與極致成本效益的 GPU 算力及資源調配解決方案。</li>
+                    <li><strong>AI 馬鞍治理 (Saddle Governance)</strong>：為高熵算法套上業務與安全約束，透過防禦閘門與算力快取，確保模型在生產環境中穩健、低成本落地。</li>
                     <li><strong>自動化 MLOps & LLMOps 流程</strong>：建立模型研發、訓練至自動化部署上線的標準化工程路徑，保障模型交付的高效運轉。</li>
                     <li><strong>模型導入與工具鏈優化</strong>：針對開源大模型與商用 API 提供底層技術支援、推論效能優化，並建立相應的開發工具鏈。</li>
                     <li><strong>全生命週期模型品質監控</strong>：協同演算法團隊共同制定 LLM/模型品質監控指標與即時回饋機制。</li>
@@ -383,7 +395,7 @@
                     <!-- 實績 3: 智慧製造 MES -->
                     <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
                         <strong class="text-white d-block small mb-1">智慧製造與 AI 模型落地（MES 系統）</strong>
-                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">於叡揚資訊期間，負責智慧染整 AI 預測模型（總色差/水洗牢度）的驗證與工程落地。透過 TOGAF 架構確保 AI 模型與精實生產系統（MES）高度整合，具備將 AI 技術轉化為工業端實際生產力（解決生產痛點）的實戰經驗。<br>
+                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">於叡揚資訊期間，負責智慧染整 AI 預測模型驗證與工程部署。在此專案中深刻體悟從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，進而淬鍊出以「物理約束（馬鞍）」與「即時串流管線」駕馭 AI 算法的獨特架構哲學。<br>
                         <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">閱讀媒體報導與專訪 (MakerPRO)</a></p>
                     </div>
                     

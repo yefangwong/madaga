@@ -158,25 +158,23 @@
                             </div>
                             <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
                             <h4 class="text-white-50 mb-4">Text-to-SQL + Security Guard</h4>
-                            <p class="lead mb-4 text-white">This suite integrates two core technologies designed to
-                                offer high-performance and secure generative AI data query and governance solutions:</p>
-
+                            <p class="lead mb-4 text-white">To break through the <strong>Dual Bottleneck</strong> from "post-hoc analysis" to "real-time decision-making", this suite perfectly integrates data pipelines with a "Saddle Governance" mechanism:</p>
+                            
                             <div class="row text-white">
                                 <!-- MADAGA -->
-                                <div class="col-12 mb-4">
-                                    <h5 class="text-gradient-mint mb-2">1. MADAGA (Text-to-SQL Engine)</h5>
-                                    <p class="text-muted small mb-0">Uses NLP technology to accurately translate natural
-                                        language prompts into complex SQL queries. Blends 19 years of enterprise system
-                                        and financial core experience (including 5 years on eBAF, eBAO, and LIS) to
-                                        ensure maximum accuracy across heterogeneous database integrations.</p>
+                                <div class="col-12 mb-3">
+                                    <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
+                                    <p class="text-muted small mb-0">Seamlessly connects to Lakehouse and real-time streaming data pipelines. Uses NLP to accurately translate natural language prompts into complex SQL queries, breaking the data latency bottleneck.</p>
                                 </div>
                                 <!-- LLM-SQL-Guard -->
                                 <div class="col-12 mb-3">
-                                    <h5 class="text-gradient-mint mb-2">2. LLM-SQL-Guard (Security Layer)</h5>
-                                    <p class="text-muted small mb-0">A security defense layer custom-built for financial
-                                        and energy data. Implements AST-based SQL parsing and check mechanisms to
-                                        instantly detect and block SQL injections or high-risk actions (like
-                                        DROP/TRUNCATE), ensuring AI outputs comply with ACID and security standards.</p>
+                                    <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (Security Saddle)</h5>
+                                    <p class="text-muted small mb-0">Places strict business logic boundaries on AI. Implements AST-based SQL parsing to automatically intercept unauthorized access and high-risk operations at the application layer, ensuring absolute compliance for real-time inference.</p>
+                                </div>
+                                <!-- Semantic Cache -->
+                                <div class="col-12 mb-3">
+                                    <h5 class="text-gradient-mint mb-1">3. Semantic Cache (Compute Saddle)</h5>
+                                    <p class="text-muted small mb-0">Utilizes vector fuzzy matching to intercept high-frequency repetitive intents, bypassing the LLM and returning results directly from Redis. Effectively reduces API costs by over 40% and mitigates high-concurrency GPU load.</p>
                                 </div>
                             </div>
                         </div>
@@ -211,20 +209,20 @@
                                     Validate Security via LLM-SQL-Guard</div>
                                 <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard
                                     --check "DROP TABLE customers"</div>
-                                <div class="font-monospace text-danger mb-1"
-                                    style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] DROP table operation is
-                                    strictly forbidden!</div>
-                                <div class="font-monospace text-muted mb-3" style="font-size: 0.75rem;">Detail: Command
-                                    violates ACID & data safety protocols.</div>
-
+                                <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                                
+                                <!-- Semantic Cache Process -->
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
+                                <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
+                                
                                 <!-- Result -->
-                                <div
-                                    class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
-                                    <span class="badge bg-danger text-white border-0"
-                                        style="font-size: 0.75rem; padding: 0.35rem 0.6rem;">BLOCKED (Security
-                                        Intercept)</span>
-                                    <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency:
-                                        7ms</small>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                                    <div>
+                                        <span class="badge bg-danger text-white border-0 me-1" style="font-size: 0.7rem;">BLOCKED</span>
+                                        <span class="badge bg-info text-dark border-0" style="font-size: 0.7rem;">CACHE HIT</span>
+                                    </div>
+                                    <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 2ms | GPU Load: 0%</small>
                                 </div>
                             </div>
                         </div>
@@ -245,9 +243,7 @@
                         <h3 class="h4 mb-0 text-gradient-mint">1. Core System Architecture & Engineering</h3>
                     </div>
                     <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
-                        <li><strong>Next-Gen Intelligent Matching Architecture</strong>: Built on advanced data science
-                            algorithms and business logic to establish highly maintainable, scalable search and matching
-                            technology ecosystems.</li>
+                        <li><strong>Lakehouse Real-time Data Pipelines</strong>: Breaks the batch latency of Offline DBs, constructing low-latency, highly consistent real-time feature engineering pipelines to support the high concurrency demands of next-gen intelligent matching.</li>
                         <li><strong>Service Interfaces & Data Flow</strong>: Standardizes service API interfaces and
                             structured data transmission pipelines to ensure efficient microservice collaboration.</li>
                         <li><strong>Forward-looking Design & Tech R&D</strong>: Drafts comprehensive architectural
@@ -264,9 +260,7 @@
                         <h3 class="h4 mb-0 text-gradient-mint">2. AI Infrastructure & Compute Planning</h3>
                     </div>
                     <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
-                        <li><strong>Elastic GPU/LLM Resource Management</strong>: Implements secure, auto-scaling, and
-                            cost-effective GPU/LLM computing and resource allocation mechanisms at the application
-                            layer.</li>
+                        <li><strong>AI Saddle Governance</strong>: Imposes business logic and safety constraints on high-entropy algorithms through security guardrails and semantic caching, ensuring stable and cost-effective model deployment in production environments.</li>
                         <li><strong>Automated MLOps & LLMOps</strong>: Builds standardized pipelines from research and
                             training to deployment and delivery, ensuring reliable production releases.</li>
                         <li><strong>Model Deployment & Tooling</strong>: Provides foundational integration for
@@ -480,7 +474,7 @@
                         <!-- Achievement 3: Intelligent Manufacturing MES -->
                         <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
                             <strong class="text-white d-block small mb-1">Smart Manufacturing &amp; AI Model Landing (MES)</strong>
-                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">During tenure at GSS, validated and engineered the landing of AI prediction models (total color difference/color fastness to washing) for smart dyeing. Employed TOGAF framework to ensure seamless integration of AI models with Manufacturing Execution Systems (MES), delivering hands-on experience in turning AI theories into industrial productivity.<br>
+                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">During tenure at GSS, validated and engineered the landing of AI prediction models for smart dyeing. Here, I deeply realized the <strong>Dual Bottleneck</strong> of transitioning from "post-hoc analysis" to "real-time prediction", forging my unique architectural philosophy of governing AI algorithms with "physical/business constraints (Saddles)" and "real-time streaming pipelines."<br>
                             <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">Read Media Coverage &amp; Interview (MakerPRO) (in Chinese)</a></p>
                         </div>
                         
