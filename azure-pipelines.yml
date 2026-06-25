@@ -15,21 +15,13 @@ variables:
   javaVersion: '17'
 
 steps:
-- task: JavaToolInstaller@0
-  displayName: 'Setup Java $(javaVersion)'
-  inputs:
-    versionSpec: '$(javaVersion)'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
+# JavaToolInstaller is removed because the Mac already has Java configured.
 
 - task: Maven@4
   displayName: 'Maven Build & Test'
   inputs:
     mavenPomFile: '$(mavenPOMFile)'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '$(javaVersion)'
-    jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     # 使用 -Dmaven.test.skip=true 加速沙盒環境建置，未來若要執行單元測試可移除
