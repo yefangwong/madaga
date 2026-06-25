@@ -24,8 +24,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class Test01ApplicationTest {
     @Autowired
     private TestController testController;
+
+    @Autowired
+    private com.hongfang.csp.system.mapper.SysUserMapper sysUserMapper;
+
     @Test
     public void testTest() {
         testController.test();
+    }
+
+    @Autowired
+    private com.hongfang.csp.portal.security.UserDetailsServiceImpl userDetailsService;
+
+    @Test
+    public void testUserQuery() {
+        org.springframework.security.core.userdetails.UserDetails userDetails = userDetailsService.loadUserByUsername("admin@madaga.com");
+        System.out.println("====== DB SYS USER DETAILS RESULT: " + userDetails);
+        org.junit.jupiter.api.Assertions.assertNotNull(userDetails);
+
+        org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder encoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+        boolean match = encoder.matches("password123", userDetails.getPassword());
+        System.out.println("====== TEST BCRYPT MATCH: " + match);
+        org.junit.jupiter.api.Assertions.assertTrue(match);
     }
 }

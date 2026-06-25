@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2022 yefangwong(https://github.com/yefangwong)
+  ~ Copyright 2026 yefangwong(https://github.com/yefangwong)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,306 +17,644 @@
   History
   --------------------------------------------
   2023/7/27 yfwong initial version
+  2026/6/21 yfwong Refactored for Sustainable Web Design & Enterprise AI Solution Suite Showcase (MADAGA + LLM-SQL-Guard)
 -->
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>永續發展</title>
+    <meta name="description"
+        content="DHF Information - Enterprise AI Solution Suite (Text-to-SQL + Security Guard) integrating MADAGA and LLM-SQL-Guard technologies, aligning with SDG 9 and SDG 12 for sustainable enterprise software engineering services.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+    <!-- Google Fonts: Outfit for Modern Aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="../css/blog.css" rel="stylesheet">
+    <title>DHF - Enterprise AI Solution Suite (MADAGA + LLM-SQL-Guard)</title>
+
+    <!-- Custom Premium Sustainability stylesheet -->
+    <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
 </head>
+
 <body>
-<div class="container">
-    <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-<!--                <a class="link-secondary" href="#">Subscribe</a>-->
-            </div>
-            <div class="col-4 text-center">
-<!--                <a class="blog-header-logo text-dark" href="/index">德鴻方 DHF</a>-->
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-                </a>
-                <a class="btn btn-sm btn-outline-secondary" href="/auth/signUp">Demo</a>
-            </div>
-        </div>
-    </header>
-
-    <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="#">永續 Sustainable</a>
-            <a class="p-2 link-secondary" href="#">科技 Technology</a>
-            <a class="p-2 link-secondary" href="energy/index">能源 Energy</a>
-            <a class="p-2 link-secondary" href="#">聯絡我們 Contact Us</a>
-        </nav>
-    </div>
-</div>
-
-<main class="container">
-    <div class="row p-4 p-md-5 mb-4 text-white rounded bg-dark">
-        <div class="col-md-5">
-            <img src="/images/1.jpg" class="img-fluid" alt="軟體開發永續" />
-        </div>
-        <div class="col-md-5 px-0">
-            <div>
-                <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-                <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
-            </div>
-       </div>
-    </div>
-
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary">永續</strong>
-                    <h3 class="mb-0">Featured post</h3>
-                    <div class="mb-1 text-muted">Nov 12</div>
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="stretched-link">Continue reading</a>
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="blog-header-logo text-decoration-none" href="/index">DHF</a>
                 </div>
-                <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <image href="/images/2.jpg" x=-25 y=-32 height="125%" width="125%" />
-                    </svg>
+                <div class="col-4 text-center">
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center gap-3">
+                    <a class="text-gradient-mint text-decoration-none small fw-bold" href="/index_zh">繁體中文</a>
+                    <a class="btn btn-sm btn-sustain-primary pulse-glow" href="/auth/signUp">Demo</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-success">科技</strong>
-                    <h3 class="mb-0">Post title</h3>
-                    <div class="mb-1 text-muted">Nov 11</div>
-                    <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <image href="/images/3.jpg" x=-25 y=-32 height="125%" width="125%" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </div>
+        </header>
 
-    <div class="row g-5">
-        <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                From the Firehose
-            </h3>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">Sample blog post</h2>
-                <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
-
-                <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
-                <hr>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h2>Blockquotes</h2>
-                <p>This is an example blockquote in action:</p>
-                <blockquote class="blockquote">
-                    <p>Quoted text goes here.</p>
-                </blockquote>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Example lists</h3>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p>
-                <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ul>
-                <p>And this is an ordered list:</p>
-                <ol>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ol>
-                <p>And this is a definition list:</p>
-                <dl>
-                    <dt>HyperText Markup Language (HTML)</dt>
-                    <dd>The language used to describe and define the content of a Web page</dd>
-                    <dt>Cascading Style Sheets (CSS)</dt>
-                    <dd>Used to describe the appearance of Web content</dd>
-                    <dt>JavaScript (JS)</dt>
-                    <dd>The programming language used to build advanced Web sites and applications</dd>
-                </dl>
-                <h2>Inline HTML elements</h2>
-                <p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
-                <ul>
-                    <li><strong>To bold text</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
-                    <li><em>To italicize text</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
-                    <li>Abbreviations, like <abbr title="HyperText Markup Langage">HTML</abbr> should use <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, with an optional <code class="language-plaintext highlighter-rouge">title</code> attribute for the full phrase.</li>
-                    <li>Citations, like <cite>— Mark Otto</cite>, should use <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
-                    <li><del>Deleted</del> text should use <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> and <ins>inserted</ins> text should use <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
-                    <li>Superscript <sup>text</sup> uses <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
-                </ul>
-                <p>Most of these elements are styled by browsers with few modifications on our part.</p>
-                <h2>Heading</h2>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Sub-heading</h3>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <pre><code>Example code block</code></pre>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">Another blog post</h2>
-                <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
-
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <blockquote>
-                    <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
-                </blockquote>
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <h3>Example table</h3>
-                <p>And don't forget about tables in these posts:</p>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Upvotes</th>
-                        <th>Downvotes</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Alice</td>
-                        <td>10</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>Bob</td>
-                        <td>4</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>Charlie</td>
-                        <td>7</td>
-                        <td>9</td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td>Totals</td>
-                        <td>21</td>
-                        <td>23</td>
-                    </tr>
-                    </tfoot>
-                </table>
-
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2 class="blog-post-title">New feature</h2>
-                <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-
-                <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                </ul>
-                <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-            </article>
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled">Newer</a>
+        <div class="nav-scroller py-1 mb-3">
+            <nav class="nav d-flex justify-content-start gap-4">
+                <a class="p-2 nav-link-sustain text-decoration-none" href="/index">Home</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="/sustainability">Sustainability</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="/suite">AI Solution Suite</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index_en">Energy</a>
+                <a class="p-2 nav-link-sustain text-decoration-none" href="#contact">Contact Us</a>
             </nav>
+        </div>
+    </div>
 
+    <main class="container">
+        <!-- Hero Banner -->
+        <div class="row hero-sustain mb-4 align-items-center">
+            <div class="col-md-5 mb-3 mb-md-0">
+                <img src="/images/1.webp" th:src="@{/images/1.webp}" class="img-fluid rounded-3 shadow-lg"
+                    alt="Green Software Engineering and Digital Sustainability" loading="lazy" width="700"
+                    height="393" />
+            </div>
+            <div class="col-md-7 hero-sustain-content">
+                <h1 class="display-4 text-gradient-mint mb-3">AI-Native Solutions & Green Digital Transformation</h1>
+                <p class="lead mb-4">DHF Information is dedicated to building highly efficient, robust, and low-energy
+                    enterprise digital systems with minimal carbon footprint. We embed <strong>AI-native
+                        solutions</strong> deep into core architectures to lead enterprises through comprehensive
+                    <strong>digital transformation</strong>, aligning with UN SDGs 9 and 12, offering green and
+                    low-carbon customized software services.</p>
+                <div class="d-flex gap-3">
+                    <a href="#calculator" class="btn btn-sustain-primary">Digital Carbon Calculator</a>
+                    <a href="#suite" class="btn btn-sustain-outline">Explore AI Suite</a>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
-                <div class="p-4 mb-3 bg-light rounded">
-                    <h4 class="fst-italic">關於我們 About Us</h4>
-                    <p class="mb-0">我們對永續發展和人工智慧有興趣：</p>
-                    <ul>
-                        <li>翁藝芳 Mark Wong：</li>
-                        <ul>
-                            <li>企業軟體開發 18 年經驗</li>
-                            <li>研究主題是深度學習、自然語言處理</li>
-                            <li>平常的嗜好是登山、看電影</li>
-                            <li>我的軟體框架</br><img src="/images/github-mark.png"
-                                    style="vertical-align: middle;
-                                    width: 25px;
-                                    height: 25px;" alt="Madaga CSP"/>
-                                <a href="https://github.com/yefangwong/madaga">Madaga CSP</a>
-                            </li>
-                        </ul>
-                        <li>吳培瑄 Grace Wu：</li>
-                        <ul>
-                            <li>企業永續管理師</li>
-                        </ul>
+        <!-- Featured Sub-cards (3 Columns) -->
+        <div class="row mb-4">
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/4.webp" th:src="@{/images/4.webp}" alt="AI-Native Solutions" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">AI Innovation & DX</strong>
+                        <h3 class="mb-2 fs-4">AI-Native Solutions</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">Leverages LLMs and intelligent Agent
+                            frameworks to provide low-carbon, highly energy-efficient intelligent decision systems.
+                            Optimizes inference and edge computing to minimize energy consumption, accelerating digital
+                            transformation.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/2.webp" th:src="@{/images/2.webp}" alt="Low Carbon Tech" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">Sustainable Tech</strong>
+                        <h3 class="mb-2 fs-4">Low-Carbon Web Architecture</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">Significantly reduces transfer sizes
+                            per page visit by optimizing static resources (WebP high-compression, lazy loading) and
+                            simplifying API payload designs, reducing energy consumption for data centers and servers
+                            worldwide.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="glass-card h-100 d-flex flex-column">
+                    <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
+                        <img src="/images/3.webp" th:src="@{/images/3.webp}" alt="Automated Governance" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <strong class="d-inline-block mb-2 text-gradient-mint">Governance</strong>
+                        <h3 class="mb-2 fs-4">ADO Automated Governance</h3>
+                        <p class="card-text text-muted" style="font-size: 0.95rem;">Integrates technical debt
+                            elimination and security vulnerability scanning directly into Azure DevOps pipelines. This
+                            achieves a CI/CD automated quality chain of evidence, ensuring low energy consumption and
+                            high maintainability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Showcase: Enterprise AI Solution Suite -->
+        <div id="suite" class="row my-5">
+            <div class="col-12">
+                <div class="glass-card p-4 p-md-5 hero-sustain"
+                    style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%);">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="carbon-badge">2026/3 ~ Active</span>
+                                <span class="carbon-badge bg-dark border-secondary">Flagship Suite</span>
+                            </div>
+                            <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
+                            <h4 class="text-white-50 mb-4">Text-to-SQL + Security Guard</h4>
+                            <p class="lead mb-4 text-white">To break through the <strong>Dual Bottleneck</strong> from "post-hoc analysis" to "real-time decision-making", this suite perfectly integrates data pipelines with a "Saddle Governance" mechanism:</p>
+                            
+                            <div class="row text-white">
+                                <!-- MADAGA -->
+                                <div class="col-12 mb-3">
+                                    <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
+                                    <p class="text-muted small mb-0">Seamlessly connects to Lakehouse and real-time streaming data pipelines. Uses NLP to accurately translate natural language prompts into complex SQL queries, breaking the data latency bottleneck.</p>
+                                </div>
+                                <!-- LLM-SQL-Guard -->
+                                <div class="col-12 mb-3">
+                                    <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (Security Saddle)</h5>
+                                    <p class="text-muted small mb-0">Places strict business logic boundaries on AI. Implements AST-based SQL parsing to automatically intercept unauthorized access and high-risk operations at the application layer, ensuring absolute compliance for real-time inference.</p>
+                                </div>
+                                <!-- Semantic Cache -->
+                                <div class="col-12 mb-3">
+                                    <h5 class="text-gradient-mint mb-1">3. Semantic Cache (Compute Saddle)</h5>
+                                    <p class="text-muted small mb-0">Utilizes vector fuzzy matching to intercept high-frequency repetitive intents, bypassing the LLM and returning results directly from Redis. Effectively reduces API costs by over 40% and mitigates high-concurrency GPU load.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CLI Interactive Panel -->
+                        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                            <div class="p-4 rounded-3 text-start"
+                                style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+                                <!-- Terminal Header -->
+                                <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary"
+                                    style="opacity: 0.85;">
+                                    <span class="badge bg-danger rounded-circle p-1" style="width: 8px; height: 8px;">
+                                    </span>
+                                    <span class="badge bg-warning rounded-circle p-1" style="width: 8px; height: 8px;">
+                                    </span>
+                                    <span class="badge bg-success rounded-circle p-1" style="width: 8px; height: 8px;">
+                                    </span>
+                                    <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Enterprise
+                                        AI Terminal</small>
+                                </div>
+                                <!-- Translate Process -->
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1:
+                                    Translate Natural Language via MADAGA</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga
+                                    --translate "Delete all customer data"</div>
+                                <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3"
+                                    style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                    Generated: <span class="text-warning">DROP TABLE customers;</span>
+                                </div>
+
+                                <!-- Security Check Process -->
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2:
+                                    Validate Security via LLM-SQL-Guard</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard
+                                    --check "DROP TABLE customers"</div>
+                                <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                                
+                                <!-- Semantic Cache Process -->
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
+                                <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
+                                
+                                <!-- Result -->
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+                                    <div>
+                                        <span class="badge bg-danger text-white border-0 me-1" style="font-size: 0.7rem;">BLOCKED</span>
+                                        <span class="badge bg-info text-dark border-0" style="font-size: 0.7rem;">CACHE HIT</span>
+                                    </div>
+                                    <small class="text-muted font-monospace" style="font-size: 0.7rem;">Latency: 2ms | GPU Load: 0%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Core Capabilities (2x2 Grid) -->
+        <div class="row my-5">
+            <h2 class="text-center text-gradient-mint mb-4">AI-Native & Digital Transformation: 4 Core Capabilities</h2>
+
+            <!-- Board 1: Core System Architecture & Engineering -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🌐</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">1. Core System Architecture & Engineering</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>Lakehouse Real-time Data Pipelines</strong>: Breaks the batch latency of Offline DBs, constructing low-latency, highly consistent real-time feature engineering pipelines to support the high concurrency demands of next-gen intelligent matching.</li>
+                        <li><strong>Service Interfaces & Data Flow</strong>: Standardizes service API interfaces and
+                            structured data transmission pipelines to ensure efficient microservice collaboration.</li>
+                        <li><strong>Forward-looking Design & Tech R&D</strong>: Drafts comprehensive architectural
+                            designs and specs to resolve technical bottlenecks and establish coding standards.</li>
                     </ul>
                 </div>
+            </div>
 
-                <div class="p-4">
-                    <h4 class="fst-italic">Archives</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="#">March 2021</a></li>
-                        <li><a href="#">February 2021</a></li>
-                        <li><a href="#">January 2021</a></li>
-                        <li><a href="#">December 2020</a></li>
-                        <li><a href="#">November 2020</a></li>
-                        <li><a href="#">October 2020</a></li>
-                        <li><a href="#">September 2020</a></li>
-                        <li><a href="#">August 2020</a></li>
-                        <li><a href="#">July 2020</a></li>
-                        <li><a href="#">June 2020</a></li>
-                        <li><a href="#">May 2020</a></li>
-                        <li><a href="#">April 2020</a></li>
-                    </ol>
+            <!-- Board 2: AI Infrastructure & Compute Planning -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">⚡</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">2. AI Infrastructure & Compute Planning</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>AI Saddle Governance</strong>: Imposes business logic and safety constraints on high-entropy algorithms through security guardrails and semantic caching, ensuring stable and cost-effective model deployment in production environments.</li>
+                        <li><strong>Automated MLOps & LLMOps</strong>: Builds standardized pipelines from research and
+                            training to deployment and delivery, ensuring reliable production releases.</li>
+                        <li><strong>Model Deployment & Tooling</strong>: Provides foundational integration for
+                            open-source models and commercial APIs, optimizing inference speeds.</li>
+                        <li><strong>Lifecycle Model Monitoring</strong>: Works alongside algorithm teams to define
+                            evaluation metrics and real-time feedback loops for LLM quality.</li>
+                    </ul>
                 </div>
+            </div>
 
-                <div class="p-4">
-                    <h4 class="fst-italic">Elsewhere</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">GitHub</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ol>
+            <!-- Board 3: Cross-Departmental & Technical Strategy -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🤝</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">3. Cross-Departmental & Technical Strategy</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>Search & Recommendation Integration</strong>: Collaborates with product and data
+                            science teams to perform feasibility assessments and engineering optimizations for
+                            high-traffic recommendation scenarios.</li>
+                        <li><strong>Algorithm Integration SOPs</strong>: Formulates standardized integration SOPs and
+                            setups real-time performance tracking for search models.</li>
+                        <li><strong>Next-Gen Tech Stacks</strong>: Guides engineering teams to expand their
+                            architectural horizons, driving the development of advanced enterprise AI/ML toolchains.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Board 4: Project Execution & Technical Communication -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="fs-3 me-2">🚀</span>
+                        <h3 class="h4 mb-0 text-gradient-mint">4. Project Execution & Technical Communication</h3>
+                    </div>
+                    <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
+                        <li><strong>Agile Execution of Key Projects</strong>: Deconstructs complex requirements into
+                            concrete milestones, ensuring high-quality and on-time engineering delivery.</li>
+                        <li><strong>Bridges Technical Disciplines</strong>: Achieves optimal balance among algorithm
+                            theories, hardware limits, and business goals to facilitate cross-functional alignment.</li>
+                        <li><strong>Intelligent Agents & Automation</strong>: Scales AI implementation, including
+                            building smart agents, automating complex business workflows, and streamlining tools.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 
-</main>
+        <!-- Details Section -->
+        <div class="row g-5">
+            <div class="col-md-8">
+                <article class="blog-post">
+                    <h2 class="pb-3 mb-4 border-bottom text-gradient-mint">Aligning with SDG 9 & SDG 12: Digital Asset
+                        Sustainability & Transformation</h2>
 
-<footer class="blog-footer">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-    <p>
-        <a href="#">Back to top</a>
-    </p>
-</footer>
+                    <p>In today's fast-paced digital era, internet services and data centers generate over 3.7% of
+                        global greenhouse emissions. As software engineers, it is our responsibility to rethink software
+                        architecture—shifting from a purely feature-driven focus to a "green efficiency-first" mindset.
+                        Through AI-native technologies, we open up higher-efficiency pathways for corporate digital
+                        transformation.</p>
 
+                    <h3>AI-Native & Digital Transformation</h3>
+                    <p>We weave <strong>AI-native</strong> concepts directly into digital transformation. Rather than
+                        treating AI as an add-on, we architect intelligent systems around autonomous agents. While
+                        driving business agility, we emphasize:</p>
+                    <ul class="sustain-list">
+                        <li><strong>Green Inference</strong>: Optimizing prompts and inference strategies to process
+                            targets with minimal tokens, slashing GPU/CPU power usage.</li>
+                        <li><strong>Smooth Refactoring</strong>: Utilizing low-energy microservices and containerization
+                            to help companies smoothly decommission monoliths and complete green transformations.</li>
+                    </ul>
 
+                    <h3>Low-Entropy Code Practices</h3>
+                    <p>We write code according to the <strong>"Principle of Minimal Entropy"</strong>, meaning:</p>
+                    <ul class="sustain-list">
+                        <li><strong>No Redundant Payloads</strong>: Striking strict API formatting contracts, preventing
+                            malformed encodings, and conserving bandwidth.</li>
+                        <li><strong>Algorithmic Complexity Control</strong>: Keeping core business calculations below
+                            O(n) complexity to avoid overloading server resources.</li>
+                        <li><strong>Lightweight Server-side Rendering</strong>: Relying on Thymeleaf instead of heavy
+                            client-side JavaScript frameworks, drastically lowering customer browser rendering energy.
+                        </li>
+                    </ul>
 
+                    <h3>Software Integrity Framework</h3>
+                    <p>True software sustainability stems from maintainability. We validate code revisions through
+                        automated pipelines, generating traceable evidence of security and performance compliance. This
+                        ensures enterprise systems remain healthy and adaptable for the next decade, fulfilling the
+                        resilient digital infrastructure goal of SDG 9.</p>
+                </article>
+
+                <!-- Digital Carbon Calculator Widget -->
+                <div id="calculator" class="carbon-calculator-widget my-5">
+                    <h4 class="mb-3 text-gradient-mint">🌱 Live Digital Carbon Calculator</h4>
+                    <p class="mb-4 text-muted">This page has been optimized for low-carbon delivery (including
+                        converting images to high-compression WebP, lazy loading resources, and removing redundant
+                        scripts). Here are the live sustainability metrics for this visit:</p>
+                    <div class="row text-center my-3">
+                        <div class="col-md-6 mb-3">
+                            <div class="carbon-counter" id="carbonSavings">0.000</div>
+                            <div class="text-white mt-1">Estimated carbon saved per load (g CO₂e)</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="carbon-counter" id="pageWeight">0.0</div>
+                            <div class="text-white mt-1">Optimized page size (KB)</div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
+                        <span class="carbon-badge">Aligned with SDG 12 (Responsible Consumption)</span>
+                        <small class="text-muted">Based on the Sustainable Web Design model</small>
+                    </div>
+                </div>
+
+                <!-- Contact Us Section -->
+                <div id="contact" class="glass-card p-4 my-5">
+                    <h3 class="text-gradient-mint mb-3">✉ Contact Us</h3>
+                    <p class="text-muted mb-4">If you are interested in our AI-native solutions, LLM-SQL-Guard, or
+                        digital transformation services, please leave your details. The DHF team will reach out to you
+                        within 24 hours.</p>
+
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="contactName" class="form-label text-white small">Name *</label>
+                                <input type="text" class="form-control bg-dark text-white border-secondary"
+                                    id="contactName" required placeholder="e.g. John Doe">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="contactEmail" class="form-label text-white small">Email *</label>
+                                <input type="email" class="form-control bg-dark text-white border-secondary"
+                                    id="contactEmail" required placeholder="name@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactSubject" class="form-label text-white small">Subject *</label>
+                            <select class="form-select bg-dark text-white border-secondary" id="contactSubject"
+                                required>
+                                <option value="" disabled selected>Please select a subject of interest</option>
+                                <option value="AI Native">AI-Native Solutions (Next-Gen Intelligent Matching)</option>
+                                <option value="SqlGuard">LLM-SQL-Guard Diagnostics & Security</option>
+                                <option value="Transformation">Green Digital Transformation Consulting</option>
+                                <option value="Collaboration">Other Business Partnerships</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label text-white small">Message *</label>
+                            <textarea class="form-control bg-dark text-white border-secondary" id="contactMessage"
+                                rows="4" required
+                                placeholder="Briefly describe your business needs and system environments..."></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="submit" id="submitBtn" class="btn btn-sustain-primary">Submit Inquiry</button>
+                            <div id="submitStatus" class="d-none font-monospace text-gradient-mint small"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sidebar panels -->
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    <div class="about-panel mb-4">
+                        <h4 class="mb-3 text-gradient-mint">About Us</h4>
+                        <p class="mb-3 text-white">Dedication to sustainable enterprise software and artificial
+                            intelligence:</p>
+
+                        <strong class="text-white d-block mt-3 mb-1">Mark Wong</strong>
+                        <ul>
+                            <li>18+ years of enterprise software engineering</li>
+                            <li>Education:
+                                <ul class="ps-3 mt-1" style="list-style-type: circle;">
+                                    <li>M.S. in Computer Science &amp; Information Engineering, Tamkang University
+                                        (2023)<br>
+                                        <span class="text-muted" style="font-size: 0.85rem; font-style: italic;"><a
+                                                href="https://hdl.handle.net/11296/v4w5an" target="_blank"
+                                                class="text-gradient-mint text-decoration-none">Thesis: Text-to-SQL
+                                                Query Generation using Deep Learning (Written in Chinese)</a></span>
+                                    </li>
+                                    <li>B.S. in Civil Engineering, National Cheng Kung University (1996)</li>
+                                </ul>
+                            </li>
+                            <li>Certificates: SCJP, SCWCD Certified Developer</li>
+                            <li>Training: Project Management Professional (PMP) Program, Institute for Information
+                                Industry</li>
+                            <li>Journal Articles: <a href="https://buddhism.lib.ntu.edu.tw/FULLTEXT/JR-NX012/nx012136565.pdf" target="_blank" class="text-gradient-mint text-decoration-none">Information Retrieval &amp; Full-Text Search Practice (NTU Buddhist Library) (PDF in Chinese)</a></li>
+                            <li>Focus: Deep learning, Natural Language Processing, Full-Text/Vector Retrieval</li>
+                            <li>Hobbies: Mountaineering, Cinema</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-panel mb-4">
+                        <h4 class="mb-3 text-gradient-mint">R&amp;D Achievements</h4>
+                        <p class="text-white fw-bold mb-2" style="font-size: 0.95rem;">From Low-Level Algorithms to Next-Gen AI Search</p>
+                        <p class="text-muted small mb-2" style="line-height: 1.5;">Demonstrating strong technical agility and architectural transformation, addressing enterprise demands for Big Data &amp; AI:</p>
+                        
+                        <!-- Achievement 1: Full-Text Search -->
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
+                            <strong class="text-white d-block small mb-1">Full-Text Search Practice (NTU Buddhist Digital Library)</strong>
+                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Led the system architecture upgrade by replacing database relational search with Lucene full-text search. This built a deep foundation in Inverted Index, tokenization, and query performance tuning, translating directly into vector retrieval optimizations for modern RAG architectures.<br>
+                            <a href="https://buddhism.lib.ntu.edu.tw/FULLTEXT/JR-NX012/nx012136565.pdf" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">Read Journal Article (PDF in Chinese)</a></p>
+                        </div>
+                        
+                        <!-- Achievement 2: Navigation Algorithm -->
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
+                            <strong class="text-white d-block small mb-1">High-Precision Navigation Algorithms</strong>
+                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Served as Senior Engineer in Hsinchu Science Park, developing map data data-compression algorithms for navigation devices under resource-constrained embedded environments. Gained deep understanding of system performance, memory management, and large-scale spatial data optimization.</p>
+                        </div>
+                        
+                        <!-- Achievement 3: Intelligent Manufacturing MES -->
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
+                            <strong class="text-white d-block small mb-1">Smart Manufacturing &amp; AI Model Landing (MES)</strong>
+                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">During tenure at GSS, validated and engineered the landing of AI prediction models for smart dyeing. Here, I deeply realized the <strong>Dual Bottleneck</strong> of transitioning from "post-hoc analysis" to "real-time prediction", forging my unique architectural philosophy of governing AI algorithms with "physical/business constraints (Saddles)" and "real-time streaming pipelines."<br>
+                            <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">Read Media Coverage &amp; Interview (MakerPRO) (in Chinese)</a></p>
+                        </div>
+                        
+                        <!-- Achievement 4: IoV & AIoT Infrastructure -->
+                        <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
+                            <strong class="text-white d-block small mb-1">IoV &amp; AIoT Cloud Infrastructure</strong>
+                            <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Led AWS cloud architecture design and high-availability (HA) configuration, implementing massive vehicle data synchronization based on the MQTT protocol. Maintained ultra-high stability under high-concurrency, low-latency, and large-scale IoT data throughput scenarios.</p>
+                        </div>
+                    </div>
+
+                    <div class="about-panel mb-4">
+                        <h4 class="mb-3 text-gradient-mint">Technical Portfolio</h4>
+                        <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
+                            <li>
+                                <div class="d-flex align-items-center mb-1">
+                                    <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}"
+                                        style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub"
+                                        class="me-2" />
+                                    <a href="https://github.com/yefangwong/madaga" target="_blank"
+                                        class="text-gradient-mint text-decoration-none fw-bold">madaga</a>
+                                </div>
+                                <span class="text-muted small">Enterprise-grade Text-to-SQL architecture using Spring
+                                    Boot.</span>
+                            </li>
+                            <li>
+                                <div class="d-flex align-items-center mb-1">
+                                    <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}"
+                                        style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub"
+                                        class="me-2" />
+                                    <a href="https://github.com/yefangwong/llm-sql-guard" target="_blank"
+                                        class="text-gradient-mint text-decoration-none fw-bold">llm-sql-guard</a>
+                                </div>
+                                <span class="text-muted small">AI application security defense layer (Text-to-SQL
+                                    diagnostics).</span>
+                            </li>
+                            <li>
+                                <div class="d-flex align-items-center mb-1">
+                                    <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}"
+                                        style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub"
+                                        class="me-2" />
+                                    <a href="https://github.com/yefangwong/min-char-irnn" target="_blank"
+                                        class="text-gradient-mint text-decoration-none fw-bold">min-char-irnn</a>
+                                </div>
+                                <span class="text-muted small">Java implementation of Identity RNN (IRNN) for solving
+                                    vanishing gradient in long sequences.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="sustain-footer py-4 mt-5 text-center">
+        <div class="container">
+            <p class="mb-2">© 2026 DHF - Sustainable Enterprise Software Engineering</p>
+            <p class="mb-0 text-muted" style="font-size: 0.85rem;">This site is built to low-carbon standards to
+                minimize datacenter and browser CPU load.</p>
+        </div>
+    </footer>
+
+    <!-- Page carbon savings animation script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Simple micro-animation for numbers
+            const animateValue = (id, start, end, duration, decimals) => {
+                const obj = document.getElementById(id);
+                if (!obj) return;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const val = progress * (end - start) + start;
+                    obj.innerHTML = val.toFixed(decimals);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            // Trigger animations
+            animateValue("carbonSavings", 0, 0.080, 1500, 3);
+            animateValue("pageWeight", 0, 160.5, 1200, 1);
+
+            // Customize HTML5 required validation messages for English
+            const form = document.getElementById("contactForm");
+            if (form) {
+                const inputs = form.querySelectorAll("[required]");
+                inputs.forEach(input => {
+                    input.addEventListener("invalid", function () {
+                        if (input.validity.valueMissing) {
+                            if (input.tagName === "SELECT") {
+                                input.setCustomValidity("Please select an option from the list.");
+                            } else {
+                                input.setCustomValidity("Please fill out this field.");
+                            }
+                        } else if (input.validity.typeMismatch && input.type === "email") {
+                            input.setCustomValidity("Please enter a valid email address.");
+                        }
+                    });
+                    input.addEventListener("input", function () {
+                        input.setCustomValidity("");
+                    });
+                    if (input.tagName === "SELECT") {
+                        input.addEventListener("change", function () {
+                            input.setCustomValidity("");
+                        });
+                    }
+                });
+            }
+        });
+
+        // Handle Contact Us form submission via AJAX Post
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById("submitBtn");
+            const status = document.getElementById("submitStatus");
+
+            const name = document.getElementById("contactName").value;
+            const email = document.getElementById("contactEmail").value;
+            const subject = document.getElementById("contactSubject").value;
+            const message = document.getElementById("contactMessage").value;
+
+            btn.disabled = true;
+            btn.innerHTML = "Submitting...";
+            status.classList.remove("d-none");
+            status.innerHTML = "⚡ Establishing secure connection...";
+            status.style.color = "var(--text-muted)";
+
+            // Use URLSearchParams for form-urlencoded format
+            const params = new URLSearchParams();
+            params.append("name", name);
+            params.append("email", email);
+            params.append("subject", subject);
+            params.append("message", message);
+            params.append("lang", "en");
+
+            setTimeout(() => {
+                status.innerHTML = "🚀 Sending inquiry data...";
+
+                fetch("/contact/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: params
+                })
+                    .then(response => response.json())
+                    .then(res => {
+                        btn.disabled = false;
+                        btn.innerHTML = "Submit Inquiry";
+                        if (res.success) {
+                            status.innerHTML = "✔ " + res.message;
+                            status.style.color = "var(--primary-mint)";
+                            // Clear form
+                            document.getElementById("contactForm").reset();
+                        } else {
+                            status.innerHTML = "❌ Submission failed: " + res.message;
+                            status.style.color = "#FF6B6B";
+                        }
+
+                        // Automatically hide status text after 5 seconds
+                        setTimeout(() => {
+                            status.classList.add("d-none");
+                        }, 5000);
+                    })
+                    .catch(err => {
+                        btn.disabled = false;
+                        btn.innerHTML = "Submit Inquiry";
+                        status.innerHTML = "❌ Connection error, please try again later.";
+                        status.style.color = "#FF6B6B";
+
+                        setTimeout(() => {
+                            status.classList.add("d-none");
+                        }, 5000);
+                    });
+            }, 800);
+        }
+    </script>
 </body>
+
 </html>

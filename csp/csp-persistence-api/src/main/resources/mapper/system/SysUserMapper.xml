@@ -23,7 +23,7 @@
             d.name as departmentName,
             r.name as roleName
         from sys_user u
-        inner join sys_department d on u.department_id = d.id
+        inner join department d on u.department_id = d.id
         inner join sys_role r on u.role_id = r.id
         where u.deleted = 0
     </sql>
@@ -31,5 +31,14 @@
     <select id="getSysUserById" resultType="com.hongfang.csp.system.vo.SysUserQueryVo">
         <include refid="BaseQuerySelect"/>
         and u.id = #{id}
+    </select>
+
+    <select id="getSysUserByUsername" resultType="com.hongfang.csp.system.entity.SysUser">
+        select
+            id, username, nickname, password, salt, phone, gender, head, remark,
+            state, department_id as departmentId, role_id as roleId, deleted,
+            version, create_time as createTime, update_time as updateTime
+        from sys_user
+        where deleted = 0 and username = #{username}
     </select>
 </mapper>

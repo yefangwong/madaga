@@ -121,6 +121,10 @@ date         item                                              author
             <artifactId>spring-security-config</artifactId>
             <version>6.1.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <!-- @deprecated for Thymeleaf -->
         <!-- @date 2023/07/20 -->
 <!--        <dependency>-->

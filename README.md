@@ -84,3 +84,23 @@ https://google.github.io/styleguide/javaguide.html
 Builder
 
 Mark Wong
+
+# Citation
+
+If you use this architecture or find this work helpful, please cite the following thesis:
+
+**Plain Text:**
+Wong, Y. F. (2023). *自然語言轉資料庫查詢語言合成器 (Text to SQL Synthesizer)* [Master's thesis, Tamkang University]. DOI: 10.6846/tku202300657
+
+**BibTeX:**
+```bibtex
+@mastersthesis{wong2023text2sql,
+  title={自然語言轉資料庫查詢語言合成器 (Text to SQL Synthesizer)},
+  author={Wong, Ye-Fang},
+  school={Tamkang University},
+  year={2023},
+  type={Master's Thesis},
+  doi={10.6846/tku202300657},
+  url={https://hdl.handle.net/11296/v4w5an}
+}
+```
