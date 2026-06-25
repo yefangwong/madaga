@@ -33,7 +33,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     # 使用 -Dmaven.test.skip=true 加速沙盒環境建置，未來若要執行單元測試可移除
-    goals: 'clean package -Dmaven.test.skip=true'
+    goals: 'clean install -Dmaven.test.skip=true'
 
 - task: CopyFiles@2
   displayName: 'Stage built artifacts (*.jar)'
