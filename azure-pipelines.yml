@@ -8,7 +8,7 @@ trigger:
       - master
 
 pool:
-  vmImage: 'ubuntu-latest' # Microsoft-hosted free agent
+  name: 'Default' # Local Mac Self-hosted agent
 
 variables:
   mavenPOMFile: 'pom.xml'
