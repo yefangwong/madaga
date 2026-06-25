@@ -1,0 +1,50 @@
+# azure-pipelines.yml
+# ADO CI/CD configuration for Madaga Enterprise AI Sandbox
+
+trigger:
+  branches:
+    include:
+      - develop
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest' # Microsoft-hosted free agent
+
+variables:
+  mavenPOMFile: 'pom.xml'
+  javaVersion: '17'
+
+steps:
+- task: JavaToolInstaller@0
+  displayName: 'Setup Java $(javaVersion)'
+  inputs:
+    versionSpec: '$(javaVersion)'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
+
+- task: Maven@4
+  displayName: 'Maven Build & Test'
+  inputs:
+    mavenPomFile: '$(mavenPOMFile)'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '$(javaVersion)'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    # 使用 -Dmaven.test.skip=true 加速沙盒環境建置，未來若要執行單元測試可移除
+    goals: 'clean package -Dmaven.test.skip=true'
+
+- task: CopyFiles@2
+  displayName: 'Stage built artifacts (*.jar)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/target/*.jar'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts to Pipeline Drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'Madaga-Artifacts'
+    publishLocation: 'Container'
