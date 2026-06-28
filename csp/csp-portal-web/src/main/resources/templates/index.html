@@ -138,39 +138,39 @@
         <div id="suite" class="row my-5">
             <div class="col-12">
                 <div class="glass-card p-4 p-md-5 hero-sustain"
-                    style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%);">
+                    style="background: var(--showcase-bg);">
                     <div class="row align-items-center">
                         <div class="col-lg-7">
                             <div class="d-flex align-items-center gap-2 mb-3">
-                                <span class="carbon-badge">2026/3 ~ Active</span>
-                                <span class="carbon-badge bg-dark border-secondary">Flagship Suite</span>
+                                <span class="carbon-badge">104 Exclusive Proposal</span>
+                                <span class="carbon-badge bg-dark border-secondary">AI-Native Recruitment Proof of Concept (PoC)</span>
                             </div>
-                            <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
-                            <h4 class="text-white-50 mb-4">Text-to-SQL + Security Guard</h4>
-                            <p class="lead mb-4 text-white">To break through the <strong>Dual Bottleneck</strong> from "post-hoc analysis" to "real-time decision-making", this suite perfectly integrates data pipelines with a "Saddle Governance" mechanism:</p>
+                            <h2 class="display-5 text-gradient-mint mb-3">104 AI-Native Recruitment Sandbox</h2>
+                            <h4 class="mb-4">Next-Gen Intelligent Match System based on Four Pillars (Text-to-SQL + Security Guard)</h4>
+                            <p class="lead mb-4">Tailored for 104's scale and security compliance requirements, demonstrating how to break through AI landing bottlenecks via "Real-time Feature Pipelines (Lakehouse)" and "Model Constraints (Saddle Governance)":</p>
                             
-                            <div class="row text-white">
+                            <div class="row">
                                 <!-- MADAGA -->
                                 <div class="col-12 mb-3">
-                                    <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
-                                    <p class="text-muted small mb-0">Seamlessly connects to Lakehouse and real-time streaming data pipelines. Uses NLP to accurately translate natural language prompts into complex SQL queries, breaking the data latency bottleneck.</p>
+                                    <h5 class="text-gradient-mint mb-1">1. MADAGA (104 Semantic Match Text-to-SQL)</h5>
+                                    <p class="text-muted small mb-0">Seamlessly connects to Lakehouse, automatically translating recruiters' natural language queries (e.g., "Find React developers in Taipei with Docker experience") into structured SQL for feature retrieval, breaking technical barriers and data latency in big data analysis.</p>
                                 </div>
                                 <!-- LLM-SQL-Guard -->
                                 <div class="col-12 mb-3">
-                                    <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (Security Saddle)</h5>
-                                    <p class="text-muted small mb-0">Places strict business logic boundaries on AI. Implements AST-based SQL parsing to automatically intercept unauthorized access and high-risk operations at the application layer, ensuring absolute compliance for real-time inference.</p>
+                                    <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (Security Saddle for PII Protection)</h5>
+                                    <p class="text-muted small mb-0">Performs AST grammar validation before sending generated SQL to the database. Features built-in PII Gate anonymization technology, physically blocking unauthorized queries (e.g., non-HR accounts accessing phone numbers) and malicious injection, ensuring resumes remain securely within boundary.</p>
                                 </div>
                                 <!-- Semantic Cache -->
                                 <div class="col-12 mb-3">
-                                    <h5 class="text-gradient-mint mb-1">3. Semantic Cache (Compute Saddle)</h5>
-                                    <p class="text-muted small mb-0">Utilizes vector fuzzy matching to intercept high-frequency repetitive intents, bypassing the LLM and returning results directly from Redis. Effectively reduces API costs by over 40% and mitigates high-concurrency GPU load.</p>
+                                    <h5 class="text-gradient-mint mb-1">3. Semantic Cache (High-Frequency Match Query Cache)</h5>
+                                    <p class="text-muted small mb-0">Intercepts high-frequency repetitive search intents (e.g., "Find Frontend", "React positions") at the Gateway layer using vector similarity. Bypasses over 40% of LLM calls, achieving millisecond-level responses and lowering GPU workload.</p>
                                 </div>
                             </div>
                         </div>
                         <!-- CLI Interactive Panel -->
                         <div class="col-lg-5 text-center mt-4 mt-lg-0">
                             <div class="p-4 rounded-3 text-start"
-                                style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+                                style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(255, 122, 0, 0.25);">
                                 <!-- Terminal Header -->
                                 <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary"
                                     style="opacity: 0.85;">
@@ -180,30 +180,26 @@
                                     </span>
                                     <span class="badge bg-success rounded-circle p-1" style="width: 8px; height: 8px;">
                                     </span>
-                                    <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Enterprise
-                                        AI Terminal</small>
+                                    <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">104 Recruitment AI-Terminal</small>
                                 </div>
                                 <!-- Translate Process -->
-                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1:
-                                    Translate Natural Language via MADAGA</div>
-                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga
-                                    --translate "Delete all customer data"</div>
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Text-to-SQL via MADAGA</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --query "Find React developers in Taipei with Docker experience"</div>
                                 <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3"
-                                    style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05);">
-                                    Generated: <span class="text-warning">DROP TABLE customers;</span>
+                                    style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05); line-height: 1.4;">
+                                    Generated SQL:<br>
+                                    <span class="text-warning">SELECT name, skills FROM resumes WHERE location = 'Taipei' AND skills LIKE '%React%' AND skills LIKE '%Docker%';</span>
                                 </div>
 
                                 <!-- Security Check Process -->
-                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2:
-                                    Validate Security via LLM-SQL-Guard</div>
-                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard
-                                    --check "DROP TABLE customers"</div>
-                                <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                                <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: AST & PII Safety via LLM-SQL-Guard</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "SELECT phone, address FROM resumes"</div>
+                                <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Access Denied: Role 'Recruiter' has no permission for PII data. Request Blocked!</div>
                                 
                                 <!-- Semantic Cache Process -->
                                 <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
-                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
-                                <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
+                                <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Find React developers"</div>
+                                <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity: 98.2%. Bypassing LLM. Returning cached result.</div>
                                 
                                 <!-- Result -->
                                 <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
@@ -351,11 +347,11 @@
                     <div class="row text-center my-3">
                         <div class="col-md-6 mb-3">
                             <div class="carbon-counter" id="carbonSavings">0.000</div>
-                            <div class="text-white mt-1">Estimated carbon saved per load (g CO₂e)</div>
+                            <div class="mt-1">Estimated carbon saved per load (g CO₂e)</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="carbon-counter" id="pageWeight">0.0</div>
-                            <div class="text-white mt-1">Optimized page size (KB)</div>
+                            <div class="mt-1">Optimized page size (KB)</div>
                         </div>
                     </div>
                     <div
@@ -375,19 +371,19 @@
                     <form id="contactForm" onsubmit="handleContactSubmit(event)">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="contactName" class="form-label text-white small">Name *</label>
-                                <input type="text" class="form-control bg-dark text-white border-secondary"
+                                <label for="contactName" class="form-label small">Name *</label>
+                                <input type="text" class="form-control bg-dark border-secondary"
                                     id="contactName" required placeholder="e.g. John Doe">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="contactEmail" class="form-label text-white small">Email *</label>
-                                <input type="email" class="form-control bg-dark text-white border-secondary"
+                                <label for="contactEmail" class="form-label small">Email *</label>
+                                <input type="email" class="form-control bg-dark border-secondary"
                                     id="contactEmail" required placeholder="name@example.com">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="contactSubject" class="form-label text-white small">Subject *</label>
-                            <select class="form-select bg-dark text-white border-secondary" id="contactSubject"
+                            <label for="contactSubject" class="form-label small">Subject *</label>
+                            <select class="form-select bg-dark border-secondary" id="contactSubject"
                                 required>
                                 <option value="" disabled selected>Please select a subject of interest</option>
                                 <option value="AI Native">AI-Native Solutions (Next-Gen Intelligent Matching)</option>
@@ -397,8 +393,8 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="contactMessage" class="form-label text-white small">Message *</label>
-                            <textarea class="form-control bg-dark text-white border-secondary" id="contactMessage"
+                            <label for="contactMessage" class="form-label small">Message *</label>
+                            <textarea class="form-control bg-dark border-secondary" id="contactMessage"
                                 rows="4" required
                                 placeholder="Briefly describe your business needs and system environments..."></textarea>
                         </div>
@@ -415,10 +411,10 @@
                 <div class="position-sticky" style="top: 2rem;">
                     <div class="about-panel mb-4">
                         <h4 class="mb-3 text-gradient-mint">About Us</h4>
-                        <p class="mb-3 text-white">Dedication to sustainable enterprise software and artificial
+                        <p class="mb-3">Dedication to sustainable enterprise software and artificial
                             intelligence:</p>
 
-                        <strong class="text-white d-block mt-3 mb-1">Mark Wong</strong>
+                        <strong class="d-block mt-3 mb-1">Mark Wong</strong>
                         <ul>
                             <li>18+ years of enterprise software engineering</li>
                             <li>Education:
@@ -444,32 +440,32 @@
 
                     <div class="about-panel mb-4">
                         <h4 class="mb-3 text-gradient-mint">R&amp;D Achievements</h4>
-                        <p class="text-white fw-bold mb-2" style="font-size: 0.95rem;">From Low-Level Algorithms to Next-Gen AI Search</p>
+                        <p class="fw-bold mb-2" style="font-size: 0.95rem;">From Low-Level Algorithms to Next-Gen AI Search</p>
                         <p class="text-muted small mb-2" style="line-height: 1.5;">Demonstrating strong technical agility and architectural transformation, addressing enterprise demands for Big Data &amp; AI:</p>
                         
                         <!-- Achievement 1: Full-Text Search -->
-                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                            <strong class="text-white d-block small mb-1">Full-Text Search Practice (NTU Buddhist Digital Library)</strong>
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                            <strong class="d-block small mb-1">Full-Text Search Practice (NTU Buddhist Digital Library)</strong>
                             <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Led the system architecture upgrade by replacing database relational search with Lucene full-text search. This built a deep foundation in Inverted Index, tokenization, and query performance tuning, translating directly into vector retrieval optimizations for modern RAG architectures.<br>
                             <a href="https://buddhism.lib.ntu.edu.tw/FULLTEXT/JR-NX012/nx012136565.pdf" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">Read Journal Article (PDF in Chinese)</a></p>
                         </div>
                         
                         <!-- Achievement 2: Navigation Algorithm -->
-                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                            <strong class="text-white d-block small mb-1">High-Precision Navigation Algorithms</strong>
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                            <strong class="d-block small mb-1">High-Precision Navigation Algorithms</strong>
                             <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Served as Senior Engineer in Hsinchu Science Park, developing map data data-compression algorithms for navigation devices under resource-constrained embedded environments. Gained deep understanding of system performance, memory management, and large-scale spatial data optimization.</p>
                         </div>
                         
                         <!-- Achievement 3: Intelligent Manufacturing MES -->
-                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                            <strong class="text-white d-block small mb-1">Smart Manufacturing &amp; AI Model Landing (MES)</strong>
+                        <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                            <strong class="d-block small mb-1">Smart Manufacturing &amp; AI Model Landing (MES)</strong>
                             <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">During tenure at GSS, validated and engineered the landing of AI prediction models for smart dyeing. Here, I deeply realized the <strong>Dual Bottleneck</strong> of transitioning from "post-hoc analysis" to "real-time prediction", forging my unique architectural philosophy of governing AI algorithms with "physical/business constraints (Saddles)" and "real-time streaming pipelines."<br>
                             <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">Read Media Coverage &amp; Interview (MakerPRO) (in Chinese)</a></p>
                         </div>
                         
                         <!-- Achievement 4: IoV & AIoT Infrastructure -->
-                        <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                            <strong class="text-white d-block small mb-1">IoV &amp; AIoT Cloud Infrastructure</strong>
+                        <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                            <strong class="d-block small mb-1">IoV &amp; AIoT Cloud Infrastructure</strong>
                             <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">Led AWS cloud architecture design and high-availability (HA) configuration, implementing massive vehicle data synchronization based on the MQTT protocol. Maintained ultra-high stability under high-concurrency, low-latency, and large-scale IoT data throughput scenarios.</p>
                         </div>
                     </div>

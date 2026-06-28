@@ -37,7 +37,7 @@
     <!-- Custom Premium Sustainability stylesheet -->
     <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
 </head>
-<body>
+<body class="theme-light">
 <div class="container">
     <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
@@ -125,7 +125,7 @@
     <!-- Product Showcase: Enterprise AI Solution Suite -->
     <div id="suite" class="row my-5">
         <div class="col-12">
-            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%); border: 1px solid var(--primary-mint);">
+            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: var(--showcase-bg); border: 1px solid var(--primary-mint);">
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="d-flex align-items-center gap-2 mb-3">
@@ -133,10 +133,10 @@
                             <span class="carbon-badge bg-dark border-secondary">AI 原生招聘概念驗證 (PoC)</span>
                         </div>
                         <h2 class="display-5 text-gradient-mint mb-3">104 AI-Native Recruitment Sandbox</h2>
-                        <h4 class="text-white-50 mb-4">基於四大支柱的次世代智慧媒合系統 (Text-to-SQL + Security Guard)</h4>
-                        <p class="lead mb-4 text-white">針對 [COMPANY_104] 的數據量級與安全合規訴求，展示如何透過「即時特徵管線 (Lakehouse)」與「模型約束 (馬鞍治理)」突破 AI 落地瓶頸：</p>
+                        <h4 class="mb-4">基於四大支柱的次世代智慧媒合系統 (Text-to-SQL + Security Guard)</h4>
+                        <p class="lead mb-4">針對 104人力銀行 的數據量級與安全合規訴求，展示如何透過「即時特徵管線 (Lakehouse)」與「模型約束 (馬鞍治理)」突破 AI 落地瓶頸：</p>
                         
-                        <div class="row text-white">
+                        <div class="row">
                             <!-- MADAGA -->
                             <div class="col-12 mb-3">
                                 <h5 class="text-gradient-mint mb-1">1. MADAGA (104 語意媒合 Text-to-SQL)</h5>
@@ -156,7 +156,7 @@
                     </div>
                     <!-- CLI Interactive Panel -->
                     <div class="col-lg-5 text-center mt-4 mt-lg-0">
-                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.65); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.25);">
+                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.65); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(255, 122, 0, 0.25);">
                             <!-- Terminal Header -->
                             <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary" style="opacity: 0.85;">
                                 <span class="badge bg-danger rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
@@ -297,11 +297,11 @@
                 <div class="row text-center my-3">
                     <div class="col-md-6 mb-3">
                         <div class="carbon-counter" id="carbonSavings">0.000</div>
-                        <div class="text-white mt-1">每次造訪預估節省碳排 (g CO₂e)</div>
+                        <div class="mt-1">每次造訪預估節省碳排 (g CO₂e)</div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="carbon-counter" id="pageWeight">0.0</div>
-                        <div class="text-white mt-1">優化後頁面傳輸量 (KB)</div>
+                        <div class="mt-1">優化後頁面傳輸量 (KB)</div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
@@ -318,17 +318,17 @@
                 <form id="contactForm" onsubmit="handleContactSubmit(event)">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="contactName" class="form-label text-white small">您的姓名 Name *</label>
-                            <input type="text" class="form-control bg-dark text-white border-secondary" id="contactName" required placeholder="例如：林先生 / 林小姐">
+                            <label for="contactName" class="form-label small">您的姓名 Name *</label>
+                            <input type="text" class="form-control bg-dark border-secondary" id="contactName" required placeholder="例如：林先生 / 林小姐">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="contactEmail" class="form-label text-white small">電子郵件 Email *</label>
-                            <input type="email" class="form-control bg-dark text-white border-secondary" id="contactEmail" required placeholder="name@example.com">
+                            <label for="contactEmail" class="form-label small">電子郵件 Email *</label>
+                            <input type="email" class="form-control bg-dark border-secondary" id="contactEmail" required placeholder="name@example.com">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="contactSubject" class="form-label text-white small">諮詢項目 Subject *</label>
-                        <select class="form-select bg-dark text-white border-secondary" id="contactSubject" required>
+                        <label for="contactSubject" class="form-label small">諮詢項目 Subject *</label>
+                        <select class="form-select bg-dark border-secondary" id="contactSubject" required>
                             <option value="" disabled selected>請選擇您感興趣的項目</option>
                             <option value="AI Native">AI 原生解決方案 (次世代智慧媒合)</option>
                             <option value="SqlGuard">LLM-SQL-Guard 安全診斷與防護</option>
@@ -337,8 +337,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="contactMessage" class="form-label text-white small">詳細需求說明 Message *</label>
-                        <textarea class="form-control bg-dark text-white border-secondary" id="contactMessage" rows="4" required placeholder="請簡述您的業務需求與系統環境..."></textarea>
+                        <label for="contactMessage" class="form-label small">詳細需求說明 Message *</label>
+                        <textarea class="form-control bg-dark border-secondary" id="contactMessage" rows="4" required placeholder="請簡述您的業務需求與系統環境..."></textarea>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="submit" id="submitBtn" class="btn btn-sustain-primary">送出諮詢 Submit</button>
@@ -353,9 +353,9 @@
             <div class="position-sticky" style="top: 2rem;">
                 <div class="about-panel mb-4">
                     <h4 class="mb-3 text-gradient-mint">關於我們 About Us</h4>
-                    <p class="mb-3 text-white">對企業軟體永續發展與人工智慧的執著：</p>
+                    <p class="mb-3">對企業軟體永續發展與人工智慧的執著：</p>
                     
-                    <strong class="text-white d-block mt-3 mb-1">翁藝芳 Mark Wong</strong>
+                    <strong class="d-block mt-3 mb-1">翁藝芳 Mark Wong</strong>
                     <ul>
                         <li>企業軟體開發 18 年經驗</li>
                         <li>學歷：
@@ -376,32 +376,32 @@
 
                 <div class="about-panel mb-4">
                     <h4 class="mb-3 text-gradient-mint">研發實績 &amp; 跨領域實力</h4>
-                    <p class="text-white fw-bold mb-2" style="font-size: 0.95rem;">從底層演算法到次世代 AI 檢索</p>
+                    <p class="fw-bold mb-2" style="font-size: 0.95rem;">從底層演算法到次世代 AI 檢索</p>
                     <p class="text-muted small mb-2" style="line-height: 1.5;">展現極強的技術跨度與架構轉化能力，精準對位智慧產業的大數據與 AI 應用需求：</p>
                     
                     <!-- 實績 1: 全文檢索 -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">資訊檢索與全文檢索實務 (台大佛學圖書館)</strong>
-                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導系統架構升級，將傳統關聯式檢索成功導入基於 Lucene 的資訊全文檢索技術，對倒排索引（Inverted Index）、分詞邏輯及效能優化有深厚底蘊，並能轉化為現代 RAG架構中的向量檢索優化。<br>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">資訊檢索與全文檢索實務 (台大佛學圖書館)</strong>
+                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導系統架載升級，將傳統關聯式檢索成功導入基於 Lucene 的資訊全文檢索技術，對倒排索引（Inverted Index）、分詞邏輯及效能優化有深厚底蘊，並能轉化為現代 RAG架構中的向量檢索優化。<br>
                         <a href="https://buddhism.lib.ntu.edu.tw/FULLTEXT/JR-NX012/nx012136565.pdf" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">閱讀期刊論文 (PDF)</a></p>
                     </div>
                     
                     <!-- 實績 2: 導航演算法 -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">高精密度演算法研發（導航領域）</strong>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">高精密度演算法研發（導航領域）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">曾於竹科擔任高級工程師，負責導航設備之圖資壓縮演算法研發。在嵌入式環境的極端限制下，對系統效能、記憶體管理及大規模空間數據的讀取優化有深刻理解。</p>
                     </div>
                     
                     <!-- 實績 3: 智慧製造 MES -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">智慧製造與 AI 模型落地（MES 系統）</strong>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">智慧製造與 AI 模型落地（MES 系統）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">於叡揚資訊期間，負責智慧染整 AI 預測模型驗證與工程部署。在此專案中深刻體悟從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，進而淬鍊出以「物理約束（馬鞍）」與「即時串流管線」駕馭 AI 算法的獨特架構哲學。<br>
                         <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">閱讀媒體報導與專訪 (MakerPRO)</a></p>
                     </div>
                     
                     <!-- 實績 4: 車聯網與 AIoT -->
-                    <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">車聯網與 AIoT 基礎建設（車聯網雲）</strong>
+                    <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">車聯網與 AIoT 基礎建設（車聯網雲）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導 AWS 雲端架構設計與高可用性（HA）配置，實作基於 MQTT 協定的海量車載數據同步。在物聯網的高併發、低延遲及大規模數據吞吐量要求下，維持系統的超高穩定性。</p>
                     </div>
                 </div>

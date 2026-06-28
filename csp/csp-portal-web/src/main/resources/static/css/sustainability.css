@@ -5,20 +5,31 @@
  */
 
 :root {
-    --primary-mint: #00F5A0;
-    --primary-mint-hover: #00D289;
-    --forest-green: #0A3C30;
-    --forest-dark: #051A15;
-    --forest-bg: #030F0C;
-    --card-bg-glass: rgba(10, 60, 48, 0.15);
-    --card-border-glass: rgba(0, 245, 160, 0.15);
-    --card-bg-glass-hover: rgba(10, 60, 48, 0.25);
-    --text-white: #E6F4F0;
-    --text-muted: #8AA69F;
-    --gradient-mint-forest: linear-gradient(135deg, var(--primary-mint) 0%, #008f68 100%);
+    --primary-orange: #FF7A00;
+    --primary-orange-hover: #E06B00;
+    --primary-blue: #0076B9;
+    --primary-blue-hover: #00649E;
+
+    /* Base color mapping (backward compatibility) */
+    --primary-mint: var(--primary-orange);
+    --primary-mint-hover: var(--primary-orange-hover);
+    --forest-green: #10243C;
+    --forest-dark: #0A1624;
+    --forest-bg: #060E18;
+    
+    /* Glassmorphism elements styling using 104 corporate blue/navy bases */
+    --card-bg-glass: rgba(16, 36, 60, 0.25);
+    --card-border-glass: rgba(0, 118, 185, 0.25);
+    --card-bg-glass-hover: rgba(16, 36, 60, 0.35);
+    --text-white: #F4F7F9;
+    --text-muted: #8E9CA8;
+    
+    /* Gradients and transitions */
+    --gradient-mint-forest: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-blue) 100%);
     --gradient-dark: linear-gradient(180deg, var(--forest-dark) 0%, var(--forest-bg) 100%);
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --glow-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+    --glow-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+    --showcase-bg: linear-gradient(135deg, rgba(16, 36, 60, 0.25) 0%, rgba(10, 22, 36, 0.45) 100%);
 }
 
 /* Base resets & theme styles */
@@ -27,8 +38,8 @@ body {
     color: var(--text-white);
     font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 245, 160, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(10, 60, 48, 0.3) 0%, transparent 50%);
+        radial-gradient(circle at 10% 20%, rgba(255, 122, 0, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 118, 185, 0.15) 0%, transparent 50%);
     background-attachment: fixed;
 }
 
@@ -92,6 +103,14 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, rgba(5, 26, 21, 0.9) 0%, rgba(3, 15, 12, 0.95) 100%);
     border: 1px solid rgba(0, 245, 160, 0.2);
     overflow: hidden;
+}
+
+.hero-sustain h4 {
+    color: var(--text-muted);
+}
+
+.hero-sustain p.lead {
+    color: var(--text-white);
 }
 
 .hero-sustain::before {
@@ -203,6 +222,7 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid rgba(0, 245, 160, 0.1);
     border-radius: 12px;
     padding: 1.5rem;
+    color: var(--text-white);
 }
 
 .about-panel ul {
@@ -216,17 +236,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Footer sustainability signature */
 .sustain-footer {
-    border-top: 1px solid rgba(0, 245, 160, 0.1);
+    border-top: 1px solid var(--card-border-glass);
     color: var(--text-muted);
     font-size: 0.9rem;
-    background: #030F0C;
+    background: var(--forest-bg);
 }
 
 /* Micro-animations */
 @keyframes pulseGlow {
-    0% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); }
-    50% { box-shadow: 0 0 20px rgba(0, 245, 160, 0.4); }
-    100% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); }
+    0% { box-shadow: 0 0 10px rgba(255, 122, 0, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(255, 122, 0, 0.45); }
+    100% { box-shadow: 0 0 10px rgba(255, 122, 0, 0.2); }
 }
 
 .pulse-glow {
@@ -242,8 +262,134 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Form controls custom styling */
 .form-control:focus, .form-select:focus {
-    background-color: rgba(10, 60, 48, 0.2) !important;
+    background-color: rgba(16, 36, 60, 0.2) !important;
     border-color: var(--primary-mint) !important;
-    box-shadow: 0 0 10px rgba(0, 245, 160, 0.3) !important;
+    box-shadow: 0 0 10px rgba(255, 122, 0, 0.3) !important;
     color: #FFFFFF !important;
+}
+
+/* ==========================================
+ * 104 Light Theme Overrides & Fonts Stack
+ * ========================================== */
+body.theme-light {
+    --forest-bg: #FFFFFF;
+    --forest-dark: #F8F9FA;
+    --forest-green: #F1F3F5;
+    --text-white: #1C252C; /* Dark Slate text */
+    --text-muted: #5A6A75; /* Slate grey muted text */
+    
+    --card-bg-glass: rgba(255, 255, 255, 0.75);
+    --card-border-glass: rgba(0, 118, 185, 0.15);
+    --card-bg-glass-hover: rgba(255, 255, 255, 0.95);
+    --glow-shadow: 0 8px 30px rgba(255, 122, 0, 0.12);
+    --showcase-bg: linear-gradient(135deg, rgba(230, 238, 245, 0.75) 0%, rgba(240, 244, 248, 0.85) 100%);
+    
+    font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 122, 0, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 118, 185, 0.06) 0%, transparent 50%);
+}
+
+/* Light Theme Element Refinements */
+.theme-light h1, 
+.theme-light h2, 
+.theme-light h3, 
+.theme-light h4, 
+.theme-light h5, 
+.theme-light h6 {
+    color: #1C252C;
+}
+
+.theme-light .blog-header {
+    border-bottom: 1px solid rgba(0, 118, 185, 0.1);
+}
+
+.theme-light .blog-header-logo {
+    background: linear-gradient(to right, #1C252C, var(--primary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 118, 185, 0.05);
+}
+
+.theme-light .nav-link-sustain {
+    color: var(--text-muted);
+}
+
+.theme-light .nav-link-sustain:hover {
+    color: var(--primary-orange);
+    border-bottom-color: var(--primary-orange);
+    text-shadow: 0 0 8px rgba(255, 122, 0, 0.25);
+}
+
+.theme-light .glass-card {
+    box-shadow: 0 8px 32px 0 rgba(0, 118, 185, 0.06);
+}
+
+.theme-light .glass-card:hover {
+    box-shadow: 0 12px 40px 0 rgba(255, 122, 0, 0.12);
+    border-color: rgba(255, 122, 0, 0.3);
+}
+
+.theme-light .hero-sustain {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 247, 249, 0.98) 100%);
+    border: 1px solid rgba(0, 118, 185, 0.15);
+}
+
+.theme-light .hero-sustain::before {
+    background: radial-gradient(circle, rgba(0, 118, 185, 0.05) 0%, transparent 60%);
+}
+
+.theme-light .hero-sustain-content p.lead {
+    color: #4A5568;
+}
+
+.theme-light .btn-sustain-outline {
+    color: var(--primary-orange);
+    border-color: var(--primary-orange);
+}
+
+.theme-light .btn-sustain-outline:hover {
+    background: rgba(255, 122, 0, 0.08);
+    color: var(--primary-orange-hover);
+}
+
+.theme-light .carbon-calculator-widget {
+    background: rgba(240, 244, 248, 0.5);
+    border: 1px dashed var(--primary-mint);
+    box-shadow: inset 0 0 10px rgba(0, 118, 185, 0.02);
+}
+
+.theme-light .carbon-badge {
+    background: rgba(255, 122, 0, 0.08);
+    color: var(--primary-orange);
+    border-color: rgba(255, 122, 0, 0.15);
+}
+
+.theme-light .about-panel {
+    background: rgba(0, 118, 185, 0.04);
+    border: 1px solid rgba(0, 118, 185, 0.08);
+}
+
+.theme-light .sustain-footer {
+    background: #F8F9FA;
+    border-top: 1px solid rgba(0, 118, 185, 0.1);
+    color: #5A6A75;
+}
+
+.theme-light .pulse-glow {
+    animation: pulseGlowLight 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlowLight {
+    0% { box-shadow: 0 0 10px rgba(255, 122, 0, 0.15); }
+    50% { box-shadow: 0 0 20px rgba(255, 122, 0, 0.35); }
+    100% { box-shadow: 0 0 10px rgba(255, 122, 0, 0.15); }
+}
+
+.theme-light .form-control:focus, 
+.theme-light .form-select:focus {
+    background-color: #FFFFFF !important;
+    color: #1C252C !important;
+    box-shadow: 0 0 10px rgba(255, 122, 0, 0.2) !important;
 }
