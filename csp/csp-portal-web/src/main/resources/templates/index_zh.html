@@ -126,61 +126,62 @@
     <!-- Product Showcase: Enterprise AI Solution Suite -->
     <div id="suite" class="row my-5">
         <div class="col-12">
-            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%);">
+            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%); border: 1px solid var(--primary-mint);">
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="d-flex align-items-center gap-2 mb-3">
-                            <span class="carbon-badge">2026/3 ~ Active (仍在進行)</span>
-                            <span class="carbon-badge bg-dark border-secondary">企業級旗艦套件</span>
+                            <span class="carbon-badge">104 專屬提案</span>
+                            <span class="carbon-badge bg-dark border-secondary">AI 原生招聘概念驗證 (PoC)</span>
                         </div>
-                        <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
-                        <h4 class="text-white-50 mb-4">企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)</h4>
-                        <p class="lead mb-4 text-white">為企業突破從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，此套件完美整合數據管線與「馬鞍治理」機制：</p>
+                        <h2 class="display-5 text-gradient-mint mb-3">104 AI-Native Recruitment Sandbox</h2>
+                        <h4 class="text-white-50 mb-4">基於四大支柱的次世代智慧媒合系統 (Text-to-SQL + Security Guard)</h4>
+                        <p class="lead mb-4 text-white">針對 [COMPANY_104] 的數據量級與安全合規訴求，展示如何透過「即時特徵管線 (Lakehouse)」與「模型約束 (馬鞍治理)」突破 AI 落地瓶頸：</p>
                         
                         <div class="row text-white">
                             <!-- MADAGA -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
-                                <p class="text-muted small mb-0">無縫對接 Lakehouse 與即時串流數據管線，將非技術人員的自然語言精準轉譯為複雜的 SQL 查詢，打破資料流轉延遲瓶頸。</p>
+                                <h5 class="text-gradient-mint mb-1">1. MADAGA (104 語意媒合 Text-to-SQL)</h5>
+                                <p class="text-muted small mb-0">無縫對接 Lakehouse，將 HR 顧問的自然語言（例如：「找北部有 Docker 經驗的 React 工程師」）自動轉譯為結構化 SQL 特徵檢索，打破大數據分析的技術門檻與流轉延遲。</p>
                             </div>
                             <!-- LLM-SQL-Guard -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (安全馬鞍 Security Saddle)</h5>
-                                <p class="text-muted small mb-0">為 AI 套上不容逾越的業務邏輯邊界。實作 SQL Parsing 語法剖析，在應用層自動攔截越權存取與高危險惡意指令，確保即時推論的絕對合規。</p>
+                                <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (資安安全馬鞍 Security Saddle)</h5>
+                                <p class="text-muted small mb-0">在產出 SQL 送入 DB 執行前進行 AST 語法校驗。內建 PII Gate 去識別化技術，物理封鎖越權查詢（如非 HR 帳號存取聯絡電話）與惡意注入，確保履歷安全不出域。</p>
                             </div>
                             <!-- Semantic Cache -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">3. Semantic Cache (算力馬鞍 Compute Saddle)</h5>
-                                <p class="text-muted small mb-0">利用向量模糊匹配攔截高頻重複意圖，跳過 LLM 直接從 Redis 緩存返回結果。有效降低 40% 以上的 API 費用，減輕 GPU 高併發負載。</p>
+                                <h5 class="text-gradient-mint mb-1">3. Semantic Cache (高頻媒合語意快取)</h5>
+                                <p class="text-muted small mb-0">針對 104 高頻重複的人才檢索意圖（如「徵 Frontend」、「React 職缺」），在 Gateway 層以向量相似度進行攔截。省去 40% 以上的 LLM 呼叫，達到毫秒級極速回應。</p>
                             </div>
                         </div>
                     </div>
                     <!-- CLI Interactive Panel -->
                     <div class="col-lg-5 text-center mt-4 mt-lg-0">
-                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.65); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.25);">
                             <!-- Terminal Header -->
                             <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary" style="opacity: 0.85;">
                                 <span class="badge bg-danger rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
                                 <span class="badge bg-warning rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
                                 <span class="badge bg-success rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
-                                <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Enterprise AI Terminal</small>
+                                <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">104 Recruitment AI-Terminal</small>
                             </div>
                             <!-- Translate Process -->
-                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Translate Natural Language via MADAGA</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --translate "刪除所有客戶資料"</div>
-                            <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3" style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05);">
-                                Generated: <span class="text-warning">DROP TABLE customers;</span>
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Text-to-SQL via MADAGA</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --query "找北部有 Docker 經驗的 React 工程師"</div>
+                            <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3" style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05); line-height: 1.4;">
+                                Generated SQL:<br>
+                                <span class="text-warning">SELECT name, skills FROM resumes WHERE location = 'Taipei' AND skills LIKE '%React%' AND skills LIKE '%Docker%';</span>
                             </div>
                             
                             <!-- Security Check Process -->
-                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: Validate Security via LLM-SQL-Guard</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "DROP TABLE customers"</div>
-                            <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: AST & PII Safety via LLM-SQL-Guard</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "SELECT phone, address FROM resumes"</div>
+                            <div class="font-monospace text-danger mb-3" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Access Denied: Role 'Recruiter' has no permission for PII data. Request Blocked!</div>
                             
                             <!-- Semantic Cache Process -->
                             <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
-                            <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "尋找 React 開發人員"</div>
+                            <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity: 98.2%. Bypassing LLM. Returning cached result.</div>
                             
                             <!-- Result -->
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
