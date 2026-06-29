@@ -50,40 +50,40 @@ steps:
 
 # 2. 依據勾選的環境複製 WAR 到 Staging 目錄中的對應環境資料夾 (扁平化檔案路徑)
 - ${{ if eq(parameters.packageDev, true) }}:
-  - task: CopyFiles@2
-    displayName: 'Stage Artifact for DEV'
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
-      flattenFolders: true
+    - task: CopyFiles@2
+      displayName: 'Stage Artifact for DEV'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
+        flattenFolders: true
 
 - ${{ if eq(parameters.packageSit, true) }}:
-  - task: CopyFiles@2
-    displayName: 'Stage Artifact for SIT'
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/sit'
-      flattenFolders: true
+    - task: CopyFiles@2
+      displayName: 'Stage Artifact for SIT'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/sit'
+        flattenFolders: true
 
 - ${{ if eq(parameters.packageUat, true) }}:
-  - task: CopyFiles@2
-    displayName: 'Stage Artifact for UAT'
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/uat'
-      flattenFolders: true
+    - task: CopyFiles@2
+      displayName: 'Stage Artifact for UAT'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/uat'
+        flattenFolders: true
 
 - ${{ if eq(parameters.packageProd, true) }}:
-  - task: CopyFiles@2
-    displayName: 'Stage Artifact for PROD'
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
-      flattenFolders: true
+    - task: CopyFiles@2
+      displayName: 'Stage Artifact for PROD'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
+        flattenFolders: true
 
 # 3. 發布 Artifact 到 Pipeline Drop 中供 CD 管線下載
 - task: PublishBuildArtifacts@1
