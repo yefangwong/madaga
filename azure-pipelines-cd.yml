@@ -4,8 +4,8 @@
 # 說明：
 # 1. 此管線用於將指定的 CI 編譯產物部署到目標環境。
 # 2. 當手動執行時，需要輸入：`buildNo` (CI Run ID)。
-# 3. 為了相容於地端 (On-premises) Azure DevOps Server，本管線採用相容性最佳的
-#    DownloadBuildArtifacts@1 任務。
+# 3. 為了避免 Azure DevOps 在編譯時期 (Compile-time) 去驗證尚未建立的 Pipeline 
+#    或空的 Build ID，我們將參數對應到運行時期變數 (Runtime Variables)，繞過驗證機制。
 # ==============================================================================
 
 trigger: none # CD 僅手動觸發，不綁定分支自動執行
@@ -31,6 +31,11 @@ parameters:
     type: string
     default: ''
 
+# 將參數轉為運行時期 (Runtime) 變數，繞過 ADO 編譯時期的 Pipeline 名稱與 Build ID 強制存在驗證
+variables:
+  ciPipeline: '${{ parameters.ciPipelineName }}'
+  buildIdToDownload: '${{ parameters.buildNo }}'
+
 stages:
   # ============================================================================
   # Stage 1: DEV 部署 (Port 8080)
@@ -44,15 +49,15 @@ stages:
           # 1. 簽出最新代碼以取得最新 deploy.sh
           - checkout: self
 
-          # 2. 下載 CI 階段的 Artifact (採用對地端相容性最佳的 DownloadBuildArtifacts@1)
+          # 2. 下載 CI 階段的 Artifact (使用 Runtime 變數，防止編譯失敗)
           - task: DownloadBuildArtifacts@1
             displayName: '下載 DEV 專用 Artifact'
             inputs:
               buildType: 'specific'
               project: '$(System.TeamProject)'
-              definition: '${{ parameters.ciPipelineName }}'
+              definition: '$(ciPipeline)'
               buildVersionToDownload: 'specific'
-              buildId: '${{ parameters.buildNo }}'
+              buildId: '$(buildIdToDownload)'
               downloadType: 'single'
               artifactName: 'Madaga-Artifacts'
               downloadPath: '$(Pipeline.Workspace)/drop'
@@ -85,9 +90,9 @@ stages:
             inputs:
               buildType: 'specific'
               project: '$(System.TeamProject)'
-              definition: '${{ parameters.ciPipelineName }}'
+              definition: '$(ciPipeline)'
               buildVersionToDownload: 'specific'
-              buildId: '${{ parameters.buildNo }}'
+              buildId: '$(buildIdToDownload)'
               downloadType: 'single'
               artifactName: 'Madaga-Artifacts'
               downloadPath: '$(Pipeline.Workspace)/drop'
@@ -119,9 +124,9 @@ stages:
             inputs:
               buildType: 'specific'
               project: '$(System.TeamProject)'
-              definition: '${{ parameters.ciPipelineName }}'
+              definition: '$(ciPipeline)'
               buildVersionToDownload: 'specific'
-              buildId: '${{ parameters.buildNo }}'
+              buildId: '$(buildIdToDownload)'
               downloadType: 'single'
               artifactName: 'Madaga-Artifacts'
               downloadPath: '$(Pipeline.Workspace)/drop'
@@ -153,9 +158,9 @@ stages:
             inputs:
               buildType: 'specific'
               project: '$(System.TeamProject)'
-              definition: '${{ parameters.ciPipelineName }}'
+              definition: '$(ciPipeline)'
               buildVersionToDownload: 'specific'
-              buildId: '${{ parameters.buildNo }}'
+              buildId: '$(buildIdToDownload)'
               downloadType: 'single'
               artifactName: 'Madaga-Artifacts'
               downloadPath: '$(Pipeline.Workspace)/drop'
