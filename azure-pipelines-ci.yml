@@ -1,0 +1,94 @@
+# ==============================================================================
+# azure-pipelines-ci.yml - Madaga CSP Portal CI Pipeline
+# ==============================================================================
+# 說明：
+# 1. 此管線用於編譯專案、打包指定環境的 WAR 部署檔。
+# 2. 提供 Checkbox 參數讓開發人員手動觸發時勾選需要打包的環境。
+# ==============================================================================
+
+trigger:
+  branches:
+    include:
+      - develop
+      - master
+
+pool:
+  name: 'Default' # 本地 Mac Self-hosted Agent
+
+# 定義手動執行時的環境核取方塊 (Checkbox)
+parameters:
+  - name: packageDev
+    displayName: '打包 DEV 環境 (Port 8080)'
+    type: boolean
+    default: true
+  - name: packageSit
+    displayName: '打包 SIT 環境 (Port 8082)'
+    type: boolean
+    default: false
+  - name: packageUat
+    displayName: '打包 UAT 環境 (Port 8083)'
+    type: boolean
+    default: false
+  - name: packageProd
+    displayName: '打包 PROD 環境 (Port 80/443)'
+    type: boolean
+    default: true
+
+variables:
+  mavenPOMFile: 'pom.xml'
+  javaVersion: '17'
+
+steps:
+# 1. 執行 Maven 建置與打包 (跳過單元測試加速)
+- task: Maven@4
+  displayName: 'Maven Build & Package'
+  inputs:
+    mavenPomFile: '$(mavenPOMFile)'
+    mavenOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    goals: 'clean install -Dmaven.test.skip=true -DdependencyCheck.skip=true -Dproguard.skip=true'
+
+# 2. 依據勾選的環境複製 WAR 到 Staging 目錄中的對應環境資料夾 (扁平化檔案路徑)
+- ${{ if eq(parameters.packageDev, true) }}:
+  - task: CopyFiles@2
+    displayName: 'Stage Artifact for DEV'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
+      flattenFolders: true
+
+- ${{ if eq(parameters.packageSit, true) }}:
+  - task: CopyFiles@2
+    displayName: 'Stage Artifact for SIT'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/sit'
+      flattenFolders: true
+
+- ${{ if eq(parameters.packageUat, true) }}:
+  - task: CopyFiles@2
+    displayName: 'Stage Artifact for UAT'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/uat'
+      flattenFolders: true
+
+- ${{ if eq(parameters.packageProd, true) }}:
+  - task: CopyFiles@2
+    displayName: 'Stage Artifact for PROD'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
+      flattenFolders: true
+
+# 3. 發布 Artifact 到 Pipeline Drop 中供 CD 管線下載
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts to Pipeline Drop'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Madaga-Artifacts'
+    publishLocation: 'Container'

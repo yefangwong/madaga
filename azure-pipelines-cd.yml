@@ -1,0 +1,167 @@
+# ==============================================================================
+# azure-pipelines-cd.yml - Madaga CSP Portal CD Pipeline
+# ==============================================================================
+# 說明：
+# 1. 此管線用於將指定的 CI 編譯產物部署到目標環境。
+# 2. 當手動執行時，僅需輸入一個參數：`buildNo` (CI Run ID)。
+# 3. 目標環境可透過 Azure DevOps 執行畫面的「Stages to run」進行選擇。
+# ==============================================================================
+
+trigger: none # CD 僅手動觸發，不綁定分支自動執行
+
+pool:
+  name: 'Default' # 本地 Mac Self-hosted Agent
+
+parameters:
+  - name: buildNo
+    displayName: 'CI Build No. (Run ID)'
+    type: string
+  - name: sslKeystore
+    displayName: 'SSL Keystore 路徑 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+  - name: sslPassword
+    displayName: 'SSL 密碼 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+
+stages:
+  # ============================================================================
+  # Stage 1: DEV 部署 (Port 8080)
+  # ============================================================================
+  - stage: Deploy_DEV
+    displayName: '部署至 DEV 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 DEV 部署'
+        steps:
+          # 1. 簽出最新代碼以取得最新 deploy.sh
+          - checkout: self
+
+          # 2. 下載 CI 階段的 Artifact
+          - task: DownloadPipelineArtifact@2
+            displayName: '下載 DEV 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: 'Madaga-CI' # 必須對應您的 CI Pipeline 名稱
+              buildVersionToDownload: 'specific'
+              runId: '${{ parameters.buildNo }}'
+              artifactName: 'Madaga-Artifacts'
+              itemPattern: 'dev/**'
+              targetPath: '$(Pipeline.Workspace)/drop'
+
+          # 3. 執行部署控制腳本
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/dev -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh dev "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 2: SIT 部署 (Port 8082)
+  # ============================================================================
+  - stage: Deploy_SIT
+    displayName: '部署至 SIT 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 SIT 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadPipelineArtifact@2
+            displayName: '下載 SIT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: 'Madaga-CI'
+              buildVersionToDownload: 'specific'
+              runId: '${{ parameters.buildNo }}'
+              artifactName: 'Madaga-Artifacts'
+              itemPattern: 'sit/**'
+              targetPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/sit -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh sit "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 3: UAT 部署 (Port 8083)
+  # ============================================================================
+  - stage: Deploy_UAT
+    displayName: '部署至 UAT 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 UAT 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadPipelineArtifact@2
+            displayName: '下載 UAT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: 'Madaga-CI'
+              buildVersionToDownload: 'specific'
+              runId: '${{ parameters.buildNo }}'
+              artifactName: 'Madaga-Artifacts'
+              itemPattern: 'uat/**'
+              targetPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/uat -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh uat "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 4: PROD 部署 (Port 80 或 Port 443 SSL)
+  # ============================================================================
+  - stage: Deploy_PROD
+    displayName: '部署至 PROD 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 PROD 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadPipelineArtifact@2
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: 'Madaga-CI'
+              buildVersionToDownload: 'specific'
+              runId: '${{ parameters.buildNo }}'
+              artifactName: 'Madaga-Artifacts'
+              itemPattern: 'prod/**'
+              targetPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/prod -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              # 呼叫 deploy.sh，傳入 sslKeystore 與 sslPassword
+              ./deploy.sh prod "$WAR_PATH" "" "${{ parameters.sslKeystore }}" "${{ parameters.sslPassword }}"
+            displayName: '執行 deploy.sh'
