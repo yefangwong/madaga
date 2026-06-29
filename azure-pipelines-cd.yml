@@ -21,7 +21,7 @@ parameters:
   - name: ciPipelineName
     displayName: 'CI Pipeline 名稱 (請確保與您的 CI Pipeline 名稱一致)'
     type: string
-    default: 'Madaga-CI'
+    default: 'CI'
   - name: sslKeystore
     displayName: 'SSL Keystore 路徑 (PROD 方案 B 內嵌 SSL 才需填寫)'
     type: string
