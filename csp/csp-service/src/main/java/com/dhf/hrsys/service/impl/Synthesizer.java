@@ -49,7 +49,15 @@ public class Synthesizer {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner,parse,coref");
 
-        StanfordCoreNLPClient pipeline = new StanfordCoreNLPClient(props, "http://localhost", 9000, 2);
+        String nlpHost = System.getProperty("nlp.host", System.getenv().getOrDefault("NLP_HOST", "http://localhost"));
+        int nlpPort = 9000;
+        try {
+            String portStr = System.getProperty("nlp.port", System.getenv().getOrDefault("NLP_PORT", "9000"));
+            nlpPort = Integer.parseInt(portStr);
+        } catch (NumberFormatException e) {
+            log.warn("Invalid NLP_PORT configuration, using default 9000", e);
+        }
+        StanfordCoreNLPClient pipeline = new StanfordCoreNLPClient(props, nlpHost, nlpPort, 2);
 
         Annotation document = new Annotation(extractQuestion(text));
 
