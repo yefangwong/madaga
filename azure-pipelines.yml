@@ -48,56 +48,61 @@ steps:
     publishJUnitResults: false
     goals: 'clean install -Dmaven.test.skip=true -DdependencyCheck.skip=true -Dproguard.skip=true'
 
-<<<<<<< HEAD
-- task: CopyFiles@2
-  displayName: 'Stage built artifacts & deploy configs'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: |
-      **/target/*.war
-      csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
-      Dockerfile
-      fly.toml
-      .dockerignore
-    TargetFolder: '$(build.artifactstagingdirectory)'
-=======
-# 2. 依據勾選的環境複製 WAR 到 Staging 目錄中的對應環境資料夾 (扁平化檔案路徑)
 - ${{ if eq(parameters.packageDev, true) }}:
     - task: CopyFiles@2
-      displayName: 'Stage Artifact for DEV'
+      displayName: 'Stage DEV Artifacts & Configs'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
         TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
         flattenFolders: true
 
 - ${{ if eq(parameters.packageSit, true) }}:
     - task: CopyFiles@2
-      displayName: 'Stage Artifact for SIT'
+      displayName: 'Stage SIT Artifacts & Configs'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
         TargetFolder: '$(Build.ArtifactStagingDirectory)/sit'
         flattenFolders: true
 
 - ${{ if eq(parameters.packageUat, true) }}:
     - task: CopyFiles@2
-      displayName: 'Stage Artifact for UAT'
+      displayName: 'Stage UAT Artifacts & Configs'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
         TargetFolder: '$(Build.ArtifactStagingDirectory)/uat'
         flattenFolders: true
 
 - ${{ if eq(parameters.packageProd, true) }}:
     - task: CopyFiles@2
-      displayName: 'Stage Artifact for PROD'
+      displayName: 'Stage PROD Artifacts & Configs'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: 'csp/csp-portal-web/target/csp-portal-web-*.war'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
         TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
         flattenFolders: true
->>>>>>> a4b7e742fb1e659d9ab61cc0982badea2d84a664
 
 # 3. 發布 Artifact 到 Pipeline Drop 中供 CD 管線下載
 - task: PublishBuildArtifacts@1
