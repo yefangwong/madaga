@@ -76,10 +76,27 @@ stages:
       - job: Deploy
         displayName: '執行 DEV 部署'
         steps:
-          # 1. 簽出最新代碼以取得最新 deploy.sh
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          # 2. 簽出最新代碼以取得最新 deploy.sh
           - checkout: self
 
-          # 2. 下載 CI 階段的 Artifact (使用 Runtime 變數，防止編譯失敗)
+          # 3. 下載 CI 階段的 Artifact (使用 Runtime 變數，防止編譯失敗)
           - task: DownloadBuildArtifacts@1
             displayName: '下載 DEV 專用 Artifact'
             inputs:
@@ -118,6 +135,23 @@ stages:
       - job: Deploy
         displayName: '執行 SIT 部署'
         steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
           - checkout: self
 
           - task: DownloadBuildArtifacts@1
@@ -157,6 +191,23 @@ stages:
       - job: Deploy
         displayName: '執行 UAT 部署'
         steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
           - checkout: self
 
           - task: DownloadBuildArtifacts@1
@@ -196,6 +247,23 @@ stages:
       - job: Deploy
         displayName: '執行 PROD 部署'
         steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
           - checkout: self
 
           - task: DownloadBuildArtifacts@1
@@ -217,6 +285,12 @@ stages:
               chmod +x ./deploy.sh
               WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/prod -name "*.war" ! -name "*.original" | head -n 1)
               if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh prod "$WAR_PATH" "" "${{ parameters.sslKeystore }}" "${{ parameters.sslPassword }}"
+            displayName: '執行 deploy.sh'
   # ============================================================================
   # Stage 5: [DISABLED TEMPLATE] 外部 Linux 伺服器部署 (SSH/SCP 方案)
   # 說明：需要建立 my-ssh-server-connection 後再取消註解使用
@@ -316,6 +390,23 @@ stages:
       - job: Deploy
         displayName: '執行 Fly.io 部署'
         steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
           - task: DownloadBuildArtifacts@1
             displayName: '下載 PROD 專用 Artifact'
             inputs:
