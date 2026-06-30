@@ -439,6 +439,12 @@ stages:
               
               echo "Working directory: $(pwd)"
               
+              # 強制修正 fly.toml 中的部署區域為新加坡 (sin)，避免因歷史編譯產物殘留 hkg 導致部署失敗
+              if [ -f "fly.toml" ]; then
+                  echo "Updating fly.toml region to sin..."
+                  python3 -c "import re; f = open('fly.toml', 'r+'); content = f.read(); f.seek(0); f.write(re.sub(r'primary_region\s*=\s*\".*\"', 'primary_region = \"sin\"', content)); f.truncate()"
+              fi
+
               if [ ! -f "fly.toml" ] || [ ! -f "Dockerfile" ]; then
                   echo "[ERROR] fly.toml or Dockerfile not found in artifacts!"
                   exit 1
