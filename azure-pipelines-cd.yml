@@ -458,7 +458,7 @@ stages:
               export PATH=$PATH:$HOME/.fly/bin
               
               echo "Deploying to Fly.io..."
-              flyctl deploy --local-only
+              flyctl deploy
             displayName: '執行 flyctl deploy'
             env:
               FLY_API_TOKEN: $(FLY_API_TOKEN)
