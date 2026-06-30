@@ -1,0 +1,253 @@
+# ==============================================================================
+# azure-pipelines-cd.yml - Madaga CSP Portal CD Pipeline
+# ==============================================================================
+# 說明：
+# 1. 此管線用於將指定的 CI 編譯產物部署到目標環境。
+# 2. 當手動執行時，需要輸入：`buildNo` (CI Run ID)。
+# 3. 為了避免 Azure DevOps 在編譯時期 (Compile-time) 去驗證尚未建立的 Pipeline 
+#    或空的 Build ID，我們將參數對應到運行時期變數 (Runtime Variables)，繞過驗證機制。
+# ==============================================================================
+
+trigger: none # CD 僅手動觸發，不綁定分支自動執行
+
+pool:
+  name: 'Default' # 本地 Mac Self-hosted Agent
+
+parameters:
+  - name: buildNo
+    displayName: 'CI Build No. (Run ID)'
+    type: string
+    default: ''
+  - name: ciPipelineName
+    displayName: 'CI Pipeline 名稱 (請確保與您的 CI Pipeline 名稱一致)'
+    type: string
+    default: 'CI'
+  - name: sslKeystore
+    displayName: 'SSL Keystore 路徑 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+  - name: sslPassword
+    displayName: 'SSL 密碼 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+
+# 將參數轉為運行時期 (Runtime) 變數，繞過 ADO 編譯時期的 Pipeline 名稱與 Build ID 強制存在驗證
+variables:
+  ciPipeline: '${{ parameters.ciPipelineName }}'
+  buildIdToDownload: '${{ parameters.buildNo }}'
+
+stages:
+  # ============================================================================
+  # Stage 1: DEV 部署 (Port 8080)
+  # ============================================================================
+  - stage: Deploy_DEV
+    displayName: '部署至 DEV 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 DEV 部署'
+        steps:
+          # 1. 簽出最新代碼以取得最新 deploy.sh
+          - checkout: self
+
+          # 2. 下載 CI 階段的 Artifact (使用 Runtime 變數，防止編譯失敗)
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 DEV 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          # 3. 執行部署控制腳本
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/dev -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh dev "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 2: SIT 部署 (Port 8082)
+  # ============================================================================
+  - stage: Deploy_SIT
+    displayName: '部署至 SIT 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 SIT 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 SIT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/sit -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh sit "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 3: UAT 部署 (Port 8083)
+  # ============================================================================
+  - stage: Deploy_UAT
+    displayName: '部署至 UAT 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 UAT 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 UAT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/uat -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh uat "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 4: PROD 部署 (Port 80 或 Port 443 SSL)
+  # ============================================================================
+  - stage: Deploy_PROD
+    displayName: '部署至 PROD 環境'
+    jobs:
+      - job: Deploy
+        displayName: '執行 PROD 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/prod -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh prod "$WAR_PATH" "" "${{ parameters.sslKeystore }}" "${{ parameters.sslPassword }}"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 5: 外部 Linux 伺服器部署 (SSH/SCP 方案)
+  # ============================================================================
+  - stage: Deploy_External_SSH
+    displayName: '部署至外部 Linux VM (SSH)'
+    jobs:
+      - job: Deploy
+        displayName: '執行 SSH 部署'
+        steps:
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          # 1. 使用 SCP 將 WAR 傳送至外部伺服器
+          - task: CopyFilesOverSSH@0
+            displayName: '將 WAR 傳送至遠端伺服器'
+            inputs:
+              sshEndpoint: 'my-ssh-server-connection' # 請更換為您在 ADO 設定的 SSH Service Connection 名稱
+              sourceFolder: '$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod'
+              contents: '*.war'
+              targetFolder: '/var/www/madaga-csp' # 遠端伺服器的目標目錄
+              cleanTargetFolder: false
+              failOnEmptySource: true
+
+          # 2. 使用 SSH 在遠端執行重啟與部署指令
+          - task: SSH@2
+            displayName: '在遠端執行部署指令'
+            inputs:
+              sshEndpoint: 'my-ssh-server-connection' # 請更換為您在 ADO 設定的 SSH Service Connection 名稱
+              runOptions: 'inline'
+              inlineScript: |
+                cd /var/www/madaga-csp
+                chmod +x ./deploy.sh
+                ./deploy.sh prod ./csp-portal-web-*.war
+
+  # ============================================================================
+  # Stage 6: Azure App Service PaaS 部署 (Azure 雲端方案)
+  # ============================================================================
+  - stage: Deploy_External_Azure
+    displayName: '部署至 Azure App Service (PaaS)'
+    jobs:
+      - job: Deploy
+        displayName: '執行 Azure 部署'
+        steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              buildVersionToDownload: 'specific'
+              buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          # 使用 ADO 內建的 AzureWebApp@1 直接將 WAR 部署至 Azure App Service
+          - task: AzureWebApp@1
+            displayName: '部署至 Azure Web App'
+            inputs:
+              azureSubscription: 'my-azure-subscription-connection' # 請更換為您在 ADO 設定的 Azure Service Connection 名稱
+              appType: 'webAppLinux'
+              appName: 'my-csp-portal-web' # 您的 Azure App Service 名稱
+              package: '$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod/**/*.war'
+              runtimeStack: 'TOMCAT|10.0-java17' # 執行階段堆疊，配合專案 Java 17
