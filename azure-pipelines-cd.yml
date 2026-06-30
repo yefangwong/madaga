@@ -423,11 +423,34 @@ stages:
               downloadPath: '$(Pipeline.Workspace)/drop'
 
           - bash: |
-              # 進入包含 Dockerfile & fly.toml 的目錄
-              cd $(Pipeline.Workspace)/drop/Madaga-Artifacts/prod
+              # 優先尋找 prod 資料夾，若不存在則尋找 dev, sit, uat 資料夾
+              if [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/dev" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/dev"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/sit" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/sit"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/uat" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/uat"
+              else
+                  echo "[ERROR] No deployment environment folder (prod, dev, sit, uat) found in artifacts!"
+                  exit 1
+              fi
+              
+              echo "Working directory: $(pwd)"
               
               if [ ! -f "fly.toml" ] || [ ! -f "Dockerfile" ]; then
                   echo "[ERROR] fly.toml or Dockerfile not found in artifacts!"
+                  exit 1
+              fi
+              
+              # 驗證 FLY_API_TOKEN 是否有正確設定
+              if [ -z "$FLY_API_TOKEN" ] || [ "$FLY_API_TOKEN" = "\$(FLY_API_TOKEN)" ]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 未設定或無效的 FLY_API_TOKEN。"
+                  echo "請在 Azure DevOps 該 CD 流水線的 Variables（變數）或 Variable Group（變數群組）中，"
+                  echo "新增一個名為 'FLY_API_TOKEN' 的變數，並填入您的 Fly.io API Token。"
+                  echo "=========================================================================="
                   exit 1
               fi
               
