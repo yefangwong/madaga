@@ -6,6 +6,8 @@
 # 2. 提供 Checkbox 參數讓開發人員手動觸發時勾選需要打包的環境。
 # ==============================================================================
 
+name: $(Date:yyyyMMdd).$(Rev:r)
+
 trigger:
   branches:
     include:
@@ -111,3 +113,10 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Madaga-Artifacts'
     publishLocation: 'Container'
+
+- script: |
+    echo "=========================================================="
+    echo "Build Number (Version): $(Build.BuildNumber)"
+    echo "Build ID (for CD Pipeline buildNo): $(Build.BuildId)"
+    echo "=========================================================="
+  displayName: 'Display Build Info for CD'
