@@ -11,12 +11,21 @@ import java.util.List;
 @Service
 public class JiebaServiceImpl extends WordSegmentationService {
     private JiebaSegmenter segmenter;
+    private boolean initialized = false;
 
     public JiebaServiceImpl() {
-        segmenter = new JiebaSegmenter();
-        WordDictionary.getInstance().init(Paths.get("conf"));
     }
+
+    private synchronized void initSegmenter() {
+        if (!initialized) {
+            segmenter = new JiebaSegmenter();
+            WordDictionary.getInstance().init(Paths.get("conf"));
+            initialized = true;
+        }
+    }
+
     @Override public List<Term> getTerm() {
+        initSegmenter();
         List<String> segments = segmenter.sentenceProcess(this.getRawText());
         List<Term> result = null;
         if (segments.size() > 0) {
