@@ -393,3 +393,26 @@ body.theme-light {
     color: #1C252C !important;
     box-shadow: 0 0 10px rgba(255, 122, 0, 0.2) !important;
 }
+
+/* Premium Input Styling (Aesthetic glass-light input) */
+.sustain-input {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(0, 118, 185, 0.2) !important;
+    color: #1C252C !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 1rem !important;
+    transition: var(--transition-smooth) !important;
+}
+
+.sustain-input:focus {
+    background-color: #FFFFFF !important;
+    border-color: var(--primary-orange) !important;
+    box-shadow: 0 0 10px rgba(255, 122, 0, 0.15) !important;
+    color: #1C252C !important;
+}
+
+.sustain-input::placeholder {
+    color: #8E9CA8 !important;
+    opacity: 0.8 !important;
+}
+
