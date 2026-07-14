@@ -36,6 +36,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                     "/dashboard/**",
                     "/emp/**",
+                    "/department/**",
                     "/energy/**")
                 .excludePathPatterns("/register/**", "/css/**", "/images/**",
                         "/js/**");
