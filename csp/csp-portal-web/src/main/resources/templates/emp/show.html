@@ -6,72 +6,115 @@
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <title>Demo 員工管理</title>
-    <link rel="stylesheet" th:href="@{'../css/chatbox.css'}"/>
+    <link rel="stylesheet" th:href="@{'../css/chatbox.css'}" />
     <style>
         #loading-indicator {
             display: none;
             padding: 10px;
             text-align: right;
         }
+
         .search-area {
             padding-bottom: 12px;
             margin-bottom: 24px;
             border-bottom: 1px solid #e0e0e0;
         }
+
+        tr.data {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        tr.data:hover {
+            background-color: rgba(0, 118, 185, 0.04) !important;
+        }
+
+        tr.data.selected {
+            background-color: rgba(0, 118, 185, 0.12) !important;
+            color: #004F7C !important;
+            font-weight: 600;
+        }
+
+        tr.data td:first-child {
+            position: relative;
+        }
+
+        tr.data td:first-child::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            background-color: var(--primary-blue, #0076B9);
+            transition: width 0.2s ease;
+        }
+
+        tr.data.selected td:first-child::before {
+            width: 4px;
+        }
     </style>
     <script>
-        $(function(){
+        $(function () {
             // init
             // 匯出 Excel
-            $('#export').on('click', function(){
+            $('#export').on('click', function () {
                 doExportToXls();
             });
-            let vue=new Vue({
-                el:"#container",
-                data:{
-                    mes:'',
-                    list:[],
-                    depList:[],
+            let vue = new Vue({
+                el: "#container",
+                data: {
+                    mes: '',
+                    list: [],
+                    depList: [],
+                    selectedId: -1,
                     form: {
-                      number: null,
-                      name: null,
-                      gender: null,
-                      age: null,
-                      'dep.id': ""
+                        number: null,
+                        name: null,
+                        gender: null,
+                        age: null,
+                        'dep.id': ""
                     },
-                    question:{
+                    question: {
                         id: 1,
                         text: '我想查詢公司財務部有沒有吳華瑄小姐'
                     },
                     eventSource: null
                 },
-                created(){
+                created() {
                     this.search();
                     this.getDepList();
                 },
-                methods:{
-                    getDepList: function() {
-                      axios.get('getDepList')
-                          .then(function (res) {
-                              this.depList = res.data;
-                          }.bind(this))
+                methods: {
+                    getDepList: function () {
+                        axios.get('getDepList')
+                            .then(function (res) {
+                                this.depList = res.data;
+                            }.bind(this))
                     },
-                    search: function() {
-                      axios.get('search')
-                          .then(function (res) {
-                              this.list = res.data;
-                          }.bind(this))
+                    search: function () {
+                        let queryParams = {};
+                        for (let key in this.form) {
+                            if (this.form[key] !== null && this.form[key] !== "") {
+                                queryParams[key] = this.form[key];
+                            }
+                        }
+                        axios.get('search', { params: queryParams })
+                            .then(function (res) {
+                                this.list = res.data;
+                            }.bind(this))
                     },
                     startSSE() {
                         const source = new EventSource('/api/startSSE');
                         source.onmessage = (event) => {
                             console.log(event.data);
                             console.log(event.data.indexOf("UUID"));
-                            if (event.data.indexOf("{")==0) {
+                            if (event.data.indexOf("{") == 0) {
                                 let data = JSON.parse(event.data);
-                                if (data.content!==''){
+                                if (data.content !== '') {
                                     if (data.UUID !== undefined) {
                                         this.doQueryBySQL(data.UUID);
                                     }
@@ -83,8 +126,8 @@
                     showLoadingIndicator() {
                         $('.msg-body ul').append('<li>\n' +
                             '<div id="loading-indicator">' +
-                            '<img src="https://media.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif" style="width: 40px;" alt="Loading..." />'+
-                            '</div>'+
+                            '<img src="https://media.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif" style="width: 40px;" alt="Loading..." />' +
+                            '</div>' +
                             '</li>');
                         $(".msg-body ul li #loading-indicator").last().show();
                         this.scrollToBottom();
@@ -98,13 +141,13 @@
                     send() {
                         this.startSSE();
                         $('.msg-body ul').append('<li class="sender">\n' +
-                            '<p> '+this.question.text+' </p>\n' +
+                            '<p> ' + this.question.text + ' </p>\n' +
                             '<span class="time">剛剛</span>\n' +
                             '</li>');
                         let questionData = {
                             id: 4,
-                            text: '[question] '+
-                                    this.question.text+'[/question]'
+                            text: '[question] ' +
+                                this.question.text + '[/question]'
                         };
                         this.showLoadingIndicator();
                         let self = this;
@@ -116,45 +159,47 @@
                             dataType: 'json',
                             success: function (result) {
                                 self.question = {
-                                    id:-1,
-                                    text:''
+                                    id: -1,
+                                    text: ''
                                 };
                             },
-                            error: function() {
+                            error: function () {
                                 console.error('Failed to send question:');
-                            }});
+                            }
+                        });
                     },
-                    doQueryBySQL(uuid){
+                    doQueryBySQL(uuid) {
                         let actionURI = '/sql/query';
-                        let params = '/'+uuid;
+                        let params = '/' + uuid;
                         let self = this;
                         $.ajax({
                             type: 'get',
-                            url: actionURI+params,
+                            url: actionURI + params,
                             contentType: 'application/json;charset=UTF-8',
                             dataType: 'json',
                             success: function (result) {
-                                console.log("JSON:"+result);
+                                console.log("JSON:" + result);
                                 self.renderQueryResult(result);
                             },
-                            error: function() {
+                            error: function () {
                                 console.error('Failed to send sql:');
-                            }});
+                            }
+                        });
                     },
-                    renderQueryResult(result){
+                    renderQueryResult(result) {
                         this.hideLoadingIndicator();
                         $('.msg-body ul').last().append('<li class="reply"><p>');
                         let hint = '';
-                        if (result.length>0){
-                            hint = '好的，以下是我們查詢到關於'+result[0].emp_name+'的資料</br>';
+                        if (result.length > 0) {
+                            hint = '好的，以下是我們查詢到關於' + result[0].emp_name + '的資料</br>';
                             let tableResult = '<table class="tableResult"><tr><td>員工編號</td><td>員工姓名</td><td>部門</td></tr>';
                             let emp = '';
-                            for (let i=0; i<result.length; i++){
+                            for (let i = 0; i < result.length; i++) {
                                 emp = result[i];
-                                tableResult+=('<tr><td>'+emp.number+'</td><td>'+
-                                emp.emp_name+'</td><td>'+emp.dep_name+'</td></tr>');
+                                tableResult += ('<tr><td>' + emp.number + '</td><td>' +
+                                    emp.emp_name + '</td><td>' + emp.dep_name + '</td></tr>');
                             }
-                            tableResult+='</table>';
+                            tableResult += '</table>';
                             $('.msg-body ul li.reply').last().find('p')
                                 .append(hint)
                                 .append(tableResult);
@@ -164,9 +209,9 @@
                                 .append(hint)
                         }
                         $('.msg-body ul li.reply').last().append(
-                             '<span class="time">剛剛</span>'+
-                             '</li>'
-                         );
+                            '<span class="time">剛剛</span>' +
+                            '</li>'
+                        );
                     },
                     closeConnection() {
                         // Close the SSE connection
@@ -177,6 +222,9 @@
                     },
                     showAdd() {
                         location.href = "showAdd";
+                    },
+                    selectTr: function (id) {
+                        this.selectedId = id;
                     }
                 },
                 beforeDestroy() {
@@ -192,8 +240,10 @@
         }
     </script>
 </head>
+
 <body>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">員工管理</h1>
     </div>
     <div id="container">
@@ -236,17 +286,17 @@
                     <div v-text="mes"></div>
                     <div class="send-box">
                         <form action="">
-                            <input type="text" class="form-control" aria-label="message…"
-                                   v-model="question.text" placeholder="輸入您想問的問題…">
+                            <input type="text" class="form-control" aria-label="message…" v-model="question.text"
+                                placeholder="輸入您想問的問題…">
                             <button type="button" v-on:click="send">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i> 送出</button>
                         </form>
                         <div class="send-btns">
                             <div class="attach">
                                 <div class="button-wrapper" style="width: fit-content">
-                                     <span class="label">
-                                         <i class="fa fa-file-excel-o pe-2" aria-hidden="true"></i> 匯出
-                                     </span>
+                                    <span class="label">
+                                        <i class="fa fa-file-excel-o pe-2" aria-hidden="true"></i> 匯出
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -259,71 +309,77 @@
         </div>
         <div class="search-area">
             <form id="search" action="search" method="post" @submit.prevent="search()">
-            <div class="row">
-                <div class="col-md-2 pb-3 align">
-                    <input type="text" class="form-control" name="number" placeholder="編號" v-model="form.number" />
-                </div>
-                <div class="col-md-2 align">
-                    <input type="text" class="form-control" name="name" placeholder="姓名" v-model="form.name" />
-                </div>
-                <div class="col-md-1 align">
-                    <select class="form-control" name="gender" id="">
-                        <option value="">性別</option>
-                        <option value="男">男</option>
-                        <option value="女">女</option>
-                    </select>
-                </div>
-                <div class="col-md-1 align">
-                    <input type="text" class="form-control" name="age" placeholder="年齡">
-                </div>
-                <div class="col-md-2 align">
-                    <select class="form-control" v-model="form['dep.id']">
-                        <option value="">部門</option>
-                        <option v-for="dep in depList" v-text="dep.name" v-bind:value="dep.id"></option>
-                    </select>
-                </div>
-                <div class="col-md-4 align">
-                    <div class="d-grid gap-2 d-md-block" role="toolbar">
-                        <button type="submit" class="btn btn-primary csp-btn-spacing">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                            搜尋
-                        </button>
-                        <button type="button" id="chat" class="btn btn-primary csp-btn-spacing" data-bs-toggle="modal" data-bs-target="#divChat">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
-                                <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-                            </svg>
-                            詢問
-                        </button>
-<!--                        <button type="button" id="export" class="btn btn-primary csp-btn-spacing">-->
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-xls" viewBox="0 0 16 16">-->
-<!--                                <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM6.472 15.29a1.176 1.176 0 0 1-.111-.449h.765a.578.578 0 0 0 .254.384c.07.049.154.087.25.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.527-.422.225-.1.484-.149.777-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.625.625 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.217.05.406.12.566.211a1 1 0 0 1 .375.358c.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm-2.945-3.358h-.893L1.81 13.37h-.036l-.832-1.438h-.93l1.227 1.983L0 15.931h.861l.853-1.415h.035l.85 1.415h.908L2.253 13.94l1.274-2.007Zm2.727 3.325H4.557v-3.325h-.79v4h2.487v-.675Z"/>-->
-<!--                            </svg>-->
-<!--                            匯出-->
-<!--                        </button>-->
+                <div class="row">
+                    <div class="col-md-2 pb-3 align">
+                        <input type="text" class="form-control" name="number" placeholder="編號" v-model="form.number" />
+                    </div>
+                    <div class="col-md-2 align">
+                        <input type="text" class="form-control" name="name" placeholder="姓名" v-model="form.name" />
+                    </div>
+                    <div class="col-md-1 align">
+                        <select class="form-control" name="gender" id="" v-model="form.gender">
+                            <option value="">性別</option>
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 align">
+                        <input type="text" class="form-control" name="age" placeholder="年齡" v-model="form.age">
+                    </div>
+                    <div class="col-md-2 align">
+                        <select class="form-control" v-model="form['dep.id']">
+                            <option value="">部門</option>
+                            <option v-for="dep in depList" v-text="dep.name" v-bind:value="dep.id"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 align">
+                        <div class="d-grid gap-2 d-md-block" role="toolbar">
+                            <button type="submit" class="btn btn-primary csp-btn-spacing">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                                搜尋
+                            </button>
+                            <button type="button" id="chat" class="btn btn-primary csp-btn-spacing"
+                                data-bs-toggle="modal" data-bs-target="#divChat">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chat-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                                </svg>
+                                詢問
+                            </button>
+                            <!--                        <button type="button" id="export" class="btn btn-primary csp-btn-spacing">-->
+                            <!--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-xls" viewBox="0 0 16 16">-->
+                            <!--                                <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM6.472 15.29a1.176 1.176 0 0 1-.111-.449h.765a.578.578 0 0 0 .254.384c.07.049.154.087.25.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.527-.422.225-.1.484-.149.777-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.625.625 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.217.05.406.12.566.211a1 1 0 0 1 .375.358c.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm-2.945-3.358h-.893L1.81 13.37h-.036l-.832-1.438h-.93l1.227 1.983L0 15.931h.861l.853-1.415h.035l.85 1.415h.908L2.253 13.94l1.274-2.007Zm2.727 3.325H4.557v-3.325h-.79v4h2.487v-.675Z"/>-->
+                            <!--                            </svg>-->
+                            <!--                            匯出-->
+                            <!--                        </button>-->
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
         <div class="table-area">
             <table id="data" class="table table-bordered" border="1" role="presentation">
-            <tr>
-                <td>編號</td>
-                <td>姓名</td>
-                <td>姓別</td>
-                <td>年齡</td>
-                <td>部門</td>
-            </tr>
-            <tr class="data" v-for="emp in list">
-                <td v-text="emp.number"></td>
-                <td v-text="emp.name"></td>
-                <td v-text="emp.gender"></td>
-                <td v-text="emp.age"></td>
-                <td v-text="emp.dep!=null?emp.dep.name:''"></td>
-            </tr>
-        </table>
+                <tr>
+                    <td>編號</td>
+                    <td>姓名</td>
+                    <td>姓別</td>
+                    <td>年齡</td>
+                    <td>部門</td>
+                </tr>
+                <tr class="data" v-for="emp in list" v-bind:class="{selected:emp.id==selectedId}"
+                    @click="selectTr(emp.id)">
+                    <td v-text="emp.number"></td>
+                    <td v-text="emp.name"></td>
+                    <td v-text="emp.gender"></td>
+                    <td v-text="emp.age"></td>
+                    <td v-text="emp.dep!=null?emp.dep.name:''"></td>
+                </tr>
+            </table>
         </div>
         <div class="d-grid gap-2 d-md-block" role="toolbar">
             <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
@@ -332,4 +388,5 @@
         </div>
     </div>
 </body>
+
 </html>
