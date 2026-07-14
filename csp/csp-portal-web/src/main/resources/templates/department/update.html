@@ -1,0 +1,94 @@
+<!--
+  History
+  --------------------------------------------
+  2023/2/1 yfwong inital version.
+  2026/7/14 yfwong redesign to Bootstrap & Thymeleaf layout compatibility.
+-->
+<!doctype html>
+<html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>修改員工</title>
+    <!-- CSRF Token Meta Tags for AJAX POST requests -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    
+    <script th:inline="javascript">
+        $(function() {
+            // Configure Axios to automatically include the CSRF token in header
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+            if (token && header) {
+                axios.defaults.headers.common[header] = token;
+            }
+
+            let vue = new Vue({
+                el: "#container",
+                data: {
+                    form: {
+                        id: [[${emp != null ? emp.id : null}]],
+                        number: [[${emp != null ? emp.number : null}]],
+                        name: [[${emp != null ? emp.name : null}]],
+                        gender: [[${emp != null ? emp.gender : '男'}]],
+                        age: [[${emp != null ? emp.age : null}]],
+                        dep: {
+                            id: [[${emp != null && emp.dep != null ? emp.dep.id : ''}]]
+                        }
+                    }
+                },
+                methods: {
+                    update: function() {
+                        axios.post('update', this.form)
+                            .then(function (res) {
+                                location.href = 'show';
+                            }.bind(this))
+                    }
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">修改員工</h1>
+    </div>
+    <div id="container" class="container-fluid" style="max-width: 600px; margin-left: 0; padding-left: 0;">
+        <form action="update" method="POST" class="needs-validation" novalidate @submit.prevent="update">
+            <div class="mb-3">
+                <label class="form-label">編號</label>
+                <input type="text" class="form-control" placeholder="請輸入編號" name="number" v-model="form.number" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">姓名</label>
+                <input type="text" class="form-control" placeholder="請輸入姓名" name="name" v-model="form.name" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label d-block">性別</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="男" name="gender" id="genderMale" v-model="form.gender" required />
+                    <label class="form-check-label" for="genderMale">男</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" value="女" name="gender" id="genderFemale" v-model="form.gender" required />
+                    <label class="form-check-label" for="genderFemale">女</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">年齡</label>
+                <input type="text" class="form-control" placeholder="請輸入年齡" name="age" v-model="form.age" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">部門</label>
+                <!-- 2026/7/14 yfwong: 移除舊有的 JSP <c:forEach> 語法，改用 Thymeleaf th:each 以相容模板引擎 -->
+                <select name="dep.id" class="form-select" v-model="form.dep.id" required>
+                    <option value="">請選擇部門</option>
+                    <option th:each="dep : ${depList}" th:value="${dep.id}" th:text="${dep.name}"></option>
+                </select>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary me-2">存檔</button>
+                <button type="button" class="btn btn-secondary" onclick="history.back()">返回</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
