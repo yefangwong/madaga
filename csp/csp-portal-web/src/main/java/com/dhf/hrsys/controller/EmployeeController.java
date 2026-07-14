@@ -1,5 +1,6 @@
 package com.dhf.hrsys.controller;
 
+import com.dhf.hrsys.service.DepartmentService;
 import com.dhf.hrsys.service.EmployeeService;
 import com.dhf.hrsys.service.IGeneralDAOService;
 import com.dhf.util.JXLExcelBuilder;
@@ -25,26 +26,15 @@ import java.util.List;
 @Slf4j
 public class EmployeeController {
     final IGeneralDAOService generalDaoService;
-    private static List<Department> depList = new ArrayList<Department>();
-    EmployeeService empService;
-
-    static {
-        Department dep = new Department();
-        dep.setId(1);
-        dep.setNumber(1369);
-        dep.setName("資訊部");
-        depList.add(dep);
-        dep = new Department();
-        dep.setId(2);
-        dep.setNumber(2369);
-        dep.setName("財務部");
-        depList.add(dep);
-    }
+    final EmployeeService empService;
+    final DepartmentService depService;
 
     public EmployeeController(IGeneralDAOService generalDaoService,
-                              EmployeeService empService) {
+                              EmployeeService empService,
+                              DepartmentService depService) {
         this.generalDaoService = generalDaoService;
         this.empService = empService;
+        this.depService = depService;
     }
 
     @RequestMapping(value="show")
@@ -55,7 +45,7 @@ public class EmployeeController {
     @RequestMapping(value="showAdd")
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("emp/add");
-        mv.addObject("depList", depList);
+        mv.addObject("depList", depService.search(null));
         return mv;
     }
 
@@ -64,7 +54,7 @@ public class EmployeeController {
         Employee emp = empService.searchById(id);
         ModelAndView mv = new ModelAndView("emp/update");
         mv.addObject("emp", emp);
-        mv.addObject("depList", depList);
+        mv.addObject("depList", depService.search(null));
         return mv;
     }
 
@@ -78,7 +68,7 @@ public class EmployeeController {
     @RequestMapping("getDepList")
     @ResponseBody
     public List<Department> getDepList() {
-        return depList;
+        return depService.search(null);
     }
 
     @PostMapping("export")

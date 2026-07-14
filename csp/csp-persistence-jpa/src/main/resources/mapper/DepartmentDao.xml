@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.hrsys.dao.DepartmentDao">
+    
+    <resultMap type="com.hongfang.csp.system.entity.Department" id="DepartmentMap">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    
+    <!-- 查詢部門 -->
+    <select id="search" resultMap="DepartmentMap" parameterType="com.hongfang.csp.system.entity.Department">
+        select * from department
+        <where>
+            <if test="number != null and number != 0">
+                and number = #{number}
+            </if>
+            <if test="name != null and name != ''">
+                and name like '%' || #{name} || '%'
+            </if>
+        </where>
+        order by id
+    </select>
+    
+    <!-- 依 ID 查詢部門 -->
+    <select id="searchById" resultMap="DepartmentMap" parameterType="int">
+        select * from department where id = #{id}
+    </select>
+    
+    <!-- 新增部門 -->
+    <insert id="add" parameterType="com.hongfang.csp.system.entity.Department">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select coalesce(max(id), 0) + 1 from department
+        </selectKey>
+        insert into department (id, number, name)
+        values (#{id}, #{number}, #{name})
+    </insert>
+    
+    <!-- 修改部門 -->
+    <update id="update" parameterType="com.hongfang.csp.system.entity.Department">
+        update department
+        set number = #{number},
+            name = #{name}
+        where id = #{id}
+    </update>
+    
+    <!-- 刪除部門 -->
+    <delete id="delete" parameterType="int">
+        delete from department where id = #{id}
+    </delete>
+    
+</mapper>

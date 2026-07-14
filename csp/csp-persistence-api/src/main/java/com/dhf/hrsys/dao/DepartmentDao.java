@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 yefangwong(https://github.com/yefangwong)
+ * Copyright 2026 yefangwong(https://github.com/yefangwong)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.dhf.hrsys.service;
+package com.dhf.hrsys.dao;
 
 import com.hongfang.csp.system.entity.Department;
 import java.util.List;
 
-public interface DepartmentService {
+public interface DepartmentDao {
     List<Department> search(Department condition);
     Department searchById(int id);
-    boolean add(Department dep);
-    boolean update(Department dep);
-    boolean delete(Department dep);
+    int add(Department dep);
+    int update(Department dep);
+    int delete(int id);
 }
