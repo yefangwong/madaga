@@ -48,4 +48,23 @@
         insert into employee (id, number, name, gender, age, dep_id)
         values (#{id}, #{number}, #{name}, #{gender}, #{age}, #{dep.id})
     </insert>
+    
+    <!-- 依識別碼查詢員工 -->
+    <select id="searchById" resultMap="EmpAndDep" parameterType="int">
+        select e.*, d.name as depName from
+        employee as e left join department as d on
+        e.dep_id = d.id
+        where e.id = #{id}
+    </select>
+    
+    <!-- 更新員工資料 -->
+    <update id="update" parameterType="com.hongfang.csp.system.entity.Employee">
+        update employee
+        set number = #{number},
+            name = #{name},
+            gender = #{gender},
+            age = #{age},
+            dep_id = #{dep.id}
+        where id = #{id}
+    </update>
 </mapper>

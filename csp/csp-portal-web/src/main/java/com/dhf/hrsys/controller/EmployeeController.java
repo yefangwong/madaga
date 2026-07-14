@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,6 +55,15 @@ public class EmployeeController {
     @RequestMapping(value="showAdd")
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("emp/add");
+        mv.addObject("depList", depList);
+        return mv;
+    }
+
+    @RequestMapping("showUpdate")
+    public ModelAndView showUpdate(Integer id) {
+        Employee emp = empService.searchById(id);
+        ModelAndView mv = new ModelAndView("emp/update");
+        mv.addObject("emp", emp);
         mv.addObject("depList", depList);
         return mv;
     }
@@ -111,7 +121,15 @@ public class EmployeeController {
     private void delete(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "update")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> update(@RequestBody Employee emp) {
+        boolean success = empService.update(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
     @PostMapping("add")

@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee searchById(int id) {
-        return null;
+        return empDao.searchById(id);
     }
 
     @Override
@@ -40,7 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean update(Employee emp) {
-        return false;
+        int result = empDao.update(emp);
+        return result > 0;
     }
 
     @Override
