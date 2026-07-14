@@ -114,8 +114,15 @@ public class EmployeeController {
     private void update(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) {
-        
+    @PostMapping("add")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> add(@org.springframework.web.bind.annotation.RequestBody Employee emp) {
+        boolean success = empService.add(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) {

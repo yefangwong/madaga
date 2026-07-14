@@ -34,7 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean add(Employee emp) {
-        return false;
+        int result = empDao.add(emp);
+        return result > 0;
     }
 
     @Override

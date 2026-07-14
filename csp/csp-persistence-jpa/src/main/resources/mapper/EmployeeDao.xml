@@ -39,4 +39,13 @@
         </where>
         order by e.id
     </select>
+    
+    <!-- 新增員工 -->
+    <insert id="add" parameterType="com.hongfang.csp.system.entity.Employee">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select coalesce(max(id), 0) + 1 from employee
+        </selectKey>
+        insert into employee (id, number, name, gender, age, dep_id)
+        values (#{id}, #{number}, #{name}, #{gender}, #{age}, #{dep.id})
+    </insert>
 </mapper>
