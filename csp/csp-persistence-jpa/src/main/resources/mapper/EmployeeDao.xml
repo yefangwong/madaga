@@ -67,4 +67,9 @@
             dep_id = #{dep.id}
         where id = #{id}
     </update>
+
+    <!-- 刪除員工 -->
+    <delete id="delete" parameterType="int">
+        delete from employee where id = #{id}
+    </delete>
 </mapper>

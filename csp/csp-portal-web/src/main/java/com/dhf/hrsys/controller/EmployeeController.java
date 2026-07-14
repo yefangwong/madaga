@@ -118,7 +118,17 @@ public class EmployeeController {
         return generalDaoService.queryForList("CUST_EMPLOYEE.SQL1");
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("delete")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> delete(Integer id) {
+        Employee emp = new Employee();
+        emp.setId(id);
+        boolean success = empService.delete(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
     @RequestMapping(value = "update")
