@@ -1,5 +1,6 @@
 package com.dhf.hrsys.controller;
 
+import com.dhf.hrsys.service.DepartmentService;
 import com.dhf.hrsys.service.EmployeeService;
 import com.dhf.hrsys.service.IGeneralDAOService;
 import com.hongfang.csp.system.entity.Department;
@@ -26,10 +27,13 @@ public class EmployeeControllerTest {
     @Mock
     private EmployeeService employeeService;
 
+    @Mock
+    private DepartmentService departmentService;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        employeeController = new EmployeeController(generalDaoService, employeeService);
+        employeeController = new EmployeeController(generalDaoService, employeeService, departmentService);
     }
 
     @Test

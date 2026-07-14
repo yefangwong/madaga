@@ -7,58 +7,26 @@
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <title>Demo 部門管理</title>
+    <title>部門管理</title>
     <style>
-        #loading-indicator {
-            display: none;
-            padding: 10px;
-            text-align: right;
-        }
-
-        .search-area {
-            padding-bottom: 12px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #e0e0e0;
-        }
     </style>
     <script>
         $(function () {
             // init
-            // 匯出 Excel
-            $('#export').on('click', function () {
-                doExportToXls();
-            });
             let vue = new Vue({
                 el: "#container",
                 data: {
-                    mes: '',
                     list: [],
-                    depList: [],
                     selectedId: -1,
                     form: {
                         number: null,
                         name: null,
-                        gender: null,
-                        age: null,
-                        'dep.id': ""
-                    },
-                    question: {
-                        id: 1,
-                        text: '我想查詢公司財務部有沒有吳華瑄小姐'
-                    },
-                    eventSource: null
+                    }
                 },
                 created() {
                     this.search();
-                    this.getDepList();
                 },
                 methods: {
-                    getDepList: function () {
-                        axios.get('getDepList')
-                            .then(function (res) {
-                                this.depList = res.data;
-                            }.bind(this))
-                    },
                     search: function () {
                         let queryParams = {};
                         for (let key in this.form) {
@@ -70,119 +38,6 @@
                             .then(function (res) {
                                 this.list = res.data;
                             }.bind(this))
-                    },
-                    startSSE() {
-                        const source = new EventSource('/api/startSSE');
-                        source.onmessage = (event) => {
-                            console.log(event.data);
-                            console.log(event.data.indexOf("UUID"));
-                            if (event.data.indexOf("{") == 0) {
-                                let data = JSON.parse(event.data);
-                                if (data.content !== '') {
-                                    if (data.UUID !== undefined) {
-                                        this.doQueryBySQL(data.UUID);
-                                    }
-                                }
-                            }
-                            this.scrollToBottom();
-                        }
-                    },
-                    showLoadingIndicator() {
-                        $('.msg-body ul').append('<li>\n' +
-                            '<div id="loading-indicator">' +
-                            '<img src="https://media.tenor.com/NqKNFHSmbssAAAAi/discord-loading-dots-discord-loading.gif" style="width: 40px;" alt="Loading..." />' +
-                            '</div>' +
-                            '</li>');
-                        $(".msg-body ul li #loading-indicator").last().show();
-                        this.scrollToBottom();
-                    },
-                    hideLoadingIndicator() {
-                        $("div#loading-indicator").hide();
-                    },
-                    scrollToBottom() {
-                        $('#divChat .modal-body').animate({ scrollTop: $('#divChat .modal-body').prop("scrollHeight") }, 'fast');
-                    },
-                    send() {
-                        this.startSSE();
-                        $('.msg-body ul').append('<li class="sender">\n' +
-                            '<p> ' + this.question.text + ' </p>\n' +
-                            '<span class="time">剛剛</span>\n' +
-                            '</li>');
-                        let questionData = {
-                            id: 4,
-                            text: '[question] ' +
-                                this.question.text + '[/question]'
-                        };
-                        this.showLoadingIndicator();
-                        let self = this;
-                        $.ajax({
-                            type: 'post',
-                            url: '/api/question',
-                            data: JSON.stringify(questionData),
-                            contentType: 'application/json;charset=UTF-8',
-                            dataType: 'json',
-                            success: function (result) {
-                                self.question = {
-                                    id: -1,
-                                    text: ''
-                                };
-                            },
-                            error: function () {
-                                console.error('Failed to send question:');
-                            }
-                        });
-                    },
-                    doQueryBySQL(uuid) {
-                        let actionURI = '/sql/query';
-                        let params = '/' + uuid;
-                        let self = this;
-                        $.ajax({
-                            type: 'get',
-                            url: actionURI + params,
-                            contentType: 'application/json;charset=UTF-8',
-                            dataType: 'json',
-                            success: function (result) {
-                                console.log("JSON:" + result);
-                                self.renderQueryResult(result);
-                            },
-                            error: function () {
-                                console.error('Failed to send sql:');
-                            }
-                        });
-                    },
-                    renderQueryResult(result) {
-                        this.hideLoadingIndicator();
-                        $('.msg-body ul').last().append('<li class="reply"><p>');
-                        let hint = '';
-                        if (result.length > 0) {
-                            hint = '好的，以下是我們查詢到關於' + result[0].emp_name + '的資料</br>';
-                            let tableResult = '<table class="tableResult"><tr><td>員工編號</td><td>員工姓名</td><td>部門</td></tr>';
-                            let emp = '';
-                            for (let i = 0; i < result.length; i++) {
-                                emp = result[i];
-                                tableResult += ('<tr><td>' + emp.number + '</td><td>' +
-                                    emp.emp_name + '</td><td>' + emp.dep_name + '</td></tr>');
-                            }
-                            tableResult += '</table>';
-                            $('.msg-body ul li.reply').last().find('p')
-                                .append(hint)
-                                .append(tableResult);
-                        } else {
-                            hint = '很抱歉耶～我們查不到資料@@';
-                            $('.msg-body ul li.reply').last().find('p')
-                                .append(hint)
-                        }
-                        $('.msg-body ul li.reply').last().append(
-                            '<span class="time">剛剛</span>' +
-                            '</li>'
-                        );
-                    },
-                    closeConnection() {
-                        // Close the SSE connection
-                        if (this.eventSource) {
-                            this.eventSource.close();
-                            this.eventSource = null;
-                        }
                     },
                     showAdd: function() {
                         location.href = "showAdd";
@@ -200,6 +55,13 @@
                                 .then(function (res) {
                                     this.search();
                                 }.bind(this))
+                                .catch(function (error) {
+                                    if (error.response && error.response.status === 400) {
+                                        alert(error.response.data);
+                                    } else {
+                                        alert('刪除失敗');
+                                    }
+                                });
                         } else {
                             alert('請選中數據');
                         }
@@ -207,18 +69,9 @@
                     selectTr: function (id) {
                         this.selectedId = id;
                     }
-                },
-                beforeDestroy() {
-                    this.closeConnection();
                 }
             })
         });
-        // 匯出 Excel
-        function doExportToXls() {
-            let actionURI = '/manage/emp/export';
-            let params = '&a=1';
-            csp.toPostSubmit(actionURI + params);
-        }
     </script>
 </head>
 
@@ -232,26 +85,10 @@
         <form id="search" action="search" method="post" @submit.prevent="search()">
             <div class="row">
                 <div class="col-md-2 pb-3 align">
-                    <input type="text" class="form-control" name="number" placeholder="編號" v-model="form.number" />
+                    <input type="text" class="form-control" name="number" placeholder="請輸入部門編號" v-model="form.number" />
                 </div>
                 <div class="col-md-2 align">
-                    <input type="text" class="form-control" name="name" placeholder="姓名" v-model="form.name" />
-                </div>
-                <div class="col-md-1 align">
-                    <select class="form-control" name="gender" id="" v-model="form.gender">
-                        <option value="">性別</option>
-                        <option value="男">男</option>
-                        <option value="女">女</option>
-                    </select>
-                </div>
-                <div class="col-md-1 align">
-                    <input type="text" class="form-control" name="age" placeholder="年齡" v-model="form.age">
-                </div>
-                <div class="col-md-2 align">
-                    <select class="form-control" v-model="form['dep.id']">
-                        <option value="">部門</option>
-                        <option v-for="dep in depList" v-text="dep.name" v-bind:value="dep.id"></option>
-                    </select>
+                    <input type="text" class="form-control" name="name" placeholder="請輸入部門名稱" v-model="form.name" />
                 </div>
                 <div class="col-md-4 align">
                     <div class="d-grid gap-2 d-md-block" role="toolbar">
@@ -272,18 +109,12 @@
         <table id="data" class="table table-bordered" border="1" role="presentation">
             <tr>
                 <td>編號</td>
-                <td>姓名</td>
-                <td>姓別</td>
-                <td>年齡</td>
-                <td>部門</td>
+                <td>名稱</td>
             </tr>
-            <tr class="data" v-for="emp in list" v-bind:class="{selected:emp.id==selectedId}"
-                @click="selectTr(emp.id)">
-                <td v-text="emp.number"></td>
-                <td v-text="emp.name"></td>
-                <td v-text="emp.gender"></td>
-                <td v-text="emp.age"></td>
-                <td v-text="emp.dep!=null?emp.dep.name:''"></td>
+            <tr class="data" v-for="dep in list" v-bind:class="{selected:dep.id==selectedId}"
+                @click="selectTr(dep.id)">
+                <td v-text="dep.number"></td>
+                <td v-text="dep.name"></td>
             </tr>
         </table>
     </div>

@@ -48,3 +48,9 @@ tr.data td:first-child::before {
 tr.data.selected td:first-child::before {
     width: 4px;
 }
+
+.search-area {
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+}

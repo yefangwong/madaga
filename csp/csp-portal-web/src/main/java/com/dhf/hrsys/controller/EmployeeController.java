@@ -30,19 +30,19 @@ public class EmployeeController {
     final DepartmentService depService;
 
     public EmployeeController(IGeneralDAOService generalDaoService,
-                              EmployeeService empService,
-                              DepartmentService depService) {
+            EmployeeService empService,
+            DepartmentService depService) {
         this.generalDaoService = generalDaoService;
         this.empService = empService;
         this.depService = depService;
     }
 
-    @RequestMapping(value="show")
+    @RequestMapping(value = "show")
     public String show() {
         return "emp/show";
     }
 
-    @RequestMapping(value="showAdd")
+    @RequestMapping(value = "showAdd")
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("emp/add");
         mv.addObject("depList", depService.search(null));
@@ -73,7 +73,7 @@ public class EmployeeController {
 
     @PostMapping("export")
     public ModelAndView export(HttpServletRequest req,
-        HttpServletResponse res) throws Exception {
+            HttpServletResponse res) throws Exception {
         ModelAndView mv = null;
         Condition condition = new Condition();
         List<HashMap> dataList = getEmployeeList(condition);
@@ -83,24 +83,24 @@ public class EmployeeController {
 
         JXLExcelBuilder excelBuilder = new JXLExcelBuilder(res.getOutputStream());
         String titles[] = new String[] {
-            "編號",
-            "姓名",
-            "姓別",
-            "年齡",
-            "部門"
+                "編號",
+                "姓名",
+                "姓別",
+                "年齡",
+                "部門"
         };
 
         String colsMapTitles[] = new String[] {
-            "empId",
-            "empName",
-            "gender",
-            "age",
-            "depName"
+                "empId",
+                "empName",
+                "gender",
+                "age",
+                "depName"
         };
 
         excelBuilder.buildTitle(titles, colsMapTitles).buildBody(dataList);
         excelBuilder.build();
-        
+
         return mv;
     }
 
@@ -134,7 +134,8 @@ public class EmployeeController {
 
     @PostMapping("add")
     @ResponseBody
-    public org.springframework.http.ResponseEntity<String> add(@org.springframework.web.bind.annotation.RequestBody Employee emp) {
+    public org.springframework.http.ResponseEntity<String> add(
+            @org.springframework.web.bind.annotation.RequestBody Employee emp) {
         boolean success = empService.add(emp);
         if (success) {
             return org.springframework.http.ResponseEntity.ok("Success");
