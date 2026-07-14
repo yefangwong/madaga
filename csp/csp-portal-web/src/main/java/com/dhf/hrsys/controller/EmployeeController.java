@@ -52,8 +52,10 @@ public class EmployeeController {
     }
 
     @RequestMapping(value="showAdd")
-    public String showAdd() {
-        return "emp/add";
+    public ModelAndView showAdd() {
+        ModelAndView mv = new ModelAndView("emp/add");
+        mv.addObject("depList", depList);
+        return mv;
     }
 
     @RequestMapping("search")
@@ -113,6 +115,7 @@ public class EmployeeController {
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) {
+        
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) {

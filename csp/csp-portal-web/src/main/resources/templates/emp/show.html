@@ -220,8 +220,25 @@
                             this.eventSource = null;
                         }
                     },
-                    showAdd() {
+                    showAdd: function() {
                         location.href = "showAdd";
+                    },
+                    showUpdate: function() {
+                        if (this.selectedId > -1) {
+                            location.href = "showUpdate?id=" + this.selectedId;
+                        } else {
+                            alert('請選中數據');
+                        }
+                    },
+                    deleteData: function() {
+                        if (this.selectedId > -1) {
+                            axios.get('delete', {params: {id: this.selectedId}})
+                                .then(function (res) {
+                                    this.search();
+                                }.bind(this))
+                        } else {
+                            alert('請選中數據');
+                        }
                     },
                     selectTr: function (id) {
                         this.selectedId = id;
@@ -383,8 +400,8 @@
         </div>
         <div class="d-grid gap-2 d-md-block" role="toolbar">
             <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
-            <button type="button" id="update" class="btn btn-primary csp-btn-spacing">修改</button>
-            <button type="button" id="delete" class="btn btn-primary csp-btn-spacing">刪除</button>
+            <button type="button" id="update" class="btn btn-primary csp-btn-spacing" @click="showUpdate">修改</button>
+            <button type="button" id="delete" class="btn btn-primary csp-btn-spacing" @click="deleteData">刪除</button>
         </div>
     </div>
 </body>
