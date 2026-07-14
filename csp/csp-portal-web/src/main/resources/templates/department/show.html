@@ -1,0 +1,129 @@
+<!--
+  History
+  --------------------------------------------
+  2026/7/14 yfwong inital version.
+-->
+<!doctype html>
+<html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>部門管理</title>
+    <style>
+    </style>
+    <script>
+        $(function () {
+            // init
+            let vue = new Vue({
+                el: "#container",
+                data: {
+                    list: [],
+                    selectedId: -1,
+                    form: {
+                        number: null,
+                        name: null,
+                    }
+                },
+                created() {
+                    this.search();
+                },
+                methods: {
+                    search: function () {
+                        let queryParams = {};
+                        for (let key in this.form) {
+                            if (this.form[key] !== null && this.form[key] !== "") {
+                                queryParams[key] = this.form[key];
+                            }
+                        }
+                        axios.get('search', { params: queryParams })
+                            .then(function (res) {
+                                this.list = res.data;
+                            }.bind(this))
+                    },
+                    showAdd: function() {
+                        location.href = "showAdd";
+                    },
+                    showUpdate: function() {
+                        if (this.selectedId > -1) {
+                            location.href = "showUpdate?id=" + this.selectedId;
+                        } else {
+                            alert('請選中數據');
+                        }
+                    },
+                    deleteData: function() {
+                        if (this.selectedId > -1) {
+                            axios.get('delete', {params: {id: this.selectedId}})
+                                .then(function (res) {
+                                    this.search();
+                                }.bind(this))
+                                .catch(function (error) {
+                                    if (error.response && error.response.status === 400) {
+                                        alert(error.response.data);
+                                    } else {
+                                        alert('刪除失敗');
+                                    }
+                                });
+                        } else {
+                            alert('請選中數據');
+                        }
+                    },
+                    selectTr: function (id) {
+                        this.selectedId = id;
+                    }
+                }
+            })
+        });
+    </script>
+</head>
+
+<body>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">部門管理</h1>
+</div>
+<div id="container">
+    <!-- Modal -->
+    <div class="search-area">
+        <form id="search" action="search" method="post" @submit.prevent="search()">
+            <div class="row">
+                <div class="col-md-2 pb-3 align">
+                    <input type="text" class="form-control" name="number" placeholder="請輸入部門編號" v-model="form.number" />
+                </div>
+                <div class="col-md-2 align">
+                    <input type="text" class="form-control" name="name" placeholder="請輸入部門名稱" v-model="form.name" />
+                </div>
+                <div class="col-md-4 align">
+                    <div class="d-grid gap-2 d-md-block" role="toolbar">
+                        <button type="submit" class="btn btn-primary csp-btn-spacing">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                            搜尋
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-area">
+        <table id="data" class="table table-bordered" border="1" role="presentation">
+            <tr>
+                <td>編號</td>
+                <td>名稱</td>
+            </tr>
+            <tr class="data" v-for="dep in list" v-bind:class="{selected:dep.id==selectedId}"
+                @click="selectTr(dep.id)">
+                <td v-text="dep.number"></td>
+                <td v-text="dep.name"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="d-grid gap-2 d-md-block" role="toolbar">
+        <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
+        <button type="button" id="update" class="btn btn-primary csp-btn-spacing" @click="showUpdate">修改</button>
+        <button type="button" id="delete" class="btn btn-primary csp-btn-spacing" @click="deleteData">刪除</button>
+    </div>
+</div>
+</body>
+
+</html>

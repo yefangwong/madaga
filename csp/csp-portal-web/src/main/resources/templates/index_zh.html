@@ -24,7 +24,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="德鴻方資訊 DHF - 企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)，整合 MADAGA 與 LLM-SQL-Guard 技術，對齊 SDG 9 與 SDG 12 的企業級永續軟體工程開發服務。">
+    <meta name="description" content="Enterprise AI-Native Demo - 企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)，整合 MADAGA 與 LLM-SQL-Guard 技術，對齊 SDG 9 與 SDG 12 的企業級永續軟體工程開發服務。">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     
     <!-- Google Fonts: Outfit for Modern Aesthetics -->
@@ -32,22 +32,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <title>德鴻方 DHF - 企業級 AI 解決方案套件 (MADAGA + LLM-SQL-Guard)</title>
+    <title>Enterprise AI-Native Demo - 企業級 AI 解決方案套件 (MADAGA + LLM-SQL-Guard)</title>
 
     <!-- Custom Premium Sustainability stylesheet -->
     <link href="../css/sustainability.css" th:href="@{/css/sustainability.css}" rel="stylesheet">
 </head>
-<body>
+<body class="theme-light">
 <div class="container">
     <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
-                <a class="blog-header-logo text-decoration-none" href="/index_zh">德鴻方 DHF</a>
+                <a class="blog-header-logo text-decoration-none" href="/index_zh">Enterprise AI-Native Demo</a>
             </div>
             <div class="col-4 text-center">
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center gap-3">
-                <a class="text-gradient-mint text-decoration-none small fw-bold" href="/index">English</a>
+                <a class="text-gradient-mint text-decoration-none small fw-bold" href="/index_en">English</a>
                 <a class="btn btn-sm btn-sustain-primary pulse-glow" href="/auth/signUp">系統展示 Demo</a>
             </div>
         </div>
@@ -58,7 +58,6 @@
             <a class="p-2 nav-link-sustain text-decoration-none" href="/index_zh">首頁 Home</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="/sustainability_zh">永續 Sustainable</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="/suite_zh">AI 解決方案套件</a>
-            <a class="p-2 nav-link-sustain text-decoration-none" href="/energy/index">能源 Energy</a>
             <a class="p-2 nav-link-sustain text-decoration-none" href="#contact">聯絡我們 Contact Us</a>
         </nav>
     </div>
@@ -72,7 +71,7 @@
         </div>
         <div class="col-md-7 hero-sustain-content">
             <h1 class="display-4 text-gradient-mint mb-3">個人技術沙盒與綠色軟體架構</h1>
-            <p class="lead mb-4">「德鴻方 DHF」作為我的個人技術實踐沙盒，致力於探討如何以最小的碳足跡代價，打造高效、穩健的企業級數位系統。我將 <strong>AI 原生解決方案</strong> 深植於核心架構，對齊聯合國永續發展目標 SDG 9 與 SDG 12，提供可落地的綠色軟體工程架構範例。</p>
+            <p class="lead mb-4">「Enterprise AI-Native Demo」作為我針對高可用性、高安全企業級場景設計的個人技術實踐沙盒，致力於探討如何以最小的碳足跡代價，打造高效、穩健的數位轉型與智慧化架構。我將 <strong>AI 原生解決方案</strong> 深植於核心架構，對齊聯合國永續發展目標 SDG 9 與 SDG 12，提供可落地的綠色軟體工程架構範例。</p>
             <div class="d-flex gap-3">
                 <a href="#calculator" class="btn btn-sustain-primary">數位碳足跡計算</a>
                 <a href="#suite" class="btn btn-sustain-outline">AI 套件展示</a>
@@ -86,12 +85,12 @@
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="glass-card h-100 d-flex flex-column">
                 <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
-                    <img src="/images/4.webp" th:src="@{/images/4.webp}" alt="AI 原生解決方案" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <img src="/images/4.webp" th:src="@{/images/4.webp}" alt="AI 原生與馬鞍治理" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <div class="p-4 d-flex flex-column flex-grow-1">
-                    <strong class="d-inline-block mb-2 text-gradient-mint">AI 創新 & 數位轉型</strong>
-                    <h3 class="mb-2 fs-4">AI 原生解決方案</h3>
-                    <p class="card-text text-muted" style="font-size: 0.95rem;">基於大語言模型與智慧 Agent 框架，提供企業低碳排、高能效的智能化決策系統，透過推論優化與邊緣運算減少運算能耗，加速數位轉型步伐。</p>
+                    <strong class="d-inline-block mb-2 text-gradient-mint">AI 創新 & 安全防禦</strong>
+                    <h3 class="mb-2 fs-4">AI 原生與馬鞍治理</h3>
+                    <p class="card-text text-muted" style="font-size: 0.95rem;">基於 Text-to-SQL 自然語言與 llmSqlGuard 安全閘門，在數據管道與應用層為大模型套上「業務合規馬鞍」，防止惡意注入與越權存取，達成商用安全標準。</p>
                 </div>
             </div>
         </div>
@@ -99,12 +98,12 @@
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="glass-card h-100 d-flex flex-column">
                 <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
-                    <img src="/images/2.webp" th:src="@{/images/2.webp}" alt="低碳技術" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <img src="/images/2.webp" th:src="@{/images/2.webp}" alt="Tower Crane 自主代理編排" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <div class="p-4 d-flex flex-column flex-grow-1">
-                    <strong class="d-inline-block mb-2 text-gradient-mint">永續技術</strong>
-                    <h3 class="mb-2 fs-4">低碳網頁架構實踐</h3>
-                    <p class="card-text text-muted" style="font-size: 0.95rem;">透過優化靜態資源（WebP 高效壓縮、延遲載入）與簡化 API 回傳設計，顯著降低網頁每次造訪的傳輸量，進而減少地球資料中心與伺服器的耗電能耗。</p>
+                    <strong class="d-inline-block mb-2 text-gradient-mint">代理編排層</strong>
+                    <h3 class="mb-2 fs-4">Tower Crane 自主代理編排</h3>
+                    <p class="card-text text-muted" style="font-size: 0.95rem;">實作 Tower Crane 自主爬升架構，讓 AI Agent 依循合規契約進行自主計畫、編碼與測試優化（Plan-Act-Log-Refine），並配合人機協同決策，落實可信任的自動化工作流。</p>
                 </div>
             </div>
         </div>
@@ -112,12 +111,12 @@
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="glass-card h-100 d-flex flex-column">
                 <div class="text-center bg-dark" style="height: 150px; overflow: hidden;">
-                    <img src="/images/3.webp" th:src="@{/images/3.webp}" alt="自動化治理" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <img src="/images/3.webp" th:src="@{/images/3.webp}" alt="永續工程與自動化" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <div class="p-4 d-flex flex-column flex-grow-1">
-                    <strong class="d-inline-block mb-2 text-gradient-mint">企業治理</strong>
-                    <h3 class="mb-2 fs-4">ADO 自動化治理與測試</h3>
-                    <p class="card-text text-muted" style="font-size: 0.95rem;">將技術債消除與安全漏洞掃描整合至 Azure DevOps Pipeline 中，達成 CI/CD 自動化品質證據鏈，確保軟體在全生命週期中維持低能耗、高可維護性的健康狀態。</p>
+                    <strong class="d-inline-block mb-2 text-gradient-mint">永續工程 & 治理</strong>
+                    <h3 class="mb-2 fs-4">永續工程與 ADO 自動化</h3>
+                    <p class="card-text text-muted" style="font-size: 0.95rem;">降低網頁與 API 資料傳輸能耗（綠色軟體），並將自動化安全漏掃整合至 Azure DevOps (ADO) Pipeline 中，以地端 Self-hosted Agent 實踐高安全、低能效運維。</p>
                 </div>
             </div>
         </div>
@@ -126,61 +125,62 @@
     <!-- Product Showcase: Enterprise AI Solution Suite -->
     <div id="suite" class="row my-5">
         <div class="col-12">
-            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: linear-gradient(135deg, rgba(10, 60, 48, 0.25) 0%, rgba(5, 26, 21, 0.45) 100%);">
+            <div class="glass-card p-4 p-md-5 hero-sustain" style="background: var(--showcase-bg); border: 1px solid var(--primary-mint);">
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="d-flex align-items-center gap-2 mb-3">
-                            <span class="carbon-badge">2026/3 ~ Active (仍在進行)</span>
-                            <span class="carbon-badge bg-dark border-secondary">企業級旗艦套件</span>
+                            <span class="carbon-badge">企業級專屬提案</span>
+                            <span class="carbon-badge bg-dark border-secondary">AI 原生智慧檢索概念驗證 (PoC)</span>
                         </div>
-                        <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI Solution Suite</h2>
-                        <h4 class="text-white-50 mb-4">企業級 AI 解決方案套件 (Text-to-SQL + Security Guard)</h4>
-                        <p class="lead mb-4 text-white">為企業突破從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，此套件完美整合數據管線與「馬鞍治理」機制：</p>
+                        <h2 class="display-5 text-gradient-mint mb-3">Enterprise AI-Native Semantic Retrieval Sandbox</h2>
+                        <h4 class="mb-4">基於四大支柱的次世代智慧檢索系統 (Text-to-SQL + Security Guard)</h4>
+                        <p class="lead mb-4">針對高流量企業級數據檢索的效能與安全合規訴求，展示如何透過「即時特徵管線 (Lakehouse)」與「模型約束 (馬鞍治理)」突破 AI 落地瓶頸：</p>
                         
-                        <div class="row text-white">
+                        <div class="row">
                             <!-- MADAGA -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">1. MADAGA (Text-to-SQL Engine)</h5>
-                                <p class="text-muted small mb-0">無縫對接 Lakehouse 與即時串流數據管線，將非技術人員的自然語言精準轉譯為複雜的 SQL 查詢，打破資料流轉延遲瓶頸。</p>
+                                <h5 class="text-gradient-mint mb-1">1. MADAGA (語意檢索 Text-to-SQL)</h5>
+                                <p class="text-muted small mb-0">無縫對接 Lakehouse，將使用者的自然語言（例如：「找北部有 Docker 經驗的 React 工程師」）自動轉譯為結構化 SQL 特徵檢索。並在 Context Engineering 中導入<strong>本地記憶體 TF-IDF 稀疏檢索（Schema Linking）</strong>，將架構匹配延遲降至 &lt;1ms，保障線上 Task 的極速回應，達到高可靠、低能耗的永續應用指標。</p>
                             </div>
                             <!-- LLM-SQL-Guard -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (安全馬鞍 Security Saddle)</h5>
-                                <p class="text-muted small mb-0">為 AI 套上不容逾越的業務邏輯邊界。實作 SQL Parsing 語法剖析，在應用層自動攔截越權存取與高危險惡意指令，確保即時推論的絕對合規。</p>
+                                <h5 class="text-gradient-mint mb-1">2. LLM-SQL-Guard (資安安全馬鞍 Security Saddle)</h5>
+                                <p class="text-muted small mb-0">在產出 SQL 送入 DB 執行前進行 AST 語法校驗。內建 PII Gate 去識別化技術，物理封鎖越權查詢（如非專屬帳號存取聯絡電話）與惡意注入，確保敏感數據安全不出域。</p>
                             </div>
                             <!-- Semantic Cache -->
                             <div class="col-12 mb-3">
-                                <h5 class="text-gradient-mint mb-1">3. Semantic Cache (算力馬鞍 Compute Saddle)</h5>
-                                <p class="text-muted small mb-0">利用向量模糊匹配攔截高頻重複意圖，跳過 LLM 直接從 Redis 緩存返回結果。有效降低 40% 以上的 API 費用，減輕 GPU 高併發負載。</p>
+                                <h5 class="text-gradient-mint mb-1">3. Semantic Cache (高頻語意檢索快取)</h5>
+                                <p class="text-muted small mb-0">針對高頻重複的語意檢索意圖（例如人才檢索「徵 Frontend」或物料搜尋「InP 供應商」），在 Gateway 層以向量相似度進行攔截。省去 40% 以上的 LLM 呼叫，達到毫秒級極速回應。</p>
                             </div>
                         </div>
                     </div>
                     <!-- CLI Interactive Panel -->
                     <div class="col-lg-5 text-center mt-4 mt-lg-0">
-                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.55); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(0, 245, 160, 0.15);">
+                        <div class="p-4 rounded-3 text-start" style="background: rgba(0, 0, 0, 0.65); border: 1px solid var(--primary-mint); box-shadow: 0 0 25px rgba(255, 122, 0, 0.25);">
                             <!-- Terminal Header -->
                             <div class="d-flex gap-1.5 align-items-center mb-3 pb-2 border-bottom border-secondary" style="opacity: 0.85;">
                                 <span class="badge bg-danger rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
                                 <span class="badge bg-warning rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
                                 <span class="badge bg-success rounded-circle p-1" style="width: 8px; height: 8px;"> </span>
-                                <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Enterprise AI Terminal</small>
+                                <small class="text-muted ms-2 font-monospace" style="font-size: 0.75rem;">Retrieval AI-Terminal</small>
                             </div>
                             <!-- Translate Process -->
-                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Translate Natural Language via MADAGA</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --translate "刪除所有客戶資料"</div>
-                            <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3" style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05);">
-                                Generated: <span class="text-warning">DROP TABLE customers;</span>
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 1: Text-to-SQL via MADAGA</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ madaga --query "找北部有 Docker 經驗的 React 工程師"</div>
+                            <div class="font-monospace text-white-50 bg-dark p-2 rounded mb-3" style="font-size: 0.75rem; border: 1px solid rgba(255, 255, 255, 0.05); line-height: 1.4;">
+                                Generated SQL:<br>
+                                <span class="text-warning">SELECT name, skills FROM resumes WHERE location = 'Taipei' AND skills LIKE '%React%' AND skills LIKE '%Docker%';</span>
                             </div>
                             
                             <!-- Security Check Process -->
-                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: Validate Security via LLM-SQL-Guard</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "DROP TABLE customers"</div>
-                            <div class="font-monospace text-danger mb-2" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Blocked by Security Saddle!</div>
+                            <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 2: AST & PII Safety via LLM-SQL-Guard</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ sqlguard --check "SELECT phone, address FROM resumes"</div>
+                            <div class="font-monospace text-danger mb-3" style="font-size: 0.8rem; font-weight: bold;">[VIOLATION] Access Denied: Role 'Recruiter' has no permission for PII data. Request Blocked!</div>
                             
                             <!-- Semantic Cache Process -->
                             <div class="font-monospace text-muted mb-1" style="font-size: 0.75rem;"># Step 3: Semantic Cache Lookup (Cost Optimization)</div>
-                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "Top 10 users"</div>
-                            <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity > 0.95. Bypassing LLM API...</div>
+                            <div class="font-monospace text-success mb-2" style="font-size: 0.8rem;">$ cache --query "尋找 React 開發人員"</div>
+                            <div class="font-monospace text-info mb-3" style="font-size: 0.75rem;">[HIT] Similarity: 98.2%. Bypassing LLM. Returning cached result.</div>
                             
                             <!-- Result -->
                             <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
@@ -225,6 +225,7 @@
                 </div>
                 <ul class="sustain-list text-muted" style="font-size: 0.95rem;">
                     <li><strong>AI 馬鞍治理 (Saddle Governance)</strong>：為高熵算法套上業務與安全約束，透過防禦閘門與算力快取，確保模型在生產環境中穩健、低成本落地。</li>
+                    <li><strong>防範大模型二次洩密 (AI Leak Prevention)</strong>：建立全生命週期的 AI 工具使用邊界，防範外包商或開發人員因代碼優化或日誌審計，將個資、架構或系統弱點上傳至公開大模型服務。</li>
                     <li><strong>自動化 MLOps & LLMOps 流程</strong>：建立模型研發、訓練至自動化部署上線的標準化工程路徑，保障模型交付的高效運轉。</li>
                     <li><strong>模型導入與工具鏈優化</strong>：針對開源大模型與商用 API 提供底層技術支援、推論效能優化，並建立相應的開發工具鏈。</li>
                     <li><strong>全生命週期模型品質監控</strong>：協同演算法團隊共同制定 LLM/模型品質監控指標與即時回饋機制。</li>
@@ -297,11 +298,11 @@
                 <div class="row text-center my-3">
                     <div class="col-md-6 mb-3">
                         <div class="carbon-counter" id="carbonSavings">0.000</div>
-                        <div class="text-white mt-1">每次造訪預估節省碳排 (g CO₂e)</div>
+                        <div class="mt-1">每次造訪預估節省碳排 (g CO₂e)</div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="carbon-counter" id="pageWeight">0.0</div>
-                        <div class="text-white mt-1">優化後頁面傳輸量 (KB)</div>
+                        <div class="mt-1">優化後頁面傳輸量 (KB)</div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-secondary">
@@ -318,27 +319,27 @@
                 <form id="contactForm" onsubmit="handleContactSubmit(event)">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="contactName" class="form-label text-white small">您的姓名 Name *</label>
-                            <input type="text" class="form-control bg-dark text-white border-secondary" id="contactName" required placeholder="例如：林先生 / 林小姐">
+                            <label for="contactName" class="form-label small">您的姓名 Name *</label>
+                            <input type="text" class="form-control sustain-input" id="contactName" required placeholder="例如：林先生 / 林小姐">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="contactEmail" class="form-label text-white small">電子郵件 Email *</label>
-                            <input type="email" class="form-control bg-dark text-white border-secondary" id="contactEmail" required placeholder="name@example.com">
+                            <label for="contactEmail" class="form-label small">電子郵件 Email *</label>
+                            <input type="email" class="form-control sustain-input" id="contactEmail" required placeholder="name@example.com">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="contactSubject" class="form-label text-white small">諮詢項目 Subject *</label>
-                        <select class="form-select bg-dark text-white border-secondary" id="contactSubject" required>
+                        <label for="contactSubject" class="form-label small">諮詢項目 Subject *</label>
+                        <select class="form-select sustain-input" id="contactSubject" required>
                             <option value="" disabled selected>請選擇您感興趣的項目</option>
-                            <option value="AI Native">AI 原生解決方案 (次世代智慧媒合)</option>
+                            <option value="AI Native">AI 原生解決方案 (次世代智慧檢索)</option>
                             <option value="SqlGuard">LLM-SQL-Guard 安全診斷與防護</option>
                             <option value="Transformation">企業綠色數位轉型諮詢</option>
                             <option value="Collaboration">其他業務合作</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="contactMessage" class="form-label text-white small">詳細需求說明 Message *</label>
-                        <textarea class="form-control bg-dark text-white border-secondary" id="contactMessage" rows="4" required placeholder="請簡述您的業務需求與系統環境..."></textarea>
+                        <label for="contactMessage" class="form-label small">詳細需求說明 Message *</label>
+                        <textarea class="form-control sustain-input" id="contactMessage" rows="4" required placeholder="請簡述您的業務需求與系統環境..."></textarea>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="submit" id="submitBtn" class="btn btn-sustain-primary">送出諮詢 Submit</button>
@@ -353,11 +354,11 @@
             <div class="position-sticky" style="top: 2rem;">
                 <div class="about-panel mb-4">
                     <h4 class="mb-3 text-gradient-mint">關於我們 About Us</h4>
-                    <p class="mb-3 text-white">對企業軟體永續發展與人工智慧的執著：</p>
+                    <p class="mb-3">對企業軟體永續發展與人工智慧的執著：</p>
                     
-                    <strong class="text-white d-block mt-3 mb-1">翁藝芳 Mark Wong</strong>
+                    <strong class="d-block mt-3 mb-1">翁藝芳 Mark Wong</strong>
                     <ul>
-                        <li>企業軟體開發 18 年經驗</li>
+                        <li>企業軟體開發 25 年經驗</li>
                         <li>學歷：
                             <ul class="ps-3 mt-1" style="list-style-type: circle;">
                                 <li>淡江大學 資訊工程學系研究所 碩士 (2023)<br>
@@ -376,32 +377,32 @@
 
                 <div class="about-panel mb-4">
                     <h4 class="mb-3 text-gradient-mint">研發實績 &amp; 跨領域實力</h4>
-                    <p class="text-white fw-bold mb-2" style="font-size: 0.95rem;">從底層演算法到次世代 AI 檢索</p>
+                    <p class="fw-bold mb-2" style="font-size: 0.95rem;">從底層演算法到次世代 AI 檢索</p>
                     <p class="text-muted small mb-2" style="line-height: 1.5;">展現極強的技術跨度與架構轉化能力，精準對位智慧產業的大數據與 AI 應用需求：</p>
                     
                     <!-- 實績 1: 全文檢索 -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">資訊檢索與全文檢索實務 (台大佛學圖書館)</strong>
-                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導系統架構升級，將傳統關聯式檢索成功導入基於 Lucene 的資訊全文檢索技術，對倒排索引（Inverted Index）、分詞邏輯及效能優化有深厚底蘊，並能轉化為現代 RAG架構中的向量檢索優化。<br>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">資訊檢索與全文檢索實務 (台大佛學圖書館)</strong>
+                        <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導系統架載升級，將傳統關聯式檢索成功導入基於 Lucene 的資訊全文檢索技術。對倒排索引（Inverted Index）、分詞邏輯及效能優化有深厚底蘊，近年擴展至 Apache Lucene 9，引入 HNSW 圖索引算法與 Project Panama (SIMD) 實作高性能向量檢索與 RAG 混合架構。<br>
                         <a href="https://buddhism.lib.ntu.edu.tw/FULLTEXT/JR-NX012/nx012136565.pdf" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">閱讀期刊論文 (PDF)</a></p>
                     </div>
                     
                     <!-- 實績 2: 導航演算法 -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">高精密度演算法研發（導航領域）</strong>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">高精密度演算法研發（導航領域）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">曾於竹科擔任高級工程師，負責導航設備之圖資壓縮演算法研發。在嵌入式環境的極端限制下，對系統效能、記憶體管理及大規模空間數據的讀取優化有深刻理解。</p>
                     </div>
                     
                     <!-- 實績 3: 智慧製造 MES -->
-                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">智慧製造與 AI 模型落地（MES 系統）</strong>
+                    <div class="p-2 rounded mb-2" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">智慧製造與 AI 模型落地（MES 系統）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">於叡揚資訊期間，負責智慧染整 AI 預測模型驗證與工程部署。在此專案中深刻體悟從「事後分析」走向「即時決策」的<strong>雙重瓶頸</strong>，進而淬鍊出以「物理約束（馬鞍）」與「即時串流管線」駕馭 AI 算法的獨特架構哲學。<br>
                         <a href="https://makerpro.cc/2020/12/aigo-ai-case-study-about-dyeing-and-finishing-plant/" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">閱讀媒體報導與專訪 (MakerPRO)</a></p>
                     </div>
                     
                     <!-- 實績 4: 車聯網與 AIoT -->
-                    <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(0, 245, 160, 0.05);">
-                        <strong class="text-white d-block small mb-1">車聯網與 AIoT 基礎建設（車聯網雲）</strong>
+                    <div class="p-2 rounded" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 122, 0, 0.1);">
+                        <strong class="d-block small mb-1">車聯網與 AIoT 基礎建設（車聯網雲）</strong>
                         <p class="text-muted small mb-0" style="line-height: 1.5; font-size: 0.82rem;">主導 AWS 雲端架構設計與高可用性（HA）配置，實作基於 MQTT 協定的海量車載數據同步。在物聯網的高併發、低延遲及大規模數據吞吐量要求下，維持系統的超高穩定性。</p>
                     </div>
                 </div>
@@ -414,21 +415,21 @@
                                 <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
                                 <a href="https://github.com/yefangwong/madaga" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">madaga</a>
                             </div>
-                            <span class="text-muted small">基於 Spring Boot 的企業級 Text-to-SQL 架構。</span>
+                            <span class="text-muted small">基於 Spring Boot 3 的企業級 Text-to-SQL 與 RAG 架構，整合 Lucene 9 + HNSW 向量近似檢索，並以 Project Panama FFM & SIMD 進行硬體級推論加速。</span>
                         </li>
                         <li>
                             <div class="d-flex align-items-center mb-1">
                                 <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
                                 <a href="https://github.com/yefangwong/llm-sql-guard" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">llm-sql-guard</a>
                             </div>
-                            <span class="text-muted small">AI 應用安全防禦層 (Text-to-SQL 安全診斷)。</span>
+                            <span class="text-muted small">AI 應用安全防禦層 (Text-to-SQL 安全診斷與 AST 阻斷閘門)。</span>
                         </li>
                         <li>
                             <div class="d-flex align-items-center mb-1">
                                 <img src="/images/github-mark.png" th:src="@{/images/github-mark.png}" style="vertical-align: middle; width: 22px; height: 22px;" alt="GitHub" class="me-2"/>
-                                <a href="https://github.com/yefangwong/min-char-irnn" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">min-char-irnn</a>
+                                <a href="https://github.com/yefangwong/min-char-irnn" target="_blank" class="text-gradient-mint text-decoration-none fw-bold">min-char-irnn (java-lstm)</a>
                             </div>
-                            <span class="text-muted small">以 Java 從底層實作 Identity RNN (IRNN)，解決長序列的梯度消失問題。</span>
+                            <span class="text-muted small">以 Java 從底層實作長序列遞歸神經網路 (IRNN/LSTM) 材料動力學引擎，結合旋轉等變與物理熱力學邊界約束，並利用 Vector API 進行 SIMD 運算加速與 Project Loom 進行高併發模擬。</span>
                         </li>
                     </ul>
                 </div>
@@ -439,7 +440,7 @@
 
 <footer class="sustain-footer py-4 mt-5 text-center">
     <div class="container">
-        <p class="mb-2">© 2026 德鴻方 DHF - 企業軟體永續化工程</p>
+        <p class="mb-2">© 2026 Enterprise AI-Native Demo - 企業軟體永續化工程</p>
         <p class="mb-0 text-muted" style="font-size: 0.85rem;">本網站完全採用低碳能效標準開發，減少地球資料中心與瀏覽端 CPU 負載。</p>
     </div>
 </footer>

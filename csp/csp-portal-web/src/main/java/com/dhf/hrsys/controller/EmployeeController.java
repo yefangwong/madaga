@@ -1,5 +1,6 @@
 package com.dhf.hrsys.controller;
 
+import com.dhf.hrsys.service.DepartmentService;
 import com.dhf.hrsys.service.EmployeeService;
 import com.dhf.hrsys.service.IGeneralDAOService;
 import com.dhf.util.JXLExcelBuilder;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,40 +22,40 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("emp")
+@RequestMapping("manage/emp")
 @Slf4j
 public class EmployeeController {
     final IGeneralDAOService generalDaoService;
-    private static List<Department> depList = new ArrayList<Department>();
-    EmployeeService empService;
-
-    static {
-        Department dep = new Department();
-        dep.setId(1);
-        dep.setNumber(1369);
-        dep.setName("資訊部");
-        depList.add(dep);
-        dep = new Department();
-        dep.setId(2);
-        dep.setNumber(2369);
-        dep.setName("財務部");
-        depList.add(dep);
-    }
+    final EmployeeService empService;
+    final DepartmentService depService;
 
     public EmployeeController(IGeneralDAOService generalDaoService,
-                              EmployeeService empService) {
+            EmployeeService empService,
+            DepartmentService depService) {
         this.generalDaoService = generalDaoService;
         this.empService = empService;
+        this.depService = depService;
     }
 
-    @RequestMapping(value="show")
+    @RequestMapping(value = "show")
     public String show() {
         return "emp/show";
     }
 
-    @RequestMapping(value="showAdd")
-    public String showAdd() {
-        return "emp/add";
+    @RequestMapping(value = "showAdd")
+    public ModelAndView showAdd() {
+        ModelAndView mv = new ModelAndView("emp/add");
+        mv.addObject("depList", depService.search(null));
+        return mv;
+    }
+
+    @RequestMapping("showUpdate")
+    public ModelAndView showUpdate(Integer id) {
+        Employee emp = empService.searchById(id);
+        ModelAndView mv = new ModelAndView("emp/update");
+        mv.addObject("emp", emp);
+        mv.addObject("depList", depService.search(null));
+        return mv;
     }
 
     @RequestMapping("search")
@@ -66,12 +68,12 @@ public class EmployeeController {
     @RequestMapping("getDepList")
     @ResponseBody
     public List<Department> getDepList() {
-        return depList;
+        return depService.search(null);
     }
 
     @PostMapping("export")
     public ModelAndView export(HttpServletRequest req,
-        HttpServletResponse res) throws Exception {
+            HttpServletResponse res) throws Exception {
         ModelAndView mv = null;
         Condition condition = new Condition();
         List<HashMap> dataList = getEmployeeList(condition);
@@ -81,24 +83,24 @@ public class EmployeeController {
 
         JXLExcelBuilder excelBuilder = new JXLExcelBuilder(res.getOutputStream());
         String titles[] = new String[] {
-            "編號",
-            "姓名",
-            "姓別",
-            "年齡",
-            "部門"
+                "編號",
+                "姓名",
+                "姓別",
+                "年齡",
+                "部門"
         };
 
         String colsMapTitles[] = new String[] {
-            "empId",
-            "empName",
-            "gender",
-            "age",
-            "depName"
+                "empId",
+                "empName",
+                "gender",
+                "age",
+                "depName"
         };
 
         excelBuilder.buildTitle(titles, colsMapTitles).buildBody(dataList);
         excelBuilder.build();
-        
+
         return mv;
     }
 
@@ -106,13 +108,40 @@ public class EmployeeController {
         return generalDaoService.queryForList("CUST_EMPLOYEE.SQL1");
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("delete")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> delete(Integer id) {
+        Employee emp = new Employee();
+        emp.setId(id);
+        boolean success = empService.delete(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "update")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> update(@RequestBody Employee emp) {
+        boolean success = empService.update(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("add")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<String> add(
+            @org.springframework.web.bind.annotation.RequestBody Employee emp) {
+        boolean success = empService.add(emp);
+        if (success) {
+            return org.springframework.http.ResponseEntity.ok("Success");
+        } else {
+            return org.springframework.http.ResponseEntity.status(500).body("Failed");
+        }
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) {

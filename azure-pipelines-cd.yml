@@ -1,0 +1,470 @@
+# ==============================================================================
+# azure-pipelines-cd.yml - Madaga CSP Portal CD Pipeline
+# ==============================================================================
+# 說明：
+# 1. 此管線用於將指定的 CI 編譯產物部署到目標環境。
+# 2. 當手動執行時，需要輸入：`buildNo` (CI Run ID)。
+# 3. 為了避免 Azure DevOps 在編譯時期 (Compile-time) 去驗證尚未建立的 Pipeline 
+#    或空的 Build ID，我們將參數對應到運行時期變數 (Runtime Variables)，繞過驗證機制。
+# ==============================================================================
+
+trigger: none # CD 僅手動觸發，不綁定分支自動執行
+
+pool:
+  name: 'Default' # 本地 Mac Self-hosted Agent
+
+parameters:
+  - name: buildNo
+    displayName: 'CI Build No. (Run ID)'
+    type: string
+    default: ''
+  - name: ciPipelineName
+    displayName: 'CI Pipeline 名稱 (請確保與您的 CI Pipeline 名稱一致)'
+    type: string
+    default: 'CI'
+  - name: sslKeystore
+    displayName: 'SSL Keystore 路徑 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+  - name: sslPassword
+    displayName: 'SSL 密碼 (PROD 方案 B 內嵌 SSL 才需填寫)'
+    type: string
+    default: ''
+  - name: deployDev
+    displayName: '部署至 DEV 環境'
+    type: boolean
+    default: true
+  - name: deploySit
+    displayName: '部署至 SIT 環境'
+    type: boolean
+    default: false
+  - name: deployUat
+    displayName: '部署至 UAT 環境'
+    type: boolean
+    default: false
+  - name: deployProd
+    displayName: '部署至 PROD 環境'
+    type: boolean
+    default: false
+  - name: deploySSH
+    displayName: '部署至外部 SSH VM (⚠️需先建立 service connection)'
+    type: boolean
+    default: false
+  - name: deployAzure
+    displayName: '部署至 Azure App Service (⚠️需先建立 service connection)'
+    type: boolean
+    default: false
+  - name: deployFlyIO
+    displayName: '部署至 Fly.io 雲端平台'
+    type: boolean
+    default: false
+
+# 將參數轉為運行時期 (Runtime) 變數，繞過 ADO 編譯時期的 Pipeline 名稱與 Build ID 強制存在驗證
+variables:
+  ciPipeline: '${{ parameters.ciPipelineName }}'
+  buildIdToDownload: '${{ parameters.buildNo }}'
+
+stages:
+  # ============================================================================
+  # Stage 1: DEV 部署 (Port 8080)
+  # ============================================================================
+  - stage: Deploy_DEV
+    displayName: '部署至 DEV 環境'
+    dependsOn: []
+    condition: and(succeeded(), eq('${{ parameters.deployDev }}', 'true'))
+    jobs:
+      - job: Deploy
+        displayName: '執行 DEV 部署'
+        steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          # 2. 簽出最新代碼以取得最新 deploy.sh
+          - checkout: self
+
+          # 3. 下載 CI 階段的 Artifact (使用 Runtime 變數，防止編譯失敗)
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 DEV 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              ${{ if eq(parameters.buildNo, '') }}:
+                buildVersionToDownload: 'latest'
+              ${{ else }}:
+                buildVersionToDownload: 'specific'
+                buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          # 3. 執行部署控制腳本
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/dev -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh dev "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 2: SIT 部署 (Port 8082)
+  # ============================================================================
+  - stage: Deploy_SIT
+    displayName: '部署至 SIT 環境'
+    dependsOn: []
+    condition: and(succeeded(), eq('${{ parameters.deploySit }}', 'true'))
+    jobs:
+      - job: Deploy
+        displayName: '執行 SIT 部署'
+        steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 SIT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              ${{ if eq(parameters.buildNo, '') }}:
+                buildVersionToDownload: 'latest'
+              ${{ else }}:
+                buildVersionToDownload: 'specific'
+                buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/sit -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh sit "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 3: UAT 部署 (Port 8083)
+  # ============================================================================
+  - stage: Deploy_UAT
+    displayName: '部署至 UAT 環境'
+    dependsOn: []
+    condition: and(succeeded(), eq('${{ parameters.deployUat }}', 'true'))
+    jobs:
+      - job: Deploy
+        displayName: '執行 UAT 部署'
+        steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 UAT 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              ${{ if eq(parameters.buildNo, '') }}:
+                buildVersionToDownload: 'latest'
+              ${{ else }}:
+                buildVersionToDownload: 'specific'
+                buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/uat -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh uat "$WAR_PATH"
+            displayName: '執行 deploy.sh'
+
+  # ============================================================================
+  # Stage 4: PROD 部署 (Port 80 或 Port 443 SSL)
+  # ============================================================================
+  - stage: Deploy_PROD
+    displayName: '部署至 PROD 環境'
+    dependsOn: []
+    condition: and(succeeded(), eq('${{ parameters.deployProd }}', 'true'))
+    jobs:
+      - job: Deploy
+        displayName: '執行 PROD 部署'
+        steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          - checkout: self
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              ${{ if eq(parameters.buildNo, '') }}:
+                buildVersionToDownload: 'latest'
+              ${{ else }}:
+                buildVersionToDownload: 'specific'
+                buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              chmod +x ./deploy.sh
+              WAR_PATH=$(find $(Pipeline.Workspace)/drop/Madaga-Artifacts/prod -name "*.war" ! -name "*.original" | head -n 1)
+              if [ -z "$WAR_PATH" ]; then
+                  echo "[ERROR] No WAR file found in downloaded artifacts!"
+                  exit 1
+              fi
+              echo "Deploying WAR: $WAR_PATH"
+              ./deploy.sh prod "$WAR_PATH" "" "${{ parameters.sslKeystore }}" "${{ parameters.sslPassword }}"
+            displayName: '執行 deploy.sh'
+  # ============================================================================
+  # Stage 5: [DISABLED TEMPLATE] 外部 Linux 伺服器部署 (SSH/SCP 方案)
+  # 說明：需要建立 my-ssh-server-connection 後再取消註解使用
+  # ============================================================================
+  # - stage: Deploy_External_SSH
+  #   displayName: '部署至外部 Linux VM (SSH)'
+  #   dependsOn: []
+  #   condition: and(succeeded(), eq('${{ parameters.deploySSH }}', 'true'))
+  #   jobs:
+  #     - job: Deploy
+  #       displayName: '執行 SSH 部署'
+  #       steps:
+  #         - checkout: self
+  #
+  #         - task: DownloadBuildArtifacts@1
+  #           displayName: '下載 PROD 專用 Artifact'
+  #           inputs:
+  #             buildType: 'specific'
+  #             project: '$(System.TeamProject)'
+  #             definition: '$(ciPipeline)'
+  #             ${{ if eq(parameters.buildNo, '') }}:
+  #               buildVersionToDownload: 'latest'
+  #             ${{ else }}:
+  #               buildVersionToDownload: 'specific'
+  #               buildId: '$(buildIdToDownload)'
+  #             downloadType: 'single'
+  #             artifactName: 'Madaga-Artifacts'
+  #             downloadPath: '$(Pipeline.Workspace)/drop'
+  #
+  #         # 1. 使用 SCP 將 WAR 傳送至外部伺服器
+  #         - task: CopyFilesOverSSH@0
+  #           displayName: '將 WAR 傳送至遠端伺服器'
+  #           inputs:
+  #             sshEndpoint: 'my-ssh-server-connection'
+  #             sourceFolder: '$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod'
+  #             contents: '*.war'
+  #             targetFolder: '/var/www/madaga-csp'
+  #             cleanTargetFolder: false
+  #             failOnEmptySource: true
+  #
+  #         # 2. 使用 SSH 在遠端執行重啟與部署指令
+  #         - task: SSH@2
+  #           displayName: '在遠端執行部署指令'
+  #           inputs:
+  #             sshEndpoint: 'my-ssh-server-connection'
+  #             runOptions: 'inline'
+  #             inlineScript: |
+  #               cd /var/www/madaga-csp
+  #               chmod +x ./deploy.sh
+  #               ./deploy.sh prod ./csp-portal-web-*.war
+
+  # ============================================================================
+  # Stage 6: [DISABLED TEMPLATE] Azure App Service PaaS 部署 (Azure 雲端方案)
+  # 說明：需要建立 my-azure-subscription-connection 後再取消註解使用
+  # ============================================================================
+  # - stage: Deploy_External_Azure
+  #   displayName: '部署至 Azure App Service (PaaS)'
+  #   dependsOn: []
+  #   condition: and(succeeded(), eq('${{ parameters.deployAzure }}', 'true'))
+  #   jobs:
+  #     - job: Deploy
+  #       displayName: '執行 Azure 部署'
+  #       steps:
+  #         - task: DownloadBuildArtifacts@1
+  #           displayName: '下載 PROD 專用 Artifact'
+  #           inputs:
+  #             buildType: 'specific'
+  #             project: '$(System.TeamProject)'
+  #             definition: '$(ciPipeline)'
+  #             ${{ if eq(parameters.buildNo, '') }}:
+  #               buildVersionToDownload: 'latest'
+  #             ${{ else }}:
+  #               buildVersionToDownload: 'specific'
+  #               buildId: '$(buildIdToDownload)'
+  #             downloadType: 'single'
+  #             artifactName: 'Madaga-Artifacts'
+  #             downloadPath: '$(Pipeline.Workspace)/drop'
+  #
+  #         # 使用 ADO 內建的 AzureWebApp@1 直接將 WAR 部署至 Azure App Service
+  #         - task: AzureWebApp@1
+  #           displayName: '部署至 Azure Web App'
+  #           inputs:
+  #             azureSubscription: 'my-azure-subscription-connection'
+  #             appType: 'webAppLinux'
+  #             appName: 'my-csp-portal-web'
+  #             package: '$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod/**/*.war'
+  #             runtimeStack: 'TOMCAT|10.0-java17'
+
+  # ============================================================================
+  # Stage 7: Fly.io Cloud 部署 (Fly.io 雲端方案)
+  # ============================================================================
+  - stage: Deploy_FlyIO
+    displayName: '部署至 Fly.io 雲端平台'
+    dependsOn: []
+    condition: and(succeeded(), eq('${{ parameters.deployFlyIO }}', 'true'))
+    jobs:
+      - job: Deploy
+        displayName: '執行 Fly.io 部署'
+        steps:
+          # 1. 驗證 Build ID 格式
+          - bash: |
+              BUILD_NO="${{ parameters.buildNo }}"
+              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
+                  echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
+                  echo ""
+                  echo "如何取得數值型態的 Build ID："
+                  echo "1. 點進您的 CI 流水線該次執行記錄。"
+                  echo "2. 查看網頁網址（URL），尾端會顯示 '?buildId=XXXXX'。"
+                  echo "3. 請複製該 XXXXX 數字，並填入 CD 流水線的 buildNo 參數中。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+            displayName: '驗證 Build ID 格式'
+
+          - task: DownloadBuildArtifacts@1
+            displayName: '下載 PROD 專用 Artifact'
+            inputs:
+              buildType: 'specific'
+              project: '$(System.TeamProject)'
+              definition: '$(ciPipeline)'
+              ${{ if eq(parameters.buildNo, '') }}:
+                buildVersionToDownload: 'latest'
+              ${{ else }}:
+                buildVersionToDownload: 'specific'
+                buildId: '$(buildIdToDownload)'
+              downloadType: 'single'
+              artifactName: 'Madaga-Artifacts'
+              downloadPath: '$(Pipeline.Workspace)/drop'
+
+          - bash: |
+              # 優先尋找 prod 資料夾，若不存在則尋找 dev, sit, uat 資料夾
+              if [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/prod"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/dev" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/dev"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/sit" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/sit"
+              elif [ -d "$(Pipeline.Workspace)/drop/Madaga-Artifacts/uat" ]; then
+                  cd "$(Pipeline.Workspace)/drop/Madaga-Artifacts/uat"
+              else
+                  echo "[ERROR] No deployment environment folder (prod, dev, sit, uat) found in artifacts!"
+                  exit 1
+              fi
+              
+              echo "Working directory: $(pwd)"
+              
+              # 強制修正 fly.toml 中的部署區域為新加坡 (sin)，避免因歷史編譯產物殘留 hkg 導致部署失敗
+              if [ -f "fly.toml" ]; then
+                  echo "Updating fly.toml region to sin..."
+                  python3 -c "import re; f = open('fly.toml', 'r+'); content = f.read(); f.seek(0); f.write(re.sub(r'primary_region\s*=\s*\".*\"', 'primary_region = \"sin\"', content)); f.truncate()"
+              fi
+
+              if [ ! -f "fly.toml" ] || [ ! -f "Dockerfile" ]; then
+                  echo "[ERROR] fly.toml or Dockerfile not found in artifacts!"
+                  exit 1
+              fi
+              
+              # 驗證 FLY_API_TOKEN 是否有正確設定
+              if [ -z "$FLY_API_TOKEN" ] || [ "$FLY_API_TOKEN" = "\$(FLY_API_TOKEN)" ]; then
+                  echo "=========================================================================="
+                  echo "[ERROR] 未設定或無效的 FLY_API_TOKEN。"
+                  echo "請在 Azure DevOps 該 CD 流水線的 Variables（變數）或 Variable Group（變數群組）中，"
+                  echo "新增一個名為 'FLY_API_TOKEN' 的變數，並填入您的 Fly.io API Token。"
+                  echo "=========================================================================="
+                  exit 1
+              fi
+              
+              # 確保 flyctl 可用，使用絕對路徑或加到 PATH
+              export PATH=$PATH:$HOME/.fly/bin
+              
+              echo "Deploying to Fly.io..."
+              flyctl deploy
+            displayName: '執行 flyctl deploy'
+            env:
+              FLY_API_TOKEN: $(FLY_API_TOKEN)

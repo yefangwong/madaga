@@ -7,12 +7,12 @@
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>新增員工</title>
+    <title>修改員工</title>
     <!-- CSRF Token Meta Tags for AJAX POST requests -->
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     
-    <script>
+    <script th:inline="javascript">
         $(function() {
             // Configure Axios to automatically include the CSRF token in header
             let token = $("meta[name='_csrf']").attr("content");
@@ -25,18 +25,19 @@
                 el: "#container",
                 data: {
                     form: {
-                        number: null,
-                        name: null,
-                        gender: '男',
-                        age: null,
+                        id: [[${emp != null ? emp.id : null}]],
+                        number: [[${emp != null ? emp.number : null}]],
+                        name: [[${emp != null ? emp.name : null}]],
+                        gender: [[${emp != null ? emp.gender : '男'}]],
+                        age: [[${emp != null ? emp.age : null}]],
                         dep: {
-                            id: ""
+                            id: [[${emp != null && emp.dep != null ? emp.dep.id : ''}]]
                         }
                     }
                 },
                 methods: {
-                    add: function() {
-                        axios.post('add', this.form)
+                    update: function() {
+                        axios.post('update', this.form)
                             .then(function (res) {
                                 location.href = 'show';
                             }.bind(this))
@@ -48,10 +49,10 @@
 </head>
 <body>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">新增員工</h1>
+        <h1 class="h2">修改員工</h1>
     </div>
     <div id="container" class="container-fluid" style="max-width: 600px; margin-left: 0; padding-left: 0;">
-        <form action="add" method="POST" class="needs-validation" novalidate @submit.prevent="add">
+        <form action="update" method="POST" class="needs-validation" novalidate @submit.prevent="update">
             <div class="mb-3">
                 <label class="form-label">編號</label>
                 <input type="text" class="form-control" placeholder="請輸入編號" name="number" v-model="form.number" required />

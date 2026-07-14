@@ -49,7 +49,7 @@ public class ThymeleafLayoutInterceptorTest {
     @Test
     public void testPostHandleWithDefaultLayout() throws Exception {
         // 模擬 EmployeeController，它沒有 @Layout 註解
-        EmployeeController controller = new EmployeeController(null, null);
+        EmployeeController controller = new EmployeeController(null, null, null);
         Method method = EmployeeController.class.getMethod("show");
         HandlerMethod handlerMethod = new HandlerMethod(controller, method);
 

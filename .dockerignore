@@ -1,0 +1,24 @@
+# Git and IDE files
+.git
+.gitignore
+.idea
+.vscode
+.settings
+.metadata
+.recommenders
+.project
+.sonarlint
+
+# Ignore all target files by default to avoid uploading large build files
+csp/*/target
+target
+
+# Re-include ONLY the csp-portal-web target WAR file
+!csp/csp-portal-web/target/csp-portal-web-*.war
+
+# Large files and logs
+*.zip
+*.log
+logs
+output
+venv

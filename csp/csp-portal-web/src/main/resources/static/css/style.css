@@ -14,3 +14,43 @@
     margin-top: 8px;
     width: 237px;
 }
+
+tr.data {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+tr.data:hover {
+    background-color: rgba(0, 118, 185, 0.04) !important;
+}
+
+tr.data.selected {
+    background-color: rgba(0, 118, 185, 0.12) !important;
+    color: #004F7C !important;
+    font-weight: 600;
+}
+
+tr.data td:first-child {
+    position: relative;
+}
+
+tr.data td:first-child::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background-color: var(--primary-blue, #0076B9);
+    transition: width 0.2s ease;
+}
+
+tr.data.selected td:first-child::before {
+    width: 4px;
+}
+
+.search-area {
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+}

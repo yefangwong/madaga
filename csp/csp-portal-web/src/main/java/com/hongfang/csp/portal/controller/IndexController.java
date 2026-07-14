@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    @RequestMapping(value = {"/index", "/"})
-    public String homePage() {
-        return "index";
-    }
-
-    @RequestMapping(value = {"/index_zh"})
+    @RequestMapping(value = {"/", "/index", "/index_zh"})
     public String homePageZh() {
         return "index_zh";
+    }
+
+    @RequestMapping(value = {"/index_en"})
+    public String homePageEn() {
+        return "index";
     }
 
     @RequestMapping(value = {"/sustainability"})
@@ -54,7 +54,7 @@ public class IndexController {
     @RequestMapping(value = {"/suite"})
     public String suite(Model model) {
         model.addAttribute("title", "Enterprise AI Solution Suite");
-        model.addAttribute("description", "An advanced suite combining MADAGA Text-to-SQL engine and LLM-SQL-Guard security layer to enable secure, natural language data querying.");
+        model.addAttribute("description", "An advanced suite combining MADAGA Text-to-SQL engine (optimized with local TF-IDF Schema Linking for sub-millisecond mapping) and LLM-SQL-Guard security layer to enable secure, natural language data querying.");
         model.addAttribute("switchUrl", "/suite_zh");
         return "coming_soon";
     }
@@ -62,7 +62,7 @@ public class IndexController {
     @RequestMapping(value = {"/suite_zh"})
     public String suiteZh(Model model) {
         model.addAttribute("title", "企業級 AI 解決方案套件 (AI Solution Suite)");
-        model.addAttribute("description", "結合 MADAGA 自然語言轉 SQL 引擎與 LLM-SQL-Guard 安全防禦層的先進套件，實現安全且人性化的數據查詢。");
+        model.addAttribute("description", "結合 MADAGA 自然語言轉 SQL 引擎（導入本地 TF-IDF Schema Linking 達毫秒級架構匹配）與 LLM-SQL-Guard 安全防禦層的先進套件，實現安全、高效且人性化的數據查詢。");
         model.addAttribute("switchUrl", "/suite");
         return "coming_soon_zh";
     }

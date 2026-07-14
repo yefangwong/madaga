@@ -29,21 +29,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee searchById(int id) {
-        return null;
+        return empDao.searchById(id);
     }
 
     @Override
     public boolean add(Employee emp) {
-        return false;
+        int result = empDao.add(emp);
+        return result > 0;
     }
 
     @Override
     public boolean update(Employee emp) {
-        return false;
+        int result = empDao.update(emp);
+        return result > 0;
     }
 
     @Override
     public boolean delete(Employee emp) {
-        return false;
+        int result = empDao.delete(emp.getId());
+        return result > 0;
     }
 }

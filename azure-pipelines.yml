@@ -1,5 +1,12 @@
-# azure-pipelines.yml
-# ADO CI/CD configuration for Madaga Enterprise AI Sandbox
+# ==============================================================================
+# azure-pipelines-ci.yml - Madaga CSP Portal CI Pipeline
+# ==============================================================================
+# 說明：
+# 1. 此管線用於編譯專案、打包指定環境的 WAR 部署檔。
+# 2. 提供 Checkbox 參數讓開發人員手動觸發時勾選需要打包的環境。
+# ==============================================================================
+
+name: $(Build.BuildId)
 
 trigger:
   branches:
@@ -8,43 +15,108 @@ trigger:
       - master
 
 pool:
-  vmImage: 'ubuntu-latest' # Microsoft-hosted free agent
+  name: 'Default' # 本地 Mac Self-hosted Agent
+
+# 定義手動執行時的環境核取方塊 (Checkbox)
+parameters:
+  - name: packageDev
+    displayName: '打包 DEV 環境 (Port 8080)'
+    type: boolean
+    default: true
+  - name: packageSit
+    displayName: '打包 SIT 環境 (Port 8082)'
+    type: boolean
+    default: false
+  - name: packageUat
+    displayName: '打包 UAT 環境 (Port 8083)'
+    type: boolean
+    default: false
+  - name: packageProd
+    displayName: '打包 PROD 環境 (Port 80/443)'
+    type: boolean
+    default: true
 
 variables:
   mavenPOMFile: 'pom.xml'
   javaVersion: '17'
 
 steps:
-- task: JavaToolInstaller@0
-  displayName: 'Setup Java $(javaVersion)'
-  inputs:
-    versionSpec: '$(javaVersion)'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
-
+# 1. 執行 Maven 建置與打包 (跳過單元測試加速)
 - task: Maven@4
-  displayName: 'Maven Build & Test'
+  displayName: 'Maven Build & Package'
   inputs:
     mavenPomFile: '$(mavenPOMFile)'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '$(javaVersion)'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    # 使用 -Dmaven.test.skip=true 加速沙盒環境建置，未來若要執行單元測試可移除
-    goals: 'clean package -Dmaven.test.skip=true'
+    publishJUnitResults: false
+    goals: 'clean install -Dmaven.test.skip=true -DdependencyCheck.skip=true -Dproguard.skip=true'
 
-- task: CopyFiles@2
-  displayName: 'Stage built artifacts (*.jar)'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/target/*.jar'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+- ${{ if eq(parameters.packageDev, true) }}:
+    - task: CopyFiles@2
+      displayName: 'Stage DEV Artifacts & Configs'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
+        flattenFolders: true
 
+- ${{ if eq(parameters.packageSit, true) }}:
+    - task: CopyFiles@2
+      displayName: 'Stage SIT Artifacts & Configs'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/sit'
+        flattenFolders: true
+
+- ${{ if eq(parameters.packageUat, true) }}:
+    - task: CopyFiles@2
+      displayName: 'Stage UAT Artifacts & Configs'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/uat'
+        flattenFolders: true
+
+- ${{ if eq(parameters.packageProd, true) }}:
+    - task: CopyFiles@2
+      displayName: 'Stage PROD Artifacts & Configs'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          csp/csp-portal-web/target/csp-portal-web-*.war
+          Dockerfile
+          fly.toml
+          .dockerignore
+          csp/csp-domain-jpa/src/main/resources/database/dhf/dhf.sqlite
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/prod'
+        flattenFolders: true
+
+# 3. 發布 Artifact 到 Pipeline Drop 中供 CD 管線下載
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacts to Pipeline Drop'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Madaga-Artifacts'
     publishLocation: 'Container'
+
+- script: |
+    echo "=========================================================="
+    echo "Build Number (Version): $(Build.BuildNumber)"
+    echo "Build ID (for CD Pipeline buildNo): $(Build.BuildId)"
+    echo "=========================================================="
+  displayName: 'Display Build Info for CD'

@@ -1,0 +1,64 @@
+<!--
+  History
+  --------------------------------------------
+  2026/7/14 yfwong inital version.
+-->
+<!doctype html>
+<html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>新增部門</title>
+    <!-- CSRF Token Meta Tags for AJAX POST requests -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    
+    <script>
+        $(function() {
+            // Configure Axios to automatically include the CSRF token in header
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+            if (token && header) {
+                axios.defaults.headers.common[header] = token;
+            }
+
+            let vue = new Vue({
+                el: "#container",
+                data: {
+                    form: {
+                        number: null,
+                        name: null
+                    }
+                },
+                methods: {
+                    add: function() {
+                        axios.post('add', this.form)
+                            .then(function (res) {
+                                location.href = 'show';
+                            }.bind(this))
+                    }
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">新增部門</h1>
+    </div>
+    <div id="container" class="container-fluid" style="max-width: 600px; margin-left: 0; padding-left: 0;">
+        <form action="add" method="POST" class="needs-validation" novalidate @submit.prevent="add">
+            <div class="mb-3">
+                <label class="form-label">編號</label>
+                <input type="text" class="form-control" placeholder="請輸入部門編號" name="number" v-model="form.number" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">名稱</label>
+                <input type="text" class="form-control" placeholder="請輸入部門名稱" name="name" v-model="form.name" required />
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary me-2">存檔</button>
+                <button type="button" class="btn btn-secondary" onclick="history.back()">返回</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
