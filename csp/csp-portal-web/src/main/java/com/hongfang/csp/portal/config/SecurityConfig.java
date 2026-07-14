@@ -43,7 +43,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
-                "/emp/export",
+                "/manage/emp/export",
                 "/api/question");
     }
 

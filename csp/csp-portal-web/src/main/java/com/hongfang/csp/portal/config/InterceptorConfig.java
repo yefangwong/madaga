@@ -35,8 +35,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(thymeleafLayoutInterceptor)
                 .addPathPatterns(
                     "/dashboard/**",
-                    "/emp/**",
-                    "/department/**",
+                    "/manage/**",
                     "/energy/**")
                 .excludePathPatterns("/register/**", "/css/**", "/images/**",
                         "/js/**");

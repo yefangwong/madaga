@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping("emp")
+@RequestMapping("manage/emp")
 @Slf4j
 public class EmployeeController {
     final IGeneralDAOService generalDaoService;
