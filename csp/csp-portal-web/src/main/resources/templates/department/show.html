@@ -2,6 +2,7 @@
   History
   --------------------------------------------
   2026/7/14 yfwong inital version.
+  2026/07/15 yfwong refactor to use custom <data-toolbar> component
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
@@ -118,12 +119,7 @@
             </tr>
         </table>
     </div>
-    <div class="d-grid gap-2 d-md-block" role="toolbar">
-        <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
-        <button type="button" id="update" class="btn btn-primary csp-btn-spacing" @click="showUpdate">修改</button>
-        <button type="button" id="delete" class="btn btn-primary csp-btn-spacing" @click="deleteData">刪除</button>
-    </div>
+    <data-toolbar @add="showAdd" @edit="showUpdate" @delete="deleteData"></data-toolbar>
 </div>
 </body>
-
 </html>

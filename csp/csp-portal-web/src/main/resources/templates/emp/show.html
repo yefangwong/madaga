@@ -3,6 +3,7 @@
   --------------------------------------------
   2023/2/1 yfwong inital version. (Thymleaf)
   2024/3/3 yfwong move front end template to Vue.js
+  2026/07/15 yfwong refactor to use custom <data-toolbar> component
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
@@ -398,11 +399,7 @@
                 </tr>
             </table>
         </div>
-        <div class="d-grid gap-2 d-md-block" role="toolbar">
-            <button type="button" id="add" class="btn btn-primary csp-btn-spacing" @click="showAdd">新增</button>
-            <button type="button" id="update" class="btn btn-primary csp-btn-spacing" @click="showUpdate">修改</button>
-            <button type="button" id="delete" class="btn btn-primary csp-btn-spacing" @click="deleteData">刪除</button>
-        </div>
+        <data-toolbar @add="showAdd" @edit="showUpdate" @delete="deleteData"></data-toolbar>
     </div>
 </body>
 
