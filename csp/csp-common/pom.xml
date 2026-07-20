@@ -45,6 +45,9 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<!--	Fix CVE-2021-37533 End -->
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
 	</dependencies>
 </project>

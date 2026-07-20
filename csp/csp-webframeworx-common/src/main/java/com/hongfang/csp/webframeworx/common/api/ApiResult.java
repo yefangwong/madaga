@@ -16,14 +16,8 @@
 
 package com.hongfang.csp.webframeworx.common.api;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -34,39 +28,73 @@ import java.util.Date;
  * @author yfwong
  * @since 2020-04-29
  */
-@Data
-@Accessors(chain = true)
-@Builder
-@AllArgsConstructor
-public class ApiResult<T> implements Serializable {
-    /**
-     * 回傳代碼
-     */
-    private int code;
-
-    /**
-     * 是否成功
-     */
-    private boolean success;
-
-    /**
-     * 回應訊息
-     */
-    private String message;
-
-    /**
-     * 回應數據
-     */
-    private T data;
-
-    /**
-     * 回應時間
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date time;
+public class ApiResult<T> extends common.api.ApiResult<T> {
 
     public ApiResult() {
-        time = new Date();
+        super();
+    }
+
+    public ApiResult(int code, boolean success, String message, T data, Date time, long timestamp) {
+        super(code, success, message, data, time, timestamp);
+    }
+
+    // =========================================================================
+    // 兒子重寫 builder()：確保其 build() 產出的是兒子的 ApiResult<T>！
+    // =========================================================================
+    public static <T> WebApiResultBuilder<T> builder() {
+        return new WebApiResultBuilder<>();
+    }
+
+    public static class WebApiResultBuilder<T> extends common.api.ApiResult.ApiResultBuilder<T> {
+        @Override
+        public WebApiResultBuilder<T> code(int code) {
+            this.code = code;
+            return this;
+        }
+        @Override
+        public WebApiResultBuilder<T> success(boolean success) {
+            this.success = success;
+            return this;
+        }
+        @Override
+        public WebApiResultBuilder<T> message(String message) {
+            this.message = message;
+            return this;
+        }
+        @Override
+        public WebApiResultBuilder<T> data(T data) {
+            this.data = data;
+            return this;
+        }
+        @Override
+        public WebApiResultBuilder<T> time(Date time) {
+            this.time = time;
+            return this;
+        }
+        @Override
+        public WebApiResultBuilder<T> timestamp(long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+        // 核心關鍵：build() 回傳的是兒子的 ApiResult<T>！
+        public ApiResult<T> build() {
+            return new ApiResult<>(code, success, message, data, time, timestamp);
+        }
+    }
+
+    // ========================================================
+    // 協變覆寫（Covariant Override）: 將回覆型態覆寫回兒子自己
+    // ========================================================
+    @Override
+    public ApiResult<T> setCode(int code) { super.setCode(code); return this; }
+    @Override
+    public ApiResult<T> setSuccess(boolean success) { super.setSuccess(success); return this; }
+    @Override
+    public ApiResult<T> setMessage(String message) { super.setMessage(message); return this; }
+    @Override
+    public ApiResult<T> setData(T data) {
+        super.setData(data);
+        return this;
     }
 
     public static <T> ApiResult<T> ok(T data) {
@@ -82,7 +110,8 @@ public class ApiResult<T> implements Serializable {
         if (apiCode.getCode() == ApiCode.SUCCESS.getCode()) {
             success = true;
         }
-        if (StringUtils.isNotBlank(apiCode.getMessage())) {
+        // 修正：只有當傳進來的 message 是空白時，才拿 apiCode 的預設訊息 ("操作成功")
+        if (StringUtils.isBlank(message) && apiCode != null) {
             message = apiCode.getMessage();
         }
         return (ApiResult<T>)ApiResult.builder()
