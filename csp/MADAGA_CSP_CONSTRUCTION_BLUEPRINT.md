@@ -64,7 +64,7 @@
 - [x] **Step 1.5**: 在 `csp-base` 建立 `net.yefangwong.csp.common.bl.BaseBL` (規範 5 大生命週期，前置驗證回傳 `boolean`，內建 `AppErrors` 診斷集，已完成階段 1 建置)。
 
 ### 🔨 階段 2：通用上下文與實體底座施工 (Modules: `csp-base-domain` & `csp-domain-jpa`)
-- [ ] **Step 2.1**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.GlobalContext` (operatorEmail, comCode, clientIp, role)。
+- [x] **Step 2.1**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.GlobalContext` (operatorEmail, comCode, clientIp, role, traceId，已完成 100% 單元測試)。
 - [ ] **Step 2.2**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.DataPipeline` (打包 GlobalContext 與 Payload 物件)。
 - [ ] **Step 2.3**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.BaseEntity` (id, createdAt, updatedAt)。
 - [ ] **Step 2.4**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.EntitySet` (強型別批次集合承載體)。
