@@ -34,8 +34,8 @@ public class ApiResult<T> extends common.api.ApiResult<T> {
         super();
     }
 
-    public ApiResult(int code, boolean success, String message, T data, Date time, long timestamp) {
-        super(code, success, message, data, time, timestamp);
+    public ApiResult(int code, boolean success, String message, T data, Date time) {
+        super(code, success, message, data, time);
     }
 
     // =========================================================================
@@ -71,14 +71,9 @@ public class ApiResult<T> extends common.api.ApiResult<T> {
             this.time = time;
             return this;
         }
-        @Override
-        public WebApiResultBuilder<T> timestamp(long timestamp) {
-            this.timestamp = timestamp;
-            return this;
-        }
         // 核心關鍵：build() 回傳的是兒子的 ApiResult<T>！
         public ApiResult<T> build() {
-            return new ApiResult<>(code, success, message, data, time, timestamp);
+            return new ApiResult<>(code, success, message, data, time);
         }
     }
 

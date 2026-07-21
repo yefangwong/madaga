@@ -37,37 +37,33 @@ public class ApiResult<T> implements Serializable {
     private String message;
     private T data;
 
-    private long timestamp = System.currentTimeMillis();
-
     public ApiResult(){
         time = new Date();
-        this.timestamp = System.currentTimeMillis();
     }
 
-    public ApiResult(int code, boolean success, String message, T data, Date time, long timestamp) {
+    public ApiResult(int code, boolean success, String message, T data, Date time) {
         this.code = code;
         this.success = success;
         this.message = message;
         this.data = data;
         this.time = time;
-        this.timestamp = (timestamp > 0) ? timestamp : System.currentTimeMillis();
     }
 
     // 工廠靜態方法
     public static <T> ApiResult<T> success() {
-        return new ApiResult<>(200, true, "Success", null, new Date(), System.currentTimeMillis());
+        return new ApiResult<>(200, true, "Success", null, new Date());
     }
 
     public static <T> ApiResult<T> success(T data) {
-        return new ApiResult<>(200, true, "Success", data, new Date(), System.currentTimeMillis());
+        return new ApiResult<>(200, true, "Success", data, new Date());
     }
 
     public static <T> ApiResult<T> success(String message, T data) {
-        return new ApiResult<>(200, true, message, data, new Date(), System.currentTimeMillis());
+        return new ApiResult<>(200, true, message, data, new Date());
     }
 
     public static <T> ApiResult<T> failure(int code, String message) {
-        return new ApiResult<>(code, false, message, null, new Date(), System.currentTimeMillis());
+        return new ApiResult<>(code, false, message, null, new Date());
     }
 
     // 原生 Builder 模式支援：ApiResult.<String>builder().code(200).build();
@@ -82,7 +78,6 @@ public class ApiResult<T> implements Serializable {
         protected String message = "Success";
         protected T data;
         protected Date time;
-        protected long timestamp = System.currentTimeMillis();
 
         public ApiResultBuilder<T> code(int code) {
             this.code = code;
@@ -109,13 +104,8 @@ public class ApiResult<T> implements Serializable {
             return this;
         }
 
-        public ApiResultBuilder<T> timestamp(long timestamp) {
-            this.timestamp = timestamp;
-            return this;
-        }
-
         public ApiResult<T> build() {
-            return new ApiResult<>(code, success, message, data, time, timestamp);
+            return new ApiResult<>(code, success, message, data, time);
         }
     }
 
@@ -143,11 +133,6 @@ public class ApiResult<T> implements Serializable {
     public Date getTime() { return this.time; }
     public ApiResult<T> setTime(Date time) {
         this.time = time;
-        return this;
-    }
-    public long getTimestamp() { return timestamp; }
-    public ApiResult<T> setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
         return this;
     }
 }

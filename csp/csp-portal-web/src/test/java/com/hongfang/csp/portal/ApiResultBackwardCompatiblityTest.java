@@ -25,7 +25,6 @@ public class ApiResultBackwardCompatiblityTest {
         assertEquals("操作成功", result.getMessage(), "舊版 ApiResult.ok 預設訊息為 操作成功");
         assertEquals(testPayload, result.getData(), "Payload 必須一致");
         assertNotNull(result.getTime(), "舊版 Date time 不可為 null");
-        assertTrue(result.getTimestamp() > 0, "新版毫秒 timestamp 必須大於 0");
     }
     @Test
     @DisplayName("測試 2：驗證舊版 ApiResult.result(ApiCode, message, data) 語法相容")
@@ -60,7 +59,6 @@ public class ApiResultBackwardCompatiblityTest {
                 .message("Builder Mode OK")
                 .data("Payload")
                 .time(now)
-                .timestamp(now.getTime())
                 .build();
         assertEquals(200, result.getCode());
         assertEquals("Builder Mode OK", result.getMessage());
@@ -77,6 +75,5 @@ public class ApiResultBackwardCompatiblityTest {
         assertTrue(jsonString.contains("\"code\":200"));
         assertTrue(jsonString.contains("\"success\":true"));
         assertTrue(jsonString.contains("\"time\":"));
-        assertTrue(jsonString.contains("\"timestamp\":"));
     }
 }
