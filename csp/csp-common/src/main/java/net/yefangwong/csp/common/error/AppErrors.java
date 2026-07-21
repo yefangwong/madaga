@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 原創 AppErrors - 多重錯誤累積與鏈式診斷容器
+ * AppErrors - 多重錯誤累積與鏈式診斷容器
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 核心診斷容器
  * 程 式 代 號 ：AppErrors.java

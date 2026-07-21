@@ -218,7 +218,7 @@ public class DataPipeline implements Serializable {
     public Map<String, Object> getDataMap() {
         return Collections.unmodifiableMap(dataMap);
     }
-    
+
     @Override
     public String toString() {
         return "DataPipeline{" +

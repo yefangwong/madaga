@@ -276,11 +276,95 @@ public class DynamicProcessBL extends BaseBL<DataPipeline, Object> {
 
 ## 🗄️ 4. 持久層與事務管理規範 (Persistence & Transactions)
 
-1. **主流框架：MyBatis + Spring `@Transactional`**：
-   * 業務操作建議於 Delegate / Controller 層加註 `@Transactional`。
-   * 異動操作在 `executeBusiness` 內部完成，無須手動 Commit/Rollback。
-2. **原生 JDBC 引擎：`ISqlExecutor` & `DataRecordSet`**：
-   * 提供予超高併發或獨立低程式碼工具 (`CspSchemaCompiler`) 選配使用。
+### 4.1 主流框架規範：MyBatis + Spring `@Transactional`
+* 業務操作建議於 Delegate / Controller 層加註 `@Transactional`。
+* 異動操作在 `executeBusiness` 內部完成，無須手動 Commit/Rollback。
+* 原生 JDBC 引擎 (`ISqlExecutor`) 視為選配基礎設施，僅用於微秒級極速需求。
+
+---
+
+### 4.2 應用端 DAO / Mapper 開發 SOP (4 步驟示範)
+
+所有應用模組 (如 `net.yefangwong.patchverify`) 的 DAO 開發統一遵循以下 4 步驟 SOP：
+
+#### Step 1: 建立應用端 Entity (繼承 `BaseEntity<ID>`)
+```java
+package net.yefangwong.patchverify.entity;
+
+import net.yefangwong.csp.common.entity.BaseEntity;
+
+public class VulnerabilityEntity extends BaseEntity<Long> {
+    private String cveId;
+    private String severity;
+    private String status;
+
+    // Getters & Setters ...
+}
+```
+
+#### Step 2: 建立 Mapper 介面加註 `@Mapper`
+```java
+package net.yefangwong.patchverify.dao;
+
+import net.yefangwong.patchverify.entity.VulnerabilityEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+
+@Mapper
+public interface VulnerabilityMapper {
+    int insert(VulnerabilityEntity entity);
+    VulnerabilityEntity selectByCveId(@Param("cveId") String cveId);
+    int updateStatus(@Param("cveId") String cveId, @Param("status") String status);
+    List<VulnerabilityEntity> selectPage(@Param("offset") int offset, @Param("limit") int limit, @Param("status") String status);
+    long countTotal(@Param("status") String status);
+}
+```
+
+#### Step 3: 編寫 Mapper.xml SQL 檔
+`src/main/resources/mapper/VulnerabilityMapper.xml`:
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yefangwong.patchverify.dao.VulnerabilityMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tbl_vulnerability (cve_id, severity, status, remark, created_at, updated_at)
+        VALUES (#{cveId}, #{severity}, #{status}, #{remark}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="selectByCveId" resultType="net.yefangwong.patchverify.entity.VulnerabilityEntity">
+        SELECT id, cve_id AS cveId, severity, status, remark, created_at AS createdAt, updated_at AS updatedAt
+        FROM tbl_vulnerability
+        WHERE cve_id = #{cveId}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE tbl_vulnerability
+        SET status = #{status}, updated_at = NOW()
+        WHERE cve_id = #{cveId}
+    </update>
+
+</mapper>
+```
+
+#### Step 4: 在 `BaseBL` 的 `executeBusiness()` 中直連 Mapper 操作
+```java
+public class PatchApproveBL extends BaseBL<PatchApproveRequest, PatchApproveResponse> {
+    private final VulnerabilityMapper vulnerabilityMapper;
+
+    public PatchApproveBL(VulnerabilityMapper vulnerabilityMapper) {
+        this.vulnerabilityMapper = vulnerabilityMapper;
+    }
+
+    @Override
+    protected PatchApproveResponse executeBusiness(PatchApproveRequest request) throws Exception {
+        vulnerabilityMapper.updateStatus(request.getCveId(), "APPROVED");
+        return new PatchApproveResponse(request.getCveId(), "APPROVED");
+    }
+}
+```
 
 ---
 

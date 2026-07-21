@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 原創 PageResult - 通用 REST API 分頁數據封裝
+ * PageResult - 通用 REST API 分頁數據封裝
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 核心 API 響應
  * 程 式 代 號 ：PageResult.java

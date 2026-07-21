@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 原創 BaseBL - 業務邏輯層 5 大生命週期抽象基類
+ * BaseBL - 業務邏輯層 5 大生命週期抽象基類
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 業務邏輯基底
  * 程 式 代 號 ：BaseBL.java

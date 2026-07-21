@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 原創 AppError - 全域通用錯誤載體
+ * 通用錯誤載體
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 核心診斷載體
  * 程 式 代 號 ：AppError.java

@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * 原創 GlobalContext - 全域操作上下文
+ * GlobalContext - 全域操作上下文
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 核心全域上下文
  * 程 式 代 號 ：GlobalContext.java
