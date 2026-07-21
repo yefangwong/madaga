@@ -37,15 +37,57 @@
 
 ### 2.2 強型別分頁數據封裝：`PageResult<T>`
 * **Package**: `net.yefangwong.csp.common.api.PageResult`
-* **設計理念**：提供 1-indexed 標準分頁，內建 `totalPages` 自動計算與防呆機制。
+* **設計理念**：提供 1-indexed 標準分頁，內建 `totalPages` 自動計算 (`ceil(total / pageSize)`) 與防呆機制。
+* **核心欄位**：`pageNum` (頁碼), `pageSize` (每頁筆數), `total` (總筆數), `totalPages` (總頁數), `list` (資料列表)。
 * **使用範例**：
-  ```java
-  // 工廠建構
-  PageResult<UserVO> page = PageResult.of(pageNum, pageSize, total, userList);
-  
-  // 空頁建構
-  PageResult<UserVO> emptyPage = PageResult.empty(pageNum, pageSize);
-  ```
+
+#### 範例 1：靜態工廠與 Builder 構建
+```java
+// 1. 靜態工廠常用方式 (傳入 頁碼, 每頁筆數, 總筆數, 數據列表)
+PageResult<UserVO> page = PageResult.of(pageNum, pageSize, total, userList);
+
+// 2. 空頁建構 (當查詢筆數為 0 時)
+PageResult<UserVO> emptyPage = PageResult.empty(pageNum, pageSize);
+
+// 3. Builder 模式鏈式構建
+PageResult<UserVO> customPage = PageResult.<UserVO>builder()
+    .pageNum(1)
+    .pageSize(20)
+    .total(85L)
+    .list(userList)
+    .build();
+```
+
+#### 範例 2：於 `BaseBL` 與 Controller 中搭配 `ApiResult<PageResult<T>>` 回傳
+```java
+// 在 BL 或 Controller 中統一打包為 ApiResult 回傳前端
+public class UserQueryBL extends BaseBL<UserQueryRequest, PageResult<UserVO>> {
+
+    @Override
+    protected PageResult<UserVO> executeBusiness(UserQueryRequest request) throws Exception {
+        long total = userMapper.countUsers(request);
+        List<UserVO> list = userMapper.selectUserPage(request);
+        
+        // 自動計算 totalPages (例如 total=85, pageSize=20 則 totalPages=5)
+        return PageResult.of(request.getPageNum(), request.getPageSize(), total, list);
+    }
+}
+
+// REST Controller 回傳 JSON 結構：
+// {
+//   "code": 200,
+//   "success": true,
+//   "message": "Success",
+//   "time": "2026-07-21 11:22:47",
+//   "data": {
+//     "pageNum": 1,
+//     "pageSize": 20,
+//     "total": 85,
+//     "totalPages": 5,
+//     "list": [ ... ]
+//   }
+// }
+```
 
 ---
 
