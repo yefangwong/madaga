@@ -66,14 +66,16 @@
 ### 🔨 階段 2：通用上下文與實體底座施工 (Modules: `csp-base-domain` & `csp-domain-jpa`)
 - [x] **Step 2.1**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.GlobalContext` (operatorEmail, comCode, clientIp, role, traceId，已完成 100% 單元測試)。
 - [x] **Step 2.2**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.DataPipeline` (打包 GlobalContext 與 Payload 物件，已完成 100% 單元測試)。
-- [ ] **Step 2.3**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.BaseEntity` (id, createdAt, updatedAt)。
-- [ ] **Step 2.4**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.EntitySet` (強型別批次集合承載體)。
+- [x] **Step 2.3**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.BaseEntity` (id, createdAt, updatedAt, remark，自動填充 Hook，已完成 100% 單元測試)。
+- [x] **Step 2.4**: (已精簡) MyBatis 架構直接採用 Java 標準 `List<T>`，無須自研 `EntitySet` 容器。
 
-### 🔨 階段 3：原生 JDBC 引擎與工具施工 (Modules: `csp-persistence-api`, `csp-persistence-jpa` & `csp-tools`)
-- [ ] **Step 3.1**: 在 `csp-persistence-api` 建立 `net.yefangwong.csp.common.db.ISqlExecutor` (execQuery, execUpdate, execBatch 介面)。
-- [ ] **Step 3.2**: 在 `csp-persistence-api` 建立 `net.yefangwong.csp.common.db.DataRecordSet` (零反射開銷之結果集承載體)。
-- [ ] **Step 3.3**: 在 `csp-persistence-jpa` 建立 `net.yefangwong.csp.common.db.NativeSqlExecutor` (原生 PreparedStatement 綁參實作)。
-- [ ] **Step 3.4**: 在 `csp-tools` 建立 `net.yefangwong.csp.tools.CspSchemaCompiler` (自動解析 DDL/Markdown 表格，1秒生成強型別 Entity, EntitySet 與 Native DAO 程式碼之低程式碼工具，支援 `--enable-batch` 按需選配)。
+### 🔨 階段 3：原生 JDBC 引擎與選配工具 (Modules: `csp-persistence-api`, `csp-persistence-jpa` & `csp-tools`)
+> 💡 **現況說明**：Madaga 專案主要 CRUD 業務已全數使用 MyBatis Mapper。以下原生 JDBC 引擎為「選配基礎設施 (Optional)」，未來有微秒級 0-ORM 極致效能需求時再行擴充。
+
+- [ ] **Step 3.1 (選配)**: 在 `csp-persistence-api` 建立 `net.yefangwong.csp.common.db.ISqlExecutor` (execQuery, execUpdate, execBatch 介面)。
+- [ ] **Step 3.2 (選配)**: 在 `csp-persistence-api` 建立 `net.yefangwong.csp.common.db.DataRecordSet` (零反射開銷之結果集承載體)。
+- [ ] **Step 3.3 (選配)**: 在 `csp-persistence-jpa` 建立 `net.yefangwong.csp.common.db.NativeSqlExecutor` (原生 PreparedStatement 綁參實作)。
+- [ ] **Step 3.4 (選配)**: 在 `csp-tools` 建立 `net.yefangwong.csp.tools.CspSchemaCompiler` (低程式碼自動產碼工具)。
 
 ---
 
