@@ -1,10 +1,10 @@
-# 📐 PatchVerify 漏洞診斷與修補自動化系統架構設計規格書
+# 📐 PatchVerify 開發用系統架構設計規格書 (System Architecture Specification)
 
 > **專案名稱**：PatchVerify (CVE Vulnerability Diagnosis & Patch Automation System)  
 > **基底平台**：Cornelius Service Platform (Madaga CSP v1.0)  
 > **標準 Base Package**：`net.yefangwong.patchverify`  
 > **技術棧**：JDK 17+ / Spring Boot / MyBatis / PostgreSQL / BaseBL 樣板模式  
-> **架構目標**：建立高可靠、可追溯、100% 符與 ISO 27001 審計規範之自動化修補診斷系統  
+> **架構目標**：建立高可靠、可追溯、100% 符合 ISO 27001 審計規範之自動化修補診斷系統  
 
 ---
 
@@ -104,6 +104,24 @@ classDiagram
             +addValidation(field, message)
             +getFirstMessage() String
         }
+        class ISqlExecutor {
+            <<interface>>
+            +execQuery(String, List) DataRecordSet
+            +execUpdate(String, List) int
+            +execBatch(String, List) int[]
+        }
+        class DataRecordSet {
+            -List~String~ columnNames
+            -List~Object[]~ rows
+            +get(int, int) Object
+        }
+        class NativeSqlExecutor {
+            -DataSource dataSource
+            +execQuery(String, List) DataRecordSet
+        }
+        class CspSchemaCompiler {
+            +compile(String) void
+        }
     }
 
     namespace Application_PatchVerify {
@@ -145,7 +163,10 @@ classDiagram
     BaseBL <|-- PatchApproveBL : 繼承 5 大生命週期
     BaseBL --> AppErrors : 內建診斷容器
     BaseBL ..> GlobalContext : 透傳操作上下文
-    PatchApproveBL --> VulnerabilityMapper : 直連持久層
+    ISqlExecutor <|.. NativeSqlExecutor : 實作原生 JDBC 引擎 (選配)
+    NativeSqlExecutor ..> DataRecordSet : 產生零反射結果集
+    CspSchemaCompiler ..> NativeSqlExecutor : 代碼生成調用
+    PatchApproveBL --> VulnerabilityMapper : 直連持久層 (MyBatis)
     PatchApproveBL ..> PatchApproveRequest : 輸入 Payload
     PatchApproveBL ..> PatchApproveResponse : 輸出 Payload
     PatchController --> PatchApproveBL : 控制調用
@@ -198,6 +219,60 @@ net.yefangwong.patchverify
 1. **鏈路追蹤 (Traceability)**：每個修補請求自動透傳 `GlobalContext.traceId`。
 2. **不可否認性 (Non-Repudiation)**：`writeAuditLog` 記錄操作者 Email、操作時間、目標 CVE 及執行結果（SUCCESS/FAILED）。
 3. **資料防護**：預設封裝於 `ApiResult`，阻斷 Exception 堆疊資訊外洩至前端。
+
+---
+
+## 🗄️ 5. DAO 與持久層對齊實作規範 (MyBatis DAO Integration)
+
+### 5.1 實體與 Mapper 映射細節
+* **`VulnerabilityEntity`**: 繼承 `BaseEntity<Long>`，映射資料庫 `tbl_vulnerability` 表格。
+* **MyBatis SQL 映射檔範例 (`VulnerabilityMapper.xml`)**:
+  ```xml
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="net.yefangwong.patchverify.dao.VulnerabilityMapper">
+
+      <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+          INSERT INTO tbl_vulnerability (cve_id, severity, status, remark, created_at, updated_at)
+          VALUES (#{cveId}, #{severity}, #{status}, #{remark}, #{createdAt}, #{updatedAt})
+      </insert>
+
+      <select id="selectByCveId" resultType="net.yefangwong.patchverify.entity.VulnerabilityEntity">
+          SELECT id, cve_id AS cveId, severity, status, remark, 
+                 created_at AS createdAt, updated_at AS updatedAt
+          FROM tbl_vulnerability
+          WHERE cve_id = #{cveId}
+      </select>
+
+      <update id="updateStatus">
+          UPDATE tbl_vulnerability
+          SET status = #{status}, updated_at = NOW()
+          WHERE cve_id = #{cveId}
+      </update>
+
+  </mapper>
+  ```
+
+---
+
+## 🔄 6. `DataPipeline` 與 `GlobalContext` 整合調用鏈 (Integration Flow)
+
+在處理複雜跨系統批次診斷任務時，可利用 `DataPipeline` 打包傳遞：
+
+```java
+// 1. 初始化操作者上下文
+GlobalContext context = GlobalContext.of("security-auditor@company.com", "SEC_DEPT");
+
+// 2. 打包修補請求 DTO 與相關物件至 DataPipeline 管道
+DataPipeline pipeline = DataPipeline.of(context)
+    .add(new PatchApproveRequest("CVE-2026-9999", "Automated patch approved"))
+    .add("clientIp", "10.0.0.15");
+
+// 3. 在 BL 子類別中進行強型別安全提取 (免 CAST 轉型)
+PatchApproveRequest req = pipeline.get(PatchApproveRequest.class);
+GlobalContext ctx = pipeline.getContext();
+```
 
 ---
 *本架構規格書由 Madaga PatchVerify 開發小組維護，與 Madaga CSP 平台開發手冊對齊。*
