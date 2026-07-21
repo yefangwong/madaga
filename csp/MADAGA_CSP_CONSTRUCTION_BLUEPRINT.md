@@ -65,7 +65,7 @@
 
 ### 🔨 階段 2：通用上下文與實體底座施工 (Modules: `csp-base-domain` & `csp-domain-jpa`)
 - [x] **Step 2.1**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.GlobalContext` (operatorEmail, comCode, clientIp, role, traceId，已完成 100% 單元測試)。
-- [ ] **Step 2.2**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.DataPipeline` (打包 GlobalContext 與 Payload 物件)。
+- [x] **Step 2.2**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.DataPipeline` (打包 GlobalContext 與 Payload 物件，已完成 100% 單元測試)。
 - [ ] **Step 2.3**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.BaseEntity` (id, createdAt, updatedAt)。
 - [ ] **Step 2.4**: 在 `csp-domain-jpa` 建立 `net.yefangwong.csp.common.entity.EntitySet` (強型別批次集合承載體)。
 
