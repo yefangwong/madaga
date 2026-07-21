@@ -1,6 +1,6 @@
-# 📘 Madaga CSP 平台開發與架構規範手冊 (Developer Manual)
+# 📘 CSP 平台開發與架構規範手冊 (Cornelius Service Platform Developer Manual)
 
-> **專案名稱**：Cornelius Service Platform (Madaga CSP)  
+> **專案名稱**：Cornelius Service Platform (CSP 平台)  
 > **標準 Base Package**：`net.yefangwong.csp`  
 > **相容標準**：JDK 17+ / Maven 多模組 / Spring Boot + MyBatis  
 > **目標對象**：平台與業務層開發人員 (Junior / Mid / Senior)

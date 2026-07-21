@@ -1,4 +1,4 @@
-# 🏗️ Madaga CSP 專案架構施工藍圖 (Construction Blueprint)
+# 🏗️ CSP 專案架構施工藍圖 (Cornelius Service Platform Construction Blueprint)
 
 ## 📌 1. 施工目標與總則
 
