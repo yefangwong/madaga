@@ -142,6 +142,96 @@ public class PatchApproveBL extends BaseBL<PatchApproveRequest, PatchApproveResp
 
 ---
 
+### 3.4 觀念解惑：`REQ` 與 `RESP` 泛型的 3 種寫法與實務範例
+
+> 💡 **觀念提醒**：`REQ` (Request) 與 `RESP` (Response) 不是某個具體的 Class 檔，而是 **Java 泛型佔位符 (Generic Placeholders)**。開發人員在編寫具體的子類別 (BL 的兒子) 時，依據業務需求決定傳入的型別：
+
+#### 寫法 1：強型別專用 DTO (最推薦 - 適合中大型業務)
+```java
+// REQ  = UserCreateRequest  (輸入卡片)
+// RESP = UserCreateResponse (輸出結果卡片)
+public class UserCreateBL extends BaseBL<UserCreateRequest, UserCreateResponse> {
+
+    @Override
+    protected boolean validateInput(UserCreateRequest request) {
+        if (request.getUsername() == null || request.getUsername().isEmpty()) {
+            errors.addValidation("username", "帳號不能為空");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean verifyAuthority(UserCreateRequest request, String operatorEmail) {
+        return true;
+    }
+
+    @Override
+    protected UserCreateResponse executeBusiness(UserCreateRequest request) throws Exception {
+        userMapper.insertUser(request);
+        return new UserCreateResponse(request.getUsername(), "CREATED");
+    }
+}
+```
+
+#### 寫法 2：原生單型別 (適合簡單單筆刪除 / 查詢)
+```java
+// REQ  = String  (只需傳入一個 userId 字串)
+// RESP = Boolean (回傳刪除成功與否)
+public class UserDeleteBL extends BaseBL<String, Boolean> {
+
+    @Override
+    protected boolean validateInput(String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            errors.addValidation("userId", "使用者 ID 不能為空");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean verifyAuthority(String userId, String operatorEmail) {
+        return operatorEmail.endsWith("@admin.com");
+    }
+
+    @Override
+    protected Boolean executeBusiness(String userId) throws Exception {
+        return userMapper.deleteById(userId) > 0;
+    }
+}
+```
+
+#### 寫法 3：萬能管道 `DataPipeline` (適合多物件組合 - 復刻 Lisbon `VData` 體感)
+```java
+// REQ  = DataPipeline (萬能容器，內裝多種 Schema / VO 物件)
+// RESP = Object
+public class DynamicProcessBL extends BaseBL<DataPipeline, Object> {
+
+    @Override
+    protected boolean validateInput(DataPipeline pipeline) {
+        UserVO user = pipeline.get(UserVO.class);
+        if (user == null) {
+            errors.addValidation("user", "缺少 UserVO 管道資料");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean verifyAuthority(DataPipeline pipeline, String operatorEmail) {
+        return true;
+    }
+
+    @Override
+    protected Object executeBusiness(DataPipeline pipeline) throws Exception {
+        UserVO user = pipeline.get(UserVO.class);
+        return userMapper.processUser(user);
+    }
+}
+```
+
+---
+
 ## 🗄️ 4. 持久層與事務管理規範 (Persistence & Transactions)
 
 1. **主流框架：MyBatis + Spring `@Transactional`**：
