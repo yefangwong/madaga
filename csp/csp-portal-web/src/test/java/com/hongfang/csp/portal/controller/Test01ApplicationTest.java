@@ -29,6 +29,7 @@ public class Test01ApplicationTest {
     private com.hongfang.csp.system.mapper.SysUserMapper sysUserMapper;
 
     @Test
+    @org.springframework.security.test.context.support.WithMockUser(username = "admin@madaga.com", roles = {"ADMIN"})
     public void testTest() {
         testController.test();
     }

@@ -38,6 +38,12 @@ public class EmployeeControllerTest {
 
     @Test
     public void testGetDepList() {
+        List<Department> mockList = new ArrayList<>();
+        Department d1 = new Department(); d1.setName("資訊部");
+        Department d2 = new Department(); d2.setName("財務部");
+        mockList.add(d1); mockList.add(d2);
+        when(departmentService.getDepList()).thenReturn(mockList);
+
         List<Department> depList = employeeController.getDepList();
         assertNotNull(depList);
         assertEquals(2, depList.size());
@@ -66,6 +72,8 @@ public class EmployeeControllerTest {
 
     @Test
     public void testShowAdd() {
-        assertEquals("emp/add", employeeController.showAdd());
+        org.springframework.web.servlet.ModelAndView mv = employeeController.showAdd();
+        assertNotNull(mv);
+        assertEquals("emp/add", mv.getViewName());
     }
 }

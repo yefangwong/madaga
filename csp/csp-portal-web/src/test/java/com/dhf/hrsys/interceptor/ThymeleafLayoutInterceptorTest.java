@@ -35,7 +35,7 @@ public class ThymeleafLayoutInterceptorTest {
     public void testPostHandleWithLayoutAnnotation() throws Exception {
         // 模擬 EnergyController，它帶有 @Layout("frontEnd")
         EnergyController controller = new EnergyController();
-        Method method = EnergyController.class.getMethod("index");
+        Method method = EnergyController.class.getMethod("index", org.springframework.ui.Model.class);
         HandlerMethod handlerMethod = new HandlerMethod(controller, method);
 
         ModelAndView modelAndView = new ModelAndView("energy/index");
