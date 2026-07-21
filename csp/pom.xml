@@ -55,9 +55,9 @@
 	</properties>
 
 	<modules>
+		<module>csp-common</module>
 		<module>csp-base</module>
 		<module>csp-base-domain</module>
-		<module>csp-common</module>
 		<module>csp-domain-jpa</module>
 		<module>csp-persistence-api</module>
 		<module>csp-persistence-jpa</module>
@@ -344,7 +344,7 @@
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.24</version><!-- Upgrade chat Java 17 -->
+				<version>1.18.32</version><!-- Upgrade for Java 17+ compiler compatibility -->
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
