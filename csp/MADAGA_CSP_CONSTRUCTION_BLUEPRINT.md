@@ -23,8 +23,9 @@
 ├── csp-common/
 │   ├── src/main/java/common/api/
 │   │   └── ApiResult.java                          <-- 階段 1: 歷史相容相容路徑 (已完成 timestamp 簡化)
-│   └── src/main/java/net/yefangwong/csp/common/api/
-│       ├── PageResult.java                         <-- 階段 1: 新起標準 Package 頁面數據封裝
+│   ├── src/main/java/net/yefangwong/csp/common/api/
+│   │   └── PageResult.java                         <-- 階段 1: 新起標準 Package 頁面數據封裝
+│   └── src/main/java/net/yefangwong/csp/common/error/
 │       ├── AppError.java                           <-- 階段 1: 新起標準 Package 單筆全域錯誤診斷載體
 │       └── AppErrors.java                          <-- 階段 1: 新起標準 Package 多重錯誤累積與鏈式診斷容器
 ├── csp-base/
@@ -58,9 +59,9 @@
 - [x] **Step 1.1**: 在 `csp-common` 建立 `common.api.ApiResult` (含 Lombok / 純 JDK 工廠方法、i18n 多語系覆蓋與 100% 向下相容測試)。
   - 📝 **[已決策並完成 - 採納方案 A]**: 移除冗餘之 `long timestamp` 屬性與相關 Builder/Getter 方法，僅保留單一 `Date time` 狀態與時間來源，完成極簡 Clean Code 重構與測試。
 - [x] **Step 1.2**: 在 `csp-common` 建立 `net.yefangwong.csp.common.api.PageResult` (含 pageNum, pageSize, total, totalPages, list，已完成 100% 單元測試)。
-- [x] **Step 1.3**: 在 `csp-common` 建立 `net.yefangwong.csp.common.api.AppError` (單筆全域錯誤細節與診斷載體，已完成 100% 單元測試)。
-- [x] **Step 1.4**: 在 `csp-common` 建立 `net.yefangwong.csp.common.api.AppErrors` (多重錯誤累積與鏈式診斷容器，已完成 100% 單元測試)。
-- [ ] **Step 1.5**: 在 `csp-base` 建立 `net.yefangwong.csp.common.bl.BaseBL` (規範 5 大生命週期，前置驗證回傳 `boolean`，內建 `AppErrors` 診斷集)。
+- [x] **Step 1.3**: 在 `csp-common` 建立 `net.yefangwong.csp.common.error.AppError` (單筆全域錯誤細節與診斷載體，已完成 100% 單元測試)。
+- [x] **Step 1.4**: 在 `csp-common` 建立 `net.yefangwong.csp.common.error.AppErrors` (多重錯誤累積與鏈式診斷容器，已完成 100% 單元測試)。
+- [x] **Step 1.5**: 在 `csp-base` 建立 `net.yefangwong.csp.common.bl.BaseBL` (規範 5 大生命週期，前置驗證回傳 `boolean`，內建 `AppErrors` 診斷集，已完成階段 1 建置)。
 
 ### 🔨 階段 2：通用上下文與實體底座施工 (Modules: `csp-base-domain` & `csp-domain-jpa`)
 - [ ] **Step 2.1**: 在 `csp-base-domain` 建立 `net.yefangwong.csp.common.context.GlobalContext` (operatorEmail, comCode, clientIp, role)。
