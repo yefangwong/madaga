@@ -31,11 +31,15 @@ public class ThymeleafLayoutInterceptorTest {
         interceptor = new ThymeleafLayoutInterceptor();
     }
 
+    @com.dhf.hrsys.annotation.Layout("frontEnd")
+    static class FrontEndDummyController {
+        public void index() {}
+    }
+
     @Test
     public void testPostHandleWithLayoutAnnotation() throws Exception {
-        // 模擬 EnergyController，它帶有 @Layout("frontEnd")
-        EnergyController controller = new EnergyController();
-        Method method = EnergyController.class.getMethod("index", org.springframework.ui.Model.class);
+        FrontEndDummyController controller = new FrontEndDummyController();
+        Method method = FrontEndDummyController.class.getMethod("index");
         HandlerMethod handlerMethod = new HandlerMethod(controller, method);
 
         ModelAndView modelAndView = new ModelAndView("energy/index");
