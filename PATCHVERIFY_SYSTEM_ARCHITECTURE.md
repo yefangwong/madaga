@@ -104,23 +104,6 @@ classDiagram
             +addValidation(field, message)
             +getFirstMessage() String
         }
-        class ISqlExecutor_Optional {
-            <<Optional Infrastructure>>
-            +execQuery(String, List) DataRecordSet
-        }
-        class DataRecordSet_Optional {
-            <<Optional Infrastructure>>
-            -List~String~ columnNames
-            -List~Object[]~ rows
-        }
-        class NativeSqlExecutor_Optional {
-            <<Optional Infrastructure>>
-            +execQuery(String, List) DataRecordSet
-        }
-        class CspSchemaCompiler_Optional {
-            <<Optional Tool>>
-            +compile(String) void
-        }
     }
 
     namespace Application_PatchVerify {
@@ -162,19 +145,12 @@ classDiagram
     BaseBL <|-- PatchApproveBL : 繼承 5 大生命週期
     BaseBL --> AppErrors : 內建診斷容器
     BaseBL ..> GlobalContext : 透傳操作上下文
-    ISqlExecutor_Optional <|.. NativeSqlExecutor_Optional : 選配原生 JDBC 引擎 (現況未啟用)
-    NativeSqlExecutor_Optional ..> DataRecordSet_Optional : 選配零反射結果集
-    CspSchemaCompiler_Optional ..> NativeSqlExecutor_Optional : 選配低碼生成
-    PatchApproveBL --> VulnerabilityMapper : 直連持久層 (主要生效：MyBatis)
+    PatchApproveBL --> VulnerabilityMapper : 直連持久層 (MyBatis)
     PatchApproveBL ..> PatchApproveRequest : 輸入 Payload
     PatchApproveBL ..> PatchApproveResponse : 輸出 Payload
     PatchController --> PatchApproveBL : 控制調用
     PatchController ..> ApiResult : 統一 REST 回傳
 ```
-
-> 💡 **圖例特別說明**：
-> * **主要生效鏈 (Solid Lines)**：`BaseEntity` ➔ `BaseBL` ➔ `AppErrors` ➔ `MyBatis Mapper` ➔ `ApiResult`。此為目前的標準開發主線。
-> * **選配標籤 (<<Optional Infrastructure>>)**：`ISqlExecutor`, `NativeSqlExecutor`, `DataRecordSet` 為預留之原生 JDBC 引擎，現階段未納入核心建置，僅作未來極致效能選配備用。
 
 ---
 
