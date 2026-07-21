@@ -42,7 +42,7 @@ public class EmployeeControllerTest {
         Department d1 = new Department(); d1.setName("資訊部");
         Department d2 = new Department(); d2.setName("財務部");
         mockList.add(d1); mockList.add(d2);
-        when(departmentService.getDepList()).thenReturn(mockList);
+        when(departmentService.search(null)).thenReturn(mockList);
 
         List<Department> depList = employeeController.getDepList();
         assertNotNull(depList);
