@@ -104,22 +104,21 @@ classDiagram
             +addValidation(field, message)
             +getFirstMessage() String
         }
-        class ISqlExecutor {
-            <<interface>>
+        class ISqlExecutor_Optional {
+            <<Optional Infrastructure>>
             +execQuery(String, List) DataRecordSet
-            +execUpdate(String, List) int
-            +execBatch(String, List) int[]
         }
-        class DataRecordSet {
+        class DataRecordSet_Optional {
+            <<Optional Infrastructure>>
             -List~String~ columnNames
             -List~Object[]~ rows
-            +get(int, int) Object
         }
-        class NativeSqlExecutor {
-            -DataSource dataSource
+        class NativeSqlExecutor_Optional {
+            <<Optional Infrastructure>>
             +execQuery(String, List) DataRecordSet
         }
-        class CspSchemaCompiler {
+        class CspSchemaCompiler_Optional {
+            <<Optional Tool>>
             +compile(String) void
         }
     }
@@ -163,15 +162,19 @@ classDiagram
     BaseBL <|-- PatchApproveBL : 繼承 5 大生命週期
     BaseBL --> AppErrors : 內建診斷容器
     BaseBL ..> GlobalContext : 透傳操作上下文
-    ISqlExecutor <|.. NativeSqlExecutor : 實作原生 JDBC 引擎 (選配)
-    NativeSqlExecutor ..> DataRecordSet : 產生零反射結果集
-    CspSchemaCompiler ..> NativeSqlExecutor : 代碼生成調用
-    PatchApproveBL --> VulnerabilityMapper : 直連持久層 (MyBatis)
+    ISqlExecutor_Optional <|.. NativeSqlExecutor_Optional : 選配原生 JDBC 引擎 (現況未啟用)
+    NativeSqlExecutor_Optional ..> DataRecordSet_Optional : 選配零反射結果集
+    CspSchemaCompiler_Optional ..> NativeSqlExecutor_Optional : 選配低碼生成
+    PatchApproveBL --> VulnerabilityMapper : 直連持久層 (主要生效：MyBatis)
     PatchApproveBL ..> PatchApproveRequest : 輸入 Payload
     PatchApproveBL ..> PatchApproveResponse : 輸出 Payload
     PatchController --> PatchApproveBL : 控制調用
     PatchController ..> ApiResult : 統一 REST 回傳
 ```
+
+> 💡 **圖例特別說明**：
+> * **主要生效鏈 (Solid Lines)**：`BaseEntity` ➔ `BaseBL` ➔ `AppErrors` ➔ `MyBatis Mapper` ➔ `ApiResult`。此為目前的標準開發主線。
+> * **選配標籤 (<<Optional Infrastructure>>)**：`ISqlExecutor`, `NativeSqlExecutor`, `DataRecordSet` 為預留之原生 JDBC 引擎，現階段未納入核心建置，僅作未來極致效能選配備用。
 
 ---
 
