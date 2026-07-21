@@ -53,6 +53,107 @@ PatchVerify 嚴格依循 Madaga CSP 平台層與應用層完全切割 (Clean Roo
 
 ---
 
+### 🎨 1.1 系統類別關係圖 (UML Class Diagram)
+
+下圖展示 Madaga CSP 平台基類 (`net.yefangwong.csp.*`) 與 PatchVerify 應用類別 (`net.yefangwong.patchverify.*`) 之繼承、組合與交互關係：
+
+```mermaid
+classDiagram
+    namespace Platform_CSP {
+        class BaseEntity~ID~ {
+            #ID id
+            #Date createdAt
+            #Date updatedAt
+            #String remark
+            +preInsert()
+            +preUpdate()
+        }
+        class BaseBL~REQ, RESP~ {
+            #AppErrors errors
+            #Logger log
+            +process(REQ, String, String, String) ApiResult~RESP~
+            #validateInput(REQ)* boolean
+            #verifyAuthority(REQ, String)* boolean
+            #executeBusiness(REQ)* RESP
+            #writeAuditLog(String, String, String, String) boolean
+        }
+        class GlobalContext {
+            -String operatorEmail
+            -String comCode
+            -String clientIp
+            -String role
+            -String traceId
+            +of(operatorEmail, comCode) GlobalContext
+        }
+        class DataPipeline {
+            -GlobalContext context
+            -List elements
+            -Map dataMap
+            +add(Object) DataPipeline
+            +get(Class~T~) T
+        }
+        class ApiResult~T~ {
+            -int code
+            -boolean success
+            -String message
+            -Date time
+            -T data
+        }
+        class AppErrors {
+            -List~AppError~ errors
+            +addValidation(field, message)
+            +getFirstMessage() String
+        }
+    }
+
+    namespace Application_PatchVerify {
+        class VulnerabilityEntity {
+            -String cveId
+            -String severity
+            -String status
+            -String affectedComponent
+        }
+        class VulnerabilityMapper {
+            <<interface>>
+            +insert(VulnerabilityEntity) int
+            +selectByCveId(String) VulnerabilityEntity
+            +updateStatus(cveId, status) int
+            +selectPage(offset, limit, status) List~VulnerabilityEntity~
+        }
+        class PatchApproveRequest {
+            -String cveId
+            -String comment
+        }
+        class PatchApproveResponse {
+            -String cveId
+            -String status
+            -Date approvedAt
+        }
+        class PatchApproveBL {
+            -VulnerabilityMapper vulnerabilityMapper
+            #validateInput(PatchApproveRequest) boolean
+            #verifyAuthority(PatchApproveRequest, String) boolean
+            #executeBusiness(PatchApproveRequest) PatchApproveResponse
+        }
+        class PatchController {
+            -PatchApproveBL patchApproveBL
+            +approvePatch(PatchApproveRequest, String) ApiResult~PatchApproveResponse~
+        }
+    }
+
+    BaseEntity <|-- VulnerabilityEntity : 繼承 AUDIT 欄位
+    BaseBL <|-- PatchApproveBL : 繼承 5 大生命週期
+    BaseBL --> AppErrors : 內建診斷容器
+    BaseBL ..> GlobalContext : 透傳操作上下文
+    PatchApproveBL --> VulnerabilityMapper : 直連持久層
+    PatchApproveBL ..> PatchApproveRequest : 輸入 Payload
+    PatchApproveBL ..> PatchApproveResponse : 輸出 Payload
+    PatchController --> PatchApproveBL : 控制調用
+    PatchController ..> ApiResult : 統一 REST 回傳
+```
+
+---
+
 ## 📦 2. 核心模組與包結構設計 (Package Structure)
 
 ```text
