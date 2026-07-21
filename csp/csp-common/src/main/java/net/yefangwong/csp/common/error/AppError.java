@@ -5,7 +5,7 @@
  * Proprietary and Confidential.
  * Unauthorized copying of this file, via any medium, is strictly prohibited.
  */
-package net.yefangwong.csp.common.api;
+package net.yefangwong.csp.common.error;
 
 import java.io.Serializable;
 import java.util.Objects;

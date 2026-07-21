@@ -1,4 +1,4 @@
-package net.yefangwong.csp.common.api;
+package net.yefangwong.csp.common.error;
 
 import junit.framework.TestCase;
 
