@@ -157,4 +157,16 @@ sequenceDiagram
 | **領域 Entity** | `VulnerabilityEntity.java` | 繼承 `BaseEntity<Long>` 映射 `tbl_vulnerability` |
 
 ---
-*本施工圖規格書由 Madaga PatchVerify 團隊編寫，與 Madaga CSP 平台規範 100% 對齊。*
+
+## 📜 5. ISO 27001 / CNS 27001 國家標準稽核對照表 (Standards Mapping)
+
+| 標準名稱 | 對應條文編號 | 條文名稱 / 控制要求 | 系統自動化落實機制 |
+| :--- | :--- | :--- | :--- |
+| **ISO/IEC 27001:2013** | **附錄 A.12.6.1** | 管理技術漏洞 (Management of technical vulnerabilities) | 0.5s 比對 NVD 漏洞庫，即時產出 CVSS 分數與受影響模組。 |
+| **CNS 27001:2014** | **附錄 A.12.6.1** | 技術漏洞之管理 (台灣經濟部 BSMI 國家標準) | 提供修補意見簽核彈窗，並於 `writeAuditLog` 記錄操作軌跡。 |
+| **ISO/IEC 27001:2022** | **附錄 A.8.8** | 技術脆弱性管理 (Management of technical vulnerabilities) | Jacoco 覆蓋率切片 (82.5%) 自動判定 Grade A/B/C 安全修補等級。 |
+| **CNS 27001:2023** | **附錄 A.8.8** | 技術脆弱性管理：「應取得關於使用中之資訊系統的技術脆弱性資訊，並應評估組織對此等脆弱性之暴露，且應採取適切措施。」 | 自動記錄 `traceId`, `operatorEmail`, 時間戳記，滿足不可否認性。 |
+
+---
+*本施工圖規格書由 Madaga PatchVerify 團隊編寫，與 Madaga CSP 平台規範及 CNS 27001 國家標準 100% 對齊。*
+

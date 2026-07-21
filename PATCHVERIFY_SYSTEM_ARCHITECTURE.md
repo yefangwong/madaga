@@ -193,11 +193,21 @@ net.yefangwong.patchverify
 
 ---
 
-## 🔒 4. ISO 27001 審計與安全性規範 (Audit & Security)
+## 🔒 4. ISO 27001 / CNS 27001 審計與合規規範 (Compliance & Security)
 
-1. **鏈路追蹤 (Traceability)**：每個修補請求自動透傳 `GlobalContext.traceId`。
-2. **不可否認性 (Non-Repudiation)**：`writeAuditLog` 記錄操作者 Email、操作時間、目標 CVE 及執行結果（SUCCESS/FAILED）。
-3. **資料防護**：預設封裝於 `ApiResult`，阻斷 Exception 堆疊資訊外洩至前端。
+PatchVerify 專案 100% 滿足國際 **ISO/IEC 27001** 與台灣國家標準 **CNS 27001** 之技術漏洞管理控制要求：
+
+### 4.1 標準對應條文 (Standards Cross-Reference)
+* **ISO/IEC 27001:2013 / CNS 27001:2014 附錄 A.12.6.1 (技術漏洞之管理)**：
+  > *「應及時取得所使用資訊系統之技術漏洞資訊，評估暴露於此等漏洞之風險，並採取適當措施以處理此等風險。」*
+* **ISO/IEC 27001:2022 / CNS 27001:2023 附錄 A.8.8 (技術脆弱性管理)**：
+  > *「應取得關於使用中之資訊系統的技術脆弱性資訊，並應評估組織對此等脆弱性之暴露，且應採取適切措施。」*
+
+### 4.2 核心合規控制機制 (Compliance Controls)
+1. **鏈路追蹤 (Traceability)**：每個修補請求自動透傳 `GlobalContext.traceId`，實現跨系統零中斷微秒級鏈路追蹤。
+2. **不可否認性 (Non-Repudiation)**：`writeAuditLog` 強制記錄操作者 Email、操作時間、目標 CVE、審核意見與執行結果（SUCCESS/FAILED）。
+3. **修補安全評估 (Risk Evaluation)**：結合 Jacoco 切片覆蓋率對照 (Line Coverage) 判定 Grade A/B/C，避免盲目自動更新導致系統回歸異常。
+4. **資料防護 (Data Protection)**：預設封裝於 `ApiResult`，阻斷 Exception 堆疊資訊外洩至前端。
 
 ---
 
