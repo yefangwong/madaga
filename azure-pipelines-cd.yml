@@ -15,9 +15,9 @@ pool:
 
 parameters:
   - name: buildNo
-    displayName: 'CI Build No. (Run ID)'
+    displayName: 'CI Build No. (Run ID，預設 latest 自動拉取最新版)'
     type: string
-    default: ''
+    default: 'latest'
   - name: ciPipelineName
     displayName: 'CI Pipeline 名稱 (請確保與您的 CI Pipeline 名稱一致)'
     type: string
@@ -25,11 +25,11 @@ parameters:
   - name: sslKeystore
     displayName: 'SSL Keystore 路徑 (PROD 方案 B 內嵌 SSL 才需填寫)'
     type: string
-    default: ''
+    default: 'none'
   - name: sslPassword
     displayName: 'SSL 密碼 (PROD 方案 B 內嵌 SSL 才需填寫)'
     type: string
-    default: ''
+    default: 'none'
   - name: deployDev
     displayName: '部署至 DEV 環境'
     type: boolean
@@ -79,7 +79,7 @@ stages:
           # 1. 驗證 Build ID 格式
           - bash: |
               BUILD_NO="${{ parameters.buildNo }}"
-              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+              if [ -n "$BUILD_NO" ] && [ "$BUILD_NO" != "latest" ] && [ "$BUILD_NO" != "none" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
                   echo "=========================================================================="
                   echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
                   echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
@@ -103,7 +103,7 @@ stages:
               buildType: 'specific'
               project: '$(System.TeamProject)'
               definition: '$(ciPipeline)'
-              ${{ if eq(parameters.buildNo, '') }}:
+              ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
                 buildVersionToDownload: 'latest'
               ${{ else }}:
                 buildVersionToDownload: 'specific'
@@ -138,7 +138,7 @@ stages:
           # 1. 驗證 Build ID 格式
           - bash: |
               BUILD_NO="${{ parameters.buildNo }}"
-              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+              if [ -n "$BUILD_NO" ] && [ "$BUILD_NO" != "latest" ] && [ "$BUILD_NO" != "none" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
                   echo "=========================================================================="
                   echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
                   echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
@@ -160,7 +160,7 @@ stages:
               buildType: 'specific'
               project: '$(System.TeamProject)'
               definition: '$(ciPipeline)'
-              ${{ if eq(parameters.buildNo, '') }}:
+              ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
                 buildVersionToDownload: 'latest'
               ${{ else }}:
                 buildVersionToDownload: 'specific'
@@ -194,7 +194,7 @@ stages:
           # 1. 驗證 Build ID 格式
           - bash: |
               BUILD_NO="${{ parameters.buildNo }}"
-              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+              if [ -n "$BUILD_NO" ] && [ "$BUILD_NO" != "latest" ] && [ "$BUILD_NO" != "none" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
                   echo "=========================================================================="
                   echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
                   echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
@@ -216,7 +216,7 @@ stages:
               buildType: 'specific'
               project: '$(System.TeamProject)'
               definition: '$(ciPipeline)'
-              ${{ if eq(parameters.buildNo, '') }}:
+              ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
                 buildVersionToDownload: 'latest'
               ${{ else }}:
                 buildVersionToDownload: 'specific'
@@ -250,7 +250,7 @@ stages:
           # 1. 驗證 Build ID 格式
           - bash: |
               BUILD_NO="${{ parameters.buildNo }}"
-              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+              if [ -n "$BUILD_NO" ] && [ "$BUILD_NO" != "latest" ] && [ "$BUILD_NO" != "none" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
                   echo "=========================================================================="
                   echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
                   echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
@@ -272,7 +272,7 @@ stages:
               buildType: 'specific'
               project: '$(System.TeamProject)'
               definition: '$(ciPipeline)'
-              ${{ if eq(parameters.buildNo, '') }}:
+              ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
                 buildVersionToDownload: 'latest'
               ${{ else }}:
                 buildVersionToDownload: 'specific'
@@ -311,7 +311,7 @@ stages:
   #             buildType: 'specific'
   #             project: '$(System.TeamProject)'
   #             definition: '$(ciPipeline)'
-  #             ${{ if eq(parameters.buildNo, '') }}:
+  #             ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
   #               buildVersionToDownload: 'latest'
   #             ${{ else }}:
   #               buildVersionToDownload: 'specific'
@@ -360,7 +360,7 @@ stages:
   #             buildType: 'specific'
   #             project: '$(System.TeamProject)'
   #             definition: '$(ciPipeline)'
-  #             ${{ if eq(parameters.buildNo, '') }}:
+  #             ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
   #               buildVersionToDownload: 'latest'
   #             ${{ else }}:
   #               buildVersionToDownload: 'specific'
@@ -393,7 +393,7 @@ stages:
           # 1. 驗證 Build ID 格式
           - bash: |
               BUILD_NO="${{ parameters.buildNo }}"
-              if [ -n "$BUILD_NO" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
+              if [ -n "$BUILD_NO" ] && [ "$BUILD_NO" != "latest" ] && [ "$BUILD_NO" != "none" ] && ! [[ "$BUILD_NO" =~ ^[0-9]+$ ]]; then
                   echo "=========================================================================="
                   echo "[ERROR] 輸入的 CI Build No. '$BUILD_NO' 不是有效的整數 Build ID。"
                   echo "Azure DevOps 需要的是數值型態的 Build ID（例如 12345），而非版本字串（例如 20260630.1）。"
@@ -413,7 +413,7 @@ stages:
               buildType: 'specific'
               project: '$(System.TeamProject)'
               definition: '$(ciPipeline)'
-              ${{ if eq(parameters.buildNo, '') }}:
+              ${{ if or(eq(parameters.buildNo, ''), eq(parameters.buildNo, 'latest'), eq(parameters.buildNo, 'none')) }}:
                 buildVersionToDownload: 'latest'
               ${{ else }}:
                 buildVersionToDownload: 'specific'
