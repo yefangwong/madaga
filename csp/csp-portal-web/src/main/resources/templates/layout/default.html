@@ -20,60 +20,62 @@
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
-<title></title>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{'/js/axios.min.js'}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-<script type="text/javascript" th:src="@{'/js/util.js'}" crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{'/js/components/A.js'}"></script>
-<script type="text/javascript" th:src="@{'/js/components/DataToolbar.js'}"></script>
-<link rel="stylesheet" th:href="@{'/css/style.css'}" />
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HongFang Portal</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{'/js/axios.min.js'}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script type="text/javascript" th:src="@{'/js/util.js'}" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{'/js/components/A.js'}"></script>
+    <script type="text/javascript" th:src="@{'/js/components/DataToolbar.js'}"></script>
+    <link rel="stylesheet" th:href="@{'/css/style.css'}" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-    }
-</style>
 
-
-<!-- Custom styles for this template -->
-<link th:href="@{'/css/dashboard.css'}" rel="stylesheet" />
-
-<script>
-    $(function () {
-        // Remove the "active" class from all links
-        var links = document.querySelectorAll('a');
-        links.forEach(function (element) {
-            element.classList.remove('active');
-        });
-
-        // Get the current URL path
-        var currentPath = window.location.pathname;
-
-        // Loop through each navigation link
-        $('.nav-link').each(function () {
-            var linkPath = $(this).attr('href');
-
-            // Check if the link's path matches the current URL path
-            if (linkPath === currentPath) {
-                $(this).addClass('active'); // Add a class chat mark the link as active
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
             }
-        });
-    });
-</script>
+        }
+    </style>
 
+    <!-- Custom styles for this template -->
+    <link th:href="@{'/css/dashboard.css'}" rel="stylesheet" />
+
+    <script>
+        $(function () {
+            // Remove the "active" class from all links
+            var links = document.querySelectorAll('a');
+            links.forEach(function (element) {
+                element.classList.remove('active');
+            });
+
+            // Get the current URL path
+            var currentPath = window.location.pathname;
+
+            // Loop through each navigation link
+            $('.nav-link').each(function () {
+                var linkPath = $(this).attr('href');
+
+                // Check if the link's path matches the current URL path
+                if (linkPath === currentPath) {
+                    $(this).addClass('active'); // Add a class chat mark the link as active
+                }
+            });
+        });
+    </script>
+</head>
 <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">HongFang Portal</a>
