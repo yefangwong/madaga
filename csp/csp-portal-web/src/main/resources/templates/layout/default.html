@@ -25,6 +25,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HongFang Portal</title>
+    <!-- LiveReload 自動熱重載腳本 (Safari / Chrome 免安裝擴充通用) -->
+    <script src="http://localhost:35729/livereload.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -79,14 +81,14 @@
 </head>
 <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">HongFang Portal</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-0 px-md-3" href="#">HongFang Portal</a>
+        <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="搜尋" aria-label="搜尋">
-        <div class="navbar-nav">
+        <input class="form-control form-control-dark w-100 d-none d-md-block" type="text" placeholder="搜尋" aria-label="搜尋">
+        <div class="navbar-nav d-none d-md-block">
             <div class="nav-item text-nowrap">
                 <a class="nav-link px-3" href="/index">登出</a>
             </div>
@@ -96,7 +98,12 @@
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <!-- 手機版專屬搜尋框 -->
+                    <div class="mobile-search d-md-none">
+                        <input class="form-control" type="text" placeholder="搜尋..." aria-label="搜尋">
+                    </div>
+
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/dashboard/index">
@@ -116,6 +123,19 @@
                                 部門管理
                             </a>
                         </li>
+                    </ul>
+
+                    <!-- 手機版專屬登出項目 -->
+                    <div class="mobile-logout d-md-none">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index">
+                                    <span data-feather="log-out"></span>
+                                    登出
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                         <!--<li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="file"></span>
