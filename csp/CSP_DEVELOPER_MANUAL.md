@@ -384,4 +384,25 @@ public class PatchApproveBL extends BaseBL<PatchApproveRequest, PatchApproveResp
   ```
 
 ---
+
+## 🎨 6. 前端設計系統與 UI Developer 手冊 (CorneliusUI)
+
+> 詳細完整開發文檔請參閱：[CORNELIUS_UI_DEVELOPER_MANUAL.md](file:///Users/yefangwong/Documents/GitHub.nosync/madaga/csp/CORNELIUS_UI_DEVELOPER_MANUAL.md)
+
+### 🏆 核心定位與里程碑
+* **官方 UI Developer 手冊**：`csp/csp-portal-web/frontend/index.html` 正式定義為 **Cornelius UI Developer 視覺手冊**。啟動前端後造訪 `http://localhost:5173/` 即可即時預覽所有視覺元件，並支援一鍵複製 HTML 程式碼直接使用。
+* **名片品牌色彩導入**：導入鴻方移動智能科技名片之經典磚暖橙（`#E26D38`）主色調與深炭黑文字體系。
+* **前端極速熱更新**：透過 Vite 提供 50ms 即時熱重載與 Spring Boot `static/dist` 自動打包發布。
+
+### 🚀 開發者快速上手流程
+```bash
+# 1. 啟動 UI Developer 線上手冊 (http://localhost:5173/)
+cd csp/csp-portal-web/frontend
+npm run dev
+
+# 2. 開發完成後打包編譯至 Spring Boot static/dist
+npm run build
+```
+
+---
 *本手冊由 Madaga CSP 架構小組維護，如有新增模組規範請同步更新。*

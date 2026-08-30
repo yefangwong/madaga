@@ -40,4 +40,26 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/register/**", "/css/**", "/images/**",
                         "/js/**");
     }
+
+    @Override
+    public void addResourceHandlers(org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**")
+                .addResourceLocations("file:src/main/resources/static/css/", "file:csp/csp-portal-web/src/main/resources/static/css/", "classpath:/static/css/")
+                .setCachePeriod(0);
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations("file:src/main/resources/static/js/", "file:csp/csp-portal-web/src/main/resources/static/js/", "classpath:/static/js/")
+                .setCachePeriod(0);
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:src/main/resources/static/images/", "file:csp/csp-portal-web/src/main/resources/static/images/", "classpath:/static/images/")
+                .setCachePeriod(0);
+        registry.addResourceHandler("/fonts/**")
+                .addResourceLocations("file:src/main/resources/static/fonts/", "file:csp/csp-portal-web/src/main/resources/static/fonts/", "classpath:/static/fonts/")
+                .setCachePeriod(0);
+        registry.addResourceHandler("/dist/**")
+                .addResourceLocations("file:src/main/resources/static/dist/", "file:csp/csp-portal-web/src/main/resources/static/dist/", "classpath:/static/dist/")
+                .setCachePeriod(0);
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("file:src/main/resources/static/", "file:csp/csp-portal-web/src/main/resources/static/", "classpath:/static/")
+                .setCachePeriod(0);
+    }
 }

@@ -2,6 +2,8 @@ package net.yefangwong.csp.common.bl;
 
 import common.api.ApiResult;
 import junit.framework.TestCase;
+import net.yefangwong.csp.common.context.DataPipeline;
+import net.yefangwong.csp.common.context.GlobalContext;
 
 public class BaseBLTest extends TestCase {
 
@@ -28,7 +30,7 @@ public class BaseBLTest extends TestCase {
         public String getResultMessage() { return resultMessage; }
     }
 
-    static class TestBL extends BaseBL<SampleRequest, SampleResponse> {
+    static class TestBL extends BaseBL<SampleResponse> {
         private boolean throwException = false;
 
         public void setThrowException(boolean throwException) {
@@ -36,8 +38,9 @@ public class BaseBLTest extends TestCase {
         }
 
         @Override
-        protected boolean validateInput(SampleRequest request) {
-            if (request == null || request.getName() == null || request.getName().trim().isEmpty()) {
+        protected boolean validateInput(DataPipeline pipeline) {
+            SampleRequest req = pipeline.get(SampleRequest.class);
+            if (req == null || req.getName() == null || req.getName().trim().isEmpty()) {
                 errors.addValidation("name", "Name cannot be empty");
                 return false;
             }
@@ -45,8 +48,9 @@ public class BaseBLTest extends TestCase {
         }
 
         @Override
-        protected boolean verifyAuthority(SampleRequest request, String operatorEmail) {
-            if (!"ADMIN".equals(request.getRole())) {
+        protected boolean verifyAuthority(DataPipeline pipeline) {
+            SampleRequest req = pipeline.get(SampleRequest.class);
+            if (req == null || !"ADMIN".equals(req.getRole())) {
                 errors.add("E403", "Only ADMIN can execute");
                 return false;
             }
@@ -54,19 +58,22 @@ public class BaseBLTest extends TestCase {
         }
 
         @Override
-        protected SampleResponse executeBusiness(SampleRequest request) throws Exception {
+        protected SampleResponse executeBusiness(DataPipeline pipeline) throws Exception {
             if (throwException) {
                 throw new RuntimeException("DB Connection Timeout");
             }
-            return new SampleResponse("Processed: " + request.getName());
+            SampleRequest req = pipeline.get(SampleRequest.class);
+            return new SampleResponse("Processed: " + req.getName());
         }
     }
 
     public void testValidateInputFailure() {
         TestBL bl = new TestBL();
-        SampleRequest req = new SampleRequest("", "ADMIN");
+        GlobalContext ctx = new GlobalContext("admin@test.com", "repo1", "127.0.0.1", "t1", "ten1");
+        DataPipeline pipeline = new DataPipeline(ctx);
+        pipeline.put(SampleRequest.class, new SampleRequest("", "ADMIN"));
 
-        ApiResult<SampleResponse> res = bl.process(req, "admin@test.com", "TEST_ACTION", "repo1");
+        ApiResult<SampleResponse> res = bl.process(pipeline, "TEST_ACTION");
 
         assertEquals(400, res.getCode());
         assertFalse(res.isSuccess());
@@ -76,9 +83,11 @@ public class BaseBLTest extends TestCase {
 
     public void testVerifyAuthorityFailure() {
         TestBL bl = new TestBL();
-        SampleRequest req = new SampleRequest("ValidName", "USER");
+        GlobalContext ctx = new GlobalContext("user@test.com", "repo1", "127.0.0.1", "t1", "ten1");
+        DataPipeline pipeline = new DataPipeline(ctx);
+        pipeline.put(SampleRequest.class, new SampleRequest("ValidName", "USER"));
 
-        ApiResult<SampleResponse> res = bl.process(req, "user@test.com", "TEST_ACTION", "repo1");
+        ApiResult<SampleResponse> res = bl.process(pipeline, "TEST_ACTION");
 
         assertEquals(403, res.getCode());
         assertFalse(res.isSuccess());
@@ -87,9 +96,11 @@ public class BaseBLTest extends TestCase {
 
     public void testProcessSuccess() {
         TestBL bl = new TestBL();
-        SampleRequest req = new SampleRequest("ValidName", "ADMIN");
+        GlobalContext ctx = new GlobalContext("admin@test.com", "repo1", "127.0.0.1", "t1", "ten1");
+        DataPipeline pipeline = new DataPipeline(ctx);
+        pipeline.put(SampleRequest.class, new SampleRequest("ValidName", "ADMIN"));
 
-        ApiResult<SampleResponse> res = bl.process(req, "admin@test.com", "TEST_ACTION", "repo1");
+        ApiResult<SampleResponse> res = bl.process(pipeline, "TEST_ACTION");
 
         assertEquals(200, res.getCode());
         assertTrue(res.isSuccess());
@@ -100,9 +111,11 @@ public class BaseBLTest extends TestCase {
     public void testProcessException() {
         TestBL bl = new TestBL();
         bl.setThrowException(true);
-        SampleRequest req = new SampleRequest("ValidName", "ADMIN");
+        GlobalContext ctx = new GlobalContext("admin@test.com", "repo1", "127.0.0.1", "t1", "ten1");
+        DataPipeline pipeline = new DataPipeline(ctx);
+        pipeline.put(SampleRequest.class, new SampleRequest("ValidName", "ADMIN"));
 
-        ApiResult<SampleResponse> res = bl.process(req, "admin@test.com", "TEST_ACTION", "repo1");
+        ApiResult<SampleResponse> res = bl.process(pipeline, "TEST_ACTION");
 
         assertEquals(500, res.getCode());
         assertFalse(res.isSuccess());

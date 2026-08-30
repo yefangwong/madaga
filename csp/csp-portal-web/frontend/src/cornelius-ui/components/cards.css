@@ -1,0 +1,65 @@
+/**
+ * CorneliusUI Cards & Surface Components
+ */
+.cui-card {
+  background-color: var(--cui-surface);
+  border-radius: var(--cui-radius-md);
+  border: 1px solid var(--cui-border);
+  box-shadow: var(--cui-shadow-card);
+  padding: 24px;
+  transition: var(--cui-transition);
+}
+
+.cui-card-interactive {
+  cursor: pointer;
+}
+
+.cui-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: var(--cui-primary-border);
+  box-shadow: var(--cui-shadow-hover);
+}
+
+.cui-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.cui-card-title {
+  font-size: 1.125rem;
+  font-weight: var(--cui-fw-bold);
+  color: var(--cui-text-title);
+  margin: 0;
+}
+
+.cui-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+}
+
+.cui-stat-label {
+  font-size: 13px;
+  font-weight: var(--cui-fw-medium);
+  color: var(--cui-text-secondary);
+}
+
+.cui-stat-number {
+  font-size: 2rem;
+  font-weight: var(--cui-fw-bold);
+  color: var(--cui-text-title);
+  line-height: 1.2;
+}
+
+.cui-stat-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: var(--cui-fw-medium);
+}

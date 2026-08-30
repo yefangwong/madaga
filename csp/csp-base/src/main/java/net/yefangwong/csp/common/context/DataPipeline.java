@@ -7,7 +7,6 @@
  */
 package net.yefangwong.csp.common.context;
 
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -16,8 +15,8 @@ import java.util.*;
  *
  * 作 業 名 稱 ：Cornelius Service Platform (CSP) 萬能數據傳送管道
  * 程 式 代 號 ：DataPipeline.java
- * 公             司 ：Hongfang Intelligent Technology / yefangwong
- * 描             述 ：提供全域上下文 (GlobalContext)、多筆物件 List 列表與 Key-Value Map 雙重適配提取。
+ * 公 司 ：Hongfang Intelligent Technology / yefangwong
+ * 描 述 ：提供全域上下文 (GlobalContext)、強型別 DTO 與動態 Key-Value 雙軌適配提取。
  *
  * @author Mark Wong (yefangwong)
  * @since 1.0.0 (2026-07-21)
@@ -31,77 +30,51 @@ public class DataPipeline implements Serializable {
     private GlobalContext context;
 
     /**
-     * 萬能物件列表容器 (類似 VData 列表，支援強型別 Class.isInstance 自動檢索)
+     * 萬能物件列表容器 (支援 Class.isInstance 自動檢索)
      */
     private final List<Object> elements = new ArrayList<>();
 
     /**
-     * 萬能鍵值對容器 (支援具名 key 檢索)
+     * 萬能鍵值對容器 (支援具名 Key 與 Class 名稱檢索)
      */
     private final Map<String, Object> dataMap = new HashMap<>();
 
-    /**
-     * 預設建構子 (自動初始化預設 GlobalContext)
-     */
     public DataPipeline() {
         this.context = new GlobalContext();
     }
 
-    /**
-     * 帶全域上下文之建構子
-     *
-     * @param context 全域操作上下文
-     */
     public DataPipeline(GlobalContext context) {
         this.context = (context != null) ? context : new GlobalContext();
     }
 
-    // =========================================================================
-    // 靜態工廠建構方法 (Factory Methods)
-    // =========================================================================
-    /**
-     * 建立空白管道
-     *
-     * @return 新的 DataPipeline 實例
-     */
     public static DataPipeline create() {
         return new DataPipeline();
     }
 
-    /**
-     * 以指定之 GlobalContext 建立管道
-     *
-     * @param context 全域操作上下文
-     * @return 新的 DataPipeline 實例
-     */
     public static DataPipeline of(GlobalContext context) {
         return new DataPipeline(context);
     }
 
     // =========================================================================
-    // 鏈式資料寫入 (Fluent API Write)
+    // 多型 Fluent 寫入 (Dual-Track Fluent Writes)
     // =========================================================================
     /**
-     * 向管道注入一個 Payload 物件
-     *
-     * @param item 任意 Payload 物件
-     * @return 當前 DataPipeline 實例 (支援鏈式呼叫)
+     * 軌道一：向管道注入強型別 DTO 物件 (支援 Class 標記與內部 elements 儲存)
      */
-    public DataPipeline add(Object item) {
-        if (item != null) {
-            this.elements.add(item);
+    public <T> DataPipeline put(Class<T> clazz, T payload) {
+        if (clazz != null && payload != null) {
+            this.dataMap.put(clazz.getName(), payload);
+            if (!this.elements.contains(payload)) {
+                this.elements.add(payload);
+            }
         }
         return this;
     }
 
     /**
-     * 向管道注入一個帶 Key 名稱的 Payload 物件
-     *
-     * @param key  檢索鍵值
-     * @param item 任意 Payload 物件
-     * @return 當前 DataPipeline 實例 (支援鏈式呼叫)
+     * 軌道二：向管道注入帶 Key 名稱的 Payload 物件
      */
-    public DataPipeline add(String key, Object item) {
+    public DataPipeline put(String key, Object item) {
         if (key != null && item != null) {
             this.dataMap.put(key, item);
             if (!this.elements.contains(item)) {
@@ -111,19 +84,37 @@ public class DataPipeline implements Serializable {
         return this;
     }
 
+    /**
+     * 注入一般物件 (鏈式 API)
+     */
+    public DataPipeline add(Object item) {
+        if (item != null) {
+            this.elements.add(item);
+        }
+        return this;
+    }
+
+    /**
+     * 帶 Key 的注入相容方法
+     */
+    public DataPipeline add(String key, Object item) {
+        return put(key, item);
+    }
+
     // =========================================================================
-    // 核心強型別檢索 (Type-Safe Lookup - 免手動 (Type Cast) 轉型)
+    // 多型強型別檢索 (Type-Safe & Dynamic Lookup)
     // =========================================================================
     /**
-     * 核心強型別檢索：依據 Class 類型，自動在管道中尋找第一個匹配的物件並安全轉型
-     *
-     * @param <T>   目標型別泛型
-     * @param clazz 目標型別 Class 標籤 (例如 UserVO.class)
-     * @return 匹配之物件實例；若未找到則回傳 null
+     * 軌道一強型別檢索：依據 Class 類型，自動尋找第一個匹配之物件
      */
     @SuppressWarnings("unchecked")
     public <T> T get(Class<T> clazz) {
-        if (clazz == null) return null;
+        if (clazz == null)
+            return null;
+        Object obj = dataMap.get(clazz.getName());
+        if (obj != null && clazz.isInstance(obj)) {
+            return (T) obj;
+        }
         for (Object item : elements) {
             if (clazz.isInstance(item)) {
                 return (T) item;
@@ -133,16 +124,22 @@ public class DataPipeline implements Serializable {
     }
 
     /**
-     * 依據 Key 與 Class 進行具名強型別檢索
-     *
-     * @param <T>   目標型別泛型
-     * @param key   檢索鍵值
-     * @param clazz 目標型別 Class 標籤
-     * @return 匹配之物件實例；若未找到或型別不符則回傳 null
+     * 軌道二動態 Key 檢索：依據 Key 進行檢索並自動轉型
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get(String key) {
+        if (key == null)
+            return null;
+        return (T) dataMap.get(key);
+    }
+
+    /**
+     * 依據 Key 與 Class 進行安全型別檢索
      */
     @SuppressWarnings("unchecked")
     public <T> T get(String key, Class<T> clazz) {
-        if (key == null || clazz == null) return null;
+        if (key == null || clazz == null)
+            return null;
         Object val = dataMap.get(key);
         if (val != null && clazz.isInstance(val)) {
             return (T) val;
@@ -153,47 +150,26 @@ public class DataPipeline implements Serializable {
     // =========================================================================
     // 管道狀態檢查與維護 (Utility Methods)
     // =========================================================================
-    /**
-     * 檢查管道中是否包含指定型別之物件
-     *
-     * @param clazz 目標型別 Class
-     * @return true 代表存在；false 代表不存在
-     */
     public boolean has(Class<?> clazz) {
         return get(clazz) != null;
     }
 
-    /**
-     * 檢查管道中是否包含指定 Key 之物件
-     *
-     * @param key 檢索鍵值
-     * @return true 代表存在；false 代表不存在
-     */
     public boolean has(String key) {
         return dataMap.containsKey(key);
     }
 
-    /**
-     * 取得管道目前儲存的物件數量
-     *
-     * @return 物件總筆數
-     */
+    public boolean hasPayload(Class<?> clazz) {
+        return has(clazz);
+    }
+
     public int size() {
         return elements.size();
     }
 
-    /**
-     * 檢查管道是否完全為空
-     *
-     * @return true 代表無任何資料；false 代表有資料
-     */
     public boolean isEmpty() {
         return elements.isEmpty() && dataMap.isEmpty();
     }
 
-    /**
-     * 清空管道內部所有資料
-     */
     public void clear() {
         this.elements.clear();
         this.dataMap.clear();

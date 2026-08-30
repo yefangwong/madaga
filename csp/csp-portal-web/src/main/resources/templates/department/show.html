@@ -1,19 +1,17 @@
 <!--
   History
   --------------------------------------------
-  2026/7/14 yfwong inital version.
+  2026/07/14 yfwong inital version.
   2026/07/15 yfwong refactor to use custom <data-toolbar> component
+  2026/08/30 yfwong 現代化行動端卡片版型與 Dialog 模態視圖重構 (HTML/CSS 先行驗證階段)
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <title>部門管理</title>
-    <style>
-    </style>
     <script>
         $(function () {
-            // init
             let vue = new Vue({
                 el: "#container",
                 data: {
@@ -22,7 +20,17 @@
                     form: {
                         number: null,
                         name: null,
-                    }
+                    },
+                    // Dialog 狀態控制
+                    dialogVisible: false,
+                    dialogType: 'add', // 'add', 'edit', 'delete'
+                    dialogTitle: '',
+                    deptForm: {
+                        id: null,
+                        number: '',
+                        name: ''
+                    },
+                    deletingDept: null
                 },
                 created() {
                     this.search();
@@ -39,87 +47,243 @@
                             .then(function (res) {
                                 this.list = res.data;
                             }.bind(this))
+                            .catch(function (err) {
+                                console.error("Search failed", err);
+                            });
                     },
-                    showAdd: function() {
-                        location.href = "showAdd";
+                    selectCard: function (id) {
+                        this.selectedId = (this.selectedId === id) ? -1 : id;
                     },
-                    showUpdate: function() {
-                        if (this.selectedId > -1) {
-                            location.href = "showUpdate?id=" + this.selectedId;
-                        } else {
-                            alert('請選中數據');
+                    // 開啟新增 Dialog
+                    openAddDialog: function () {
+                        this.dialogType = 'add';
+                        this.dialogTitle = '新增部門';
+                        this.deptForm = { id: null, number: '', name: '' };
+                        this.dialogVisible = true;
+                    },
+                    // 開啟編輯 Dialog
+                    openEditDialog: function (dept) {
+                        this.dialogType = 'edit';
+                        this.dialogTitle = '編輯部門資料';
+                        this.deptForm = {
+                            id: dept.id,
+                            number: dept.number,
+                            name: dept.name
+                        };
+                        this.dialogVisible = true;
+                    },
+                    // 開啟刪除確認 Dialog
+                    openDeleteDialog: function (dept) {
+                        this.dialogType = 'delete';
+                        this.dialogTitle = '確認刪除部門';
+                        this.deletingDept = dept;
+                        this.dialogVisible = true;
+                    },
+                    // 關閉 Dialog
+                    closeDialog: function () {
+                        this.dialogVisible = false;
+                    },
+                    // 儲存部門 (新增 / 修改)
+                    submitDeptForm: function () {
+                        if (!this.deptForm.number || !this.deptForm.name) {
+                            alert('請完整填寫部門編號與名稱');
+                            return;
                         }
-                    },
-                    deleteData: function() {
-                        if (this.selectedId > -1) {
-                            axios.get('delete', {params: {id: this.selectedId}})
-                                .then(function (res) {
-                                    this.search();
-                                }.bind(this))
-                                .catch(function (error) {
-                                    if (error.response && error.response.status === 400) {
-                                        alert(error.response.data);
-                                    } else {
-                                        alert('刪除失敗');
+                        let url = (this.dialogType === 'add') ? 'add' : 'update';
+                        let payload = {
+                            id: this.deptForm.id,
+                            number: parseInt(this.deptForm.number, 10),
+                            name: this.deptForm.name
+                        };
+                        axios.post(url, payload)
+                            .then(function (res) {
+                                this.closeDialog();
+                                this.search();
+                            }.bind(this))
+                            .catch(function (err) {
+                                let errorMsg = '儲存失敗';
+                                if (err.response && err.response.data) {
+                                    if (typeof err.response.data === 'string') {
+                                        errorMsg += '：' + err.response.data;
+                                    } else if (err.response.data.message) {
+                                        errorMsg += '：' + err.response.data.message;
                                     }
-                                });
-                        } else {
-                            alert('請選中數據');
-                        }
+                                } else if (err.message) {
+                                    errorMsg += '：' + err.message;
+                                }
+                                alert(errorMsg);
+                            });
                     },
-                    selectTr: function (id) {
-                        this.selectedId = id;
+                    // 確認刪除
+                    confirmDelete: function () {
+                        if (!this.deletingDept) return;
+                        axios.get('delete', { params: { id: this.deletingDept.id } })
+                            .then(function (res) {
+                                this.closeDialog();
+                                this.search();
+                            }.bind(this))
+                            .catch(function (error) {
+                                if (error.response && error.response.status === 400) {
+                                    alert(error.response.data);
+                                } else {
+                                    alert('刪除失敗');
+                                }
+                            });
                     }
                 }
-            })
+            });
         });
     </script>
 </head>
 
 <body>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">部門管理</h1>
-</div>
 <div id="container">
-    <!-- Modal -->
-    <div class="search-area">
-        <form id="search" action="search" method="post" @submit.prevent="search()">
-            <div class="row">
-                <div class="col-md-2 pb-3 align">
-                    <input type="text" class="form-control" name="number" placeholder="請輸入部門編號" v-model="form.number" />
-                </div>
-                <div class="col-md-2 align">
-                    <input type="text" class="form-control" name="name" placeholder="請輸入部門名稱" v-model="form.name" />
-                </div>
-                <div class="col-md-4 align">
-                    <div class="d-grid gap-2 d-md-block" role="toolbar">
-                        <button type="submit" class="btn btn-primary csp-btn-spacing">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                            搜尋
-                        </button>
+    <!-- 1. 頁面標題與快速新增按鈕 -->
+    <div class="csp-page-header">
+        <h1 class="csp-page-title">
+            <i class="fa fa-sitemap csp-text-primary" aria-hidden="true"></i>
+            部門管理
+            <span class="csp-badge-count">{{ list.length }} 個部門</span>
+        </h1>
+        <button type="button" class="csp-fab-add" @click="openAddDialog">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>新增部門</span>
+        </button>
+    </div>
+
+    <!-- 2. 現代化搜尋膠囊面板 -->
+    <div class="csp-search-panel">
+        <form id="search" @submit.prevent="search">
+            <div class="row g-2 align-items-center">
+                <div class="col-12 col-md-5">
+                    <div class="csp-input-group">
+                        <i class="fa fa-hashtag csp-input-icon"></i>
+                        <input type="text" class="csp-form-input" placeholder="依部門編號搜尋..." v-model="form.number" />
                     </div>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div class="csp-input-group">
+                        <i class="fa fa-building-o csp-input-icon"></i>
+                        <input type="text" class="csp-form-input" placeholder="依部門名稱搜尋..." v-model="form.name" />
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <button type="submit" class="csp-btn csp-btn-primary w-100">
+                        <i class="fa fa-search" aria-hidden="true"></i> 搜尋
+                    </button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="table-area">
-        <table id="data" class="table table-bordered" border="1" role="presentation">
-            <tr>
-                <td>編號</td>
-                <td>名稱</td>
-            </tr>
-            <tr class="data" v-for="dep in list" v-bind:class="{selected:dep.id==selectedId}"
-                @click="selectTr(dep.id)">
-                <td v-text="dep.number"></td>
-                <td v-text="dep.name"></td>
-            </tr>
-        </table>
+
+    <!-- 3. 現代化卡片清單 (行動友善) -->
+    <div class="csp-card-grid">
+        <div v-for="dep in list" :key="dep.id" 
+             class="csp-dept-card" 
+             :class="{ selected: dep.id === selectedId }"
+             @click="selectCard(dep.id)">
+            
+            <div>
+                <div class="csp-dept-card-header">
+                    <span class="csp-dept-badge">
+                        <i class="fa fa-tag" aria-hidden="true"></i> #{{ dep.number }}
+                    </span>
+                </div>
+                <div class="csp-dept-name">{{ dep.name }}</div>
+                <div class="csp-dept-meta">
+                    <span><i class="fa fa-id-badge" aria-hidden="true"></i> ID: {{ dep.id }}</span>
+                </div>
+            </div>
+
+            <!-- 卡片內置操作按鈕 -->
+            <div class="csp-dept-card-actions" @click.stop>
+                <button type="button" class="csp-btn-icon" title="編輯部門" @click="openEditDialog(dep)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="csp-btn-icon danger" title="刪除部門" @click="openDeleteDialog(dep)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 空狀態展示 (無資料時) -->
+        <div v-if="list.length === 0" class="text-center py-5 col-12 text-muted">
+            <i class="fa fa-folder-open-o fa-3x mb-3 text-secondary"></i>
+            <p class="mb-0">查無部門資料，點擊上方按鈕建立新部門</p>
+        </div>
     </div>
-    <data-toolbar @add="showAdd" @edit="showUpdate" @delete="deleteData"></data-toolbar>
+
+    <!-- ================================================================= -->
+    <!-- 4. 現代化 Dialog 結構 (HTML/CSS 先行驗證) -->
+    <!-- ================================================================= -->
+    <div class="csp-dialog-overlay" :class="{ active: dialogVisible }" @click.self="closeDialog">
+        
+        <!-- (A) 表單 Dialog: 新增 / 編輯 -->
+        <div v-if="dialogType === 'add' || dialogType === 'edit'" class="csp-dialog-modal">
+            <div class="csp-dialog-header">
+                <h3 class="csp-dialog-title">
+                    <i class="fa" :class="dialogType === 'add' ? 'fa-plus-circle csp-text-primary' : 'fa-pencil csp-text-primary'"></i>
+                    {{ dialogTitle }}
+                </h3>
+                <button type="button" class="csp-dialog-close" @click="closeDialog" aria-label="關閉">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="csp-dialog-body">
+                <div class="mb-3">
+                    <label class="form-label text-secondary fw-bold small">部門編號</label>
+                    <div class="csp-input-group">
+                        <i class="fa fa-hashtag csp-input-icon"></i>
+                        <input type="text" class="csp-form-input" placeholder="例如：1369" v-model="deptForm.number" required />
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-secondary fw-bold small">部門名稱</label>
+                    <div class="csp-input-group">
+                        <i class="fa fa-building-o csp-input-icon"></i>
+                        <input type="text" class="csp-form-input" placeholder="例如：資訊部" v-model="deptForm.name" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="csp-dialog-footer">
+                <button type="button" class="csp-btn csp-btn-secondary" @click="closeDialog">取消</button>
+                <button type="button" class="csp-btn csp-btn-primary" @click="submitDeptForm">
+                    <i class="fa fa-check"></i> 確認儲存
+                </button>
+            </div>
+        </div>
+
+        <!-- (B) 確認 Dialog: 刪除確認 -->
+        <div v-if="dialogType === 'delete'" class="csp-dialog-modal">
+            <div class="csp-dialog-header">
+                <h3 class="csp-dialog-title text-danger">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    {{ dialogTitle }}
+                </h3>
+                <button type="button" class="csp-dialog-close" @click="closeDialog" aria-label="關閉">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="csp-dialog-body" v-if="deletingDept">
+                <p class="text-secondary mb-1">您確定要刪除以下部門嗎？此操作無法復原：</p>
+                <div class="p-3 my-2 bg-light rounded border">
+                    <div class="fw-bold text-dark">{{ deletingDept.name }}</div>
+                    <div class="text-muted small">編號：#{{ deletingDept.number }}</div>
+                </div>
+            </div>
+
+            <div class="csp-dialog-footer">
+                <button type="button" class="csp-btn csp-btn-secondary" @click="closeDialog">取消</button>
+                <button type="button" class="csp-btn csp-btn-danger" @click="confirmDelete">
+                    <i class="fa fa-trash"></i> 確認刪除
+                </button>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

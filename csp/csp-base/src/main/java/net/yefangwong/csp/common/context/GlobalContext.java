@@ -12,13 +12,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * GlobalContext - 全域操作上下文
+ * GlobalContext - 平台全域上下文模型
  *
- * 作 業 名 稱 ：Cornelius Service Platform (CSP) 核心全域上下文
+ * 作 業 名 稱 ：Cornelius Service Platform (CSP) 全域上下文
  * 程 式 代 號 ：GlobalContext.java
- * 公             司 ：Hongfang Intelligent Technology / yefangwong
- * 描             述 ：提供全系統跨層傳遞之操作者 Email、公司代碼 (comCode)、客戶端 IP (clientIp)、
- *                  角色 (role) 與 TraceID 鏈路追蹤上下文
+ * 公 司 ：Hongfang Intelligent Technology / yefangwong
+ * 描 述 ：封裝操作者 Email、機構/專案代碼 (comCode)、用戶 IP、角色 (role)、Trace ID 與租戶 ID
  *
  * @author Mark Wong (yefangwong)
  * @since 1.0.0 (2026-07-21)
@@ -26,58 +25,50 @@ import java.util.UUID;
 public class GlobalContext implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 操作者帳號 / Email
-     */
     private String operatorEmail;
-
-    /**
-     * 公司 / 機構代碼
-     */
     private String comCode;
-
-    /**
-     * 客戶端 IP 位址
-     */
     private String clientIp;
-
-    /**
-     * 操作者角色權限
-     */
     private String role;
-
-    /**
-     * 鏈路追蹤 ID (TraceID)
-     */
     private String traceId;
+    private String tenantId;
 
     public GlobalContext() {
         this.traceId = generateTraceId();
+        this.tenantId = "default-tenant";
+        this.clientIp = "127.0.0.1";
+        this.role = "USER";
     }
 
-    public GlobalContext(String operatorEmail, String comCode, String clientIp, String role) {
-        this(operatorEmail, comCode, clientIp, role, generateTraceId());
-    }
-
-    public GlobalContext(String operatorEmail, String comCode, String clientIp, String role, String traceId) {
+    public GlobalContext(String operatorEmail, String comCode, String clientIp, String traceId, String tenantId) {
         this.operatorEmail = operatorEmail;
         this.comCode = comCode;
-        this.clientIp = clientIp;
-        this.role = role;
+        this.clientIp = (clientIp != null) ? clientIp : "127.0.0.1";
         this.traceId = (traceId != null && !traceId.trim().isEmpty()) ? traceId : generateTraceId();
+        this.tenantId = (tenantId != null) ? tenantId : "default-tenant";
+        this.role = "USER";
+    }
+
+    public GlobalContext(String operatorEmail, String comCode, String clientIp, String role, String traceId,
+            String tenantId) {
+        this.operatorEmail = operatorEmail;
+        this.comCode = comCode;
+        this.clientIp = (clientIp != null) ? clientIp : "127.0.0.1";
+        this.role = (role != null) ? role : "USER";
+        this.traceId = (traceId != null && !traceId.trim().isEmpty()) ? traceId : generateTraceId();
+        this.tenantId = (tenantId != null) ? tenantId : "default-tenant";
     }
 
     private static String generateTraceId() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
-    // 工廠靜態方法
+    // 靜態工廠方法
     public static GlobalContext of(String operatorEmail, String comCode) {
-        return new GlobalContext(operatorEmail, comCode, "127.0.0.1", "USER");
+        return new GlobalContext(operatorEmail, comCode, "127.0.0.1", generateTraceId(), "default-tenant");
     }
 
     public static GlobalContext of(String operatorEmail, String comCode, String clientIp, String role) {
-        return new GlobalContext(operatorEmail, comCode, clientIp, role);
+        return new GlobalContext(operatorEmail, comCode, clientIp, role, generateTraceId(), "default-tenant");
     }
 
     public static GlobalContextBuilder builder() {
@@ -90,6 +81,7 @@ public class GlobalContext implements Serializable {
         private String clientIp = "127.0.0.1";
         private String role = "USER";
         private String traceId;
+        private String tenantId = "default-tenant";
 
         public GlobalContextBuilder operatorEmail(String operatorEmail) {
             this.operatorEmail = operatorEmail;
@@ -116,8 +108,13 @@ public class GlobalContext implements Serializable {
             return this;
         }
 
+        public GlobalContextBuilder tenantId(String tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
         public GlobalContext build() {
-            return new GlobalContext(operatorEmail, comCode, clientIp, role, traceId);
+            return new GlobalContext(operatorEmail, comCode, clientIp, role, traceId, tenantId);
         }
     }
 
@@ -167,21 +164,30 @@ public class GlobalContext implements Serializable {
         return this;
     }
 
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public GlobalContext setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GlobalContext context = (GlobalContext) o;
-        return Objects.equals(operatorEmail, context.operatorEmail) &&
-                Objects.equals(comCode, context.comCode) &&
-                Objects.equals(clientIp, context.clientIp) &&
-                Objects.equals(role, context.role) &&
-                Objects.equals(traceId, context.traceId);
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        GlobalContext that = (GlobalContext) o;
+        return Objects.equals(operatorEmail, that.operatorEmail) &&
+                Objects.equals(comCode, that.comCode) &&
+                Objects.equals(traceId, that.traceId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operatorEmail, comCode, clientIp, role, traceId);
+        return Objects.hash(operatorEmail, comCode, traceId);
     }
 
     @Override
@@ -192,6 +198,7 @@ public class GlobalContext implements Serializable {
                 ", clientIp='" + clientIp + '\'' +
                 ", role='" + role + '\'' +
                 ", traceId='" + traceId + '\'' +
+                ", tenantId='" + tenantId + '\'' +
                 '}';
     }
 }

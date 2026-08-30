@@ -16,74 +16,96 @@
 <!--
   History
   --------------------------------------------
-  2023/7/27 yfwong initial version
+  2023/07/27 yfwong initial version
+  2026/08/28 yfwong 調整 head 加入 viewport 調整畫面適應手機
 -->
 <!doctype html>
 <html lang="zh_TW" xmlns:th="https://www.thymeleaf.org">
-<title></title>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{'/js/axios.min.js'}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-<script type="text/javascript" th:src="@{'/js/util.js'}" crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{'/js/components/A.js'}"></script>
-<script type="text/javascript" th:src="@{'/js/components/DataToolbar.js'}"></script>
-<link rel="stylesheet" th:href="@{'/css/style.css'}" />
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HongFang Portal</title>
+    <!-- LiveReload 自動熱重載腳本 (Safari / Chrome 免安裝擴充通用) -->
+    <script src="http://localhost:35729/livereload.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{'/js/axios.min.js'}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script type="text/javascript" th:src="@{'/js/util.js'}" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{'/js/components/A.js'}"></script>
+    <script type="text/javascript" th:src="@{'/js/components/DataToolbar.js'}"></script>
+    <!-- Google Fonts: Montserrat (Latin/Numerics) + Noto Sans TC (Traditional Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{'/dist/css/cornelius-ui.css'(t=${#dates.createNow().getTime()})}" />
+    <link rel="stylesheet" th:href="@{'/css/style.css'(t=${#dates.createNow().getTime()})}" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-    }
-</style>
 
-
-<!-- Custom styles for this template -->
-<link th:href="@{'/css/dashboard.css'}" rel="stylesheet" />
-
-<script>
-    $(function () {
-        // Remove the "active" class from all links
-        var links = document.querySelectorAll('a');
-        links.forEach(function (element) {
-            element.classList.remove('active');
-        });
-
-        // Get the current URL path
-        var currentPath = window.location.pathname;
-
-        // Loop through each navigation link
-        $('.nav-link').each(function () {
-            var linkPath = $(this).attr('href');
-
-            // Check if the link's path matches the current URL path
-            if (linkPath === currentPath) {
-                $(this).addClass('active'); // Add a class chat mark the link as active
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
             }
-        });
-    });
-</script>
+        }
+    </style>
 
+    <!-- Custom styles for this template -->
+    <link th:href="@{'/css/dashboard.css'}" rel="stylesheet" />
+
+    <!-- CSRF Token Meta Tags for AJAX POST requests -->
+    <meta name="_csrf" th:content="${_csrf?.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
+
+    <script>
+        $(function () {
+            // Configure Axios to automatically include the CSRF token in header
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            if (csrfToken && csrfHeader) {
+                axios.defaults.headers.common[csrfHeader] = csrfToken;
+            }
+
+            // Remove the "active" class from all links
+            var links = document.querySelectorAll('a');
+            links.forEach(function (element) {
+                element.classList.remove('active');
+            });
+
+            // Get the current URL path
+            var currentPath = window.location.pathname;
+
+            // Loop through each navigation link
+            $('.nav-link').each(function () {
+                var linkPath = $(this).attr('href');
+
+                // Check if the link's path matches the current URL path
+                if (linkPath === currentPath) {
+                    $(this).addClass('active'); // Add a class chat mark the link as active
+                }
+            });
+        });
+    </script>
+</head>
 <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">HongFang Portal</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-0 px-md-3" href="#">HongFang Portal</a>
+        <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="搜尋" aria-label="搜尋">
-        <div class="navbar-nav">
+        <input class="form-control form-control-dark w-100 d-none d-md-block" type="text" placeholder="搜尋" aria-label="搜尋">
+        <div class="navbar-nav d-none d-md-block">
             <div class="nav-item text-nowrap">
                 <a class="nav-link px-3" href="/index">登出</a>
             </div>
@@ -93,7 +115,12 @@
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <!-- 手機版專屬搜尋框 -->
+                    <div class="mobile-search d-md-none">
+                        <input class="form-control" type="text" placeholder="搜尋..." aria-label="搜尋">
+                    </div>
+
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/dashboard/index">
@@ -113,6 +140,19 @@
                                 部門管理
                             </a>
                         </li>
+                    </ul>
+
+                    <!-- 手機版專屬登出項目 -->
+                    <div class="mobile-logout d-md-none">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index">
+                                    <span data-feather="log-out"></span>
+                                    登出
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                         <!--<li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="file"></span>
@@ -198,6 +238,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
+    <script th:src="@{'/dist/js/cornelius-ui.js'}"></script>
     <script src="/js/dashboard.js"></script>
 </body>
 <div id="divToPostFormSubmit"></div>

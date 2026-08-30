@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CorneliusUI 元件庫 - 複製貼上即可用的 UI 範例手冊</title>
+  
+  <!-- Google Fonts: Montserrat & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* Apple Developer Style Clean Documentation System */
+    :root {
+      --doc-bg: #f5f5f7;
+      --doc-border: rgba(0, 0, 0, 0.08);
+      --doc-nav-height: 56px;
+    }
+
+    body {
+      background-color: var(--doc-bg);
+      color: var(--cui-text-title, #1d1d1f);
+      font-family: var(--cui-font-base, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 頂部毛玻璃導覽列 */
+    .doc-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--doc-nav-height);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--doc-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .doc-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #1d1d1f;
+      text-decoration: none;
+    }
+    .doc-brand-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(226, 109, 56, 0.12);
+      color: var(--cui-primary, #e26d38);
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    .doc-category-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .doc-nav-pill {
+      font-size: 13px;
+      font-weight: 500;
+      color: #515154;
+      padding: 6px 14px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .doc-nav-pill:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: #1d1d1f;
+    }
+
+    /* 主容器 */
+    .doc-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+    }
+
+    /* 頂部橫幅 */
+    .doc-hero {
+      background: linear-gradient(135deg, #e26d38 0%, #d45924 100%);
+      color: #ffffff;
+      padding: 36px 40px;
+      border-radius: 20px;
+      margin-bottom: 44px;
+      box-shadow: 0 10px 30px rgba(226, 109, 56, 0.25);
+    }
+    .doc-hero-sub {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+    .doc-hero h1 {
+      margin: 0 0 10px 0;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+    }
+    .doc-hero h1 .hero-brand {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .doc-hero h1 .hero-subtitle {
+      font-weight: 400;
+      font-size: 23px;
+      margin-left: 6px;
+      opacity: 0.92;
+    }
+    .doc-hero p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    /* 分類大標題區塊 */
+    .doc-section {
+      margin-bottom: 52px;
+      scroll-margin-top: 76px;
+    }
+    .doc-section-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 12px;
+    }
+    .doc-section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--cui-primary, #e26d38);
+      margin-bottom: 4px;
+    }
+    .doc-section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin: 0 0 6px 0;
+    }
+    .doc-section-desc {
+      font-size: 14px;
+      color: #6e6e73;
+      margin: 0;
+    }
+
+    /* 獨立元件卡片 (Apple Developer 結構) */
+    .doc-component-unit {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      margin-bottom: 30px;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    .doc-component-unit:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+    
+    /* 元件卡片標題說明區 */
+    .doc-unit-header {
+      padding: 22px 26px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background: #ffffff;
+    }
+    .doc-unit-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .doc-unit-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .doc-unit-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin: 0;
+    }
+    .doc-unit-class-pill {
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      background: #f0f0f2;
+      color: #3a3a3c;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .doc-unit-desc {
+      font-size: 13.5px;
+      color: #515154;
+      line-height: 1.55;
+      margin: 6px 0 0 0;
+    }
+    .doc-tip-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(226, 109, 56, 0.08);
+      color: #c8531e;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    
+    /* 預覽畫布 */
+    .doc-preview-canvas {
+      padding: 24px 26px;
+      background: #fafafa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .doc-preview-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #86868b;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 專屬深色程式碼區塊 */
+    .doc-code-wrapper {
+      background: #18181b;
+    }
+    .code-editor {
+      background-color: #18181b;
+      overflow: hidden;
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 16px;
+      background-color: #121214;
+      border-bottom: 1px solid #27272a;
+    }
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .code-dot.red { background-color: #ef4444; }
+    .code-dot.yellow { background-color: #f59e0b; }
+    .code-dot.green { background-color: #10b981; }
+    .code-filename {
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      font-size: 12px;
+      color: #a1a1aa;
+      font-weight: 500;
+    }
+    .code-copy-btn {
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .code-copy-btn:hover {
+      background-color: var(--cui-primary, #e26d38);
+      border-color: var(--cui-primary, #e26d38);
+    }
+    .code-content {
+      padding: 16px 20px;
+      margin: 0;
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: #f4f4f5;
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2;
+    }
+    /* Syntax Tokens */
+    .c-tag { color: #f87171; font-weight: 500; }
+    .c-attr { color: #38bdf8; }
+    .c-str { color: #fde047; }
+    .c-comment { color: #858591; font-style: italic; }
+    .c-cmd { color: #34d399; font-weight: 600; }
+    .c-arg { color: #e4e4e7; }
+    .c-prompt { color: #fb923c; user-select: none; margin-right: 6px; }
+
+    /* Layout Grids */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 18px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 20px;
+    }
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--cui-radius-sm);
+      border: 1px solid var(--cui-border);
+      background: var(--cui-surface);
+    }
+    .swatch-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .search-demo-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 110px;
+      gap: 12px;
+      align-items: end;
+    }
+    .search-demo-subgrid {
+      display: contents;
+    }
+
+    /* Steps */
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      background-color: var(--cui-primary);
+      color: #ffffff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+      box-shadow: 0 2px 6px rgba(226, 109, 56, 0.35);
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--cui-text-title);
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .doc-topbar { padding: 0 16px; }
+      .doc-container { padding: 20px 14px 60px; }
+      .doc-hero { padding: 24px 20px; border-radius: 14px; }
+      .doc-hero h1 { font-size: 22px; }
+      .search-demo-grid { grid-template-columns: 1fr; gap: 12px; }
+      .search-demo-subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 14px; }
+    }
+  </style>
+  <script type="module" crossorigin src="/js/main.js"></script>
+  <link rel="modulepreload" crossorigin href="/js/cornelius-ui.js">
+  <link rel="stylesheet" crossorigin href="/css/cornelius-ui.css">
+</head>
+<body>
+
+  <!-- 頂部 Apple 風格快速導覽 -->
+  <header class="doc-topbar">
+    <a href="#" class="doc-brand">
+      <i class="fa-solid fa-cube cui-text-primary"></i>
+      <span>CorneliusUI</span>
+      <span class="doc-brand-badge">UI 元件手冊</span>
+    </a>
+    <nav class="doc-category-nav">
+      <a href="#cat-inputs" class="doc-nav-pill">輸入框與表單</a>
+      <a href="#cat-controls" class="doc-nav-pill">按鈕與標籤</a>
+      <a href="#cat-data" class="doc-nav-pill">卡片與表格</a>
+      <a href="#cat-dialogs" class="doc-nav-pill">彈跳視窗</a>
+      <a href="#cat-foundations" class="doc-nav-pill">顏色與字體</a>
+      <a href="#cat-setup" class="doc-nav-pill">3 步驟套用</a>
+    </nav>
+  </header>
+
+  <main class="doc-container">
+
+    <!-- 頂部大橫幅 -->
+    <div class="doc-hero">
+      <div class="doc-hero-sub">Hong Fang Design System</div>
+      <h1><span class="hero-brand">CorneliusUI</span> <span class="hero-subtitle">視覺元件庫</span></h1>
+      <p>
+        專門為 CSP 系統設計的 UI 元件。每個元件都有「效果預覽」和「直接複製的 HTML」，不用記複雜語法，按右上角<b>「複製」</b>按鈕直接貼到您的網頁即可使用！
+      </p>
+    </div>
+
+
+    <!-- ==========================================
+         分類 1: 輸入框與表單 (Inputs & Forms)
+         ========================================== -->
+    <section id="cat-inputs" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-keyboard"></i> 表單元件</div>
+        <h2 class="doc-section-title">輸入框與下拉選單 (Inputs & Selects)</h2>
+        <p class="doc-section-desc">用來讓使用者打字輸入、選擇項目或搜尋資料。</p>
+      </div>
+
+      <!-- 1.1 文字輸入框 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-i-cursor cui-text-primary"></i>
+              <h3 class="doc-unit-title">文字輸入框 (Text Input)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-input"</span>
+          </div>
+          <p class="doc-unit-desc">
+            最常見的文字輸入框。滑鼠點擊時會發出柔和的橙色光暈，支援一般文字、數字和唯讀狀態。
+          </p>
+          <div class="doc-tip-bar">
+            <i class="fa-solid fa-circle-check"></i> 使用方式：在 <code>&lt;input&gt;</code> 加上 <code>class="cui-input"</code> 即可
+          </div>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽（點擊輸入框試試看）：</div>
+          <div class="grid-3">
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">1. 一般輸入框</label>
+              <input type="text" class="cui-input" placeholder="請輸入姓名或文字..." />
+            </div>
+
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">2. 數字/金額輸入框</label>
+              <input type="text" class="cui-input cui-num" value="84,500.00" />
+            </div>
+
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">3. 唯讀/不能修改 (Disabled)</label>
+              <input type="text" class="cui-input" value="SYS-2026-AUTO-99" disabled style="opacity: 0.6; cursor: not-allowed;" />
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼（點右側直接複製）</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 1. 一般文字輸入框（含標題標籤） --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>姓名<span class="c-tag">&lt;/label&gt;</span>
+  <span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-input"</span> <span class="c-attr">placeholder</span>=<span class="c-str">"請輸入姓名..."</span> <span class="c-tag">/&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-comment">&lt;!-- 2. 數字輸入框（加上 cui-num 字體會變等寬好看） --&gt;</span>
+<span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-input cui-num"</span> <span class="c-attr">value</span>=<span class="c-str">"84,500.00"</span> <span class="c-tag">/&gt;</span>
+
+<span class="c-comment">&lt;!-- 3. 唯讀狀態（加上 disabled） --&gt;</span>
+<span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-input"</span> <span class="c-attr">value</span>=<span class="c-str">"SYS-2026-AUTO-99"</span> <span class="c-attr">disabled</span> <span class="c-attr">style</span>=<span class="c-str">"opacity: 0.6; cursor: not-allowed;"</span> <span class="c-tag">/&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.2 下拉選單 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-chevron-down cui-text-primary"></i>
+              <h3 class="doc-unit-title">下拉選單 (Select Dropdown)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-select"</span>
+          </div>
+          <p class="doc-unit-desc">
+            點擊展開選單。右側已內建箭頭圖示，在 iPhone、Android、Windows、Mac 上長相都完全統一好看。
+          </p>
+          <div class="doc-tip-bar">
+            <i class="fa-solid fa-circle-check"></i> 使用方式：在 <code>&lt;select&gt;</code> 加上 <code>class="cui-select"</code> 即可
+          </div>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽（點擊下拉看看）：</div>
+          <div class="grid-2">
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">1. 一般下拉選單</label>
+              <select class="cui-select">
+                <option value="1">資訊部</option>
+                <option value="2">財務部</option>
+                <option value="3">營運企劃部</option>
+              </select>
+            </div>
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">2. 唯讀/鎖定選單 (Disabled)</label>
+              <select class="cui-select" disabled style="opacity: 0.6; cursor: not-allowed;">
+                <option>系統鎖定模式（不能更改）</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>所屬部門<span class="c-tag">&lt;/label&gt;</span>
+  <span class="c-tag">&lt;select</span> <span class="c-attr">class</span>=<span class="c-str">"cui-select"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;option</span> <span class="c-attr">value</span>=<span class="c-str">""</span><span class="c-tag">&gt;</span>請選擇部門...<span class="c-tag">&lt;/option&gt;</span>
+    <span class="c-tag">&lt;option</span> <span class="c-attr">value</span>=<span class="c-str">"1"</span><span class="c-tag">&gt;</span>資訊部<span class="c-tag">&lt;/option&gt;</span>
+    <span class="c-tag">&lt;option</span> <span class="c-attr">value</span>=<span class="c-str">"2"</span><span class="c-tag">&gt;</span>財務部<span class="c-tag">&lt;/option&gt;</span>
+  <span class="c-tag">&lt;/select&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.3 搜尋列組合 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-magnifying-glass cui-text-primary"></i>
+              <h3 class="doc-unit-title">整排搜尋列組合 (Search Toolbar)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="search-demo-grid"</span>
+          </div>
+          <p class="doc-unit-desc">
+            把輸入框、下拉選單與搜尋按鈕排成一整列（電腦版整齊橫排、手機版會自動整齊換行，不會跑版）。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="search-demo-grid">
+            <div class="cui-form-group" style="margin-bottom: 0;">
+              <label class="cui-label">員工編號 / 關鍵字</label>
+              <input type="text" class="cui-input" placeholder="例如：#10001..." />
+            </div>
+            <div class="search-demo-subgrid">
+              <div class="cui-form-group" style="margin-bottom: 0;">
+                <label class="cui-label">性別</label>
+                <select class="cui-select">
+                  <option value="">所有性別</option>
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                </select>
+              </div>
+              <div class="cui-form-group" style="margin-bottom: 0;">
+                <label class="cui-label">部門</label>
+                <select class="cui-select">
+                  <option value="">所有部門</option>
+                  <option value="1">資訊部</option>
+                  <option value="2">財務部</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <button type="button" class="cui-btn cui-btn-primary cui-btn-pill" style="width: 100%; height: 44px;">
+                <i class="fa-solid fa-magnifying-glass"></i> 搜尋
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 搜尋工具列（桌機自動橫排、手機自動換行） --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"search-demo-grid"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>關鍵字<span class="c-tag">&lt;/label&gt;</span>
+    <span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-input"</span> <span class="c-attr">placeholder</span>=<span class="c-str">"搜尋..."</span> <span class="c-tag">/&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+  
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"search-demo-subgrid"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>性別<span class="c-tag">&lt;/label&gt;</span>
+      <span class="c-tag">&lt;select</span> <span class="c-attr">class</span>=<span class="c-str">"cui-select"</span><span class="c-tag">&gt;&lt;option&gt;</span>所有性別<span class="c-tag">&lt;/option&gt;&lt;/select&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>部門<span class="c-tag">&lt;/label&gt;</span>
+      <span class="c-tag">&lt;select</span> <span class="c-attr">class</span>=<span class="c-str">"cui-select"</span><span class="c-tag">&gt;&lt;option&gt;</span>所有部門<span class="c-tag">&lt;/option&gt;&lt;/select&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+
+  <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-primary cui-btn-pill"</span> <span class="c-attr">style</span>=<span class="c-str">"height: 44px; width: 100%;"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-magnifying-glass"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 搜尋
+  <span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         分類 2: 按鈕與標籤 (Buttons & Badges)
+         ========================================== -->
+    <section id="cat-controls" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-hand-pointer"></i> 動作元件</div>
+        <h2 class="doc-section-title">按鈕與狀態標籤 (Buttons & Badges)</h2>
+        <p class="doc-section-desc">用來點擊執行操作，或顯示資料的審核狀態。</p>
+      </div>
+
+      <!-- 2.1 按鈕 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-toggle-on cui-text-primary"></i>
+              <h3 class="doc-unit-title">各種按鈕樣式 (Buttons)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-btn ..."</span>
+          </div>
+          <p class="doc-unit-desc">
+            滑鼠移過去有陰影浮起效果，點擊時會微微縮小反饋。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽（滑鼠移上去看看）：</div>
+          <div class="component-row">
+            <button type="button" class="cui-btn cui-btn-primary cui-btn-pill">
+              <i class="fa-solid fa-check"></i> 膠囊主按鈕 (Pill)
+            </button>
+            <button type="button" class="cui-btn cui-btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> 方角主按鈕
+            </button>
+            <button type="button" class="cui-btn cui-btn-secondary">
+              次要按鈕 (灰底)
+            </button>
+            <button type="button" class="cui-btn cui-btn-outline">
+              外框按鈕 (白底)
+            </button>
+            <button type="button" class="cui-btn cui-btn-danger">
+              <i class="fa-solid fa-trash"></i> 刪除/危險動作
+            </button>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 1. 膠囊圓弧主按鈕（最推薦使用） --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-primary cui-btn-pill"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-check"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 確認送出<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-comment">&lt;!-- 2. 次要灰色按鈕（取消/返回用） --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-secondary"</span><span class="c-tag">&gt;</span>取消<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-comment">&lt;!-- 3. 外框按鈕 --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-outline"</span><span class="c-tag">&gt;</span>匯出報表<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-comment">&lt;!-- 4. 危險動作（刪除） --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-danger"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-trash"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 刪除資料<span class="c-tag">&lt;/button&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2 狀態標籤 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-tag cui-text-primary"></i>
+              <h3 class="doc-unit-title">狀態徽章與標籤 (Status Badges)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-badge ..."</span>
+          </div>
+          <p class="doc-unit-desc">
+            用來標記一筆資料是「成功、審核中、錯誤」還是「草稿」。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="component-row">
+            <span class="cui-badge cui-badge-success"><i class="fa-solid fa-circle-check"></i> 綠色：已通過 / 正常</span>
+            <span class="cui-badge cui-badge-warning"><i class="fa-solid fa-clock"></i> 黃色：審核中 / 排隊</span>
+            <span class="cui-badge cui-badge-danger"><i class="fa-solid fa-circle-exclamation"></i> 紅色：連線異常 / 失敗</span>
+            <span class="cui-badge cui-badge-neutral">灰色：草稿 / 未發布</span>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 1. 成功 / 通過 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-badge cui-badge-success"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-circle-check"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 綠色：已通過 / 正常<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-comment">&lt;!-- 2. 警告 / 審核中 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-badge cui-badge-warning"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-clock"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 黃色：審核中 / 排隊<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-comment">&lt;!-- 3. 危險 / 失敗 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-badge cui-badge-danger"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-circle-exclamation"</span><span class="c-tag">&gt;&lt;/i&gt;</span> 紅色：連線異常 / 失敗<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-comment">&lt;!-- 4. 中性 / 草稿 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-badge cui-badge-neutral"</span><span class="c-tag">&gt;</span>灰色：草稿 / 未發布<span class="c-tag">&lt;/span&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+      <!-- 2.3 按鈕群組與工具列 (Button Group & Toolbar) -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-layer-group cui-text-primary"></i>
+              <h3 class="doc-unit-title">按鈕群組與工具列 (Button Group & Toolbar)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-btn-group" / class="cui-toolbar"</span>
+          </div>
+          <p class="doc-unit-desc">
+            用來將多個操作按鈕（例如分享 Share、匯出 Export、下拉選單）整合為緊湊無縫的按鈕群組或操作工具列。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="cui-toolbar">
+            <div class="cui-btn-group">
+              <button type="button" class="cui-btn cui-btn-secondary cui-btn-sm" onclick="CorneliusUI.share()"><i class="fa-solid fa-share-nodes"></i> Share</button>
+              <button type="button" class="cui-btn cui-btn-secondary cui-btn-sm" onclick="CorneliusUI.exportTableToCSV('table', 'report.csv')"><i class="fa-solid fa-file-export"></i> Export</button>
+            </div>
+            <button type="button" class="cui-btn cui-btn-outline cui-btn-sm cui-dropdown-toggle">
+              <i class="fa-regular fa-calendar me-1"></i> This week
+            </button>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-toolbar"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn-group"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-secondary cui-btn-sm"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.share()"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-share-nodes"</span><span class="c-tag">&gt;&lt;/i&gt;</span> Share
+    <span class="c-tag">&lt;/button&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-secondary cui-btn-sm"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.exportTableToCSV('table', 'report.csv')"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-file-export"</span><span class="c-tag">&gt;&lt;/i&gt;</span> Export
+    <span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-outline cui-btn-sm cui-dropdown-toggle"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-regular fa-calendar"</span><span class="c-tag">&gt;&lt;/i&gt;</span> This week
+  <span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         分類 3: 卡片與表格 (Cards & Tables)
+         ========================================== -->
+    <section id="cat-data" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-chart-pie"></i> 數據展示</div>
+        <h2 class="doc-section-title">數據卡片與表格 (Cards & Tables)</h2>
+        <p class="doc-section-desc">用來呈現統計數字、儀表板 KPI 或條列清單數據。</p>
+      </div>
+
+      <!-- 3.1 指標卡片 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-chart-line cui-text-primary"></i>
+              <h3 class="doc-unit-title">統計指標卡片 (Stat Card)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-stat-card"</span>
+          </div>
+          <p class="doc-unit-desc">
+            儀表板專用的大數字統計卡，滑鼠移過去會有向上微浮起的動態效果。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="grid-3">
+            <div class="cui-card cui-stat-card cui-card-interactive">
+              <div class="cui-stat-label">今日服務調用量</div>
+              <div class="cui-stat-number cui-num">2,845,920</div>
+              <div class="cui-stat-trend cui-text-primary">
+                <i class="fa-solid fa-arrow-trend-up"></i> +14.2% 較昨日成長
+              </div>
+            </div>
+            <div class="cui-card cui-stat-card cui-card-interactive">
+              <div class="cui-stat-label">在線微服務節點</div>
+              <div class="cui-stat-number cui-num">128 <span style="font-size: 14px; font-weight: 400; color: var(--cui-text-secondary);">/ 130</span></div>
+              <div class="cui-stat-trend cui-text-success">
+                <i class="fa-solid fa-circle-check"></i> 99.98% 健康運行
+              </div>
+            </div>
+            <div class="cui-card cui-stat-card cui-card-interactive">
+              <div class="cui-stat-label">即時並發連線</div>
+              <div class="cui-stat-number cui-num">4,620 <span style="font-size: 14px; font-weight: 400; color: var(--cui-text-secondary);">TPS</span></div>
+              <div class="cui-stat-trend cui-text-primary">
+                <i class="fa-solid fa-bolt"></i> 負載平衡良好
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-card cui-stat-card cui-card-interactive"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-stat-label"</span><span class="c-tag">&gt;</span>卡片標題<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-stat-number cui-num"</span><span class="c-tag">&gt;</span>2,845,920<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-stat-trend cui-text-primary"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-arrow-trend-up"</span><span class="c-tag">&gt;&lt;/i&gt;</span> +14.2% 成長中
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.2 資料表格 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-table cui-text-primary"></i>
+              <h3 class="doc-unit-title">資料清單表格 (Data Table)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-table"</span>
+          </div>
+          <p class="doc-unit-desc">
+            清單表格，行距舒適、滑鼠移過去會整行高亮，外層包 <code>.cui-table-container</code> 在手機上會自動出現橫向捲軸。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="cui-table-container">
+            <table class="cui-table">
+              <thead>
+                <tr>
+                  <th>編號</th>
+                  <th>服務名稱</th>
+                  <th>負責人</th>
+                  <th>處理量</th>
+                  <th>狀態</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cui-num" style="font-weight: 600;">#1024</td>
+                  <td style="font-weight: 500;">權限驗證核心服務</td>
+                  <td>張經理</td>
+                  <td class="cui-num">12,500 req/s</td>
+                  <td><span class="cui-badge cui-badge-success">正常</span></td>
+                  <td><button type="button" class="cui-btn cui-btn-secondary cui-btn-sm">查看</button></td>
+                </tr>
+                <tr>
+                  <td class="cui-num" style="font-weight: 600;">#2048</td>
+                  <td style="font-weight: 500;">即時數據同步管道</td>
+                  <td>李工程師</td>
+                  <td class="cui-num">84,000 msg/s</td>
+                  <td><span class="cui-badge cui-badge-success">正常</span></td>
+                  <td><button type="button" class="cui-btn cui-btn-secondary cui-btn-sm">查看</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-table-container"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"cui-table"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;thead&gt;</span>
+      <span class="c-tag">&lt;tr&gt;</span>
+        <span class="c-tag">&lt;th&gt;</span>編號<span class="c-tag">&lt;/th&gt;&lt;th&gt;</span>服務名稱<span class="c-tag">&lt;/th&gt;&lt;th&gt;</span>狀態<span class="c-tag">&lt;/th&gt;&lt;th&gt;</span>操作<span class="c-tag">&lt;/th&gt;</span>
+      <span class="c-tag">&lt;/tr&gt;</span>
+    <span class="c-tag">&lt;/thead&gt;</span>
+    <span class="c-tag">&lt;tbody&gt;</span>
+      <span class="c-tag">&lt;tr&gt;</span>
+        <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"cui-num"</span><span class="c-tag">&gt;</span>#1024<span class="c-tag">&lt;/td&gt;</span>
+        <span class="c-tag">&lt;td&gt;</span>權限驗證服務<span class="c-tag">&lt;/td&gt;</span>
+        <span class="c-tag">&lt;td&gt;&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-badge cui-badge-success"</span><span class="c-tag">&gt;</span>正常<span class="c-tag">&lt;/span&gt;&lt;/td&gt;</span>
+      <!-- 3.3 網格系統 (Grid System) -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-border-all cui-text-primary"></i>
+              <h3 class="doc-unit-title">網格排版系統 (Grid System)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-grid cui-grid-2 / 3 / 4"</span>
+          </div>
+          <p class="doc-unit-desc">
+            輕量響應式網格系統，支援等寬多欄排版與手機端自動折行（支援 <code>cui-grid-1</code> 至 <code>cui-grid-4</code> 及 <code>cui-grid-auto-fit</code>）。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽：</div>
+          <div class="cui-grid cui-grid-3">
+            <div class="cui-card cui-stat-card" style="padding: 14px;">
+              <div class="cui-stat-label">網格區塊 A</div>
+              <div class="cui-num" style="font-size: 1.25rem; font-weight: 700;">.cui-grid-3</div>
+            </div>
+            <div class="cui-card cui-stat-card" style="padding: 14px;">
+              <div class="cui-stat-label">網格區塊 B</div>
+              <div class="cui-num" style="font-size: 1.25rem; font-weight: 700;">自動對齊</div>
+            </div>
+            <div class="cui-card cui-stat-card" style="padding: 14px;">
+              <div class="cui-stat-label">網格區塊 C</div>
+              <div class="cui-num" style="font-size: 1.25rem; font-weight: 700;">響應式適配</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-grid cui-grid-3"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-card"</span><span class="c-tag">&gt;</span>區塊 1<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-card"</span><span class="c-tag">&gt;</span>區塊 2<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-card"</span><span class="c-tag">&gt;</span>區塊 3<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         分類 4: 彈跳視窗 (Dialog / Modal)
+         ========================================== -->
+    <section id="cat-dialogs" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-window-restore"></i> 彈跳視窗</div>
+        <h2 class="doc-section-title">毛玻璃彈跳視窗 (Dialog Modal)</h2>
+        <p class="doc-section-desc">點擊按鈕跳出編輯或確認視窗，背景自帶毛玻璃模糊效果。</p>
+      </div>
+
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-window-restore cui-text-primary"></i>
+              <h3 class="doc-unit-title">彈跳視窗與操作 (Modal Dialog)</h3>
+            </div>
+            <span class="doc-unit-class-pill">CorneliusUI.openDialog('id')</span>
+          </div>
+          <p class="doc-unit-desc">
+            點擊按鈕開啟彈窗；點擊右上角「X」、取消按鈕或視窗外灰色區域均會自動關閉。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="doc-preview-label"><i class="fa-regular fa-eye"></i> 實際效果預覽（點擊按鈕打開彈窗）：</div>
+          <button type="button" class="cui-btn cui-btn-primary cui-btn-pill" onclick="CorneliusUI.openDialog('demo-dialog')">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 點我開啟示範彈跳視窗
+          </button>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 1. 開啟彈窗的按鈕 --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-primary cui-btn-pill"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.openDialog('my-dialog')"</span><span class="c-tag">&gt;</span>開啟視窗<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-comment">&lt;!-- 2. 彈窗本體結構（貼在頁面底部即可） --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"my-dialog"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-overlay"</span> <span class="c-attr">onclick</span>=<span class="c-str">"if(event.target===this) CorneliusUI.closeDialog('my-dialog')"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-modal"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-header"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h3</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-title"</span><span class="c-tag">&gt;</span>編輯資料<span class="c-tag">&lt;/h3&gt;</span>
+      <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-close"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.closeDialog('my-dialog')"</span><span class="c-tag">&gt;&lt;i</span> <span class="c-attr">class</span>=<span class="c-str">"fa-solid fa-xmark"</span><span class="c-tag">&gt;&lt;/i&gt;&lt;/button&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-body"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-form-group"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"cui-label"</span><span class="c-tag">&gt;</span>名稱<span class="c-tag">&lt;/label&gt;</span>
+        <span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-input"</span> <span class="c-attr">value</span>=<span class="c-str">"示範名稱"</span> <span class="c-tag">/&gt;</span>
+      <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cui-dialog-footer"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-secondary"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.closeDialog('my-dialog')"</span><span class="c-tag">&gt;</span>取消<span class="c-tag">&lt;/button&gt;</span>
+      <span class="c-tag">&lt;button</span> <span class="c-attr">type</span>=<span class="c-str">"button"</span> <span class="c-attr">class</span>=<span class="c-str">"cui-btn cui-btn-primary"</span> <span class="c-attr">onclick</span>=<span class="c-str">"CorneliusUI.closeDialog('my-dialog')"</span><span class="c-tag">&gt;</span>儲存變更<span class="c-tag">&lt;/button&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         分類 5: 顏色與字體 (Foundations)
+         ========================================== -->
+    <section id="cat-foundations" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-palette"></i> 基礎樣式</div>
+        <h2 class="doc-section-title">品牌顏色與字體 (Colors & Typography)</h2>
+        <p class="doc-section-desc">名片標準暖磚橙與等寬數字排版。</p>
+      </div>
+
+      <!-- 5.1 品牌顏色 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-swatchbook cui-text-primary"></i>
+              <h3 class="doc-unit-title">鴻方名片標準顏色</h3>
+            </div>
+            <span class="doc-unit-class-pill">CSS 變數</span>
+          </div>
+          <p class="doc-unit-desc">直接在 CSS 裡面寫 <code>var(--cui-primary)</code> 就能取用主色。</p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div class="grid-3">
+            <div class="color-swatch">
+              <div class="swatch-box" style="background-color: var(--cui-primary);"></div>
+              <div>
+                <div style="font-weight: 700; color: var(--cui-text-title);">暖磚橙（主色）</div>
+                <div class="cui-num" style="font-size: 12px; color: var(--cui-text-secondary);">#E26D38</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="swatch-box" style="background-color: var(--cui-text-title);"></div>
+              <div>
+                <div style="font-weight: 700; color: var(--cui-text-title);">深炭黑（標題）</div>
+                <div class="cui-num" style="font-size: 12px; color: var(--cui-text-secondary);">#1E1D1B</div>
+              </div>
+            </div>
+            <div class="color-swatch">
+              <div class="swatch-box" style="background-color: var(--cui-text-secondary);"></div>
+              <div>
+                <div style="font-weight: 700; color: var(--cui-text-title);">內文灰（內文）</div>
+                <div class="cui-num" style="font-size: 12px; color: var(--cui-text-secondary);">#6B6661</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5.2 金融數字排版 -->
+      <div class="doc-component-unit">
+        <div class="doc-unit-header">
+          <div class="doc-unit-meta">
+            <div class="doc-unit-title-wrap">
+              <i class="fa-solid fa-font cui-text-primary"></i>
+              <h3 class="doc-unit-title">金額與等寬數字 (Tabular Numbers)</h3>
+            </div>
+            <span class="doc-unit-class-pill">class="cui-amount" / "cui-num"</span>
+          </div>
+          <p class="doc-unit-desc">
+            加上 <code>cui-num</code> 數字會變成等寬字體，上下排版對齊不晃動；金額加上 <code>cui-amount</code> 會自動套用橘色加粗。
+          </p>
+        </div>
+
+        <div class="doc-preview-canvas">
+          <div style="background: #ffffff; padding: 18px 24px; border-radius: 10px; border: 1px solid var(--cui-border); max-width: 480px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--cui-border); padding-bottom: 6px;">
+              <span>累計交易結算：</span>
+              <span class="cui-amount cui-text-primary" style="font-size: 16px; font-weight: 700;">NT$ 128,450,000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>API 調用總量：</span>
+              <span class="cui-num" style="font-weight: 600;">1,118,920 req</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-code-wrapper">
+          <div class="code-editor">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+              <div class="code-filename">HTML 程式碼</div>
+              <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製程式碼</button>
+            </div>
+            <pre class="code-content"><span class="c-comment">&lt;!-- 金額加粗強調 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-amount cui-text-primary"</span><span class="c-tag">&gt;</span>NT$ 128,450,000<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-comment">&lt;!-- 數字等寬對齊 --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cui-num"</span><span class="c-tag">&gt;</span>1,118,920 req<span class="c-tag">&lt;/span&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         分類 6: 3 步驟套用 (Quick Start)
+         ========================================== -->
+    <section id="cat-setup" class="doc-section">
+      <div class="doc-section-header">
+        <div class="doc-section-badge"><i class="fa-solid fa-rocket"></i> 快速上手</div>
+        <h2 class="doc-section-title">3 步驟套用到您的專案 (Quick Start)</h2>
+        <p class="doc-section-desc">如何在 Spring Boot / Thymeleaf 網頁中引入此設計庫。</p>
+      </div>
+
+      <div class="doc-component-unit" style="padding: 28px;">
+        <div class="step-item">
+          <div class="step-badge">1</div>
+          <div class="step-content">
+            <div class="step-title">在 HTML 頁面引入 CSS 樣式檔</div>
+            <p style="font-size: 13.5px; color: var(--cui-text-secondary); margin: 0 0 8px 0;">在 <code>&lt;head&gt;</code> 標籤內加入這行：</p>
+            <div class="code-editor">
+              <div class="code-header">
+                <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+                <div class="code-filename">HTML (&lt;head&gt;)</div>
+                <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製</button>
+              </div>
+              <pre class="code-content"><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">th:href</span>=<span class="c-str">"@&#123;'/dist/css/cornelius-ui.css'&#125;"</span> <span class="c-tag">/&gt;</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-badge">2</div>
+          <div class="step-content">
+            <div class="step-title">（選用）如果有使用彈跳視窗，在頁尾引入 JS 檔</div>
+            <p style="font-size: 13.5px; color: var(--cui-text-secondary); margin: 0 0 8px 0;">在 <code>&lt;/body&gt;</code> 結束前加入：</p>
+            <div class="code-editor">
+              <div class="code-header">
+                <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+                <div class="code-filename">HTML (&lt;/body&gt; 前)</div>
+                <button type="button" class="code-copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> 複製</button>
+              </div>
+              <pre class="code-content"><span class="c-tag">&lt;script</span> <span class="c-attr">th:src</span>=<span class="c-str">"@&#123;'/dist/js/cornelius-ui.js'&#125;"</span><span class="c-tag">&gt;&lt;/script&gt;</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item" style="margin-bottom: 0;">
+          <div class="step-badge">3</div>
+          <div class="step-content">
+            <div class="step-title">直接複製上方任何元件的 HTML 貼上使用！</div>
+            <p style="font-size: 13.5px; color: var(--cui-text-secondary); margin: 0;">只要在 HTML 加上 <code>cui-input</code>、<code>cui-btn</code> 或 <code>cui-select</code> 等 Class，就能立刻擁有精美樣式。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 彈跳視窗示範本體 -->
+  <div id="demo-dialog" class="cui-dialog-overlay" onclick="if(event.target === this) CorneliusUI.closeDialog('demo-dialog')">
+    <div class="cui-dialog-modal">
+      <div class="cui-dialog-header">
+        <h3 class="cui-dialog-title"><i class="fa-solid fa-sliders cui-text-primary"></i> 編輯服務配置</h3>
+        <button type="button" class="cui-dialog-close" onclick="CorneliusUI.closeDialog('demo-dialog')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="cui-dialog-body">
+        <div class="cui-form-group">
+          <label class="cui-label">服務名稱</label>
+          <input type="text" class="cui-input" value="Core Data Sync Pipeline" />
+        </div>
+        <div class="cui-form-group">
+          <label class="cui-label">排程模式</label>
+          <select class="cui-select">
+            <option>即時串流 (Realtime)</option>
+            <option>批次微排程 (5分鐘)</option>
+            <option>每日定時結算</option>
+          </select>
+        </div>
+        <div class="cui-form-group">
+          <label class="cui-label">流量上限 (req/s)</label>
+          <input type="number" class="cui-input cui-num" value="84000" />
+        </div>
+      </div>
+      <div class="cui-dialog-footer">
+        <button type="button" class="cui-btn cui-btn-secondary" onclick="CorneliusUI.closeDialog('demo-dialog')">取消</button>
+        <button type="button" class="cui-btn cui-btn-primary" onclick="CorneliusUI.closeDialog('demo-dialog')">
+          <i class="fa-solid fa-check"></i> 儲存變更
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 /* globals Chart:false, feather:false */
 
 (function () {
-  'use strict'
-  feather.replace({ 'aria-hidden': 'true' })
+  'use strict';
+  feather.replace({ 'aria-hidden': 'true' });
 
   // Graphs
   var ctx = document.getElementById('myChart');
@@ -31,11 +31,11 @@
           24092,
           12034
         ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
+        lineTension: 0.2,
+        backgroundColor: 'rgba(226, 109, 56, 0.08)',
+        borderColor: '#E26D38',
+        borderWidth: 3,
+        pointBackgroundColor: '#E26D38'
       }]
     },
     options: {
@@ -50,5 +50,5 @@
         display: false
       }
     }
-  })
-})()
+  });
+})();
