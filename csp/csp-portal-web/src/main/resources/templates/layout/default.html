@@ -36,7 +36,13 @@
     <script type="text/javascript" th:src="@{'/js/util.js'}" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{'/js/components/A.js'}"></script>
     <script type="text/javascript" th:src="@{'/js/components/DataToolbar.js'}"></script>
-    <link rel="stylesheet" th:href="@{'/css/style.css'}" />
+    <!-- Google Fonts: Montserrat (Latin/Numerics) + Noto Sans TC (Traditional Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{'/dist/css/cornelius-ui.css'(t=${#dates.createNow().getTime()})}" />
+    <link rel="stylesheet" th:href="@{'/css/style.css'(t=${#dates.createNow().getTime()})}" />
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -56,8 +62,19 @@
     <!-- Custom styles for this template -->
     <link th:href="@{'/css/dashboard.css'}" rel="stylesheet" />
 
+    <!-- CSRF Token Meta Tags for AJAX POST requests -->
+    <meta name="_csrf" th:content="${_csrf?.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
+
     <script>
         $(function () {
+            // Configure Axios to automatically include the CSRF token in header
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            if (csrfToken && csrfHeader) {
+                axios.defaults.headers.common[csrfHeader] = csrfToken;
+            }
+
             // Remove the "active" class from all links
             var links = document.querySelectorAll('a');
             links.forEach(function (element) {
@@ -221,6 +238,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
+    <script th:src="@{'/dist/js/cornelius-ui.js'}"></script>
     <script src="/js/dashboard.js"></script>
 </body>
 <div id="divToPostFormSubmit"></div>

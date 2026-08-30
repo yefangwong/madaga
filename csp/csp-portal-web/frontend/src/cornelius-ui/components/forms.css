@@ -1,0 +1,55 @@
+/**
+ * CorneliusUI Form Controls
+ */
+.cui-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.cui-label {
+  font-size: 13px;
+  font-weight: var(--cui-fw-medium);
+  color: var(--cui-text-title);
+}
+
+.cui-input,
+.cui-select {
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  box-sizing: border-box;
+  font-family: var(--cui-font-base);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  border-radius: var(--cui-radius-sm);
+  border: 1px solid var(--cui-border);
+  background-color: var(--cui-surface);
+  color: var(--cui-text-title);
+  outline: none;
+  transition: var(--cui-transition);
+}
+
+.cui-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px 12px;
+  cursor: pointer;
+}
+
+.cui-input:focus,
+.cui-select:focus {
+  border-color: var(--cui-primary);
+  box-shadow: 0 0 0 3px rgba(226, 109, 56, 0.15);
+}
+
+.cui-input::placeholder {
+  color: var(--cui-text-muted);
+}

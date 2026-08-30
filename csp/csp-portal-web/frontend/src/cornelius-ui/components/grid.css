@@ -1,0 +1,43 @@
+/**
+ * CorneliusUI Grid & Layout System
+ */
+.cui-grid {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+.cui-grid-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.cui-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cui-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cui-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cui-grid-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.cui-grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+/* Responsive Auto-Fit Grid */
+.cui-grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Gap Modifiers */
+.cui-gap-xs { gap: 6px; }
+.cui-gap-sm { gap: 10px; }
+.cui-gap-md { gap: 16px; }
+.cui-gap-lg { gap: 24px; }
+.cui-gap-xl { gap: 32px; }
+
+/* Responsive Breakpoints */
+@media (max-width: 991.98px) {
+  .cui-grid-4,
+  .cui-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575.98px) {
+  .cui-grid-4,
+  .cui-grid-3,
+  .cui-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -10,10 +10,11 @@ spring:
     cache: false
     mode: HTML5
     encoding: UTF-8
-    prefix: classpath:/templates/
+    # 開發模式：直讀原始碼目錄，修改 HTML 存檔按 F5 即刻生效（免 Rebuild / 免 Copy）
+    prefix: file:src/main/resources/templates/
   web:
     resources:
-      static-locations: classpath:/static/,file:src/main/resources/static/
+      static-locations: file:src/main/resources/static/,file:csp/csp-portal-web/src/main/resources/static/,classpath:/static/
       cache:
         period: 0
   # DB 連線設定

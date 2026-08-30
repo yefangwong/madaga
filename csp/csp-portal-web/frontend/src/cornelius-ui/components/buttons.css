@@ -1,0 +1,158 @@
+/**
+ * CorneliusUI Buttons
+ */
+.cui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--cui-font-base);
+  font-size: 14px;
+  font-weight: var(--cui-fw-medium);
+  line-height: 1.4;
+  padding: 9px 18px;
+  border-radius: var(--cui-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  transition: var(--cui-transition);
+}
+
+.cui-btn:disabled,
+.cui-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Primary Button (鴻方經典磚暖橙) */
+.cui-btn-primary {
+  background-color: var(--cui-primary);
+  color: #FFFFFF;
+  border-color: var(--cui-primary);
+  box-shadow: 0 2px 8px rgba(226, 109, 56, 0.25);
+}
+
+.cui-btn-primary:hover:not(:disabled) {
+  background-color: var(--cui-primary-hover);
+  border-color: var(--cui-primary-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: var(--cui-shadow-hover);
+}
+
+.cui-btn-primary:active:not(:disabled) {
+  background-color: var(--cui-primary-active);
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.cui-btn-secondary {
+  background-color: var(--cui-surface-subtle);
+  color: var(--cui-text-title);
+  border-color: var(--cui-border);
+}
+
+.cui-btn-secondary:hover:not(:disabled) {
+  background-color: #EAEAE6;
+  border-color: #D4D4CE;
+  transform: translateY(-1px);
+}
+
+/* Outline Button */
+.cui-btn-outline {
+  background-color: transparent;
+  color: var(--cui-primary);
+  border-color: var(--cui-primary);
+}
+
+.cui-btn-outline:hover:not(:disabled) {
+  background-color: var(--cui-primary-light);
+  color: var(--cui-primary-hover);
+}
+
+/* Danger Button */
+.cui-btn-danger {
+  background-color: var(--cui-danger);
+  color: #FFFFFF;
+  border-color: var(--cui-danger);
+}
+
+.cui-btn-danger:hover:not(:disabled) {
+  background-color: var(--cui-danger-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+}
+
+/* Pill Radius Style */
+.cui-btn-pill {
+  border-radius: var(--cui-radius-pill);
+  padding: 10px 22px;
+}
+
+/* Sizes */
+.cui-btn-sm {
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.cui-btn-lg {
+  font-size: 16px;
+  padding: 12px 28px;
+}
+
+/* Button Group */
+.cui-btn-group {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.cui-btn-group > .cui-btn {
+  position: relative;
+  flex: 1 1 auto;
+  border-radius: 0;
+}
+
+.cui-btn-group > .cui-btn:first-child {
+  border-top-left-radius: var(--cui-radius-sm);
+  border-bottom-left-radius: var(--cui-radius-sm);
+}
+
+.cui-btn-group > .cui-btn:last-child {
+  border-top-right-radius: var(--cui-radius-sm);
+  border-bottom-right-radius: var(--cui-radius-sm);
+}
+
+.cui-btn-group > .cui-btn:not(:first-child) {
+  margin-left: -1px;
+}
+
+.cui-btn-group > .cui-btn:hover,
+.cui-btn-group > .cui-btn:focus,
+.cui-btn-group > .cui-btn:active {
+  z-index: 1;
+}
+
+/* Action Toolbar */
+.cui-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dropdown Toggle Arrow */
+.cui-dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: 0.15em;
+  content: "";
+  border-top: 0.35em solid currentColor;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}

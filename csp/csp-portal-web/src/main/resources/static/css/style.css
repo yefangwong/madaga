@@ -1,13 +1,114 @@
 /**
-  Portal 客製 css
-  @author yfwong
-  @date 2023/07/26
+ * Portal 客製 CSS - Cornelius UI Design System
+ * @author yfwong
+ * History:
+ * --------------------------------------------------
+ * 2023/07/26 yfwong - 初始版本
+ * 2026/08/30 yfwong - 重構行動端設計系統：加入現代化變數、卡片清單 (Card List) 與 Dialog 模態彈窗樣式
  */
-.align {}
+
+/* ==========================================================================
+   1. Cornelius 現代設計變數 (Design Tokens) - 鴻方品牌暖橙色系
+   ========================================================================== */
+:root {
+    /* 鴻方品牌主色：溫暖活力、現代科技質感的磚暖橙 */
+    --csp-primary: #e26d38;
+    --csp-primary-hover: #c95220;
+    --csp-primary-active: #b24314;
+    --csp-primary-light: #fff5f0;
+    --csp-primary-border: #fcdcd0;
+    
+    --csp-success: #10b981;
+    --csp-success-light: #ecfdf5;
+    --csp-danger: #ef4444;
+    --csp-danger-hover: #dc2626;
+    --csp-danger-light: #fef2f2;
+    
+    --csp-bg-page: #fafaf9;
+    --csp-surface: #ffffff;
+    --csp-border: #e7e5e4;
+    --csp-border-focus: #fbcfe8;
+    
+    --csp-text-main: #1c1917;
+    --csp-text-secondary: #57534e;
+    --csp-text-muted: #a8a29e;
+    
+    --csp-radius-sm: 8px;
+    --csp-radius-md: 12px;
+    --csp-radius-lg: 18px;
+    --csp-radius-full: 9999px;
+    
+    --csp-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --csp-shadow-md: 0 4px 10px -2px rgba(226, 109, 56, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    --csp-shadow-lg: 0 12px 28px -4px rgba(226, 109, 56, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.04);
+    --csp-shadow-modal: 0 20px 30px -5px rgba(28, 25, 23, 0.18), 0 8px 12px -6px rgba(28, 25, 23, 0.1);
+    
+    --csp-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* CorneliusUI Typography Tokens */
+    --csp-font-base: 'Montserrat', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', -apple-system, BlinkMacSystemFont, sans-serif;
+    --csp-font-number: 'Montserrat', 'Noto Sans TC', sans-serif;
+    --csp-font-mono: 'JetBrains Mono', 'SF Mono', Consolas, Menlo, monospace;
+    
+    --csp-fw-light: 300;
+    --csp-fw-regular: 400;
+    --csp-fw-medium: 500;
+    --csp-fw-semibold: 600;
+    --csp-fw-bold: 700;
+    
+    --csp-lh-body: 1.65;
+    --csp-lh-title: 1.35;
+    --csp-ls-base: 0.02em;
+    --csp-ls-number: 0.04em;
+}
+
+/* ==========================================================================
+   2. 基礎與共用樣式 (Base & Utilities)
+   ========================================================================== */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/montserrat.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+    font-family: var(--csp-font-base);
+    font-size: 15px;
+    line-height: var(--csp-lh-body);
+    letter-spacing: var(--csp-ls-base);
+    color: var(--csp-text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--csp-font-base);
+    font-weight: var(--csp-fw-bold);
+    line-height: var(--csp-lh-title);
+    color: var(--csp-text-main);
+}
+
+.csp-font-number, .csp-num-display {
+    font-family: var(--csp-font-number);
+    letter-spacing: var(--csp-ls-number);
+    font-variant-numeric: tabular-nums;
+}
+
+.csp-text-primary {
+    color: var(--csp-primary) !important;
+}
+
+.csp-bg-primary-light {
+    background-color: var(--csp-primary-light) !important;
+}
+
 .csp-btn-spacing {
-    margin-right: 10px; /* Adjust this value to set the desired spacing between buttons */
- }
-/*繪製 AI 查詢結果的CSS*/
+    margin-right: 10px;
+}
+
 .tableResult {
     font-size: 14px;
     color: yellow;
@@ -15,42 +116,440 @@
     width: 237px;
 }
 
-tr.data {
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+/* ==========================================================================
+   3. 頁面標題與搜尋膠囊 (Header & Search Capsule)
+   ========================================================================== */
+.csp-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--csp-border);
 }
 
-tr.data:hover {
-    background-color: rgba(0, 118, 185, 0.04) !important;
+.csp-page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--csp-text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
 }
 
-tr.data.selected {
-    background-color: rgba(0, 118, 185, 0.12) !important;
-    color: #004F7C !important;
+.csp-badge-count {
+    font-size: 0.8125rem;
     font-weight: 600;
+    color: var(--csp-primary);
+    background-color: var(--csp-primary-light);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--csp-radius-full);
 }
 
-tr.data td:first-child {
+/* 現代化搜尋膠囊 */
+.csp-search-panel {
+    background: var(--csp-surface);
+    border: 1px solid var(--csp-border);
+    border-radius: var(--csp-radius-md);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--csp-shadow-sm);
+}
+
+.csp-input-group {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
-tr.data td:first-child::before {
-    content: "";
+.csp-input-icon {
     position: absolute;
+    left: 1rem;
+    color: var(--csp-text-muted);
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+
+.csp-form-input {
+    width: 100%;
+    height: 44px;
+    padding: 0.625rem 1rem 0.625rem 2.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--csp-text-main);
+    background-color: var(--csp-bg-page);
+    border: 1px solid var(--csp-border);
+    border-radius: var(--csp-radius-md);
+    transition: var(--csp-transition);
+    box-sizing: border-box;
+}
+
+select.csp-form-input,
+.csp-form-select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    width: 100% !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0.625rem 2.25rem 0.625rem 0.875rem !important;
+    background-color: var(--csp-bg-page) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.875rem center !important;
+    background-size: 16px 12px !important;
+    border: 1px solid var(--csp-border) !important;
+    border-radius: var(--csp-radius-md) !important;
+    color: var(--csp-text-main) !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.5 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    vertical-align: middle !important;
+}
+
+.csp-form-input:focus,
+.csp-form-select:focus {
+    outline: none;
+    background-color: #ffffff !important;
+    border-color: var(--csp-primary) !important;
+    box-shadow: 0 0 0 3px rgba(226, 109, 56, 0.15) !important;
+}
+
+/* ==========================================================================
+   4. 現代化卡片清單 (Modern Department Cards)
+   ========================================================================== */
+.csp-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.csp-dept-card {
+    background: var(--csp-surface);
+    border: 1px solid var(--csp-border);
+    border-radius: var(--csp-radius-md);
+    padding: 1.125rem 1.25rem;
+    box-shadow: var(--csp-shadow-sm);
+    transition: var(--csp-transition);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.csp-dept-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--csp-shadow-md);
+    border-color: var(--csp-primary-border);
+}
+
+.csp-dept-card.selected {
+    border-color: var(--csp-primary);
+    background: linear-gradient(to right bottom, #ffffff, #f0f7ff);
+    box-shadow: 0 0 0 2px var(--csp-primary), var(--csp-shadow-md);
+}
+
+.csp-dept-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.csp-dept-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--csp-primary);
+    background-color: var(--csp-primary-light);
+    border: 1px solid var(--csp-primary-border);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--csp-radius-sm);
+    letter-spacing: 0.02em;
+}
+
+.csp-dept-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--csp-text-main);
+    margin-bottom: 0.25rem;
+}
+
+.csp-dept-meta {
+    font-size: 0.8125rem;
+    color: var(--csp-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.csp-dept-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--csp-border);
+}
+
+/* 輕量圓形操作按鈕 */
+.csp-btn-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--csp-radius-full);
+    border: 1px solid var(--csp-border);
+    background-color: var(--csp-surface);
+    color: var(--csp-text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--csp-transition);
+}
+
+.csp-btn-icon:hover {
+    background-color: var(--csp-primary-light);
+    color: var(--csp-primary);
+    border-color: var(--csp-primary-border);
+}
+
+.csp-btn-icon.danger:hover {
+    background-color: var(--csp-danger-light);
+    color: var(--csp-danger);
+    border-color: #fca5a5;
+}
+
+/* 浮動新增按鈕 (FAB) */
+.csp-fab-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--csp-primary), var(--csp-primary-hover));
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--csp-radius-full);
+    border: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    cursor: pointer;
+    transition: var(--csp-transition);
+}
+
+.csp-fab-add:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   5. 現代化 Dialog 模態對話框 (Modal & Bottom Sheet)
+   ========================================================================== */
+.csp-dialog-overlay {
+    position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     bottom: 0;
-    width: 0;
-    background-color: var(--primary-blue, #0076B9);
-    transition: width 0.2s ease;
+    background-color: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-tr.data.selected td:first-child::before {
-    width: 4px;
+.csp-dialog-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.search-area {
-    padding-bottom: 12px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid #e0e0e0;
+.csp-dialog-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: var(--csp-radius-lg);
+    box-shadow: var(--csp-shadow-modal);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.csp-dialog-overlay.active .csp-dialog-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* 行動端 Bottom Sheet 效果 (寬度小於 576px) */
+@media (max-width: 576px) {
+    .csp-dialog-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+    .csp-dialog-modal {
+        max-width: 100%;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        transform: translateY(100%);
+    }
+    .csp-dialog-overlay.active .csp-dialog-modal {
+        transform: translateY(0);
+    }
+}
+
+.csp-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--csp-border);
+}
+
+.csp-dialog-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--csp-text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.csp-dialog-close {
+    background: transparent;
+    border: none;
+    color: var(--csp-text-muted);
+    font-size: 1.25rem;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--csp-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--csp-transition);
+}
+
+.csp-dialog-close:hover {
+    background-color: var(--csp-bg-page);
+    color: var(--csp-text-main);
+}
+
+.csp-dialog-body {
+    padding: 1.5rem;
+}
+
+.csp-dialog-form-group {
+    margin-bottom: 1.125rem;
+}
+
+.csp-dialog-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--csp-text-main);
+    margin-bottom: 0.375rem;
+}
+
+.csp-dialog-input {
+    width: 100%;
+    height: 44px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--csp-text-main);
+    background-color: var(--csp-bg-page);
+    border: 1px solid var(--csp-border);
+    border-radius: var(--csp-radius-md);
+    transition: var(--csp-transition);
+    box-sizing: border-box;
+}
+
+select.csp-dialog-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    background-size: 16px 12px;
+    cursor: pointer;
+}
+
+.csp-dialog-input:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: var(--csp-primary);
+    box-shadow: 0 0 0 3px rgba(226, 109, 56, 0.15);
+}
+
+.csp-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background-color: #f8fafc;
+    border-top: 1px solid var(--csp-border);
+}
+
+.csp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.5625rem 1.125rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: var(--csp-radius-md);
+    cursor: pointer;
+    transition: var(--csp-transition);
+    border: 1px solid transparent;
+}
+
+.csp-btn-secondary {
+    background-color: #ffffff;
+    border-color: var(--csp-border);
+    color: var(--csp-text-secondary);
+}
+
+.csp-btn-secondary:hover {
+    background-color: var(--csp-bg-page);
+    color: var(--csp-text-main);
+}
+
+.csp-btn-primary {
+    background-color: var(--csp-primary);
+    color: #ffffff;
+}
+
+.csp-btn-primary:hover {
+    background-color: var(--csp-primary-hover);
+    color: #ffffff;
+}
+
+.csp-btn-danger {
+    background-color: var(--csp-danger);
+    color: #ffffff;
+}
+
+.csp-btn-danger:hover {
+    background-color: var(--csp-danger-hover);
+    color: #ffffff;
 }
