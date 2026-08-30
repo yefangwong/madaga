@@ -114,6 +114,11 @@
                     this.getDepList();
                     this.checkAssistantStatus();
                 },
+                mounted() {
+                    this.$nextTick(() => {
+                        this.initDraggableFab();
+                    });
+                },
                 methods: {
                     getDepList: function () {
                         axios.get('getDepList')
@@ -274,6 +279,134 @@
                                     message: '離線中 · Stanford NLP 服務未啟動'
                                 };
                             });
+                    },
+                    initDraggableFab() {
+                        const fab = document.getElementById('cspAiFab');
+                        if (!fab) return;
+
+                        // 讀取先前儲存的自訂位置
+                        try {
+                            const savedPos = localStorage.getItem('afang_fab_position');
+                            if (savedPos) {
+                                const pos = JSON.parse(savedPos);
+                                const fabWidth = 58;
+                                const minMargin = 8;
+                                const maxLeft = window.innerWidth - fabWidth - minMargin;
+                                const maxTop = window.innerHeight - fabWidth - minMargin;
+
+                                if (pos.top >= minMargin && pos.top <= maxTop && pos.left >= minMargin && pos.left <= maxLeft) {
+                                    fab.style.left = pos.left + 'px';
+                                    fab.style.top = pos.top + 'px';
+                                    fab.style.right = 'auto';
+                                    fab.style.bottom = 'auto';
+                                }
+                            }
+                        } catch (e) {}
+
+                        let isDragging = false;
+                        let startX = 0, startY = 0;
+                        let initialLeft = 0, initialTop = 0;
+                        let hasMoved = false;
+
+                        const onStart = (e) => {
+                            const touch = e.touches ? e.touches[0] : e;
+                            isDragging = true;
+                            hasMoved = false;
+                            startX = touch.clientX;
+                            startY = touch.clientY;
+
+                            const rect = fab.getBoundingClientRect();
+                            initialLeft = rect.left;
+                            initialTop = rect.top;
+
+                            fab.style.transition = 'none';
+                            fab.classList.add('is-dragging');
+                        };
+
+                        const onMove = (e) => {
+                            if (!isDragging) return;
+                            const touch = e.touches ? e.touches[0] : e;
+                            const deltaX = touch.clientX - startX;
+                            const deltaY = touch.clientY - startY;
+
+                            if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+                                hasMoved = true;
+                            }
+
+                            if (hasMoved) {
+                                if (e.cancelable && e.type.startsWith('touch')) {
+                                    e.preventDefault();
+                                }
+                                let newLeft = initialLeft + deltaX;
+                                let newTop = initialTop + deltaY;
+
+                                const fabWidth = fab.offsetWidth || 58;
+                                const fabHeight = fab.offsetHeight || 58;
+                                const minMargin = 8;
+                                const maxLeft = window.innerWidth - fabWidth - minMargin;
+                                const maxTop = window.innerHeight - fabHeight - minMargin;
+
+                                newLeft = Math.max(minMargin, Math.min(newLeft, maxLeft));
+                                newTop = Math.max(minMargin, Math.min(newTop, maxTop));
+
+                                fab.style.left = newLeft + 'px';
+                                fab.style.top = newTop + 'px';
+                                fab.style.right = 'auto';
+                                fab.style.bottom = 'auto';
+                            }
+                        };
+
+                        const onEnd = (e) => {
+                            if (!isDragging) return;
+                            isDragging = false;
+                            fab.classList.remove('is-dragging');
+                            fab.style.transition = 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+
+                            if (!hasMoved) {
+                                // 輕觸/點擊 -> 開啟對話框
+                                const modalEl = document.getElementById('divChat');
+                                if (modalEl && typeof bootstrap !== 'undefined') {
+                                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                                    modal.show();
+                                } else if (typeof $ !== 'undefined') {
+                                    $('#divChat').modal('show');
+                                }
+                            } else {
+                                // 拖曳結束 -> 自動吸附至左右最近螢幕邊緣（iOS AssistiveTouch 質感）
+                                const rect = fab.getBoundingClientRect();
+                                const fabWidth = fab.offsetWidth || 58;
+                                const minMargin = 12;
+                                const screenWidth = window.innerWidth;
+                                const currentCenter = rect.left + fabWidth / 2;
+
+                                let finalLeft;
+                                if (currentCenter < screenWidth / 2) {
+                                    finalLeft = minMargin; // 吸附靠左
+                                } else {
+                                    finalLeft = screenWidth - fabWidth - minMargin; // 吸附靠右
+                                }
+
+                                fab.style.left = finalLeft + 'px';
+
+                                // 記住使用者移動後的位置
+                                try {
+                                    localStorage.setItem('afang_fab_position', JSON.stringify({
+                                        top: rect.top,
+                                        left: finalLeft
+                                    }));
+                                } catch (err) {}
+                            }
+                        };
+
+                        // 手機觸控拖曳支援 (Touch)
+                        fab.addEventListener('touchstart', onStart, { passive: true });
+                        window.addEventListener('touchmove', onMove, { passive: false });
+                        window.addEventListener('touchend', onEnd);
+
+                        // 電腦滑鼠拖曳支援 (Mouse)
+                        fab.addEventListener('mousedown', onStart);
+                        window.addEventListener('mousemove', onMove);
+                        window.addEventListener('mouseup', onEnd);
                     },
                     send() {
                         let qText = this.question.text;
@@ -537,8 +670,8 @@
 
         </div>
 
-        <!-- 阿芳智能助理 FAB 浮動按鈕 (手機/平板/電腦通用) -->
-        <button type="button" class="csp-ai-fab" :class="{ 'is-offline': assistantStatus.checked && !assistantStatus.online }" data-bs-toggle="modal" data-bs-target="#divChat" title="阿芳智能助理詢問" aria-label="阿芳智能助理詢問">
+        <!-- 阿芳智能助理 FAB 浮動按鈕 (手機/平板/電腦通用，支援手指/滑鼠任意拖曳與邊緣吸附) -->
+        <button id="cspAiFab" type="button" class="csp-ai-fab" :class="{ 'is-offline': assistantStatus.checked && !assistantStatus.online }" title="阿芳智能助理詢問（可拖曳改變位置）" aria-label="阿芳智能助理詢問">
             <img th:src="@{'/images/avatar-afang.png'}" src="/images/avatar-afang.png" class="csp-ai-fab-avatar" :style="assistantStatus.checked && !assistantStatus.online ? 'filter: grayscale(0.25);' : ''" alt="阿芳智能助理" />
             <span v-if="assistantStatus.online" class="csp-ai-fab-pulse"></span>
             <span class="csp-ai-fab-online-dot" :class="assistantStatus.online ? 'online' : 'offline'"></span>

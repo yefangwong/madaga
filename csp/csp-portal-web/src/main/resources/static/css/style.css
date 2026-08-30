@@ -559,8 +559,8 @@ select.csp-dialog-input {
    ========================================================================== */
 .csp-ai-fab {
     position: fixed;
-    right: 28px;
-    bottom: 28px;
+    right: 24px;
+    bottom: 24px;
     width: 58px;
     height: 58px;
     border-radius: 50%;
@@ -571,11 +571,23 @@ select.csp-dialog-input {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: grab;
     z-index: 1040;
-    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.22s ease;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     outline: none;
     text-decoration: none;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.csp-ai-fab.is-dragging {
+    cursor: grabbing !important;
+    transform: scale(1.12) !important;
+    box-shadow: 0 16px 36px rgba(226, 109, 56, 0.45), 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+    opacity: 0.95;
+    transition: none !important;
 }
 
 .csp-ai-fab-avatar {
@@ -584,6 +596,8 @@ select.csp-dialog-input {
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
 }
 
 .csp-ai-fab-online-dot {
@@ -597,6 +611,7 @@ select.csp-dialog-input {
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: background-color 0.25s ease;
+    pointer-events: none;
 }
 
 .csp-ai-fab-online-dot.online {
@@ -612,13 +627,13 @@ select.csp-dialog-input {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-.csp-ai-fab:hover {
+.csp-ai-fab:not(.is-dragging):hover {
     transform: scale(1.08) translateY(-2px);
     box-shadow: 0 12px 28px rgba(226, 109, 56, 0.45), 0 4px 10px rgba(0, 0, 0, 0.12);
     border-color: var(--csp-primary-hover, #c95522);
 }
 
-.csp-ai-fab:active {
+.csp-ai-fab:not(.is-dragging):active {
     transform: scale(0.95);
 }
 
