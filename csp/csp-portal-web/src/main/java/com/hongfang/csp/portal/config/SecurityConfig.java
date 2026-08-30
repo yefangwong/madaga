@@ -43,8 +43,16 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
+                "/css/**",
+                "/js/**",
+                "/images/**",
+                "/fonts/**",
+                "/dist/**",
+                "/static/**",
+                "/favicon.ico",
                 "/manage/emp/export",
-                "/api/question");
+                "/api/question",
+                "/api/assistant/status");
     }
 
     @Bean

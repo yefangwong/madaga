@@ -31,6 +31,42 @@ public class QuestionController {
         return emitter;
     }
 
+    @GetMapping(value = "/assistant/status")
+    @ResponseBody
+    public java.util.Map<String, Object> getAssistantStatus() {
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        String nlpHost = System.getProperty("nlp.host", System.getenv().getOrDefault("NLP_HOST", "http://localhost"));
+        int nlpPort = 9000;
+        try {
+            String portStr = System.getProperty("nlp.port", System.getenv().getOrDefault("NLP_PORT", "9000"));
+            nlpPort = Integer.parseInt(portStr);
+        } catch (NumberFormatException ignored) {}
+
+        boolean nlpOnline = false;
+        try {
+            String cleanHost = nlpHost.replace("http://", "").replace("https://", "");
+            if (cleanHost.contains(":")) {
+                cleanHost = cleanHost.substring(0, cleanHost.indexOf(":"));
+            }
+            if (cleanHost.contains("/")) {
+                cleanHost = cleanHost.substring(0, cleanHost.indexOf("/"));
+            }
+            try (java.net.Socket socket = new java.net.Socket()) {
+                socket.connect(new java.net.InetSocketAddress(cleanHost, nlpPort), 600);
+                nlpOnline = true;
+            }
+        } catch (Exception e) {
+            nlpOnline = false;
+        }
+
+        result.put("online", nlpOnline);
+        result.put("service", "Stanford CoreNLP");
+        result.put("host", nlpHost);
+        result.put("port", nlpPort);
+        result.put("message", nlpOnline ? "在線上 · 即時為您解答" : "離線中 · Stanford NLP 服務未啟動");
+        return result;
+    }
+
     @PostMapping(value = "/question")
     @ResponseBody
     public ChatResponse sendQuestion(@RequestBody Question question) throws Exception {

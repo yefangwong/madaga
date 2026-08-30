@@ -553,3 +553,157 @@ select.csp-dialog-input {
     background-color: var(--csp-danger-hover);
     color: #ffffff;
 }
+
+/* ==========================================================================
+   阿芳智能助理 FAB 浮動按鈕與彈窗優化 (手機/電腦全適配)
+   ========================================================================== */
+.csp-ai-fab {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    padding: 2px;
+    background: #ffffff;
+    border: 2px solid var(--csp-primary, #e26d38);
+    box-shadow: 0 8px 24px rgba(226, 109, 56, 0.35), 0 2px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1040;
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.22s ease;
+    outline: none;
+    text-decoration: none;
+}
+
+.csp-ai-fab-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.csp-ai-fab-online-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 13px;
+    height: 13px;
+    background-color: #22c55e;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.25s ease;
+}
+
+.csp-ai-fab-online-dot.online {
+    background-color: #22c55e;
+}
+
+.csp-ai-fab-online-dot.offline {
+    background-color: #94a3b8;
+}
+
+.csp-ai-fab.is-offline {
+    border-color: #94a3b8;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.csp-ai-fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 28px rgba(226, 109, 56, 0.45), 0 4px 10px rgba(0, 0, 0, 0.12);
+    border-color: var(--csp-primary-hover, #c95522);
+}
+
+.csp-ai-fab:active {
+    transform: scale(0.95);
+}
+
+.csp-ai-fab-pulse {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(226, 109, 56, 0.5);
+    animation: csp-ai-fab-pulse 2.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes csp-ai-fab-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(226, 109, 56, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 14px rgba(226, 109, 56, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(226, 109, 56, 0);
+    }
+}
+
+.afang-btn-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.afang-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--csp-primary, #e26d38);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* AI Chat Modal 視覺優化 */
+#divChat .modal-content {
+    border-radius: var(--csp-radius-lg, 16px);
+    border: 1px solid var(--csp-border, #e2e8f0);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+    overflow: hidden;
+}
+
+#divChat .modal-header {
+    background-color: var(--csp-bg-page, #f8fafc);
+    border-bottom: 1px solid var(--csp-border, #e2e8f0);
+    padding: 0.875rem 1.25rem;
+}
+
+#divChat .modal-body {
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#divChat .send-box {
+    background-color: #ffffff;
+}
+
+#divChat .send-box .form-control {
+    border-radius: var(--csp-radius-md, 10px);
+    border: 1px solid var(--csp-border, #e2e8f0);
+    padding: 0.6rem 0.875rem;
+    font-size: 0.9375rem;
+}
+
+#divChat .send-box .form-control:focus {
+    border-color: var(--csp-primary, #e26d38);
+    box-shadow: 0 0 0 3px rgba(226, 109, 56, 0.15);
+}
+
+@media (max-width: 768px) {
+    .csp-ai-fab {
+        right: 18px;
+        bottom: 22px;
+        width: 50px;
+        height: 50px;
+    }
+}

@@ -102,11 +102,17 @@
                         id: 1,
                         text: '我想查詢公司財務部有沒有吳華瑄小姐'
                     },
+                    assistantStatus: {
+                        online: false,
+                        checked: false,
+                        message: '連線檢查中...'
+                    },
                     eventSource: null
                 },
                 created() {
                     this.search();
                     this.getDepList();
+                    this.checkAssistantStatus();
                 },
                 methods: {
                     getDepList: function () {
@@ -249,15 +255,38 @@
                     scrollToBottom() {
                         $('#divChat .modal-body').animate({ scrollTop: $('#divChat .modal-body').prop("scrollHeight") }, 'fast');
                     },
+                    checkAssistantStatus() {
+                        let self = this;
+                        axios.get('/api/assistant/status')
+                            .then(function (res) {
+                                if (res.data) {
+                                    self.assistantStatus = {
+                                        online: res.data.online === true,
+                                        checked: true,
+                                        message: res.data.message || (res.data.online ? '在線上 · 即時為您解答' : '離線中 · Stanford NLP 服務未啟動')
+                                    };
+                                }
+                            })
+                            .catch(function () {
+                                self.assistantStatus = {
+                                    online: false,
+                                    checked: true,
+                                    message: '離線中 · Stanford NLP 服務未啟動'
+                                };
+                            });
+                    },
                     send() {
+                        let qText = this.question.text;
+                        if (!qText || !qText.trim()) return;
+
                         this.startSSE();
                         $('.msg-body ul').append('<li class="sender">\n' +
-                            '<p> ' + this.question.text + ' </p>\n' +
+                            '<p> ' + qText + ' </p>\n' +
                             '<span class="time">剛剛</span>\n' +
                             '</li>');
                         let questionData = {
                             id: 4,
-                            text: '[question] ' + this.question.text + '[/question]'
+                            text: '[question] ' + qText + '[/question]'
                         };
                         this.showLoadingIndicator();
                         let self = this;
@@ -277,6 +306,11 @@
                             },
                             error: function () {
                                 self.hideLoadingIndicator();
+                                $('.msg-body ul').append('<li class="reply">\n' +
+                                    '<p style="background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e;"> ⚠️ 目前 Stanford NLP 語意服務未啟動或連線逾時，無法解析問題。請確認 NLP 服務（預設 Port 9000）是否已運行。 </p>\n' +
+                                    '<span class="time">剛剛</span>\n' +
+                                    '</li>');
+                                self.scrollToBottom();
                             }
                         });
                     }
@@ -296,10 +330,10 @@
                 <span class="csp-badge-count">{{ list.length }} 位員工</span>
             </h1>
             <div class="d-flex gap-2">
-                <button type="button" class="csp-btn csp-btn-outline d-none d-md-inline-flex" data-bs-toggle="modal"
+                <button type="button" class="csp-btn csp-btn-outline d-none d-md-inline-flex align-items-center gap-2" data-bs-toggle="modal"
                     data-bs-target="#divChat">
-                    <i class="fa fa-commenting" aria-hidden="true"></i>
-                    <span>AI 智能詢問</span>
+                    <img th:src="@{'/images/avatar-afang.png'}" src="/images/avatar-afang.png" class="afang-btn-avatar" alt="阿芳" />
+                    <span>阿芳智能助理</span>
                 </button>
                 <button type="button" class="csp-fab-add" @click="openAddDialog">
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -503,20 +537,50 @@
 
         </div>
 
+        <!-- 阿芳智能助理 FAB 浮動按鈕 (手機/平板/電腦通用) -->
+        <button type="button" class="csp-ai-fab" :class="{ 'is-offline': assistantStatus.checked && !assistantStatus.online }" data-bs-toggle="modal" data-bs-target="#divChat" title="阿芳智能助理詢問" aria-label="阿芳智能助理詢問">
+            <img th:src="@{'/images/avatar-afang.png'}" src="/images/avatar-afang.png" class="csp-ai-fab-avatar" :style="assistantStatus.checked && !assistantStatus.online ? 'filter: grayscale(0.25);' : ''" alt="阿芳智能助理" />
+            <span v-if="assistantStatus.online" class="csp-ai-fab-pulse"></span>
+            <span class="csp-ai-fab-online-dot" :class="assistantStatus.online ? 'online' : 'offline'"></span>
+        </button>
+
         <!-- AI 詢問對話框 -->
         <div class="modal fade" id="divChat" tabindex="-1" aria-labelledby="divChatLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="divChatLabel"><i class="fa fa-comments-o csp-text-primary"></i>
-                            智能助理詢問</h5>
+                    <div class="modal-header d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-2">
+                            <img th:src="@{'/images/avatar-afang.png'}" src="/images/avatar-afang.png" class="afang-header-avatar" :style="!assistantStatus.online ? 'border-color: #94a3b8;' : ''" alt="阿芳" />
+                            <div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <h5 class="modal-title mb-0 fw-bold fs-6" id="divChatLabel">阿芳智能助理</h5>
+                                    <span v-if="assistantStatus.online" class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 10px; font-weight: 500;">線上</span>
+                                    <span v-else class="badge bg-secondary-subtle text-secondary border" style="font-size: 10px; font-weight: 500;">離線中</span>
+                                </div>
+                                <span v-if="assistantStatus.online" class="text-success small d-flex align-items-center gap-1" style="font-size: 11px;">
+                                    <span class="d-inline-block rounded-circle bg-success" style="width: 7px; height: 7px;"></span> 在線上 · 即時為您解答
+                                </span>
+                                <span v-else class="text-muted small d-flex align-items-center gap-1" style="font-size: 11px;">
+                                    <span class="d-inline-block rounded-circle bg-secondary" style="width: 7px; height: 7px;"></span> 離線中 · Stanford NLP 未啟動 (Port 9000)
+                                </span>
+                            </div>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body chatbox">
+                        <!-- 離線提示 Banner -->
+                        <div v-if="assistantStatus.checked && !assistantStatus.online" class="alert alert-secondary py-2 px-3 small rounded-3 mb-3 d-flex align-items-start gap-2 border" style="background: #f8fafc; border-color: #e2e8f0;">
+                            <i class="fa fa-info-circle text-secondary mt-1"></i>
+                            <div>
+                                <div class="fw-bold text-dark">阿芳目前處於離線狀態</div>
+                                <div class="text-secondary" style="font-size: 11px; line-height: 1.4;">後端 Stanford CoreNLP 語意服務未啟動（預設 Port 9000）。啟動 NLP 服務後將自動恢復即時問答。</div>
+                            </div>
+                        </div>
                         <div class="msg-body">
                             <ul>
                                 <li class="reply">
-                                    <p>您好！我是 CSP 智能助理，您可以詢問任何員工或部門相關資訊。</p>
+                                    <p v-if="assistantStatus.online">您好！我是<b>阿芳智能助理</b>，您可以向我詢問任何員工、部門或系統相關資訊。</p>
+                                    <p v-else>您好！我是<b>阿芳智能助理</b>。目前後端 Stanford NLP 語意辨識服務尚未連線，我正處於離線待命狀態。</p>
                                     <span class="time">剛剛</span>
                                 </li>
                             </ul>
@@ -525,8 +589,8 @@
                     <div class="send-box p-3 border-top">
                         <form @submit.prevent="send" class="d-flex gap-2">
                             <input type="text" class="form-control" v-model="question.text"
-                                placeholder="輸入問題（如：查詢財務部吳華瑄）...">
-                            <button type="submit" class="csp-btn csp-btn-primary">
+                                :placeholder="assistantStatus.online ? '向阿芳提問（如：查詢財務部吳華瑄）...' : 'NLP 服務離線中（可輸入測試連線）...'">
+                            <button type="submit" class="csp-btn csp-btn-primary" :class="{ 'opacity-75': !assistantStatus.online }">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             </button>
                         </form>
