@@ -35,3 +35,6 @@ build/
 node_modules/
 .vite/
 
+TODO.md
+
+
