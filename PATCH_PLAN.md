@@ -141,21 +141,19 @@
 
 ---
 
-### 🏛️ Phase 7: 致敬經典五大方塊導覽台與 AI 穿梭框報表精靈動線 (BRD-CSP-UI-001, BRD-CSP-RPT-001)
-- [ ] **Task 7.1: 左側經典五大方塊導覽列改造 (`layout/default.html` & `dashboard.css`)**
-  - 重構側邊欄為寬度 85px 之垂直工作台，渲染 Domain、Database、Configuration、Knowledge、Test 五大方塊按鈕（上 3/4 向量 Icon ＋ 下 1/4 Montserrat 標籤）。
+### 🏛️ Phase 7: 經典五大方塊工作台與 AI 穿梭框 SQL 組裝/Test 門禁交付動線 (BRD-CSP-UI-001, BRD-CSP-RPT-001)
+- [ ] **Task 7.1: 左側經典五大方塊工作台改造 (`layout/default.html` & `dashboard.css`)**
+  - 重構側邊欄為寬度 85px 之垂直工作台，由上至下渲染 Domain、Knowledge (核心主舞台)、Database (可選外掛)、Configuration (開箱即用預設)、Test (剛性驗證與交付門禁) 五大方塊按鈕（上 3/4 向量 Icon ＋ 下 1/4 Montserrat 標籤）。
   - 實作 Hover 浮起微光與 Active 左側 4px 亮條指示，響應延遲 $\le 16\text{ms}$。
-- [ ] **Task 7.2: Database 模組：六大連線要素與 JDBC 測試連線探針 (`datasource/config.html`)**
-  - 提供 Database Type (自動帶入預設 Port)、Host Name、Port Number、Database Name、User Name、Password 輸入表單。
-  - 實作「⚡ 測試連線 (Test Connection)」按鈕，純 Java 發送 `SELECT 1` 驗證連通性並回傳毫秒級延遲。
-- [ ] **Task 7.3: Domain 模組：AI 引導式四步穿梭框報表精靈 (`report/wizard.html`)**
-  - **Step 1 (表穿梭)**：雙向 `-->` / `<--` 選表，外鍵拓撲自動帶出 Join 預覽。
-  - **Step 2 (欄位與過濾)**：垂直拖曳排定欄位順序，下方 WHERE 卡片自動連動字典檔下拉選單。
-  - **Step 3 (計算排序)**：卡片勾選分組維度與 SUM / AVG / COUNT 算子及多階 Order By。
-  - **Step 4 (預覽與 RPA)**：強制 `LIMIT 10` 預覽，提供 `[下載Excel]` 與 `[啟動RPA自動化排程]` 雙通道。
-- [ ] **Task 7.4: 後端確定性 JSON AST 編譯器與 POI 串流防爆匯出 (TDD)**
-  - 實作 `ReportAstCompiler.java`，將 JSON AST 編譯為標準 SQL，100% 採用 `PreparedStatement` 佔位符。
-  - 實作 `SXSSFWorkbook` 串流寫入 (記憶體窗口 $\le 500$ 列)，防杜 JVM OOM。
+- [ ] **Task 7.2: Knowledge 模組：預設 Embedding 空間直視與即時 Token / Term 映射畫布 (`knowledge/canvas.html`)**
+  - 系統預設開箱直視當前領域之 Embedding Space（結合 `Configuration` 預設地端算力與預設 `bge-small-zh-v1.5` 模型）。
+  - 支援使用者在面板即時新增自訂 Token / Term（如「生魚片」、「鮭魚」、「二硫化鉬」），後端即時推論向量並在 2D 畫布上浮現泡泡坐標，支援引力拉動與凸優化微調。
+- [ ] **Task 7.3: Database 模組：六大連線要素與 `[ 🛠️ Build SQL ]` 穿梭框精靈 (`datasource/config.html` & `sql/builder.html`)**
+  - Database 設為可選外掛：提供 JDBC 六大要素連線探針（Type, Host, Port, DB Name, User, Password）與「⚡ 測試連線」。
+  - 介面提供 `[ 🛠️ Build SQL ]` 按鈕，點擊後觸發三步穿梭框精靈（Step 1 表穿梭 ➔ Step 2 欄位與過濾 ➔ Step 3 計算排序），任務**嚴格止於安全組裝純淨 SQL AST**，並自動導引至 **【Test】方塊**。
+- [ ] **Task 7.4: Test 模組：AST 剛性門禁審查與 Excel/RPA 解鎖交付機制 (`test/guard.html` & TDD)**
+  - 承接 Database 產出之 SQL，執行 AST 5 道防線審查、慢查安全限制與 Dry Run 執行（注入 `LIMIT 10` 呈現高擬真網格）。
+  - **綠燈解鎖機制**：審查 100% 通過獲得綠燈後，始正式解鎖 `[ 📥 匯出 Excel ]` (SXSSFWorkbook 串流防爆) 與 `[ 🤖 拋轉 RPA 自動化排程 ]`；未通過強制鎖定。
   - 單元測試：`ReportAstCompilerTest` (驗證 AST 解析與 SQL 防注入) 與 `ReportExportStreamTest`。
 
 ---

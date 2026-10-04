@@ -222,41 +222,43 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 
 ---
 
-### 3.13 BRD-CSP-UI-001: 致敬經典五大方塊架構導覽台與專家工作區 (Classic 5-Tile Architectural Studio Navigation)
+### 3.13 BRD-CSP-UI-001: 經典五大方塊工作台：以 Knowledge 為核心主舞台、Database 為按需外掛、Test 為終端門禁 (Classic 5-Tile Architectural Studio Navigation)
 * **User Story**:
-  > **As a** 企業系統架構師、資料工程師或業務分析師  
-  > **I want to** 在 CSP 入口平台的左側，使用「經典垂直方塊（上 3/4 幾何圖示 ＋ 下 1/4 清晰文字標籤）」導覽台，由上到下快速切換：**Domain (領域精靈)**、**Database (資料庫探針)**、**Configuration (算力頻寬與熔斷)**、**Knowledge (手冊檢索與術語畫布)**、**Test (語法驗證與 RPA 體檢)** 五大核心專屬工作區  
-  > **So that** 徹底擺脫傳統平庸後台雜亂冗長之樹狀選單，獲得如同專業 CAD / IDE / 彭博終端機般沉穩、專業、一目了然且高度專注的操作手感。
+  > **As a** 領域科學家、業務分析師或系統架構師  
+  > **I want to** 在 CSP 入口平台左側使用經典垂直方塊（上 3/4 幾何圖示 ＋ 下 1/4 清晰文字標籤）工作台，預設直達開箱即用的 **Knowledge (核心主舞台)** 檢視 Embedding 空間與即時 Token 映射，並可按需切換 **Domain (領域精靈)**、**Database (可選外掛與 SQL 組裝)**、**Configuration (預設算力與模型)**、**Test (剛性驗證與交付門禁)** 五大核心專屬工作區  
+  > **So that** 徹底擺脫傳統「以資料庫為中心」的沉重束縛，在零資料庫負擔下自由探索語意向量空間，並確保任何資料庫查詢皆經過 Test 剛性驗證後才安全交付至 Excel 或 RPA。
 
 * **量化驗收標準 (Acceptance Criteria)**:
   1. **[AC-UI-001-1] 經典方塊黃金比例視覺渲染**：
      - 左側導覽列寬度介於 `80px ~ 90px`，每個功能按鈕為高度約 `84px ~ 90px` 之獨立方塊 (Tile)。
-     - 方塊上方 3/4 高度區域置入向量高質感圖標（選中時呈現琥珀金/主題藍微光）；下方 1/4 高度置入專用英文標籤（`Domain`, `Database`, `Config`, `Knowledge`, `Test`），字體採用 Montserrat，字距擴展 +0.5px。
-  2. **[AC-UI-001-2] 五大專屬工作區一鍵平滑切換**：
-     - **【Domain】**：直通 AI 引導式穿梭框報表精靈 (`FS_S2_N03`)，從選表到產出 Excel 與 RPA。
-     - **【Database】**：直通標準資料庫連線管理（黃金 6 要素：Type, Host, Port, DB Name, User, Password）與「測試連線」探針。
-     - **【Configuration】**：直通電信級算力頻寬目錄 (100M/500M)、輝達小電腦 (DGX Spark) 拓撲與外網熔斷狀態。
-     - **【Knowledge】**：直通 Lucene 9 技師手冊全文檢索與私域術語二維引力畫布。
-     - **【Test】**：直通 AST 剛性門禁測試、RPA Webhook 排程拋轉模擬與老碼農測試健康體檢。
+     - 方塊上方 3/4 高度區域置入向量高質感圖標（選中時呈現琥珀金/薄荷綠微光）；下方 1/4 高度置入專用英文標籤（`Domain`, `Knowledge`, `Database`, `Config`, `Test`），字體採用 Montserrat，字距擴展 +0.5px。
+  2. **[AC-UI-001-2] 五大專屬工作區職能歸位與分級定義**：
+     - **【Knowledge】（核心主舞台，必選 Mandatory）**：系統核心基石。使用者進入工作台預設直接呈現所選領域的 Embedding 空間。使用者可隨時新增自訂 Token / Term（如「生魚片」、「鮭魚」、「二硫化鉬」），後端調用預設 Embedding 引擎即時推論，並透過降維演算法在 2D Vector Space 畫布上即時浮現節點坐標，支援引力拉動與凸優化微調。
+     - **【Database】（按需外掛，可選 Optional）**：資料庫並非前置阻礙，設為可選外掛。僅在需要串接企業實體庫時接入，提供標準 JDBC 連線探針與 `[ 🛠️ Build SQL ]` 觸發按鈕。點擊後啟動穿梭框精靈，其職能**嚴格止於計算並產出純淨 SQL AST，不越權直接產出 Excel 或執行 RPA 拋轉**。
+     - **【Configuration】（開箱即用預設，Default Ready）**：提供預設的地端算力（如本地 RTX 雙卡、Jetson、DGX Spark 或內網 Ollama/vLLM）與預設垂直領域高品質 Embedding 模型（如 `bge-small-zh-v1.5`）。使用者無需繁複設定即可開箱直視語意空間；同時提供模型切換、電信級算力頻寬目錄與外網熔斷狀態監控。
+     - **【Domain】（領域維護）**：單純維護本工具應用的垂直領域（如生鮮食品、材料科學、車輛工程），支援領域的新增、修改、刪除與一鍵啟動切換。
+     - **【Test】（剛性驗證與終極交付門禁，Gate & Delivery）**：承接 Database `Build SQL` 所產出的 SQL，在此進行 AST 剛性安全審計、防慢查、表權限白名單與 Dry Run 綠燈體檢。**唯有在 Test 方塊通過審查獲得綠燈後，才正式解鎖並執行 `[ 📥 匯出 Excel ]` 與 `[ 🤖 拋轉 RPA 自動化 ]`！**
   3. **[AC-UI-001-3] 方塊微動效與狀態回饋**：滑鼠懸停 (Hover) 時方塊以 `transition: all 0.2s ease` 呈現浮起微光；當前選中 (Active) 狀態左側帶有 4px 高光指示條，切換反應延遲必須 $\le 16\text{ms}$ (60 FPS)。
 
 ---
 
-### 3.14 BRD-CSP-RPT-001: AI 引導式穿梭框報表精靈與確定性 RPA 拋轉動線 (AI-Guided Shuttle Wizard & Deterministic RPA Pipeline)
+### 3.14 BRD-CSP-RPT-001: AI 引導式穿梭框 SQL 組裝精靈與 Test 門禁交付動線 (AI-Guided Shuttle SQL Builder & Test Gate Delivery)
 * **User Story**:
   > **As a** 企業業務經辦、財務精算員或廠區服務組長  
-  > **I want to** 在自然語言提問後，由 AI 自動在「四步穿梭框精靈」中預選資料表、預排直行欄位與預填過濾條件，並由人類在畫面上透過雙向按鈕 (`-->` / `<--`) 3 秒視覺確認後，一鍵生成 Excel 並交棒給 RPA 機器人執行後續自動化  
-  > **So that** 徹底消除 LLM 直接生成 SQL 的機率漂移與隨機性災難，完美縫合「AI 隨機性」與「RPA 剛性」之間的阻抗不匹配，達成 100% 格式無誤、可受稽核審查之企業級報表交付。
+  > **I want to** 在 Database 模組點擊 `[ 🛠️ Build SQL ]` 後，由 AI 自動在「三步穿梭框精靈」中預選資料表、預排直行欄位與預填過濾條件，並由人類透過雙向按鈕 (`-->` / `<--`) 視覺確認後產出乾淨 SQL，再傳送至 Test 方塊進行剛性安全驗證與解鎖匯出 Excel / RPA  
+  > **So that** 徹底消除 LLM 直接生成 SQL 的機率漂移與隨機性災難，落實「Build SQL 專注計算組裝、Test 統一把關交付」的架構分權，杜絕未經檢驗的查詢直接衝擊產線或 ERP。
 
 * **量化驗收標準 (Acceptance Criteria)**:
-  1. **[AC-RPT-001-1] 四步穿梭框互動動線閉環**：
+  1. **[AC-RPT-001-1] 三步穿梭框 SQL 組裝動線閉環**：
      - **Step 1 (資料表穿梭)**：左側列出白名單業務表，點擊 `-->` / `<--` 移入移出；下方依據外鍵拓撲自動呈現 Join 預覽，防範幽靈造表。
-     - **Step 2 (欄位投影與謂詞過濾)**：選中欄位支援滑鼠垂直拖曳直觀排定 Excel 欄位順序；下半部提供結構化 WHERE 條件卡片，資料字典欄位自動渲染為下拉選單。
-     - **Step 3 (統計計算與分組排序)**：零代碼卡片勾選 Group By 維度與 `SUM` / `AVG` / `COUNT` 指標，並直觀配置多階 Order By。
-     - **Step 4 (即時預覽與 RPA 拋轉)**：後端強制注入 `LIMIT 10` 呈現高擬真 Excel 網格；提供 `[下載Excel]` 與 `[啟動RPA自動化排程]` 雙通道。
-  2. **[AC-RPT-001-2] 人機協同薄荷綠呼吸光暈提示 (Pre-fill Glow Hint)**：AI 秘書解析自然語言後，自動在精靈畫面上預選之 Table、Column 與日期範圍，必須帶有淡薄荷綠邊框呼吸光暈，明確告知人類「此為 AI 建議，請確認」，落實 Human-in-the-Loop。
-  3. **[AC-RPT-001-3] 結構化 JSON AST 確定性編譯與零注入**：精靈收集之資料結構為純 JSON AST，後端由純 Java 代碼確定性編譯為 SQL，變數 100% 強制使用 JDBC `PreparedStatement` 佔位符 (`?`) 綁定，阻絕任何 SQL 注入。
-  4. **[AC-RPT-001-4] Excel 串流防爆記憶體門禁**：後端匯出 Excel 時，強制採用 Apache POI `SXSSFWorkbook` (記憶體窗口 $\le 500$ 列)，百萬列大報表匯出 JVM 記憶體波動嚴格限制在 128MB 以內，防杜 OOM。
+     - **Step 2 (欄位投影與謂詞過濾)**：選中欄位支援滑鼠垂直拖曳直觀排定欄位順序；下半部提供結構化 WHERE 條件卡片，資料字典欄位自動連動下拉選單。
+     - **Step 3 (統計計算與分組排序)**：零代碼卡片勾選 Group By 維度與 `SUM` / `AVG` / `COUNT` 指標，並直觀配置多階 Order By；點擊「組裝 SQL」產出參數化 SQL AST，並自動導引至 **【Test】方塊**。
+  2. **[AC-RPT-001-2] Test 方塊剛性審查與 Excel/RPA 解鎖機制**：
+     - 產出之 SQL 傳送至 Test 方塊執行 AST 剛性安全審計（5 道防線）、防慢查、權限校驗與 Dry Run 執行（注入 `LIMIT 10` 呈現高擬真網格）。
+     - **綠燈解鎖**：審查 100% 通過後，介面始正式啟用 `[ 📥 匯出 Excel ]` 與 `[ 🤖 拋轉 RPA 自動化排程 ]` 按鈕；審查未通過時強制鎖定 (Disabled) 並紅字警示。
+  3. **[AC-RPT-001-3] 人機協同薄荷綠呼吸光暈提示 (Pre-fill Glow Hint)**：AI 秘書解析自然語言後，自動在精靈畫面上預選之 Table、Column 與日期範圍，必須帶有淡薄荷綠邊框呼吸光暈，明確告知人類「此為 AI 建議，請確認」，落實 Human-in-the-Loop。
+  4. **[AC-RPT-001-4] 結構化 JSON AST 確定性編譯與零注入**：精靈收集之資料結構為純 JSON AST，後端由純 Java 代碼確定性編譯為 SQL，變數 100% 強制使用 JDBC `PreparedStatement` 佔位符 (`?`) 綁定，阻絕任何 SQL 注入。
+  5. **[AC-RPT-001-5] Excel 串流防爆記憶體門禁**：後端匯出 Excel 時，強制採用 Apache POI `SXSSFWorkbook` (記憶體窗口 $\le 500$ 列)，百萬列大報表匯出 JVM 記憶體波動嚴格限制在 128MB 以內，防杜 OOM。
 
 ---
 
@@ -274,8 +276,8 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 | `BRD-CSP-SEC-006` | 基礎框架與依賴資安弱點治理 (CVE 修復) | [[facts/madaga_github_dependabot_security_alerts_inventory.md]] | `csp/pom.xml`<br>`csc/nlp2sql-app/package.json` | `mvn clean test`<br>`PatchVerify Reachability Scan` |
 | `BRD-CSP-SEC-007` | 企業機敏 Schema 防洩漏與地端內網 LLM 隔離推論 (OSS 算力資源層) | [[docs/specs/FS_S2_N02_textual_erd_whitelist.md]]<br>[[CSP_DEVELOPER_MANUAL.md]] | `LocalLlmClient.java`<br>`IComputeResourceProxy.java`<br>`Synthesizer.java` | `LocalLlmCircuitBreakerTest.java`<br>`CapabilityRouterTest.java` |
 | `BRD-CSP-RES-001` | 電信級算力頻寬產品化自訂與邊緣硬體 (DGX Spark) 隨插即用擴充 | [[WORKLOG_20261003.md]]<br>[[CSP_DEVELOPER_MANUAL.md]] | `NvidiaDgxSparkDriver.java`<br>`CapabilityRouter.java`<br>`TokenTrafficShaper.java` | `NvidiaDgxSparkDriverTest.java`<br>`TokenTrafficShaperTest.java` |
-| `BRD-CSP-UI-001` | 致敬經典五大方塊架構導覽台 (Domain/DB/Config/Knowledge/Test) | [[WORKLOG_20261003.md]]<br>[[layout/default.html]] | `layout/default.html`<br>`dashboard.css` | `SidebarNavigationTest.java` |
-| `BRD-CSP-RPT-001` | AI 引導式穿梭框報表精靈與確定性 RPA 拋轉動線 (四步嚮導) | [[docs/specs/FS_S2_N03_ai_guided_shuttle_wizard.md]] | `ReportWizardController.java`<br>`ReportAstCompiler.java`<br>`report/wizard.html` | `ReportAstCompilerTest.java`<br>`ReportExportStreamTest.java` |
+| `BRD-CSP-UI-001` | 經典五大方塊工作台 (Knowledge核心主舞台/DB可選/Config預設/Domain/Test門禁) | [[WORKLOG_20261004.md]]<br>[[layout/default.html]] | `layout/default.html`<br>`dashboard.css` | `SidebarNavigationTest.java` |
+| `BRD-CSP-RPT-001` | AI 引導式穿梭框 SQL 組裝精靈與 Test 門禁交付動線 (SQL組裝與Test解鎖) | [[docs/specs/FS_S2_N03_ai_guided_shuttle_wizard.md]] | `ReportWizardController.java`<br>`ReportAstCompiler.java`<br>`report/wizard.html` | `ReportAstCompilerTest.java`<br>`ReportExportStreamTest.java` |
 | `BRD-CSP-SRCH-001` | 技師手冊 Lucene 9 嵌入式檢索原型 | [[Projects/startup/madaga/specs/FS_S1_N01_embedded_lucene_search.md]]<br>[[AI_Raw/solutions/madaga_csp_portal_lucene_pdf_search.md]] | `SearchController.java`<br>`DocSearchBL.java`<br>`LuceneIndexManager.java`<br>`layout/default.html` | `DocSearchBLTest.java`<br>`LuceneIndexManagerTest.java` |
 | `BRD-CSP-SRCH-002` | 多資料庫連線探針與文字化 ERD 白名單治理 (黃金 6 要素) | [[Projects/startup/madaga/specs/FS_S2_N02_textual_erd_whitelist.md]]<br>[[solutions/madaga_nlp_to_sql_governance.md]] | `DataSourceController.java`<br>`TextualErdGenerator.java`<br>`Synthesizer.java` | `TextualErdGeneratorTest.java`<br>`DataSourceProbeTest.java` |
 | `BRD-CSP-SRCH-003` | 私域術語定義與語意引力畫布 (Semantic Canvas) | [[Projects/startup/madaga/specs/FS_S1_N03_semantic_canvas_studio.md]]<br>[[facts/discovery_tree_token_semantics_and_guided_generation.md]] | `TermStudioController.java`<br>`RetrofitCalibrationEngine.java`<br>`term/canvas.html` | `RetrofitCalibrationEngineTest.java` |
@@ -292,6 +294,7 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 5. **地端算力之電信 OSS 資源化解耦門禁 (Compute as Telecom OSS Resource Gate)**：嚴禁業務層代碼直接硬寫死底層物理推論 IP 或卡號；必須將地端算力視為電信 OSS 之實體/邏輯通訊資源，強制經由 `IComputeResourceProxy` 與 `CapabilityRouter` 進行動態拓撲調度與顯存配額治理。
 6. **電信級流量整形與顯存防爆門禁 (Traffic Shaping & VRAM Anti-Blowout Gate)**：推論排程器必須對各頻寬等級實施漏桶流量整形，併發請求峰值下 GPU 顯存使用率嚴禁超過 90%，保障邊緣節點（含 DGX Spark）零 OOM 當機。
 7. **Human-in-the-Loop 確定性交棒門禁 (Human-in-the-Loop & Deterministic Handover Gate)**：任何欲介接至 RPA 或外部 ERP 系統之 SQL 與報表，嚴禁由 LLM 黑箱直接發送執行；強制 100% 經由穿梭框精靈畫面供人類複核確認，且由後端純 Java 編譯器產出參數化 SQL，確保零隨機性。
+8. **Test 剛性驗證始解鎖交付門禁 (Test Verification Before Delivery Gate)**：任何經由 Database 模組產出之 SQL，嚴禁繞過 Test 模組直接發布產出 Excel 或執行 RPA 拋轉。強制 100% 透過 Test 方塊執行 AST 剛性安全審計、防慢查限制與 Dry Run 預演，審計結果呈現全綠燈合格狀態後，前端始得解除 `[匯出 Excel]` 與 `[拋轉 RPA]` 之鎖定狀態 (Disabled)，徹底杜絕未經審查的查詢直接衝擊產線或外部 ERP。
 
 ---
 ## Sources
