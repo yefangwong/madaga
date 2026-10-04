@@ -164,8 +164,6 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 
 ---
 
----
-
 ### 3.10 BRD-CSP-SEC-006: 基礎框架與依賴資安弱點治理 (Base Framework & Dependency CVE Remediation)
 * **User Story**:
   > **As a** 平台架構師與資安治理主管  
@@ -178,8 +176,6 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
   3. **[AC-SEC-006-3] 前端 Axios 原型污染與 SSRF 封堵**：在前端專案 `csc/nlp2sql-app` 升級 `axios` 至 `1.7.4+`，消除 27 項 Axios 漏洞，並保證既有 API 請求與攔截器功能運作正常。
   4. **[AC-SEC-006-4] 歷史依賴精準處置原則**：移除根目錄 `pom.xml` 中未被任何子模組使用之 `commons-fileupload` 依賴；針對 `csp-webframeworx-web` 既有代碼引用之 `org.apache.tiles`，嚴禁貿然刪除導致編譯報錯，強制產出 PatchVerify CPG 可達性豁免報告以證明執行期不可達。
   5. **[AC-SEC-006-5] 回歸測試與告警消除率門禁**：依賴升級與清理後，執行 `mvn clean test` 單元測試全量通過率必須為 100%，GitHub Dependabot 總告警消除率必須 $\ge 75\%$。
-
----
 
 ---
 
@@ -262,6 +258,65 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 
 ---
 
+### 3.15 BRD-CSP-RES-002: 中小企業地端算力訂閱託管與多階異構（NVIDIA+AMD+Apple Silicon）硬體池化治理 (SME On-Premises Compute Subscription & Heterogeneous Hardware Pooling)
+* **User Story**:
+  > **As a** 重視核心營業秘密與資料主權的中小企業主、財務主管 (CFO) 或 IT 負責人  
+  > **I want to** 以營運費用 (OpEx) 月度訂閱「保證在企業內部機房運行的算力頻寬 (如 100M/500M 方案)」，由 CSP 平台自動聚合管理跨晶片陣營（NVIDIA CUDA、AMD ROCm/Vulkan、Apple Silicon Metal）的異構算力節點，並提供管線平行切分 (PP) 與延遲補償  
+  > **So that** 徹底擺脫記憶體荒時期一次性花費數十萬買斷硬體的 CapEx 炸彈與高點折舊減損（Impairment）風險，在零資料外洩風險的 100% 地端環境中，以極低月度成本享有等同大企業規格的私有 AI 算力保障。
+
+* **量化驗收標準 (Acceptance Criteria)**:
+  1. **[AC-RES-002-1] 中小企業 OpEx 訂閱方案與零硬體折舊契約治理 (OpEx Compute Subscription & Zero-Depreciation Contract)**：
+     - 提供標準月度/季度算力頻寬租賃訂閱方案（如 100M/500M Token 頻寬包），免除企業一次性支付數十萬買斷高價硬體（DGX Spark 或多顯卡工作站）之資本支出負擔。
+     - 設備資產與半導體週期折舊風險 100% 由服務商/租賃商承擔；當未來記憶體擴產降價或模型規模擴大時，由服務商負責硬體無痛升級，企業之損益表 (P&L) 僅體現日常運營費用，完全杜絕資產減損 (Asset Impairment)。
+  2. **[AC-RES-002-2] 三階異構晶片陣營 (NVIDIA + AMD + Apple Silicon) 動態接管 (Multi-Tier Heterogeneous Stacking)**：
+     - 底層推論驅動層 (`IComputeResourceProxy`) 全面相容主流開源執行引擎（如本地已就緒之 Ollama / `llama.cpp`，預設端點 `127.0.0.1:11434` / `8080`）。
+     - 具備跨晶片架構統一抽象能力：支援 NVIDIA (CUDA / TensorRT)、AMD (ROCm / Vulkan) 與 Apple Silicon (Metal) 多設備並聯，自動依據各卡可用顯存（如 8GB + 8GB）動態聚合為統一虛擬顯存池。
+  3. **[AC-RES-002-3] 跨機低頻寬管線平行 (PP) 與 8KB 隱藏層傳輸優化 (8KB Hidden State Streaming over 100M/1G Ethernet)**：
+     - 當中小企業跨主機串聯（如 PC 與 Mac mini 經由 Cisco 等 100M/1G 交換機）時，系統**嚴禁走高頻寬消耗之張量平行 (TP)**，強制採用「管線平行 (Pipeline Parallelism, PP)」分層架構。
+     - 跨網傳輸嚴格限制僅傳遞中間隱藏層向量（Llama-3-8B 為 8KB），將跨網傳輸開銷精準控制在 $\le 3\text{ms}$ 以內，防範網路阻塞。
+  4. **[AC-RES-002-4] 本地推論進程級隔離與高可用保障 (Process Isolation & High Availability)**：
+     - `LocalLlmDriver` 與本地推論守護進程（`llama-server` / `ollama`）之間強制採用獨立進程隔離架構（標準 HTTP / UDS 通訊）。
+     - 當底層 GPU 驅動遭遇顯存耗盡 (OOM) 或 C++ Segmentation Fault 時，Java JVM 控制平面必須在 $\le 5\text{ms}$ 內捕獲異常並拋出優雅診斷，嚴禁整個應用服務崩潰閃退。
+  5. **[AC-RES-002-5] 跨網通訊延遲補償與 SLA 流量平滑化 (Latency Smoothing & Token Shaping)**：
+     - 面對跨機串聯產生的 15%~25% 延遲折損，`CapabilityRouter` 結合漏桶流量整形器動態執行「延遲遮罩（Latency Masking）」與並發槽位動態退避，確保各租戶在簽約頻寬下之單字生成時間 (TPOT) 波動標準差 $\le 10\%$，提供金融級/工業級 SLA 履約保證。
+  6. **[AC-RES-002-6] 五餅二魚梯次循環經濟與教會/個人創作者隨插即用私有小盒子 (Cascaded Asset Reuse & Rent-to-Own Plug-and-Play Appliance)**：
+     - 確立「約翰福音 6:12 收拾零碎」之梯次資產重用模式：當中大型企業租戶升級設備後，已全額折舊攤提完畢之低功耗 Mini PC 或翻新主機（如 8GB/12GB 顯卡或 M1/M2 節點），轉型為「教會與個人創作者私有算力小盒子」。
+     - **以租代買 (Rent-to-Own) 商業合約**：提供個人/教會創作者月租 1,290 元（年約，收取 2,000~3,000 元押金），遠低於國外商用訂閱（每月 2,000~3,000 元且限額），並享有 100% 本地運算、無限額對話與繁中直觀 WebUI（整合 Ollama + Open-WebUI）；租滿 24 個月硬體所有權直接贈送歸客戶所有。
+     - **隨插即用與零維護隔離**：設備通電並接上網路線即可於區域網路內即時啟用，支援歷年講章、教案與個人私密筆記 PDF 向量檢索問答，敏感個資與代禱信 100% 留存在本地，杜絕公有雲外洩風險。
+
+---
+
+### 3.16 BRD-CSP-RES-003: 電信 OSS 資源層之 1+1 複合安全算力配額與帶外治理 (Telecom OSS 1+1 Coupled Secure Resource Allocation & Out-of-Band Sentry Isolation)
+* **User Story**:
+  > **As a** 企業資安長 (CISO) 與 平台架構師 (`ROLE_ADMIN`)  
+  > **I want to** 在 CSP Resource Layer (RM&O) 中借鏡電信專線「1+1 工作與保護電路 (Working & Protection Path)」之雙元配對模型，為涉及企業營業秘密與金流之 Agent 任務強制配額「主用生成 (Worker Resource) ＋ 伴生帶外審查 (Sentry Resource)」成對實體節點，並在 Sentry 偵測異常時於資源拓撲層執行硬體熔斷與 OSS/J Trouble Ticketing 自動派單  
+  > **So that** 徹底消滅單一模型內部 Prompt/CoT 自我審查之動機隱藏 (Deceptive Alignment) 偽安全陷阱，將 AI 安全下沉至電信級實體資源治理層，以物理級顯存隔離與帶外監督確保企業機敏資產零被騙、零被駭。
+
+* **量化驗收標準 (Acceptance Criteria)**:
+  1. **[AC-RES-003-1] 資源清冊實體之安全治理屬性擴充 (Security Capability in Resource Inventory)**：
+     - 在 TMF SID `resource/` 領域核心表 `tbl_res_inventory` 與實體類別 `ResourceInventoryEntity` 中擴充實體安全治理屬性：
+       - `isolation_level`: 定義節點物理隔離能力 (`AIR_GAPPED_PHYSICAL`, `PROCESS_ISOLATED`, `SHARED_MEMORY`)。
+       - `watchdog_attached`: 布林欄位，指示該節點是否已綁定專屬帶外 Sentry 節點。
+       - `egress_fencing_status`: 網卡級外網硬阻絕能力狀態 (`ENFORCED`, `PERMISSIVE`)。
+  2. **[AC-RES-003-2] 1+1 複合安全算力開通排程 (1+1 Coupled Secure Resource Allocation)**：
+     - 借鏡電信專線 Working + Protection 雙路架構，當業務層（如 Text-to-SQL 或財務核銷 Agent）申請高安全性算力時，`CoupledSecureResourceScheduler` **強制在資源池中同時開通一對獨立實體節點**：
+       - `Worker Node`: 例如 Spark #1 (Qwen 2.5 Coder 負責程式碼與 SQL 生成)。
+       - `Sentry Node`: 例如 Spark #2 (DeepSeek-R1 負責安全審查與邏輯校驗)。
+     - 兩節點實體顯存獨立（Physical Air-Gap），生成節點之潛在對抗性上下文污染 100% 無法穿透至審查節點。
+  3. **[AC-RES-003-3] 帶外認知故障隔離與電信級工單連動 (Out-of-Band Cognitive Fault Isolation & Trouble Ticketing)**：
+     - 將 Agent 越獄、動機隱藏或惡意 SQL 輸出定義為「電信認知資源故障 (Cognitive Resource Fault)」。
+     - Sentry 節點一旦判定違規，帶外排程器立即在拓撲層執行「資源配額熔斷 (Resource Quota Kill-Switch)」，將該 Worker 節點自資源拓撲中動態摘除降級（隔離時間 $\le 10\text{ms}$）。
+     - 自動呼叫 OSS/J Trouble Ticketing 介面 (`TroubleTicketClient`) 建立故障工單，派單觸發修復 Agent 重置工作階段或警示人工審核。
+  4. **[AC-RES-003-4] 生產與治理雙軌用量中介計費 (Dual-Track Usage Mediation & Accounting)**：
+     - 電信計費中介模組 (`UsageMediationService`) 實施雙軌計量：
+       - `Production Token & GPU Time`: 業務生成之實體資源消耗。
+       - `Governance & Sentry Overhead`: 獨立安全節點審查、AST 驗證與網路隔離之資源開銷。
+     - 產出結構化計費報表，使企業管理者能精確核算「業務價值創造」與「資安合規保險」之真實成本配比。
+  5. **[AC-RES-003-5] 純 POJO 電信級配額排程器 (Zero-Spring Telecom Resource Scheduler)**：
+     - 配額調度器 `CoupledSecureResourceScheduler` 繼承 `BaseBL<AllocationReq, AllocationResp>`，100% 純 Java POJO 實作，零 Spring 容器污染，毫秒級單元測試反饋。
+
+---
+
 ## 🗺️ 4. 需求追蹤矩陣 (Requirements Traceability Matrix - RTM)
 
 遵循 ADR-0005 雙向追蹤原則，所有模組實體規格與代碼皆與本需求池錨定：
@@ -276,6 +331,8 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 | `BRD-CSP-SEC-006` | 基礎框架與依賴資安弱點治理 (CVE 修復) | [[facts/madaga_github_dependabot_security_alerts_inventory.md]] | `csp/pom.xml`<br>`csc/nlp2sql-app/package.json` | `mvn clean test`<br>`PatchVerify Reachability Scan` |
 | `BRD-CSP-SEC-007` | 企業機敏 Schema 防洩漏與地端內網 LLM 隔離推論 (OSS 算力資源層) | [[docs/specs/FS_S2_N02_textual_erd_whitelist.md]]<br>[[CSP_DEVELOPER_MANUAL.md]] | `LocalLlmClient.java`<br>`IComputeResourceProxy.java`<br>`Synthesizer.java` | `LocalLlmCircuitBreakerTest.java`<br>`CapabilityRouterTest.java` |
 | `BRD-CSP-RES-001` | 電信級算力頻寬產品化自訂與邊緣硬體 (DGX Spark) 隨插即用擴充 | [[WORKLOG_20261003.md]]<br>[[CSP_DEVELOPER_MANUAL.md]] | `NvidiaDgxSparkDriver.java`<br>`CapabilityRouter.java`<br>`TokenTrafficShaper.java` | `NvidiaDgxSparkDriverTest.java`<br>`TokenTrafficShaperTest.java` |
+| `BRD-CSP-RES-002` | 中小企業地端算力訂閱託管與多階異構 (NVIDIA+AMD+Apple) 硬體池化治理 | [[WORKLOG_20261004.md]]<br>[[CSP_DEVELOPER_MANUAL.md]] | `LocalLlmDriver.java`<br>`LocalHeterogeneousDriver.java`<br>`CapabilityRouter.java` | `LocalLlmDriverTest.java`<br>`HeterogeneousComputePoolTest.java` |
+| `BRD-CSP-RES-003` | 電信 OSS 資源層之 1+1 複合安全算力配額與帶外治理 (RM&O) | [[facts/telecom_oss_resource_layer_and_nvidia_safety_chip_isomorphism.md]]<br>[[WORKLOG_20261004.md]] | `CoupledSecureResourceScheduler.java`<br>`OutOfBandFaultIsolator.java`<br>`UsageMediationService.java` | `CoupledResourceSchedulerTest.java`<br>`OutOfBandFaultIsolatorTest.java` |
 | `BRD-CSP-UI-001` | 經典五大方塊工作台 (Knowledge核心主舞台/DB可選/Config預設/Domain/Test門禁) | [[WORKLOG_20261004.md]]<br>[[layout/default.html]] | `layout/default.html`<br>`dashboard.css` | `SidebarNavigationTest.java` |
 | `BRD-CSP-RPT-001` | AI 引導式穿梭框 SQL 組裝精靈與 Test 門禁交付動線 (SQL組裝與Test解鎖) | [[docs/specs/FS_S2_N03_ai_guided_shuttle_wizard.md]] | `ReportWizardController.java`<br>`ReportAstCompiler.java`<br>`report/wizard.html` | `ReportAstCompilerTest.java`<br>`ReportExportStreamTest.java` |
 | `BRD-CSP-SRCH-001` | 技師手冊 Lucene 9 嵌入式檢索原型 | [[Projects/startup/madaga/specs/FS_S1_N01_embedded_lucene_search.md]]<br>[[AI_Raw/solutions/madaga_csp_portal_lucene_pdf_search.md]] | `SearchController.java`<br>`DocSearchBL.java`<br>`LuceneIndexManager.java`<br>`layout/default.html` | `DocSearchBLTest.java`<br>`LuceneIndexManagerTest.java` |
@@ -295,6 +352,8 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 6. **電信級流量整形與顯存防爆門禁 (Traffic Shaping & VRAM Anti-Blowout Gate)**：推論排程器必須對各頻寬等級實施漏桶流量整形，併發請求峰值下 GPU 顯存使用率嚴禁超過 90%，保障邊緣節點（含 DGX Spark）零 OOM 當機。
 7. **Human-in-the-Loop 確定性交棒門禁 (Human-in-the-Loop & Deterministic Handover Gate)**：任何欲介接至 RPA 或外部 ERP 系統之 SQL 與報表，嚴禁由 LLM 黑箱直接發送執行；強制 100% 經由穿梭框精靈畫面供人類複核確認，且由後端純 Java 編譯器產出參數化 SQL，確保零隨機性。
 8. **Test 剛性驗證始解鎖交付門禁 (Test Verification Before Delivery Gate)**：任何經由 Database 模組產出之 SQL，嚴禁繞過 Test 模組直接發布產出 Excel 或執行 RPA 拋轉。強制 100% 透過 Test 方塊執行 AST 剛性安全審計、防慢查限制與 Dry Run 預演，審計結果呈現全綠燈合格狀態後，前端始得解除 `[匯出 Excel]` 與 `[拋轉 RPA]` 之鎖定狀態 (Disabled)，徹底杜絕未經審查的查詢直接衝擊產線或外部 ERP。
+9. **中小企業零硬體折舊與低頻寬管線平行門禁 (Zero-Depreciation & Low-Bandwidth Pipeline Parallelism Gate)**：凡中小企業地端私有算力池，硬體資產與半導體週期折舊風險 100% 透過 OpEx 訂閱制轉嫁由服務商承擔；跨機串聯若經由 100M/1G 等一般企業網路交換機，**嚴禁採用高頻寬消耗之張量平行 (TP)**，強制採用「管線平行 (PP)」分層切分，跨網僅傳遞中間隱藏層向量（$\le 8\text{KB}$），並透過 `LocalLlmDriver` 與守護進程實施進程級隔離，確保 GPU 異常時 JVM 主進程零閃退。
+10. **電信 OSS 1+1 複合安全算力與帶外熔斷門禁 (Telecom OSS Coupled Secure Resource & Out-of-Band Isolation Gate)**：涉及企業機敏財務與資料庫異動之高風險 Agent 任務，嚴禁單一模型自我審查；資源層強制採用 1+1 配對開通獨立之 Worker 與 Sentry 實體節點（顯存 Air-Gap）。一旦 Sentry 偵測到認知異常或惡意 SQL，資源層排程器必須在 $\le 10\text{ms}$ 內執行資源配額熔斷並自動向 OSS/J Trouble Ticketing 開單派送修復。
 
 ---
 ## Sources
@@ -307,6 +366,5 @@ Cornelius Service Platform (`CSP`) 之入口模組 `csp-portal-web` 提供企業
 - [[solutions/llm_sql_guard_outlines_dual_track_architecture.md]]
 - [[facts/willard_louf_2023_efficient_guided_generation_outlines.md]]
 - [[facts/spec_first_policy.md]]
-
-
-
+- [[facts/telecom_oss_resource_layer_and_nvidia_safety_chip_isomorphism.md]]
+- [[WORKLOG_20261004.md]]

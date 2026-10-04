@@ -157,6 +157,38 @@
   - 單元測試：`ReportAstCompilerTest` (驗證 AST 解析與 SQL 防注入) 與 `ReportExportStreamTest`。
 
 ---
+
+### 🖥️ Phase 8: 中小企業地端算力訂閱託管與多階異構（NVIDIA+AMD+Apple Silicon）硬體池化治理 (BRD-CSP-RES-002)
+- [ ] **Task 8.1: 多階異構（NVIDIA+AMD+Apple Metal）顯存池化適配器 (`LocalHeterogeneousDriver` 升級) (TDD)**
+  - 封裝 Mac mini M1 (Metal) 與 PC 端 RTX 3070 (CUDA) + RX 6600 XT (Vulkan) 跨晶片顯存自動註冊與狀態遙測。
+  - 單元測試：`HeterogeneousComputePoolTest`（驗證異構顯存動態併網與單卡顯存耗盡時之平滑溢出，覆蓋率 $\ge 80\%$）。
+- [ ] **Task 8.2: 跨機低頻寬管線平行 (PP) 8KB 隱藏層串流傳輸器 (`HiddenStateStreamingProxy`) (TDD)**
+  - 在經由 100M/1G 網路（如 Cisco SD 208）串聯時，強制阻斷張量平行 (TP)，採用管線平行切分，跨網僅傳遞 8KB 隱藏層向量。
+  - 單元測試：`PipelineParallelismStreamingTest`（驗證 8KB 向量在 100M 網路下通訊延遲 $\le 3\text{ms}$，無網路堵塞）。
+- [ ] **Task 8.3: 跨網延遲補償與 SLA 流量平滑化排程 (`LatencyCompensatingRouter`) (TDD)**
+  - 整合 `CapabilityRouter`，針對跨機通訊產生的 15%~25% 延遲折損實施延遲遮罩與並發槽位退避。
+  - 單元測試：`LatencyCompensatingRouterTest`（驗證高並發下各租戶 TPOT 波動標準差 $\le 10\%$）。
+- [ ] **Task 8.4: 五餅二魚隨插即用私有算力小盒子開箱即用套件 (`PlugAndPlayApplianceBootstrap`)**
+  - 封裝針對教會同工與個人創作者之 Mini PC / 翻新 Mac mini 隨插即用套件，預載本地端點 Ollama (`127.0.0.1:11434`) 與繁中直觀 WebUI。
+  - 支援本地講章、教案與私密筆記 PDF 向量檢索問答，通電插網線即可於區網開箱使用，個資與代禱信 100% 留存地端，零 Token 次數限制。
+
+---
+
+### 🛡️ Phase 9: 電信 OSS 資源層 (RM&O) 1+1 複合安全算力配額與帶外治理 (BRD-CSP-RES-003)
+- [ ] **Task 9.1: 資源清冊實體之安全治理屬性擴充與 DDL (`tbl_res_inventory` & `ResourceInventoryEntity`) (TDD)**
+  - 在 TMF SID `resource/` 領域擴充 `isolation_level` (實體隔離級別)、`watchdog_attached` (是否掛載帶外 Sentry) 與 `egress_fencing_status` (網卡外網硬阻絕狀態)。
+  - 單元測試：`ResourceInventoryEntityTest` (驗證實體安全屬性讀寫、阿里 P3C 規約合規，覆蓋率 $\ge 80\%$)。
+- [ ] **Task 9.2: 電信 1+1 複合安全算力配額排程器 (`CoupledSecureResourceScheduler`) (TDD)**
+  - 借鏡電信 Working + Protection 雙電路保護，為高風險/金流 Agent 任務成對開通 Worker (生成) + Sentry (審查) 雙元實體節點（顯存 Air-Gap）。
+  - 單元測試：`CoupledResourceSchedulerTest` (驗證雙元節點原子配對、顯存資源鎖定與槽位釋放，覆蓋率 $\ge 80\%$)。
+- [ ] **Task 9.3: 帶外認知故障隔離器與 OSS/J Trouble Ticketing 整合 (`OutOfBandFaultIsolator`) (TDD)**
+  - Sentry 節點判定語意越獄或異常時，$\le 10\text{ms}$ 內執行資源配額熔斷 (Kill-Switch)，並自動向 OSS/J Trouble Ticketing 派單觸發修復 Agent。
+  - 單元測試：`OutOfBandFaultIsolatorTest` (驗證帶外硬熔斷速度、拓撲動態摘除與 Trouble Ticket 生成，覆蓋率 $\ge 80\%$)。
+- [ ] **Task 9.4: 生產與治理雙軌用量中介計費器 (`DualTrackUsageMediator`) (TDD)**
+  - 實作雙軌計量模型，精確分離 Production Token/GPU 時間與 Sentry 審查/網路隔離開銷，產出結構化計費清單。
+  - 單元測試：`DualTrackUsageMediatorTest` (驗證多租戶雙軌計量彙整與成本分攤精確度，覆蓋率 $\ge 80\%$)。
+
+---
 ## Sources
 - [[Projects/startup/madaga/BRD.md]]
 - [[Projects/startup/madaga/AUDIT_REPORT_CSP_PORTAL_WEB_20261003.md|系統分析與架構自洽性稽核報告 (2026-10-03)]]
@@ -165,3 +197,6 @@
 - [[Projects/startup/madaga/specs/FS_S1_N03_semantic_canvas_studio.md]]
 - [[solutions/llm_sql_guard_outlines_dual_track_architecture.md]]
 - [[facts/discovery_tree_token_semantics_and_guided_generation.md]]
+- [[facts/telecom_oss_resource_layer_and_nvidia_safety_chip_isomorphism.md]]
+- [[Projects/startup/madaga/WORKLOG_20261004.md]]
+
