@@ -52,15 +52,23 @@ const executeCompile = async () => {
     <div class="c-card" style="padding: 24px;">
       <form @submit.prevent="executeCompile" class="c-form">
         <div class="c-form-group" style="margin-bottom: 24px;">
-          <label class="c-label" for="nl-input">自然語言查詢</label>
-          <input 
-            id="nl-input"
-            v-model="sourceString" 
-            type="text" 
-            class="c-input" 
-            style="width: 100%; padding: 12px; font-size: 16px;" 
-            placeholder="請輸入要轉換的查詢語句，例如：查詢所有薪水大於五萬的員工"
+          <q-input
+            v-model="sourceString"
+            outlined
+            label="自然語言查詢"
+            placeholder="例如：查詢所有薪水大於五萬的員工"
+            color="primary"
+            clearable
+            bottom-slots
+            @keyup.enter="executeCompile"
           >
+            <template v-slot:prepend>
+              <q-icon name="chat" />
+            </template>
+            <template v-slot:hint>
+              支援一般商業對話與資料表查詢
+            </template>
+          </q-input>
         </div>
 
         <div class="c-form-group" style="margin-bottom: 24px; display: flex; gap: 16px; align-items: center;">
@@ -88,6 +96,8 @@ const executeCompile = async () => {
       <pre style="background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; font-family: monospace; white-space: pre-wrap;"><code>{{ targetString }}</code></pre>
     </div>
   </div>
+
+  <q-btn color="primary" icon="mail" label="我是 Quasar 的按鈕" />
 </template>
 
 <style>
