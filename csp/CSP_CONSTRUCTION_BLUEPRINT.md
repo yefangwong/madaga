@@ -94,3 +94,34 @@
    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home
    mvn test
    ```
+
+
+## 🧠 5. 領域業務與功能需求 (Domain & Functional Epics)
+
+### 🎯 Epic: 自然語言轉 SQL (NL2SQL) 零幻覺查詢引擎
+> 此需求對應前端 CorneliusUI 的 Nl2SqlView.vue，遵循 ADR 0005 雙向寫回原則。
+
+#### 📝 User Story
+**As a** 企業級資料庫查詢使用者  
+**I want to** 能夠在 CorneliusUI 介面上，選擇「NLP2SQLCompiler (規則引擎)」並輸入自然語言查詢  
+**So that** 我能確保產出的 SQL 具有 100% 的決定性 (Determinism)，絕不會出現大語言模型 (LLM) 憑空捏造或幻覺的欄位，確保資料庫存取的高保證性 (High-Assurance)。
+
+#### ✅ 量化驗收標準 (Acceptance Criteria)
+1. **AC1: 決定性編譯成功 (Deterministic Compilation)**
+   - **Given** 使用者輸入合法語句 `查詢財務部有沒有一位吳華瑄的小姐`，且 `modelType=3`
+   - **When** 呼叫 `/api/nl2sql/compile`
+   - **Then** 系統必須回傳 HTTP 200，且 `generatedSql` 必須精準包含 `SELECT EXISTS(...)`，且 `tokens` 陣列必須包含對應的詞法標籤 (如 `ACTION_SELECT`)。
+2. **AC2: 型別衝突防呆 (Type Mismatch Rejection)**
+   - **Given** 使用者輸入型別衝突語句，如 `查詢財務部有沒有一公斤的吳華瑄`
+   - **When** 系統進行 Semantic Analysis (語意分析)
+   - **Then** 編譯必須中斷，回傳狀態 `TYPE_ERROR`，且 `errorNode` 指向錯誤的 Token (一公斤)。**嚴禁**產出任何 SQL 語法。
+3. **AC3: 詞彙無效防呆 (Unknown Token Rejection)**
+   - **Given** 使用者輸入未在靜態詞彙表註冊的部門，如 `查詢研發部有沒有...`
+   - **When** 系統進行 Lexical Analysis (詞法掃描)
+   - **Then** 編譯必須中斷，回傳狀態 `UNKNOWN_TOKEN`，且 `errorNode` 指向 "研發部"。
+
+#### 🔗 Traceability Matrix (雙向追蹤矩陣)
+| BRD Requirement ID | FS Specification Node | Component / Service |
+| :--- | :--- | :--- |
+| `REQ-NL2SQL-01` (Core Engine) | `FS_S1_N01_nlp2sql_compiler_poc.md` | `Nlp2SqlCompilerService.java` |
+| `REQ-NL2SQL-02` (UI Badges) | (待規劃 Phase 2) | `Nl2SqlView.vue` |
