@@ -71,6 +71,7 @@
 		<module>csp-web-template</module>
 		<module>csp-tools</module>
 		<module>csp-portal-web</module>
+		<module>csp-portal-web-ui</module>
 		<!--<module>csp-api</module>-->
 	</modules>
 	<build>

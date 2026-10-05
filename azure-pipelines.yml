@@ -41,6 +41,35 @@ variables:
   javaVersion: '17'
 
 steps:
+# 0. 安全門禁：憑證掃描與前端依賴審核
+- script: |
+    echo "Running Gitleaks Secret Scan..."
+    if ! command -v gitleaks &> /dev/null; then
+        echo "Gitleaks is not installed. Installing via brew..."
+        brew install gitleaks
+    fi
+    gitleaks detect --source . -v
+  displayName: 'Security Gate: Secret Scan (Gitleaks)'
+  continueOnError: false
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js for Security Gates'
+
+- script: |
+    echo "Running npm audit in csp-portal-web/frontend..."
+    cd csp/csp-portal-web/frontend
+    npm ci
+    npm audit --audit-level=high
+    
+    echo "Running npm audit in csp-portal-web-ui/frontend..."
+    cd ../../csp-portal-web-ui/frontend
+    npm ci
+    npm audit --audit-level=high
+  displayName: 'Security Gate: NPM Audit'
+  continueOnError: false
+
 # 1. 執行 Maven 建置與打包 (跳過單元測試加速)
 - task: Maven@4
   displayName: 'Maven Build & Package'
