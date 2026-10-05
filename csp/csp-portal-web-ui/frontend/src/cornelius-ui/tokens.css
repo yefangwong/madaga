@@ -1,0 +1,77 @@
+/**
+ * CorneliusUI Design System - Design Tokens
+ * Brand Color Palette: Hong Fang Terracotta Warm Orange (鴻方移動智能科技名片配色)
+ */
+:root {
+  /* ========================================================
+     1. Brand Color Palette (鴻方暖磚橙 & 典雅暖白灰階)
+     ======================================================== */
+  /* Primary: 鴻方名片經典磚暖橙 */
+  --cui-primary: #E26D38;
+  --cui-primary-hover: #C95522;
+  --cui-primary-active: #B24514;
+  --cui-primary-light: #FFF3EC;
+  --cui-primary-border: #FDD7C4;
+  --cui-primary-dark: #8C320A;
+
+  /* Accent & Highlight Colors (溫暖輔助色) */
+  --cui-accent-gold: #F59E0B;
+  --cui-accent-blue: #2563EB;
+  --cui-accent-teal: #0D9488;
+
+  /* Semantic Colors (語意狀態色) */
+  --cui-success: #16A34A;
+  --cui-success-light: #F0FDF4;
+  --cui-warning: #D97706;
+  --cui-warning-light: #FFFBEB;
+  --cui-danger: #DC2626;
+  --cui-danger-hover: #B91C1C;
+  --cui-danger-light: #FEF2F2;
+
+  /* Surfaces & Backgrounds (名片紙質暖白與細緻底色) */
+  --cui-bg-page: #F8F8F7;
+  --cui-surface: #FFFFFF;
+  --cui-surface-subtle: #F4F4F2;
+  --cui-border: #E5E5E2;
+  --cui-border-focus: #E26D38;
+
+  /* Text Colors (名片深炭黑與典雅內文灰) */
+  --cui-text-title: #1E1D1B;
+  --cui-text-body: #3E3A36;
+  --cui-text-secondary: #6B6661;
+  --cui-text-muted: #9E9892;
+
+  /* ========================================================
+     2. Typography Tokens (Montserrat + 思源黑體繁體)
+     ======================================================== */
+  --cui-font-base: 'Montserrat', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', -apple-system, BlinkMacSystemFont, sans-serif;
+  --cui-font-number: 'Montserrat', 'Noto Sans TC', sans-serif;
+  --cui-font-mono: 'JetBrains Mono', 'SF Mono', Consolas, Menlo, monospace;
+
+  --cui-fw-light: 300;
+  --cui-fw-regular: 400;
+  --cui-fw-medium: 500;
+  --cui-fw-semibold: 600;
+  --cui-fw-bold: 700;
+
+  --cui-lh-body: 1.65;
+  --cui-lh-title: 1.35;
+  --cui-ls-base: 0.02em;
+  --cui-ls-number: 0.04em;
+
+  /* ========================================================
+     3. Radius & Soft Warm Shadows
+     ======================================================== */
+  --cui-radius-sm: 8px;
+  --cui-radius-md: 14px;
+  --cui-radius-lg: 20px;
+  --cui-radius-pill: 9999px;
+
+  --cui-shadow-sm: 0 1px 3px rgba(30, 29, 27, 0.04);
+  --cui-shadow-card: 0 4px 16px rgba(226, 109, 56, 0.06), 0 2px 6px rgba(30, 29, 27, 0.04);
+  --cui-shadow-hover: 0 10px 24px rgba(226, 109, 56, 0.16);
+  --cui-shadow-modal: 0 20px 40px rgba(30, 29, 27, 0.18);
+
+  /* Transitions */
+  --cui-transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}

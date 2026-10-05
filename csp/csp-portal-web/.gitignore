@@ -35,3 +35,7 @@ build/
 node_modules/
 .vite/
 
+TODO.md
+
+
+src/main/resources/static/dist/

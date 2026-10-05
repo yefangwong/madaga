@@ -1,0 +1,42 @@
+/**
+ * CorneliusUI Tables
+ */
+.cui-table-container {
+  background: var(--cui-surface);
+  border-radius: var(--cui-radius-md);
+  border: 1px solid var(--cui-border);
+  box-shadow: var(--cui-shadow-card);
+  overflow: hidden;
+}
+
+.cui-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.cui-table th {
+  background-color: var(--cui-surface-subtle);
+  color: var(--cui-text-secondary);
+  font-size: 13px;
+  font-weight: var(--cui-fw-semibold);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cui-border);
+  letter-spacing: 0.02em;
+}
+
+.cui-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--cui-text-body);
+  border-bottom: 1px solid var(--cui-border);
+  vertical-align: middle;
+}
+
+.cui-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cui-table tr:hover td {
+  background-color: #F8FAF8;
+}
