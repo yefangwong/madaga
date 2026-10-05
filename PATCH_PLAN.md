@@ -46,6 +46,13 @@
   - 驗證前端打包 `npm run build` 與 API 請求正常。
 - [ ] **Task 0.4: 全量回歸測試與 Dependabot 告警清點**
   - 執行後端全量單元測試，比對 GitHub Dependabot 告警消除率 $\ge 75\%$。
+- [ ] **Task 0.5: Gitleaks 憑證掃描門禁與敏感資訊洩漏治理 (待研議)**
+  - **問題背景**：Azure Pipelines CI 觸發 `gitleaks detect` 掃描時檢出 155 項 Leaks（掃描 27 筆 Commit 歷史）。主因為包含已刪除之舊歷史（`csc/nlp2sql-app/src/config/apiConfig.js` 舊 Key 佔 20 次）以及專案中目前 5 處現存硬編碼（`application.properties`、`check.sh`、`SecurityInterceptor.java`、`RestAuthenticationEntryPoint.java`、`V1OcheckinTest.java` 各佔 27 次）。
+  - **待研議方向**：
+    1. **CI 門禁範圍收斂**：調整 `azure-pipelines.yml` 之 Gitleaks 參數，限制為 `--no-git`（僅掃當前工作目錄）或指定分支比對（`--log-opts`），防止歷史 commit 無限阻斷 CI。
+    2. **現存代碼金鑰外置化**：清理 `application.properties`、`check.sh` 等 5 處現存檔案中的硬編碼 Key，改由環境變數注入。
+    3. **Git 歷史清洗評估**：評估是否需使用 `git-filter-repo` 抹除 Git 歷史中的洩漏節點。
+    4. **白名單與基線建立**：配置 `.gitleaks.toml` 或 `.gitleaksignore` 定義已失效 Key 或測試 Mock 資料之 Baseline。
 
 ---
 
