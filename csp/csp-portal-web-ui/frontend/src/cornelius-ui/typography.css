@@ -1,0 +1,62 @@
+/**
+ * CorneliusUI Typography Rules
+ * Supports 100% Offline / Self-Hosted Fonts
+ */
+
+/* ========================================================
+   1. Self-Hosted Montserrat (Offline / Air-Gapped Ready)
+   ======================================================== */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/montserrat.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ========================================================
+   2. Global Typography Rules
+   ======================================================== */
+body {
+  font-family: var(--cui-font-base);
+  font-size: 15px;
+  line-height: var(--cui-lh-body);
+  letter-spacing: var(--cui-ls-base);
+  color: var(--cui-text-body);
+  background-color: var(--cui-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cui-font-base);
+  font-weight: var(--cui-fw-bold);
+  line-height: var(--cui-lh-title);
+  color: var(--cui-text-title);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+h1 { font-size: 1.875rem; letter-spacing: -0.01em; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+/* Numeric & Financial Formatting (Tabular Figures) */
+.cui-num,
+.cui-stat-value,
+.cui-amount {
+  font-family: var(--cui-font-number);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--cui-ls-number);
+}
+
+.cui-text-primary { color: var(--cui-primary) !important; }
+.cui-text-success { color: var(--cui-success) !important; }
+.cui-text-warning { color: var(--cui-warning) !important; }
+.cui-text-danger { color: var(--cui-danger) !important; }
+.cui-text-muted { color: var(--cui-text-muted) !important; }
+.cui-text-secondary { color: var(--cui-text-secondary) !important; }

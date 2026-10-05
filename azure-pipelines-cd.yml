@@ -33,7 +33,7 @@ parameters:
   - name: deployDev
     displayName: '部署至 DEV 環境'
     type: boolean
-    default: true
+    default: false
   - name: deploySit
     displayName: '部署至 SIT 環境'
     type: boolean
@@ -45,7 +45,7 @@ parameters:
   - name: deployProd
     displayName: '部署至 PROD 環境'
     type: boolean
-    default: false
+    default: true
   - name: deploySSH
     displayName: '部署至外部 SSH VM (⚠️需先建立 service connection)'
     type: boolean
@@ -57,7 +57,7 @@ parameters:
   - name: deployFlyIO
     displayName: '部署至 Fly.io 雲端平台'
     type: boolean
-    default: false
+    default: true
 
 # 將參數轉為運行時期 (Runtime) 變數，繞過 ADO 編譯時期的 Pipeline 名稱與 Build ID 強制存在驗證
 variables:
