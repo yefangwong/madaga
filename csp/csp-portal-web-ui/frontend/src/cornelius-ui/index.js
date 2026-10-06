@@ -2,6 +2,28 @@
  * CorneliusUI Design System - Core JS Library
  */
 import './index.css';
+import { defineCustomElement } from 'vue';
+import CorneliusButton from './components/CorneliusButton.ce.vue';
+import CorneliusInput from './components/CorneliusInput.vue';
+
+export function registerCorneliusWebComponents() {
+  if (typeof customElements !== 'undefined') {
+    if (!customElements.get('cornelius-button')) {
+      const BtnElement = defineCustomElement(CorneliusButton);
+      customElements.define('cornelius-button', BtnElement);
+    }
+  }
+}
+
+/**
+ * Register CorneliusUI Vue-specific components (Wrappers for Quasar)
+ * @param {import('vue').App} app 
+ */
+export function registerCorneliusVueComponents(app) {
+  app.component('c-input', CorneliusInput); // 簡短版標籤
+  app.component('cornelius-input', CorneliusInput); // 保留完整版以防萬一
+}
+
 
 export class CorneliusUI {
   /**

@@ -9,6 +9,12 @@ const status = ref('hidden')
 const modelType = ref('1') // 1: OpenAI, 2: SQLNet
 const isLoading = ref(false)
 
+const modelOptions = [
+  { label: 'OpenAI (推薦)', value: '1' },
+  { label: 'SQLNet (地端)', value: '2' },
+  { label: 'NLP2SQLCompiler (規則)', value: '3' }
+]
+
 const executeCompile = async () => {
   if (!sourceString.value.trim()) {
     targetString.value = "請輸入有效的自然語言語句。"
@@ -47,12 +53,12 @@ const executeCompile = async () => {
 
 <template>
   <div class="c-container" style="max-width: 800px; margin: 40px auto;">
-    <h1 class="c-heading-1" style="text-align: center; margin-bottom: 32px;">自然語言轉 SQL 智能助理</h1>
+    <h1 class="c-heading-1" style="text-align: center; margin-bottom: 32px;">自然語言轉 SQL</h1>
     
     <div class="c-card" style="padding: 24px;">
       <form @submit.prevent="executeCompile" class="c-form">
         <div class="c-form-group" style="margin-bottom: 24px;">
-          <q-input
+          <c-input
             v-model="sourceString"
             outlined
             label="自然語言查詢"
@@ -66,38 +72,34 @@ const executeCompile = async () => {
               <q-icon name="chat" />
             </template>
             <template v-slot:hint>
-              支援一般商業對話與資料表查詢
+              支援一般科學研究對話與資料表查詢
             </template>
-          </q-input>
+          </c-input>
         </div>
 
         <div class="c-form-group" style="margin-bottom: 24px; display: flex; gap: 16px; align-items: center;">
-          <select v-model="modelType" class="c-select" style="min-width: 200px;">
-            <option value="0" disabled>選擇模型</option>
-            <option value="1">OpenAI (推薦)</option>
-            <option value="2">SQLNet (地端)</option>
-            <option value="3">NLP2SQLCompiler (規則)</option>
-          </select>
-
-          <button 
-            type="submit" 
-            class="c-btn c-btn-primary" 
-            :disabled="isLoading"
-            style="flex: 1; padding: 12px 24px;"
-          >
-            {{ isLoading ? '生成中...' : '開始轉換' }}
-          </button>
+          <q-select
+            v-model="modelType"
+            :options="modelOptions"
+            outlined
+            color="primary"
+            label="選擇模型"
+            emit-value
+            map-options
+            style="min-width: 200px;"
+          />
+          <cornelius-button type="submit" :loading="isLoading" label="轉換" color="primary" style="flex: 1; padding: 12px 24px;"></cornelius-button>
         </div>
       </form>
     </div>
 
     <div v-if="status === 'visible'" class="c-card" style="margin-top: 24px; padding: 24px; background-color: var(--c-surface-variant);">
-      <h3 class="c-heading-3" style="margin-top: 0;">生成結果</h3>
+      <h3 class="c-heading-3" style="margin-top: 0;">轉換結果</h3>
       <pre style="background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow-x: auto; font-family: monospace; white-space: pre-wrap;"><code>{{ targetString }}</code></pre>
     </div>
   </div>
 
-  <q-btn color="primary" icon="mail" label="我是 Quasar 的按鈕" />
+
 </template>
 
 <style>

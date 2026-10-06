@@ -8,7 +8,12 @@ import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 export default defineConfig({
   plugins: [
     vue({
-      template: { transformAssetUrls }
+      template: {
+        transformAssetUrls,
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('cornelius-')
+        }
+      }
     }),
     quasar({
       sassVariables: fileURLToPath(new URL('./src/quasar-variables.sass', import.meta.url))
